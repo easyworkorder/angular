@@ -50,7 +50,7 @@ export class BuildingAdminComponent implements OnInit {
       this.employeeService.getEmployeeById(data.primarycontact_id).subscribe(emp => {
         // this.editedBuilding = Object.assign({}, data, { contactPerson: emp.last_name + ' ' + emp.first_name });
         // this.editedBuilding = Object.assign({}, data, { contactPerson: emp.last_name + ' ' + emp.first_name });
-        this.employeeService.getCompanybyEmployeeId(emp.id).subscribe(company => {
+        this.employeeService.getCompanyById(emp.company).subscribe(company => {
           this.editedBuilding = Object.assign({}, data,
             {
               contactPerson: emp.last_name + ' ' + emp.first_name,

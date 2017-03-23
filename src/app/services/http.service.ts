@@ -119,13 +119,20 @@ export class AppHttp extends Http {
     return token ? config.api.tokenValue(token.token) : null;
   }
 
+  prepareRequestUrl(url: string) {
+    return (url.indexOf('http:') > -1 || url.indexOf('https:') > -1) ? url : (config.api.base + url);
+  }
+
   get(url: string, params?: any, options?: RequestOptionsArgs): Observable<any> {
     options = this._headers(options);
     params && (options.search = this._encode(params));
 
-    let res = super.get(config.api.base + url, options);
+    // let res = super.get(config.api.base + url, options);
+    let res = super.get(this.prepareRequestUrl(url), options);
     return this._deserialize(res).share(); // share: to make cosecutive observers calls
   }
+
+
 
   getByFullUrl(url: string, params?: any, options?: RequestOptionsArgs): Observable<any> {
     options = this._headers(options);
@@ -140,7 +147,8 @@ export class AppHttp extends Http {
     body = this._serialize(body);
     params && (options.search = this._encode(params));
 
-    let res = super.post(config.api.base + url, body, options);
+    // let res = super.post(config.api.base + url, body, options);
+    let res = super.post(this.prepareRequestUrl(url), body, options);
     return this._deserialize(res).share(); // share: to make cosecutive observers calls
   }
 
@@ -150,7 +158,7 @@ export class AppHttp extends Http {
     params && (options.search = this._encode(params));
 
     // let res = super.put(config.api.base + url, body, options);
-    let res = super.put(url, body, options);
+    let res = super.put(this.prepareRequestUrl(url), body, options);
     return this._deserialize(res).share(); // share: to make cosecutive observers calls
   }
 
@@ -160,7 +168,7 @@ export class AppHttp extends Http {
     params && (options.search = this._encode(params));
 
     // let res = super.patch(config.api.base + url, body, options);
-    let res = super.patch(url, body, options);
+    let res = super.patch(this.prepareRequestUrl(url), body, options);
     return this._deserialize(res).share(); // share: to make cosecutive observers calls
   }
 
@@ -169,7 +177,7 @@ export class AppHttp extends Http {
     params && (options.search = this._encode(params));
 
     // let res = super.delete(config.api.base + url, options);
-    let res = super.delete(url, options);
+    let res = super.delete(this.prepareRequestUrl(url), options);
     return this._deserialize(res).share(); // share: to make cosecutive observers calls
   }
 
@@ -209,9 +217,9 @@ export class AppHttp extends Http {
 
             resolve(new File(
               // TODO: refactor. getting "Property 'result' does not exist on type 'EventTarget'"
-              [new Blob([(<any> event.target).result], {type: 'text/csv'})],
+              [new Blob([(<any>event.target).result], { type: 'text/csv' })],
               file.name,
-              {type: 'text/csv'}
+              { type: 'text/csv' }
             ));
           };
 

@@ -99,11 +99,11 @@ export class EmployeeService extends DataService {
   }
 
   /**
-   * Get All employee by Company Id
+   * Get Employee company by Company Id
    * @returns {Observable<any>}
    */
-  getCompanybyEmployeeId(empId) {
-    const observable = this.http.get(`company/${empId}/`);
+  getCompanyById(companyId:any) {
+    const observable = this.http.get(companyId);
     observable.subscribe(data => {
       console.log('Company Data: ', data);
     });
