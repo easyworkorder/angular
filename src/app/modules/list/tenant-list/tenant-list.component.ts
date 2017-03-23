@@ -6,7 +6,7 @@ import { AuthenticationService } from "app/modules/authentication";
 
 @Component({
   selector: 'ewo-tenant-list',
-  templateUrl: './tenant.component.html',
+  templateUrl: './tenant-list.component.html',
 })
 export class TenantListComponent implements OnInit {
 

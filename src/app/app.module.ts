@@ -48,7 +48,7 @@ import {
 import { BuildingComponent } from './modules/admin/building/building.component';
 import { AddressComponent } from './modules/address/address.component';
 import { TenantComponent } from './modules/admin/tenant/tenant.component';
-import { TenantListComponent } from './modules/list/tenant/tenant.component';
+import { TenantListComponent } from './modules/list/tenant-list/tenant-list.component';
 import { TenantContactComponent} from './modules/admin/tenant/tenant-contact.component';
 import { ProblemTypeComponent } from './modules/admin/problem_type/problem_type.component';
 import { EmployeeComponent } from './modules/admin/employee/employee.component';

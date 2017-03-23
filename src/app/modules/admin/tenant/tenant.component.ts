@@ -114,11 +114,6 @@ export class TenantComponent implements OnInit {
     );
   }
 
-
-
-
-
-
   onSubmit() {
     // this.tenantForm.get('mgtfeepercent').valid = false;
     if(!this.tenantForm.valid) {return;}
@@ -151,18 +146,18 @@ export class TenantComponent implements OnInit {
     return '';
   }
 
-  buildAddressHtml(tenant: any) {
-    var html = '<strong>' + tenant.tenant_company_name + '</strong><br />';
-    if (tenant.unitNo != null && tenant.unitNo.length > 0)
-      html += tenant.unitNo + '<br />';
-    if (tenant.title != null && tenant.title.length > 0)
-      html += tenant.title + '<br />';
-    var extension = (tenant.extension != null && tenant.extension.length > 0) ? '(' + tenant.extension + ')' : '';
-    if (tenant.phone != null && tenant.phone.length > 0)
-      html += 'P: ' + extension + tenant.phone;
+  // buildAddressHtml(tenant: any) {
+  //   var html = '<strong>' + tenant.tenant_company_name + '</strong><br />';
+  //   if (tenant.unitNo != null && tenant.unitNo.length > 0)
+  //     html += tenant.unitNo + '<br />';
+  //   if (tenant.title != null && tenant.title.length > 0)
+  //     html += tenant.title + '<br />';
+  //   var extension = (tenant.extension != null && tenant.extension.length > 0) ? '(' + tenant.extension + ')' : '';
+  //   if (tenant.phone != null && tenant.phone.length > 0)
+  //     html += 'P: ' + extension + tenant.phone;
 
-    return html;
-  }
+  //   return html;
+  // }
 
   getPhotoUrl(tenant) {
     if (tenant.photo != null && tenant.photo.length > 0)
