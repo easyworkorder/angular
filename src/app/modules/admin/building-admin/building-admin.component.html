@@ -1,0 +1,1136 @@
+<!--<div class="block-options pull-right">
+            <a href="#buildingInformation" class="btn btn-effect-ripple btn-success" data-toggle="modal" title="" style="overflow: hidden; position: relative;"
+                data-original-title="Add Building" (click)="onBuildingInformationEdit()"><i
+                class="fa fa-plus"></i></a>
+        </div>
+
+<ewo-building-information id="buildingInformation" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></ewo-building-information>-->
+
+<!--<div id="page-content" style="min-height: 735px;">-->
+<!-- Contacts Header -->
+<div class="content-header">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="header-section">
+        <h1>Building Admin</h1>
+      </div>
+    </div>
+    <div class="col-sm-6 hidden-xs">
+      <div class="header-section">
+        <ul class="breadcrumb breadcrumb-top">
+          <li><a href="admin-setup.html">Administrator Portal</a></li>
+          <li><a href="building_admin2.html">Buildings</a></li>
+          <li>Building Admin</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LEFT TABS WITH BUILDINGS
+                        <div class="tabs-left clearfix">
+                            <ul class="nav nav-tabs nav-pills nav-stacked">
+                                <li class="active"><a href="#building1" data-toggle="tab">800 El Camino Real</a></li>
+                                <li><a href="#building2" data-toggle="tab">433 Airport</a></li>
+                                <li><a href="#building3" data-toggle="tab">Eden Medical Center</a></li>
+                                <li><a href="#building4" data-toggle="tab">101 California</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="building1"> -->
+<div class="tabs clearfix">
+  <div class="block-full">
+    <div class="block-title">
+      <ul class="nav nav-tabs" style="height: 60px;">
+        <li class="active"><a href="#bldg1-overview" data-toggle="tab" aria-expanded="true">Overview</a></li>
+        <li class=""><a href="#bldg1-tenants" data-toggle="tab" aria-expanded="false">Tenants</a></li>
+        <li class=""><a href="#bldg1-notifications" data-toggle="tab" aria-expanded="false">Notifications</a></li>
+        <li><a href="#bldg1-files" data-toggle="tab">Files</a></li>
+        <li><a href="#bldg1-confrooms" data-toggle="tab">Conference Rooms</a></li>
+        <li><a href="#bldg1-freightelevs" data-toggle="tab">Freight Elevators</a></li>
+        <li><a href="#bldg1-loaddocks" data-toggle="tab">Loading Docks</a></li>
+      </ul>
+    </div>
+
+    <div *ngIf="editedBuilding" class="tab-content">
+      <div class="tab-pane active" id="bldg1-overview">
+        <!-- Tickets Content -->
+        <div class="row" style="margin: 0 -10px;">
+          <div class="col-md-4 col-lg-4">
+            <!-- Building Address -->
+            <div class="block">
+              <!-- Quick Month Stats Title -->
+              <div class="block-title">
+                <div class="block-options pull-right">
+                  <a href="#modalEditBuildingInfo" class="btn btn-effect-ripple btn-success" data-toggle="modal" title="" style="overflow: hidden; position: relative;"
+                    data-original-title=""><span class="btn-ripple animate" style="height: 34px; width: 34px; top: 0.800003px; left: -0.325012px;"></span><i class="fa fa-pencil"></i></a>
+                </div>
+                <h2>Building Information</h2>
+              </div>
+              <!-- END Quick Month Stats Title -->
+
+              <!-- Quick Month Stats Content -->
+              <table class="table table-striped table-borderless table-vcenter">
+                <tbody>
+                  <tr>
+                    <td style="width: 60%;">
+                      <strong>Name</strong>
+                    </td>
+                    <td>{{editedBuilding.name}}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" align="center">
+                      <address class="m-t-md">
+                        <strong>{{editedBuilding.address}}</strong><br> {{editedBuilding.city}}, {{editedBuilding.state}}
+                        {{editedBuilding.postal_code}}
+                        <br>
+                        <abbr title="Phone">P:</abbr> (123) 456-7890
+                      </address>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Square Footage</strong>
+                    </td>
+                    <td>{{editedBuilding.sqfootage}}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Management Fee %</strong>
+                    </td>
+                    <td>{{editedBuilding.mgt_fee_percent}}%</td>
+                  </tr>
+                </tbody>
+              </table>
+              <!-- END Quick Month Stats Content -->
+            </div>
+            <!-- END Building Address -->
+
+            <!-- Billing Remit to Address -->
+            <div class="block">
+              <div class="block-title">
+                <div class="block-options pull-right">
+                  <a href="#modalEditRemitInfo" class="btn btn-effect-ripple btn-success" data-toggle="modal" title="" style="overflow: hidden; position: relative;"
+                    data-original-title="Edit Remit To"><i class="fa fa-pencil"></i></a>
+                </div>
+                <h2>Remit to Adress</h2>
+              </div>
+              <!-- END Quick Month Stats Title -->
+
+              <!-- Quick Month Stats Content -->
+              <table class="table table-striped table-borderless table-vcenter">
+                <tbody>
+                  <tr>
+                    <td colspan="2" align="center">
+                      <address class="m-t-md">
+                        <strong>{{editedBuilding.remit_company}}</strong><br> {{editedBuilding.remit_addr}}<br> {{editedBuilding.remit_city}},
+                        {{editedBuilding.remit_state}} {{editedBuilding.remit_postal_code}}<br>
+                        <abbr title="Phone">P:</abbr> (123) 456-7890
+                      </address>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <!-- END Quick Month Stats Content -->
+            </div>
+            <!-- END Building Address -->
+          </div>
+          <div class="col-md-4 col-lg-4">
+            <!-- Menu Block -->
+            <div class="block full">
+              <!-- Menu Title -->
+              <div class="block-title clearfix">
+                <div class="block-options pull-right">
+                  <a href="#modalEditContactInfo" class="btn btn-effect-ripple btn-success" data-toggle="modal" title="" style="overflow: hidden; position: relative;"
+                    data-original-title="Edit Building Contact" (click)="editBuildingContactInfo()"><i class="fa fa-pencil"></i></a>
+                </div>
+                <h2>Building Contact</h2>
+              </div>
+              <!-- END Menu Title -->
+              <a href="#" class="widget">
+                <div class="widget-content text-center">
+                  <img src="assets/img/placeholders/avatars/allison-goodman.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
+                  <h2 *ngIf="editedBuilding.contactPerson" class="widget-heading h3 text-muted">{{editedBuilding.contactPerson}}</h2>
+                </div>
+                <div class="widget-content themed-background-muted text-dark text-center">
+                  <address class="m-t-md">
+                    <strong>Twitter, Inc.</strong><br> 795 Folsom Ave, Suite 600<br> San Francisco, CA 94107<br>
+                    <abbr title="Phone">P:</abbr> (123) 456-7890
+                  </address>
+                </div>
+                <div class="widget-content">
+                  <div class="row text-center">
+                    <div class="col-xs-6">
+                      <h3 class="widget-heading"><i class="gi gi-earphone text-info"></i> <br>
+                        <small>Call</small></h3>
+                    </div>
+                    <div class="col-xs-6">
+                      <h3 class="widget-heading"><i class="gi gi-envelope text-danger"></i> <br>
+                        <small>Email</small></h3>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <!-- END Menu Block -->
+          </div>
+          <div class="col-md-4 col-lg-4">
+            <!-- SLA Policy -->
+            <div class="block">
+              <!-- Quick Month Stats Title -->
+              <div class="block-title">
+                <div class="block-options pull-right">
+                  <a href="javascript:void(0)" class="btn btn-effect-ripple btn-success" data-toggle="tooltip" title="" style="overflow: hidden; position: relative;"
+                    data-original-title="Edit SLA Policy"><i class="fa fa-pencil"></i></a>
+                </div>
+                <h2>SLA Policies</h2>
+              </div>
+              <!-- END Quick Month Stats Title -->
+
+              <!-- Quick Month Stats Content -->
+              <table class="table table-striped table-borderless table-vcenter">
+                <thead class="small">
+                  <tr>
+                    <th small="">Priority</th>
+                    <th>Respond</th>
+                    <th>Resolve</th>
+                    <th>Op Hrs</th>
+                    <th>Escalate</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <strong>Urgent</strong>
+                    </td>
+                    <td>1 hour</td>
+                    <td>8 hour</td>
+                    <td>Business</td>
+                    <td>Yes</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>High</strong>
+                    </td>
+                    <td>2 hours</td>
+                    <td>24 hour</td>
+                    <td>Business</td>
+                    <td>Yes</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Medium</strong>
+                    </td>
+                    <td>24 hours</td>
+                    <td>5 days</td>
+                    <td>Business</td>
+                    <td>Yes</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Low</strong>
+                    </td>
+                    <td>2 days</td>
+                    <td>7 days</td>
+                    <td>Business</td>
+                    <td>Yes</td>
+                  </tr>
+                </tbody>
+              </table>
+              <!-- END Quick Month Stats Content -->
+            </div>
+            <!-- END Quick Month Stats Block -->
+          </div>
+        </div>
+        <!-- END Tickets Content -->
+      </div>
+      <div class="tab-pane" id="bldg1-tenants">
+        <!-- START CONTACTS ALPHABET FILTER -->
+        <div class="text-center border-top push-inner-top-bottom">
+          <a href="#modal-add-contact" class="btn btn-sm btn-success" data-toggle="modal" style="overflow: hidden; position: relative;"><i class="fa fa-plus"></i></a>
+          <a href="#" class="btn btn-sm btn-muted">A</a>
+          <a href="#" class="btn btn-sm btn-muted">B</a>
+          <a href="#" class="btn btn-sm btn-muted">C</a>
+          <a href="#" class="btn btn-sm btn-muted">D</a>
+          <a href="#" class="btn btn-sm btn-muted">E</a>
+          <a href="#" class="btn btn-sm btn-muted">F</a>
+          <a href="#" class="btn btn-sm btn-muted">G</a>
+          <a href="#" class="btn btn-sm btn-muted">H</a>
+          <a href="#" class="btn btn-sm btn-muted">I</a>
+          <a href="#" class="btn btn-sm btn-muted">J</a>
+          <a href="#" class="btn btn-sm btn-muted">K</a>
+          <a href="#" class="btn btn-sm btn-muted">L</a>
+          <a href="#" class="btn btn-sm btn-muted">M</a>
+          <a href="#" class="btn btn-sm btn-muted">N</a>
+          <a href="#" class="btn btn-sm btn-muted">O</a>
+          <a href="#" class="btn btn-sm btn-muted">P</a>
+          <a href="#" class="btn btn-sm btn-muted">Q</a>
+          <a href="#" class="btn btn-sm btn-muted">R</a>
+          <a href="#" class="btn btn-sm btn-muted">S</a>
+          <a href="#" class="btn btn-sm btn-muted">T</a>
+          <a href="#" class="btn btn-sm btn-muted">V</a>
+          <a href="#" class="btn btn-sm btn-muted">U</a>
+          <a href="#" class="btn btn-sm btn-muted">W</a>
+          <a href="#" class="btn btn-sm btn-muted">X</a>
+          <a href="#" class="btn btn-sm btn-muted">Y</a>
+          <a href="#" class="btn btn-sm btn-muted">Z</a>
+        </div>
+        <!-- END CONTACTS ALPHABET FILTER -->
+
+        <!-- BEGIN LIST OF CONTACTS -->
+        <div class="col-sm-6 col-md-4 col-lg-3">
+          <a href="tenant-profile.html" class="widget">
+            <div class="widget-content text-center">
+              <img src="assets/img/placeholders/avatars/avatar9.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
+              <h2 class="widget-heading h3 text-muted">Anna Wigren</h2>
+            </div>
+            <div class="widget-content themed-background-muted text-dark text-center">
+              <address class="m-t-md">
+                <strong>Bank of America</strong><br> 795 Folsom Ave, Suite 600<br> San Francisco, CA 94107<br>
+                <abbr title="Phone">P:</abbr> (123) 456-7890
+              </address>
+            </div>
+            <div class="widget-content">
+              <div class="row text-center">
+                <div class="col-xs-6">
+                  <h3 class="widget-heading"><i class="gi gi-earphone text-info"></i> <br>
+                    <small>Call</small></h3>
+                </div>
+                <div class="col-xs-6">
+                  <h3 class="widget-heading"><i class="gi gi-envelope text-danger"></i> <br>
+                    <small>Email</small></h3>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3">
+          <a href="tenant-profile.html" class="widget">
+            <div class="widget-content text-center">
+              <img src="assets/img/placeholders/avatars/avatar9.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
+              <h2 class="widget-heading h3 text-muted">Jacob Hunt</h2>
+            </div>
+            <div class="widget-content themed-background-muted text-dark text-center">
+              <address class="m-t-md">
+                <strong>Facebook</strong><br> 795 Folsom Ave, Suite 600<br> San Francisco, CA 94107<br>
+                <abbr title="Phone">P:</abbr> (123) 456-7890
+              </address>
+            </div>
+            <div class="widget-content">
+              <div class="row text-center">
+                <div class="col-xs-6">
+                  <h3 class="widget-heading"><i class="gi gi-earphone text-info"></i> <br><small>Call</small></h3>
+                </div>
+                <div class="col-xs-6">
+                  <h3 class="widget-heading"><i class="gi gi-envelope text-danger"></i> <br><small>Email</small></h3>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3">
+          <a href="tenant-profile.html" class="widget">
+            <div class="widget-content text-center">
+              <img src="assets/img/placeholders/avatars/avatar9.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
+              <h2 class="widget-heading h3 text-muted">Michele Smith</h2>
+            </div>
+            <div class="widget-content themed-background-muted text-dark text-center">
+              <address class="m-t-md">
+                <strong>Twitter, Inc.</strong><br> 795 Folsom Ave, Suite 600<br> San Francisco, CA 94107<br>
+                <abbr title="Phone">P:</abbr> (123) 456-7890
+              </address>
+            </div>
+            <div class="widget-content">
+              <div class="row text-center">
+                <div class="col-xs-6">
+                  <h3 class="widget-heading"><i class="gi gi-earphone text-info"></i> <br><small>Call</small></h3>
+                </div>
+                <div class="col-xs-6">
+                  <h3 class="widget-heading"><i class="gi gi-envelope text-danger"></i> <br><small>Email</small></h3>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3">
+          <a href="tenant-profile.html" class="widget">
+            <div class="widget-content text-center">
+              <img src="assets/img/placeholders/avatars/avatar9.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
+              <h2 class="widget-heading h3 text-muted">Alice Waters</h2>
+            </div>
+            <div class="widget-content themed-background-muted text-dark text-center">
+              <address class="m-t-md">
+                <strong>Sullivan, Amhurst, Walley</strong><br> 795 Folsom Ave, Suite 600<br> San Francisco, CA 94107<br>
+                <abbr title="Phone">P:</abbr> (123) 456-7890
+              </address>
+            </div>
+            <div class="widget-content">
+              <div class="row text-center">
+                <div class="col-xs-6">
+                  <h3 class="widget-heading"><i class="gi gi-earphone text-info"></i> <br><small>Call</small></h3>
+                </div>
+                <div class="col-xs-6">
+                  <h3 class="widget-heading"><i class="gi gi-envelope text-danger"></i> <br><small>Email</small></h3>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3">
+          <a href="tenant-profile.html" class="widget">
+            <div class="widget-content text-center">
+              <img src="assets/img/placeholders/avatars/avatar9.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
+              <h2 class="widget-heading h3 text-muted">George Benson</h2>
+            </div>
+            <div class="widget-content themed-background-muted text-dark text-center">
+              <address class="m-t-md">
+                <strong>Trader Joes</strong><br> 795 Folsom Ave, Suite 600<br> San Francisco, CA 94107<br>
+                <abbr title="Phone">P:</abbr> (123) 456-7890
+              </address>
+            </div>
+            <div class="widget-content">
+              <div class="row text-center">
+                <div class="col-xs-6">
+                  <h3 class="widget-heading"><i class="gi gi-earphone text-info"></i> <br><small>Call</small></h3>
+                </div>
+                <div class="col-xs-6">
+                  <h3 class="widget-heading"><i class="gi gi-envelope text-danger"></i> <br><small>Email</small></h3>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3">
+          <a href="tenant-profile.html" class="widget">
+            <div class="widget-content text-center">
+              <img src="assets/img/placeholders/avatars/avatar9.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
+              <h2 class="widget-heading h3 text-muted">Marc Johnson</h2>
+            </div>
+            <div class="widget-content themed-background-muted text-dark text-center">
+              <address class="m-t-md">
+                <strong>City of San Francisco</strong><br> 795 Folsom Ave, Suite 600<br> San Francisco, CA 94107<br>
+                <abbr title="Phone">P:</abbr> (123) 456-7890
+              </address>
+            </div>
+            <div class="widget-content">
+              <div class="row text-center">
+                <div class="col-xs-6">
+                  <h3 class="widget-heading"><i class="gi gi-earphone text-info"></i> <br><small>Call</small></h3>
+                </div>
+                <div class="col-xs-6">
+                  <h3 class="widget-heading"><i class="gi gi-envelope text-danger"></i> <br><small>Email</small></h3>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3">
+          <a href="tenant-profile.html" class="widget">
+            <div class="widget-content text-center">
+              <img src="assets/img/placeholders/avatars/avatar9.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
+              <h2 class="widget-heading h3 text-muted">Ken Hampton</h2>
+            </div>
+            <div class="widget-content themed-background-muted text-dark text-center">
+              <address class="m-t-md">
+                <strong>Wells Fargo</strong><br> 795 Folsom Ave, Suite 600<br> San Francisco, CA 94107<br>
+                <abbr title="Phone">P:</abbr> (123) 456-7890
+              </address>
+            </div>
+            <div class="widget-content">
+              <div class="row text-center">
+                <div class="col-xs-6">
+                  <h3 class="widget-heading"><i class="gi gi-earphone text-info"></i> <br><small>Call</small></h3>
+                </div>
+                <div class="col-xs-6">
+                  <h3 class="widget-heading"><i class="gi gi-envelope text-danger"></i> <br><small>Email</small></h3>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3">
+          <a href="tenant-profile.html" class="widget">
+            <div class="widget-content text-center">
+              <img src="assets/img/placeholders/avatars/avatar9.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
+              <h2 class="widget-heading h3 text-muted">Larry Jones</h2>
+            </div>
+            <div class="widget-content themed-background-muted text-dark text-center">
+              <address class="m-t-md">
+                <strong>Kaiser Permanente</strong><br> 795 Folsom Ave, Suite 600<br> San Francisco, CA 94107<br>
+                <abbr title="Phone">P:</abbr> (123) 456-7890
+              </address>
+            </div>
+            <div class="widget-content">
+              <div class="row text-center">
+                <div class="col-xs-6">
+                  <h3 class="widget-heading"><i class="gi gi-earphone text-info"></i> <br><small>Call</small></h3>
+                </div>
+                <div class="col-xs-6">
+                  <h3 class="widget-heading"><i class="gi gi-envelope text-danger"></i> <br><small>Email</small></h3>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- END LIST OF TENANTS -->
+      </div>
+      <div class="tab-pane" id="bldg1-notifications">
+        <!-- START CONTACTS ALPHABET FILTER -->
+        <div class="text-center border-top push-inner-top-bottom">
+          <a href="#modal-add-contact" class="btn btn-sm btn-success" data-toggle="modal"><i class="fa fa-plus"></i></a>
+          <a href="#" class="btn btn-sm btn-muted">A</a>
+          <a href="#" class="btn btn-sm btn-muted">B</a>
+          <a href="#" class="btn btn-sm btn-muted">C</a>
+          <a href="#" class="btn btn-sm btn-muted">D</a>
+          <a href="#" class="btn btn-sm btn-muted">E</a>
+          <a href="#" class="btn btn-sm btn-muted">F</a>
+          <a href="#" class="btn btn-sm btn-muted">G</a>
+          <a href="#" class="btn btn-sm btn-muted">H</a>
+          <a href="#" class="btn btn-sm btn-muted">I</a>
+          <a href="#" class="btn btn-sm btn-muted">J</a>
+          <a href="#" class="btn btn-sm btn-muted">K</a>
+          <a href="#" class="btn btn-sm btn-muted">L</a>
+          <a href="#" class="btn btn-sm btn-muted">M</a>
+          <a href="#" class="btn btn-sm btn-muted">N</a>
+          <a href="#" class="btn btn-sm btn-muted">O</a>
+          <a href="#" class="btn btn-sm btn-muted">P</a>
+          <a href="#" class="btn btn-sm btn-muted">Q</a>
+          <a href="#" class="btn btn-sm btn-muted">R</a>
+          <a href="#" class="btn btn-sm btn-muted">S</a>
+          <a href="#" class="btn btn-sm btn-muted">T</a>
+          <a href="#" class="btn btn-sm btn-muted">V</a>
+          <a href="#" class="btn btn-sm btn-muted">U</a>
+          <a href="#" class="btn btn-sm btn-muted">W</a>
+          <a href="#" class="btn btn-sm btn-muted">X</a>
+          <a href="#" class="btn btn-sm btn-muted">Y</a>
+          <a href="#" class="btn btn-sm btn-muted">Z</a>
+        </div>
+        <!-- END CONTACTS ALPHABET FILTER -->
+
+        <!-- BEGIN LIST OF CONTACTS -->
+        <div class="row" style="margin: 0 -10px;">
+          <div class="col-sm-6 col-md-4 col-lg-3">
+            <a href="tenant-profile.html" class="widget">
+              <div class="widget-content text-center">
+                <img src="assets/img/placeholders/avatars/alfred.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
+                <h2 class="widget-heading h3 text-muted">Alfred Knox</h2>
+              </div>
+              <div class="widget-content themed-background-muted text-dark text-center">
+                <address class="m-t-md">
+                  <abbr title="Phone">P:</abbr> (123) 456-7890
+                </address>
+              </div>
+              <div class="widget-content">
+                <div class="row text-center">
+                  <div class="col-xs-6">
+                    <label class="switch switch-success">
+                                                                    <input type="checkbox" checked=""><span></span></label><br>
+                    <h3><small>Access</small></h3>
+                  </div>
+                  <div class="col-xs-6">
+                    <label class="switch switch-success">
+                                                                    <input type="checkbox" checked=""><span></span></label><br>
+                    <h3><small>Notify</small></h3>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-sm-6 col-md-4 col-lg-3">
+            <a href="tenant-profile.html" class="widget">
+              <div class="widget-content text-center">
+                <img src="assets/img/placeholders/avatars/antwan-dahle.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
+                <h2 class="widget-heading h3 text-muted">Jacob Hunt</h2>
+              </div>
+              <div class="widget-content themed-background-muted text-dark text-center">
+                <address class="m-t-md">
+                  <abbr title="Phone">P:</abbr> (123) 456-7890
+                </address>
+              </div>
+              <div class="widget-content">
+                <div class="row text-center">
+                  <div class="col-xs-6">
+                    <label class="switch switch-success">
+                                                                    <input type="checkbox" checked=""><span></span></label><br>
+                    <h3><small>Access</small></h3>
+                  </div>
+                  <div class="col-xs-6">
+                    <label class="switch switch-success">
+                                                                    <input type="checkbox" checked=""><span></span></label><br>
+                    <h3><small>Notify</small></h3>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-sm-6 col-md-4 col-lg-3">
+            <a href="tenant-profile.html" class="widget">
+              <div class="widget-content text-center">
+                <img src="assets/img/placeholders/avatars/karen-carr.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
+                <h2 class="widget-heading h3 text-muted">Karen Carr</h2>
+              </div>
+              <div class="widget-content themed-background-muted text-dark text-center">
+                <address class="m-t-md">
+                  <abbr title="Phone">P:</abbr> (123) 456-7890
+                </address>
+              </div>
+              <div class="widget-content">
+                <div class="row text-center">
+                  <div class="col-xs-6">
+                    <label class="switch switch-success">
+                                                                    <input type="checkbox" checked=""><span></span></label><br>
+                    <h3><small>Access</small></h3>
+                  </div>
+                  <div class="col-xs-6">
+                    <label class="switch switch-success">
+                                                                    <input type="checkbox" checked=""><span></span></label><br>
+                    <h3><small>Notify</small></h3>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-sm-6 col-md-4 col-lg-3">
+            <a href="tenant-profile.html" class="widget">
+              <div class="widget-content text-center">
+                <img src="assets/img/placeholders/avatars/paloma.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
+                <h2 class="widget-heading h3 text-muted">Alice Hiward</h2>
+              </div>
+              <div class="widget-content themed-background-muted text-dark text-center">
+                <address class="m-t-md">
+                  <abbr title="Phone">P:</abbr> (123) 456-7890
+                </address>
+              </div>
+              <div class="widget-content">
+                <div class="row text-center">
+                  <div class="col-xs-6">
+                    <label class="switch switch-success">
+                                                                    <input type="checkbox" checked=""><span></span></label><br>
+                    <h3><small>Access</small></h3>
+                  </div>
+                  <div class="col-xs-6">
+                    <label class="switch switch-success">
+                                                                    <input type="checkbox" checked=""><span></span></label><br>
+                    <h3><small>Notify</small></h3>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-sm-6 col-md-4 col-lg-3">
+            <a href="tenant-profile.html" class="widget">
+              <div class="widget-content text-center">
+                <img src="assets/img/placeholders/avatars/maya-mann.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
+                <h2 class="widget-heading h3 text-muted">Maya Mann</h2>
+              </div>
+              <div class="widget-content themed-background-muted text-dark text-center">
+                <address class="m-t-md">
+                  <abbr title="Phone">P:</abbr> (123) 456-7890
+                </address>
+              </div>
+              <div class="widget-content">
+                <div class="row text-center">
+                  <div class="col-xs-6">
+                    <label class="switch switch-success">
+                                                                    <input type="checkbox" checked=""><span></span></label><br>
+                    <h3><small>Access</small></h3>
+                  </div>
+                  <div class="col-xs-6">
+                    <label class="switch switch-success">
+                                                                    <input type="checkbox" checked=""><span></span></label><br>
+                    <h3><small>Notify</small></h3>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-sm-6 col-md-4 col-lg-3">
+            <a href="tenant-profile.html" class="widget">
+              <div class="widget-content text-center">
+                <img src="assets/img/placeholders/avatars/bob-been.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
+                <h2 class="widget-heading h3 text-muted">Bob Beene</h2>
+              </div>
+              <div class="widget-content themed-background-muted text-dark text-center">
+                <address class="m-t-md">
+                  <abbr title="Phone">P:</abbr> (123) 456-7890
+                </address>
+              </div>
+              <div class="widget-content">
+                <div class="row text-center">
+                  <div class="col-xs-6">
+                    <label class="switch switch-success">
+                                                                    <input type="checkbox" checked=""><span></span></label><br>
+                    <h3><small>Access</small></h3>
+                  </div>
+                  <div class="col-xs-6">
+                    <label class="switch switch-success">
+                                                                    <input type="checkbox" checked=""><span></span></label><br>
+                    <h3><small>Notify</small></h3>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-sm-6 col-md-4 col-lg-3">
+            <a href="tenant-profile.html" class="widget">
+              <div class="widget-content text-center">
+                <img src="assets/img/placeholders/avatars/mark-aurabach.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
+                <h2 class="widget-heading h3 text-muted">Mark Aurabach</h2>
+              </div>
+              <div class="widget-content themed-background-muted text-dark text-center">
+                <address class="m-t-md">
+                  <abbr title="Phone">P:</abbr> (123) 456-7890
+                </address>
+              </div>
+              <div class="widget-content">
+                <div class="row text-center">
+                  <div class="col-xs-6">
+                    <label class="switch switch-success">
+                                                                    <input type="checkbox"><span></span></label><br>
+                    <h3><small>Access</small></h3>
+                  </div>
+                  <div class="col-xs-6">
+                    <label class="switch switch-success">
+                                                                    <input type="checkbox"><span></span></label><br>
+                    <h3><small>Notify</small></h3>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-sm-6 col-md-4 col-lg-3">
+            <a href="tenant-profile.html" class="widget">
+              <div class="widget-content text-center">
+                <img src="assets/img/placeholders/avatars/rae-maya.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
+                <h2 class="widget-heading h3 text-muted">Anna Smith</h2>
+              </div>
+              <div class="widget-content themed-background-muted text-dark text-center">
+                <address class="m-t-md">
+                  <abbr title="Phone">P:</abbr> (123) 456-7890
+                </address>
+              </div>
+              <div class="widget-content">
+                <div class="row text-center">
+                  <div class="col-xs-6">
+                    <label class="switch switch-success">
+                                                                    <input type="checkbox"><span></span></label><br>
+                    <h3><small>Access</small></h3>
+                  </div>
+                  <div class="col-xs-6">
+                    <label class="switch switch-success">
+                                                                    <input type="checkbox"><span></span></label><br>
+                    <h3><small>Notify</small></h3>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+        <!-- END LIST OF TENANTS -->
+      </div>
+      <div class="tab-pane" id="bldg1-files">
+        <!--  -->
+        <div class="block">
+          <!-- Quick Month Stats Title -->
+          <div class="block-title">
+            <div class="block-options pull-right">
+              <a href="javascript:void(0)" class="btn btn-effect-ripple btn-info" data-toggle="tooltip" title="" style="overflow: hidden; position: relative;"
+                data-original-title="Upload Files"><i class="fa fa-upload"></i></a>
+            </div>
+            <h2>Files</h2>
+          </div>
+          <div class="row media-filter-items" style="margin: 0 -10px;">
+            <div class="col-sm-4 col-lg-3">
+              <div class="media-items animation-fadeInQuick2" data-category="zip">
+                <div class="media-items-options text-right">
+                  <a href="javascript:void(0)" class="btn btn-xs btn-success"><i class="fa fa-pencil"></i></a>
+                  <a href="javascript:void(0)" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>
+                </div>
+                <div class="media-items-content">
+                  <i class="fa fa-file-archive-o fa-5x text-muted"></i>
+                </div>
+                <h4>
+                  <strong>Project</strong>.zip<br>
+                  <small>3 hours ago, 3.2MB</small>
+                </h4>
+              </div>
+            </div>
+            <div class="col-sm-4 col-lg-3">
+              <div class="media-items animation-fadeInQuick2" data-category="image">
+                <div class="media-items-options text-right">
+                  <a href="assets/img/placeholders/photos/photo1.jpg" class="btn btn-xs btn-info" data-toggle="lightbox-image">View</a>
+                  <a href="javascript:void(0)" class="btn btn-xs btn-success"><i class="fa fa-pencil"></i></a>
+                  <a href="javascript:void(0)" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>
+                </div>
+                <div class="media-items-content">
+                  <i class="fa fa-file-picture-o fa-5x text-success"></i>
+                </div>
+                <h4>
+                  <strong>Mountains</strong>.jpg<br>
+                  <small>4 hours ago, 7.5MB</small>
+                </h4>
+              </div>
+            </div>
+            <div class="col-sm-4 col-lg-3">
+              <div class="media-items animation-fadeInQuick2" data-category="video">
+                <div class="media-items-options text-right">
+                  <a href="javascript:void(0)" class="btn btn-xs btn-success"><i class="fa fa-pencil"></i></a>
+                  <a href="javascript:void(0)" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>
+                </div>
+                <div class="media-items-content">
+                  <i class="fa fa-file-video-o fa-5x text-danger"></i>
+                </div>
+                <h4>
+                  <strong>Trip</strong>.mov<br>
+                  <small>7 hours ago, 120MB</small>
+                </h4>
+              </div>
+            </div>
+            <div class="col-sm-4 col-lg-3">
+              <div class="media-items animation-fadeInQuick2" data-category="image">
+                <div class="media-items-options text-right">
+                  <a href="assets/img/placeholders/photos/photo2.jpg" class="btn btn-xs btn-info" data-toggle="lightbox-image">View</a>
+                  <a href="javascript:void(0)" class="btn btn-xs btn-success"><i class="fa fa-pencil"></i></a>
+                  <a href="javascript:void(0)" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>
+                </div>
+                <div class="media-items-content">
+                  <i class="fa fa-file-picture-o fa-5x text-success"></i>
+                </div>
+                <h4>
+                  <strong>Pizza</strong>.jpg<br>
+                  <small>8 hours ago, 3.9MB</small>
+                </h4>
+              </div>
+            </div>
+
+            <div class="col-sm-4 col-lg-3">
+              <div class="media-items animation-fadeInQuick2" data-category="zip">
+                <div class="media-items-options text-right">
+                  <a href="javascript:void(0)" class="btn btn-xs btn-success"><i class="fa fa-pencil"></i></a>
+                  <a href="javascript:void(0)" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>
+                </div>
+                <div class="media-items-content">
+                  <i class="fa fa-file-archive-o fa-5x text-muted"></i>
+                </div>
+                <h4>
+                  <strong>Freebies</strong>.zip<br>
+                  <small>9 hours ago, 56.2MB</small>
+                </h4>
+              </div>
+            </div>
+            <div class="col-sm-4 col-lg-3">
+              <div class="media-items animation-fadeInQuick2" data-category="audio">
+                <div class="media-items-options text-right">
+                  <a href="javascript:void(0)" class="btn btn-xs btn-success"><i class="fa fa-pencil"></i></a>
+                  <a href="javascript:void(0)" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>
+                </div>
+                <div class="media-items-content">
+                  <i class="fa fa-file-audio-o fa-5x text-info"></i>
+                </div>
+                <h4>
+                  <strong>Classical</strong>.mp3<br>
+                  <small>11 hours ago, 3.3MB</small>
+                </h4>
+              </div>
+            </div>
+            <div class="col-sm-4 col-lg-3">
+              <div class="media-items animation-fadeInQuick2" data-category="image">
+                <div class="media-items-options text-right">
+                  <a href="assets/img/placeholders/photos/photo7.jpg" class="btn btn-xs btn-info" data-toggle="lightbox-image">View</a>
+                  <a href="javascript:void(0)" class="btn btn-xs btn-success"><i class="fa fa-pencil"></i></a>
+                  <a href="javascript:void(0)" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>
+                </div>
+                <div class="media-items-content">
+                  <i class="fa fa-file-picture-o fa-5x text-success"></i>
+                </div>
+                <h4>
+                  <strong>Road</strong>.jpg<br>
+                  <small>12 hours ago, 4.4MB</small>
+                </h4>
+              </div>
+            </div>
+            <div class="col-sm-4 col-lg-3">
+              <div class="media-items animation-fadeInQuick2" data-category="zip">
+                <div class="media-items-options text-right">
+                  <a href="javascript:void(0)" class="btn btn-xs btn-success"><i class="fa fa-pencil"></i></a>
+                  <a href="javascript:void(0)" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>
+                </div>
+                <div class="media-items-content">
+                  <i class="fa fa-file-archive-o fa-5x text-muted"></i>
+                </div>
+                <h4>
+                  <strong>FileArchive</strong>.zip<br>
+                  <small>1 day ago, 530MB</small>
+                </h4>
+              </div>
+            </div>
+            <div class="col-sm-4 col-lg-3">
+              <div class="media-items animation-fadeInQuick2" data-category="image">
+                <div class="media-items-options text-right">
+                  <a href="assets/img/placeholders/photos/photo3.jpg" class="btn btn-xs btn-info" data-toggle="lightbox-image">View</a>
+                  <a href="javascript:void(0)" class="btn btn-xs btn-success"><i class="fa fa-pencil"></i></a>
+                  <a href="javascript:void(0)" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>
+                </div>
+                <div class="media-items-content">
+                  <i class="fa fa-file-picture-o fa-5x text-success"></i>
+                </div>
+                <h4>
+                  <strong>Nature</strong>.jpg<br>
+                  <small>1 day ago, 6.2MB</small>
+                </h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane" id="bldg1-confrooms">
+
+        <!-- BEGIN LIST OF CONFERENCE ROOMS -->
+        <div class="col-sm-6 col-md-4 col-lg-4">
+          <div class="widget">
+            <div class="widget-content widget-content-mini themed-background-default">
+              <div class="block-options pull-right">
+                <a href="javascript:void(0)" class="btn btn-success" data-toggle="tooltip" title="" data-original-title="Edit Conference Room"><i class="fa fa-pencil"></i></a>
+              </div>
+
+              <div class="widget-content themed-background-default clearfix">
+                <h2 class="widget-heading text-light"><strong>El Capitan</strong></h2>
+                <h3 class="widget-heading text-light-op h4">Rm 101</h3>
+              </div>
+            </div>
+            <div class="widget-content widget-content-full">
+              <table class="table table-striped table-borderless remove-margin">
+                <tbody>
+                  <tr>
+                    <td><a href="javascript:void(0)" class="text-black">Capacity</a></td>
+                    <td class="text-left"><span class="text-muted">50</span></td>
+                  </tr>
+                  <tr>
+                    <td><a href="javascript:void(0)" class="text-black">Days Available</a></td>
+                    <td class="text-left"><span class="text-muted">Mon - Sat</span></td>
+                  </tr>
+                  <tr>
+                    <td><a href="javascript:void(0)" class="text-black">Hours Available</a></td>
+                    <td class="text-left"><span class="text-muted">7am - 6:30pm</span></td>
+                  </tr>
+                  <tr>
+                    <td><a href="javascript:void(0)" class="text-black">Hourly Rate</a></td>
+                    <td class="text-left"><span class="text-muted">$25</span></td>
+                  </tr>
+                  <tr>
+                    <td><a href="javascript:void(0)" class="text-black">Conference Call Availability</a></td>
+                    <td class="text-left"><span class="text-muted">Yes</span></td>
+                  </tr>
+                  <tr>
+                    <td><a href="javascript:void(0)" class="text-black">Phone Number</a></td>
+                    <td class="text-left"><span class="text-muted">415 768 9988</span></td>
+                  </tr>
+                  <tr>
+                    <td><a href="javascript:void(0)" class="text-black">Network Access</a></td>
+                    <td class="text-left"><span class="text-muted">Yes</span></td>
+                  </tr>
+                  <tr>
+                    <td><a href="javascript:void(0)" class="text-black">Internet Access</a></td>
+                    <td class="text-left"><span class="text-muted">Yes</span></td>
+                  </tr>
+                  <tr>
+                    <td><a href="javascript:void(0)" class="text-black">Audio/Visual Availability</a></td>
+                    <td class="text-left"><span class="text-muted">Yes</span></td>
+                  </tr>
+                  <tr>
+                    <td><a href="javascript:void(0)" class="text-black">Private, no tenants allowed</a></td>
+                    <td class="text-left"><span class="text-muted"></span></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2"><strong>Notes</strong></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                      - 24 hour cancellation notice required.<br> - Catering available with a $150 cleaning deposit.<br>                      - Weekend availability by management office approval only.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4 col-lg-4">
+          <div class="widget">
+            <div class="widget-content widget-content-mini themed-background-default">
+              <div class="block-options pull-right">
+                <a href="javascript:void(0)" class="btn btn-success" data-toggle="tooltip" title="" data-original-title="Edit Conference Room"><i class="fa fa-pencil"></i></a>
+              </div>
+
+              <div class="widget-content themed-background-default clearfix">
+                <h2 class="widget-heading text-light"><strong>Boardwalk</strong></h2>
+                <h3 class="widget-heading text-light-op h4">Rm 150</h3>
+              </div>
+            </div>
+            <div class="widget-content widget-content-full">
+              <table class="table table-striped table-borderless remove-margin">
+                <tbody>
+                  <tr>
+                    <td><a href="javascript:void(0)" class="text-black">Capacity</a></td>
+                    <td class="text-left"><span class="text-muted">50</span></td>
+                  </tr>
+                  <tr>
+                    <td><a href="javascript:void(0)" class="text-black">Days Available</a></td>
+                    <td class="text-left"><span class="text-muted">Mon - Sat</span></td>
+                  </tr>
+                  <tr>
+                    <td><a href="javascript:void(0)" class="text-black">Hours Available</a></td>
+                    <td class="text-left"><span class="text-muted">7am - 6:30pm</span></td>
+                  </tr>
+                  <tr>
+                    <td><a href="javascript:void(0)" class="text-black">Hourly Rate</a></td>
+                    <td class="text-left"><span class="text-muted">$25</span></td>
+                  </tr>
+                  <tr>
+                    <td><a href="javascript:void(0)" class="text-black">Conference Call Availability</a></td>
+                    <td class="text-left"><span class="text-muted">Yes</span></td>
+                  </tr>
+                  <tr>
+                    <td><a href="javascript:void(0)" class="text-black">Phone Number</a></td>
+                    <td class="text-left"><span class="text-muted">415 768 9988</span></td>
+                  </tr>
+                  <tr>
+                    <td><a href="javascript:void(0)" class="text-black">Network Access</a></td>
+                    <td class="text-left"><span class="text-muted">Yes</span></td>
+                  </tr>
+                  <tr>
+                    <td><a href="javascript:void(0)" class="text-black">Internet Access</a></td>
+                    <td class="text-left"><span class="text-muted">Yes</span></td>
+                  </tr>
+                  <tr>
+                    <td><a href="javascript:void(0)" class="text-black">Audio/Visual Availability</a></td>
+                    <td class="text-left"><span class="text-muted">Yes</span></td>
+                  </tr>
+                  <tr>
+                    <td><a href="javascript:void(0)" class="text-black">Private, no tenants allowed</a></td>
+                    <td class="text-left"><span class="text-muted"></span></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2"><strong>Notes</strong></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                      - 24 hour cancellation notice required.<br> - Catering available with a $150 cleaning deposit.<br>                      - Weekend availability by management office approval only.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4 col-lg-4">
+          <div class="widget">
+            <div class="widget-content widget-content-mini themed-background-default">
+              <div class="block-options pull-right">
+                <a href="javascript:void(0)" class="btn btn-success" data-toggle="tooltip" title="" data-original-title="Edit Conference Room"><i class="fa fa-pencil"></i></a>
+              </div>
+
+              <div class="widget-content themed-background-default clearfix">
+                <h2 class="widget-heading text-light"><strong>North Face</strong></h2>
+                <h3 class="widget-heading text-light-op h4">Rm 110</h3>
+              </div>
+            </div>
+            <div class="widget-content widget-content-full">
+              <table class="table table-striped table-borderless remove-margin">
+                <tbody>
+                  <tr>
+                    <td><a href="javascript:void(0)" class="text-black">Capacity</a></td>
+                    <td class="text-left"><span class="text-muted">50</span></td>
+                  </tr>
+                  <tr>
+                    <td><a href="javascript:void(0)" class="text-black">Days Available</a></td>
+                    <td class="text-left"><span class="text-muted">Mon - Sat</span></td>
+                  </tr>
+                  <tr>
+                    <td><a href="javascript:void(0)" class="text-black">Hours Available</a></td>
+                    <td class="text-left"><span class="text-muted">7am - 6:30pm</span></td>
+                  </tr>
+                  <tr>
+                    <td><a href="javascript:void(0)" class="text-black">Hourly Rate</a></td>
+                    <td class="text-left"><span class="text-muted">$25</span></td>
+                  </tr>
+                  <tr>
+                    <td><a href="javascript:void(0)" class="text-black">Conference Call Availability</a></td>
+                    <td class="text-left"><span class="text-muted">Yes</span></td>
+                  </tr>
+                  <tr>
+                    <td><a href="javascript:void(0)" class="text-black">Phone Number</a></td>
+                    <td class="text-left"><span class="text-muted">415 768 9988</span></td>
+                  </tr>
+                  <tr>
+                    <td><a href="javascript:void(0)" class="text-black">Network Access</a></td>
+                    <td class="text-left"><span class="text-muted">Yes</span></td>
+                  </tr>
+                  <tr>
+                    <td><a href="javascript:void(0)" class="text-black">Internet Access</a></td>
+                    <td class="text-left"><span class="text-muted">Yes</span></td>
+                  </tr>
+                  <tr>
+                    <td><a href="javascript:void(0)" class="text-black">Audio/Visual Availability</a></td>
+                    <td class="text-left"><span class="text-muted">Yes</span></td>
+                  </tr>
+                  <tr>
+                    <td><a href="javascript:void(0)" class="text-black">Private, no tenants allowed</a></td>
+                    <td class="text-left"><span class="text-muted"></span></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2"><strong>Notes</strong></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                      - 24 hour cancellation notice required.<br> - Catering available with a $150 cleaning deposit.<br>                      - Weekend availability by management office approval only.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!-- END LIST OF CONFERENCE ROOMS -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END LEFT TABS WITH BUILDINGS -->
+<!--</div>-->
+
+<ewo-building-information *ngIf="editedBuilding" id="modalEditBuildingInfo" [editBuildingInfo]="editedBuilding" (update)="updateInfo($event)"
+  class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></ewo-building-information>
+
+<ewo-remit-information *ngIf="editedBuilding" id="modalEditRemitInfo" [editRemitInfo]="editedBuilding" (update)="updateInfo($event)"
+  class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></ewo-remit-information>
+
+<!-- Edit Contact Information -->
+<div id="modalEditContactInfo" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 class="modal-title"><i class="fa fa-pencil"></i> <strong>Edit Building Contact</strong></h3>
+      </div>
+      <!-- this is a new comment  -->
+      <div class="modal-body">
+        <form *ngIf="buildingForm" [formGroup]="buildingForm" (ngSubmit)="buildingForm.valid && onSubmit()" class="form-horizontal form-bordered">
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="primarycontact_id">Contact Person</label>
+            <div class="col-md-6">
+              <ng-select id="primarycontact_id" [multiple]="false" [items]="employees" placeholder="Select Contact Person" (selected)="selectedPrimaryContact($event)"
+                [active]="primarycontact_id"></ng-select>
+              <!--<span *ngIf="primarycontact_id.length == 0" class="validation-error">This field is Required</span>-->
+            </div>
+          </div>
+          <div class="form-group form-actions">
+            <div class="col-xs-12 text-right">
+              <button type="submit" class="btn btn-effect-ripple btn-success" style="overflow: hidden; position: relative;">Add</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

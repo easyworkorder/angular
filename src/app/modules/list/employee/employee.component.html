@@ -1,0 +1,87 @@
+<!-- Contacts Header -->
+<div class="content-header">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="header-section">
+                <h1>Employees</h1>
+            </div>
+        </div>
+        <div class="col-sm-6 hidden-xs">
+            <div class="header-section">
+                <ul class="breadcrumb breadcrumb-top">
+                    <li><a href="/dashboard">Dashboard</a></li>
+                    <li><a href="/employee">Employee</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="text-center border-top push-inner-top-bottom">
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('')">ALL</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('A')">A</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('B')">B</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('C')">C</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('D')">D</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('E')">E</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('F')">F</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('G')">G</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('H')">H</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('I')">I</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('J')">J</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('K')">K</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('L')">L</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('M')">M</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('N')">N</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('O')">O</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('P')">P</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('Q')">Q</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('R')">R</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('S')">S</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('T')">T</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('U')">U</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('V')">V</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('W')">W</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('X')">X</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('Y')">Y</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('Z')">Z</a>
+    </div>
+</div>
+<!-- END Contacts Header -->
+
+<div class="row">
+    <div class="col-sm-3" *ngFor="let employee of employees | filterWithStartLetter: { last_name: employeeSearchControl.value }">
+        <!--<div class="col-sm-3" *ngFor="let employee of employees | filterMultipleStartWith: employeeSearchControl.value">-->
+        <!--<div class="col-sm-3" *ngFor="let employee of employees">-->
+        <div class="widget">
+            <div class="widget-content text-center">
+                <div class="col-sm-2 text-center" style="position: absolute; right: 0;">
+                </div>
+                <img src="assets/img/placeholders/avatars/avatar9.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
+                <h2 class="widget-heading h3 text-muted">{{employee.last_name}} {{employee.first_name}}</h2>
+            </div>
+
+            <div class="widget-content themed-background-muted text-dark text-center">
+                <address class="m-t-md">
+                    <strong>{{employee.title}}</strong><br/>
+                    <abbr title="Phone">P:</abbr> {{employee.work_phone}}
+                </address>
+            </div>
+            <div class="widget-content">
+                <div class="row text-center">
+                    <div class="col-xs-6">
+                        <h3 class="widget-heading">
+                            <a href="tel:{{employee.work_phone}}"><i class="gi gi-earphone text-info"></i></a> <br>
+                            <small><a href="tel:{{employee.work_phone}}">Call</a></small>
+                        </h3>
+                    </div>
+                    <div class="col-xs-6">
+                        <h3 class="widget-heading">
+                            <a href="mailto:{{employee.email}}"><i class="gi gi-envelope text-danger"></i></a> <br>
+                            <small><a href="mailto:{{employee.email}}">Email</a></small>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

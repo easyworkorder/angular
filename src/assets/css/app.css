@@ -1,0 +1,27 @@
+a {
+    cursor:pointer;
+}
+.form-group.required .control-label:after {
+    color: #d00;
+    content: "*";
+    position: absolute;
+    margin-left: 8px;
+    top:7px;
+}
+validation-messages div{
+    color: #d00;
+}
+.required{
+    color: red;
+}
+.validation-error {
+    color: red;
+}
+
+no-content {
+    color: #fff;
+}
+
+.help-text--custom-size {
+    font-size: 0.65em;
+}

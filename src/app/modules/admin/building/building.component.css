@@ -1,0 +1,12 @@
+.building-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    flex-grow: 1;
+    height: 100%;
+}
+
+.building-form-container form {
+    width: inherit;
+}

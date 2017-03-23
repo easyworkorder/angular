@@ -1,0 +1,10 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css?family=Crete+Round');
+@import "/assets/css/bootstrap.min.css";
+@import "/assets/css/plugins.css";
+@import "/assets/css/main.css";
+@import "/assets/css/themes.css";
+@import "/assets/css/toaster.css";
+@import "/assets/css/ng2-select.css";
+@import "/assets/css/app.css";

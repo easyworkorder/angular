@@ -1,0 +1,107 @@
+<!-- Contacts Header -->
+<div class="content-header">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="header-section">
+                <h1>Tenants</h1>
+            </div>
+        </div>
+        <div class="col-sm-6 hidden-xs">
+            <div class="header-section">
+                <ul class="breadcrumb breadcrumb-top">
+                    <li><a href="/dashboard">Dashboard</a></li>
+                    <li><a href="">Tenants</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--
+        FIXME: May be we will need to move this to a chile template or something similar.
+        Otherwise redundant HTMLs are producing.
+    -->
+    <div class="text-center border-top push-inner-top-bottom">
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="tenantSearchControl.setValue('')">ALL</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="tenantSearchControl.setValue('A')">A</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="tenantSearchControl.setValue('B')">B</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="tenantSearchControl.setValue('C')">C</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="tenantSearchControl.setValue('D')">D</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="tenantSearchControl.setValue('E')">E</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="tenantSearchControl.setValue('F')">F</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="tenantSearchControl.setValue('G')">G</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="tenantSearchControl.setValue('H')">H</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="tenantSearchControl.setValue('I')">I</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="tenantSearchControl.setValue('J')">J</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="tenantSearchControl.setValue('K')">K</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="tenantSearchControl.setValue('L')">L</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="tenantSearchControl.setValue('M')">M</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="tenantSearchControl.setValue('N')">N</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="tenantSearchControl.setValue('O')">O</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="tenantSearchControl.setValue('P')">P</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="tenantSearchControl.setValue('Q')">Q</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="tenantSearchControl.setValue('R')">R</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="tenantSearchControl.setValue('S')">S</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="tenantSearchControl.setValue('T')">T</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="tenantSearchControl.setValue('U')">U</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="tenantSearchControl.setValue('V')">V</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="tenantSearchControl.setValue('W')">W</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="tenantSearchControl.setValue('X')">X</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="tenantSearchControl.setValue('Y')">Y</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="tenantSearchControl.setValue('Z')">Z</a>
+    </div>
+</div>
+<!-- END Contacts Header -->
+<div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <!-- LEFT TABS WITH BUILDINGS -->
+        <!--
+            FIXME: Seems Something wrong with this HTML of Building list and tenant list
+                    Left menu and right side page body should be in a separate div, but
+                    they seems to be under same parent container.
+        -->
+        <div class="tabs-left clearfix">
+            <ul class="nav nav-tabs nav-pills nav-stacked">
+                <li *ngFor="let building of buildings; let isFirst = first" [class.active]="isFirst"><a (click)="getAllTenantsByBuilding(building.id)"
+                                                          data-toggle="tab" aria-expanded="true">{{building.name}}</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4 col-lg-3" *ngIf="tenants.length == 0">No Tenants Found.</div>
+                        <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let tenant of tenants | filterWithStartLetter: { last_name: tenantSearchControl.value }">
+                            <a *ngIf="tenant.contact_id" [routerLink]="['/contact-profile', tenant.contact_id ]" class="widget">
+                                <div class="widget-content text-center">
+                                    <img [src]="getPhotoUrl(tenant)" alt="avatar"
+                                         class="img-circle img-thumbnail img-thumbnail-avatar">
+                                    <h2 class="widget-heading h3 text-muted">{{tenant.last_name}} {{tenant.first_name}}</h2>
+                                </div>
+                                <div class="widget-content themed-background-muted text-dark text-center">
+                                    <address class="m-t-md" [innerHTML]="buildAddressHtml(tenant)"></address>
+                                </div>
+                                <div class="widget-content">
+                                    <div class="row text-center">
+                                        <div class="col-xs-6">
+                                            <a href="tel:{{tenant.phone}}" (click)="stopPropagation($event)">
+                                                <h3 class="widget-heading"><i class="gi gi-earphone text-info"></i> <br />
+                                                    <small>Call</small>
+                                                </h3>
+                                            </a>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <a href="mailto:{{ tenant.email }}" (click)="stopPropagation($event)">
+                                                <h3 class="widget-heading"><i class="gi gi-envelope text-danger"></i> <br />
+                                                    <small>Email</small>
+                                                </h3>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

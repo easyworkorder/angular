@@ -1,0 +1,572 @@
+<!-- Blank Header -->
+<div class="content-header">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="header-section">
+                <h1>Buildings</h1>
+            </div>
+        </div>
+        <div class="col-sm-6 hidden-xs">
+            <div class="header-section">
+                <ul class="breadcrumb breadcrumb-top">
+                    <li><a href="admin-setup.html">Administrator's Portal</a></li>
+                    <li>Buildings</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END Blank Header -->
+
+<!-- Get Started Block -->
+<div class="block full themed-background-neutral">
+    <!-- Get Started Title -->
+    <div class="block-title">
+        <div class="block-options pull-right">
+            <a href="#modal-add-building" class="btn btn-effect-ripple btn-success" data-toggle="modal" title="" style="overflow: hidden; position: relative;"
+                data-original-title="Add Building"><i
+                class="fa fa-plus"></i></a>
+        </div>
+        <h2>Buildings</h2>
+    </div>
+    <!-- END Get Started Title -->
+
+    <!-- Problem Types -->
+    <div class="row">
+        <!-- BEGIN LIST OF CONFERENCE ROOMS -->
+        <div class="col-sm-6 col-md-4 col-lg-4" *ngFor="let building of buildings">
+            <div class="widget">
+                <div class="widget-content widget-content-mini themed-background-default">
+                    <div class="block-options pull-right">
+                        <a (click)="editBuilding(building)" class="btn btn-effect-ripple btn-xs btn-success" data-toggle="tooltip"
+                            title="Edit Building" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                    </div>
+
+                    <div class="widget-content themed-background-default clearfix">
+                        <h2 class="widget-heading text-light"><strong>{{building.name}}</strong></h2>
+                        <address class="widget-heading text-light">
+                            {{building.address}}<br/> {{building.city}}, {{building.state}} {{building.postal_code}}
+                        </address>
+                    </div>
+                </div>
+                <div class="widget-content widget-content-full">
+                    <table class="table table-borderless remove-margin">
+                        <tbody>
+                            <tr>
+                                <td>Square Feet</td>
+                                <td class="text-left"><span class="text-muted">{{building.sqfootage}}</span></td>
+                            </tr>
+                            <tr>
+                                <td>Building Contact</td>
+                                <td class="text-left"><span class="text-muted">
+                                                            {{building.last_name}} {{building.first_name}}<br>
+                                                            {{building.work_phone}}, Direct<br>
+                                                            {{building.mobile_phone}}, Mobile<br>
+                                                            <a href="mailto:{{building.email}}">{{building.email}}</a>
+                                                        </span></td>
+                            </tr>
+                            <tr>
+                                <td>Tenants</td>
+                                <td class="text-left"><span class="text-muted">{{building.tenant_count}}</span></td>
+                            </tr>
+                            <tr>
+                                <td>Conference Rooms</td>
+                                <td class="text-left"><span class="text-muted">building.conf_count</span></td>
+                            </tr>
+                            <tr>
+                                <td>Open Service Requests</td>
+                                <td class="text-left"><span class="text-muted">building.ticket_count</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- END LIST OF CONFERENCE ROOMS --
+        <div class="text-center">
+            <ul class="pagination">
+                <li class="disabled"><a href="javascript:void(0)">Prev</a></li>
+                <li class="active"><a href="javascript:void(0)">1</a></li>
+                <li><a href="javascript:void(0)">2</a></li>
+                <li><a href="javascript:void(0)">3</a></li>
+                <li><a href="javascript:void(0)">Next</a></li>
+            </ul>
+        </div>
+        <!-- END Problem Types -->
+    </div>
+    <!-- END Get Started Block -->
+</div>
+<!-- END Page Content -->
+
+
+<!-- Add Building Modal -->
+<div id="modal-add-building" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h2 class="modal-title"><i class="fa fa-plus"></i> {{buildingForm.get('id').value == null ? 'Add New ' : 'Edit' }} Building</h2>
+            </div>
+            <div class="modal-body">
+                <!-- Clickable Wizard Content -->
+                <!--<form [formGroup]="buildingForm" (ngSubmit)="buildingForm.valid && onSubmit()" class="form-horizontal form-bordered">-->
+                <form [formGroup]="buildingForm" (ngSubmit)="onSubmit()" class="form-horizontal form-bordered">
+                    <!-- First Step -->
+                    <div *ngIf="tabs.isBuildingTabVisible" id="clickable-first" class="step">
+                        <!-- Step Info -->
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <ul class="nav nav-pills nav-justified clickable-steps">
+                                    <li class="active"><a (click)="switchTab(1)"><i class="fa fa-user"></i> <strong>Building</strong></a>
+                                    </li>
+                                    <li><a (click)="switchTab(2)"><i class="fa fa-pencil-square-o"></i>
+                                        <strong>Remit Information</strong></a></li>
+                                    <li><a (click)="switchTab(3)"><i class="fa fa-check"></i> <strong>SLA
+                                        Policy</strong></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- END Step Info -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="name">Building Name</label>
+                            <div class="col-md-6">
+                                <input [formControlValidator]="buildingForm.controls.name" formControlName="name" type="text" id="name" name="name" class="form-control"
+                                    placeholder="Building Name">
+                                <span class="validation-error">{{buildingForm.controls.name.error}}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="sqfootage">Square Feet <span class="required">*</span></label>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <input [formControlValidator]="buildingForm.controls.sqfootage" formControlName="sqfootage" type="text" id="sqfootage" name="sqfootage"
+                                        class="form-control" placeholder="Square Feet">
+                                    <div class="input-group-addon help-text help-text--custom-size">(Do not enter commas)</div>
+                                </div>
+                                <span class="validation-error">{{buildingForm.controls.sqfootage.error}}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="address">Address <span class="required">*</span></label>
+                            <div class="col-md-6">
+                                <input [formControlValidator]="buildingForm.controls.address" formControlName="address" type="text" id="address" name="address"
+                                    class="form-control" placeholder="Address">
+                                <span class="validation-error">{{buildingForm.controls.address.error}}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="city">City <span class="required">*</span></label>
+                            <div class="col-md-6">
+                                <input [formControlValidator]="buildingForm.controls.city" formControlName="city" type="text" id="city" name="city" class="form-control"
+                                    placeholder="City">
+                                <span class="validation-error">{{buildingForm.controls.city.error}}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="state">State <span class="required">*</span></label>
+                            <div class="col-md-6">
+                                <input [formControlValidator]="buildingForm.controls.state" formControlName="state" type="text" id="state" name="state" class="form-control"
+                                    placeholder="State">
+                                <span class="validation-error">{{buildingForm.controls.state.error}}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="postal_code">Postal Code <span class="required">*</span></label>
+                            <div class="col-md-6">
+                                <input [formControlValidator]="buildingForm.controls.postal_code" formControlName="postal_code" type="text" id="postal_code"
+                                    name="postal_code" class="form-control" placeholder="Postal Code">
+                                <span class="validation-error">{{buildingForm.controls.postal_code.error}}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="mgt_fee_percent">Management Fee <span class="required">*</span></label>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <input [formControlValidator]="buildingForm.controls.mgt_fee_percent" formControlName="mgt_fee_percent" type="text" id="mgt_fee_percent"
+                                        name="mgt_fee_percent" class="form-control input-sm" placeholder="Management Fee">
+                                    <div class="input-group-addon help-text help-text--custom-size">% (Do not enter a decimal point)</div>
+                                </div>
+                                <span class="validation-error">{{buildingForm.controls.mgt_fee_percent.error}}</span>
+                            </div>
+                        </div>
+                        <!--<div class="form-group">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-6">
+
+
+                            </div>
+                        </div>-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="primarycontact_id">Contact Person</label>
+                            <div class="col-md-6">
+                                <ng-select id="primarycontact_id" [multiple]="false" [items]="employees" placeholder="Select Contact Person" (selected)="selectedPrimaryContact($event)"
+                                    [active]="primarycontact_id"></ng-select>
+                                <!--<span *ngIf="primarycontact_id.length == 0" class="validation-error">This field is Required</span>-->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END First Step -->
+
+                    <!-- Second Step -->
+                    <div *ngIf="tabs.isContactTabVisible" id="clickable-second" class="step">
+                        <!-- Step Info -->
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <ul class="nav nav-pills nav-justified clickable-steps">
+                                    <li><a (click)="switchTab(1)"><i class="fa fa-user"></i>
+                                        <del><strong>Building</strong></del>
+                                    </a></li>
+                                    <li class="active"><a (click)="switchTab(2)"><i class="fa fa-pencil-square-o"></i>
+                                        <strong>Remit Information</strong></a></li>
+                                    <li><a (click)="switchTab(3)"><i class="fa fa-check"></i> <strong>SLA
+                                        Policy</strong></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- END Step Info -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="remit_company">Company Name <span class="required">*</span></label>
+                            <div class="col-md-6">
+                                <input [formControlValidator]="buildingForm.controls.remit_company" formControlName="remit_company" type="text" id="remit_company" name="remit_company" class="form-control"
+                                    placeholder="Company Name">
+                                <span class="validation-error">{{buildingForm.controls.remit_company.error}}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="remit_addr">Address <span class="required">*</span></label>
+                            <div class="col-md-6">
+                                <input [formControlValidator]="buildingForm.controls.remit_addr" formControlName="remit_addr" type="text" id="remit_addr" name="remit_addr"
+                                    class="form-control" placeholder="Address">
+                                <span class="validation-error">{{buildingForm.controls.remit_addr.error}}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="remit_city">City <span class="required">*</span></label>
+                            <div class="col-md-6">
+                                <input [formControlValidator]="buildingForm.controls.remit_city" formControlName="remit_city" type="text" id="remit_city" name="remit_city" class="form-control"
+                                    placeholder="City">
+                                <span class="validation-error">{{buildingForm.controls.remit_city.error}}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="remit_state">State <span class="required">*</span></label>
+                            <div class="col-md-6">
+                                <input [formControlValidator]="buildingForm.controls.remit_state" formControlName="remit_state" type="text" id="remit_state" name="remit_state" class="form-control"
+                                    placeholder="State">
+                                <span class="validation-error">{{buildingForm.controls.remit_state.error}}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="remit_postal_code">Zip/Postal Code <span class="required">*</span></label>
+                            <div class="col-md-6">
+                                <input [formControlValidator]="buildingForm.controls.remit_postal_code" formControlName="remit_postal_code" type="text" id="remit_postal_code"
+                                    name="remit_postal_code" class="form-control" placeholder="Postal Code">
+                                <span class="validation-error">{{buildingForm.controls.remit_postal_code.error}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END Second Step -->
+
+                    <!-- Third Step -->
+                    <div *ngIf="tabs.isSLATabVisible" id="clickable-third" class="step">
+                        <!-- Step Info -->
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <ul class="nav nav-pills nav-justified clickable-steps">
+                                    <li><a (click)="switchTab(1)"><i class="fa fa-user"></i>
+                                        <del><strong>Building</strong></del>
+                                    </a></li>
+                                    <li><a (click)="switchTab(2)"><i class="fa fa-pencil-square-o"></i>
+                                        <del><strong>Remit Information</strong></del>
+                                    </a></li>
+                                    <li class="active"><a (click)="switchTab(3)"><i class="fa fa-check"></i> <strong>SLA
+                                        Policy</strong></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- END Step Info -->
+                        <div class="form-group">
+                            <table id="general-table" class="table table-vcenter">
+                                <thead>
+                                    <tr>
+                                        <th>Priority</th>
+                                        <th>Respond Within</th>
+                                        <th>Resolve Within</th>
+                                        <th>Operational Hours</th>
+                                        <th>Escalation Email</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Urgent</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text" id="example-input2-group3" name="example-input2-group3" class="form-control">
+                                                <div class="input-group-btn">
+                                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                                                    <ul class="dropdown-menu dropdown-menu-right">
+                                                        <li><a href="javascript:void(0)">Mins</a></li>
+                                                        <li><a href="javascript:void(0)">Hrs</a></li>
+                                                        <li><a href="javascript:void(0)">Days</a></li>
+                                                        <li><a href="javascript:void(0)">Mos</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text" id="example-input2-group3" name="example-input2-group3" class="form-control">
+                                                <div class="input-group-btn">
+                                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                                                    <ul class="dropdown-menu dropdown-menu-right">
+                                                        <li><a href="javascript:void(0)">Mins</a></li>
+                                                        <li><a href="javascript:void(0)">Hrs</a></li>
+                                                        <li><a href="javascript:void(0)">Days</a></li>
+                                                        <li><a href="javascript:void(0)">Mos</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <select id="example-chosen" name="example-chosen" class="select-chosen" data-placeholder="Select" style="width: 250px;">
+                                                <option></option>
+                                                <!-- Required for data-placeholder attribute to work with Chosen plugin -->
+                                                <option value="United States">Business Hours</option>
+                                                <option value="United Kingdom">Calendar Hours</option>
+                                            </select>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <label class="switch switch-primary" for="example-clickable-terms">
+                                            <input type="checkbox" id="example-clickable-terms"
+                                                   name="example-clickable-terms" value="1">
+                                            <span data-toggle="tooltip" title="Escolate"></span>
+                                        </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>High</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text" id="example-input2-group3" name="example-input2-group3" class="form-control">
+                                                <div class="input-group-btn">
+                                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                                                    <ul class="dropdown-menu dropdown-menu-right">
+                                                        <li><a href="javascript:void(0)">Mins</a></li>
+                                                        <li><a href="javascript:void(0)">Hrs</a></li>
+                                                        <li><a href="javascript:void(0)">Days</a></li>
+                                                        <li><a href="javascript:void(0)">Mos</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text" id="example-input2-group3" name="example-input2-group3" class="form-control">
+                                                <div class="input-group-btn">
+                                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                                                    <ul class="dropdown-menu dropdown-menu-right">
+                                                        <li><a href="javascript:void(0)">Mins</a></li>
+                                                        <li><a href="javascript:void(0)">Hrs</a></li>
+                                                        <li><a href="javascript:void(0)">Days</a></li>
+                                                        <li><a href="javascript:void(0)">Mos</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <select id="example-chosen" name="example-chosen" class="select-chosen" data-placeholder="Select" style="width: 250px;">
+                                                <option></option>
+                                                <!-- Required for data-placeholder attribute to work with Chosen plugin -->
+                                                <option value="United States">Business Hours</option>
+                                                <option value="United Kingdom">Calendar Hours</option>
+                                            </select>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <label class="switch switch-primary" for="example-clickable-terms">
+                                            <input type="checkbox" id="example-clickable-terms"
+                                                   name="example-clickable-terms" value="1">
+                                            <span data-toggle="tooltip" title="Escolate"></span>
+                                        </label>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Medium</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text" id="example-input2-group3" name="example-input2-group3" class="form-control">
+                                                <div class="input-group-btn">
+                                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                                                    <ul class="dropdown-menu dropdown-menu-right">
+                                                        <li><a href="javascript:void(0)">Mins</a></li>
+                                                        <li><a href="javascript:void(0)">Hrs</a></li>
+                                                        <li><a href="javascript:void(0)">Days</a></li>
+                                                        <li><a href="javascript:void(0)">Mos</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text" id="example-input2-group3" name="example-input2-group3" class="form-control">
+                                                <div class="input-group-btn">
+                                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                                                    <ul class="dropdown-menu dropdown-menu-right">
+                                                        <li><a href="javascript:void(0)">Mins</a></li>
+                                                        <li><a href="javascript:void(0)">Hrs</a></li>
+                                                        <li><a href="javascript:void(0)">Days</a></li>
+                                                        <li><a href="javascript:void(0)">Mos</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <select id="example-chosen" name="example-chosen" class="select-chosen" data-placeholder="Select" style="width: 250px;">
+                                                <option></option>
+                                                <!-- Required for data-placeholder attribute to work with Chosen plugin -->
+                                                <option value="United States">Business Hours</option>
+                                                <option value="United Kingdom">Calendar Hours</option>
+                                            </select>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <label class="switch switch-primary" for="example-clickable-terms">
+                                            <input type="checkbox" id="example-clickable-terms"
+                                                   name="example-clickable-terms" value="1">
+                                            <span data-toggle="tooltip" title="Escolate"></span>
+                                        </label>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Low</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text" id="example-input2-group3" name="example-input2-group3" class="form-control">
+                                                <div class="input-group-btn">
+                                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                                                    <ul class="dropdown-menu dropdown-menu-right">
+                                                        <li><a href="javascript:void(0)">Mins</a></li>
+                                                        <li><a href="javascript:void(0)">Hrs</a></li>
+                                                        <li><a href="javascript:void(0)">Days</a></li>
+                                                        <li><a href="javascript:void(0)">Mos</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="text" id="example-input2-group3" name="example-input2-group3" class="form-control">
+                                                <div class="input-group-btn">
+                                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                                                    <ul class="dropdown-menu dropdown-menu-right">
+                                                        <li><a href="javascript:void(0)">Mins</a></li>
+                                                        <li><a href="javascript:void(0)">Hrs</a></li>
+                                                        <li><a href="javascript:void(0)">Days</a></li>
+                                                        <li><a href="javascript:void(0)">Mos</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <select id="example-chosen" name="example-chosen" class="select-chosen" data-placeholder="Select" style="width: 250px;">
+                                                <option></option>
+                                                <!-- Required for data-placeholder attribute to work with Chosen plugin -->
+                                                <option value="United States">Business Hours</option>
+                                                <option value="United Kingdom">Calendar Hours</option>
+                                            </select>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <label class="switch switch-primary" for="example-clickable-terms">
+                                            <input type="checkbox" id="example-clickable-terms"
+                                                   name="example-clickable-terms" value="1">
+                                            <span data-toggle="tooltip" title="Escolate"></span>
+                                        </label>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- END Third Step -->
+
+                    <!-- Form Buttons -->
+                    <div class="form-group form-actions">
+                        <div class="col-xs-12 text-right">
+                            <button type="submit" class="btn btn-effect-ripple btn-success" style="overflow: hidden; position: relative;">Save
+                            </button>
+                        </div>
+                    </div>
+                    <!-- END Form Buttons -->
+                </form>
+                <!-- END Clickable Wizard Content -->
+                <!--</div>-->
+                <!-- END Clickable Wizard Block -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END Add Building Modal -->
+
+<!--
+<div class="building-form-container">
+  <form [formGroup]="buildingCreateForm" (ngSubmit)="buildingCreateForm.valid && onSubmit()" class="form-horizontal"  novalidate>
+    <div class="form-group">
+      <label for="name" class="col-sm-4 control-label">Name</label>
+      <div class="col-sm-8">
+        <input formControlName="name" type="text" class="form-control" id="name" placeholder="" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="propertymanager" class="col-sm-4 control-label">Property Manager</label>
+      <div class="col-sm-8">
+        <input formControlName="propertymanager" type="text" class="form-control" id="propertymanager" placeholder="">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="sqfootage" class="col-sm-4 control-label">Square footage</label>
+      <div class="col-sm-8">
+        <input formControlName="sqfootage" type="text" class="form-control" id="sqfootage" placeholder="">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="floors" class="col-sm-4 control-label">Floors</label>
+      <div class="col-sm-8">
+        <input formControlName="floors" type="text" class="form-control" id="floors" placeholder="">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="contactfname" class="col-sm-4 control-label">Contact First Name</label>
+      <div class="col-sm-8">
+        <input formControlName="contactfname" type="text" class="form-control" id="contactfname" placeholder="">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="contactlname" class="col-sm-4 control-label">Contact Last Name</label>
+      <div class="col-sm-8">
+        <input formControlName="contactlname" type="text" class="form-control" id="contactlname" placeholder="">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="contactphone" class="col-sm-4 control-label">Contact Last Name</label>
+      <div class="col-sm-8">
+        <input formControlName="contactphone" type="text" class="form-control" id="contactphone" placeholder="">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-4 col-sm-8">
+        <button type="submit" class="btn btn-default">Save</button>
+      </div>
+    </div>
+  </form>
+</div>-->

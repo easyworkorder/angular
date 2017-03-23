@@ -1,0 +1,97 @@
+<!--<div class="signin-container">
+    <form [formGroup]="signinForm" (ngSubmit)="signinForm.valid && onSubmit()" class="m-t-1">
+
+        <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+            <div class="mdl-card__title mdl-color--primary mdl-color-text--white">
+                <div class="mdl-layout-spacer"></div>
+            </div>
+            <div class="mdl-card__supporting-text">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <label class="mdl-textfield__label" for="email">Email</label>
+                    <input [formControlValidator]="signinForm.controls.email" formControlName="email" class="mdl-textfield__input" type="text"
+                        id="email">
+                        <span class="mdl-textfield__error">{{signinForm.controls.email.error}}</span>
+                </div>
+
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <label class="mdl-textfield__label" for="password">Password</label>
+                    <input [formControlValidator]="signinForm.controls.password" formControlName="password" class="mdl-textfield__input" type="password"
+                        id="password">
+                        <span class="mdl-textfield__error">{{signinForm.controls.password.error}}</span>
+                </div>
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+                <button (click)="signinForm.submitted = true; signinForm.updateValueAndValidity();" type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                    Login
+                  </button>
+            </div>
+        </div>
+
+    </form>
+</div>-->
+
+
+
+
+
+
+
+<!--New Login UI from Template-->
+
+<div class="login-container">
+            <!-- Login Header -->
+            <h1 class="h2 text-light text-center push-top-bottom animation-slideDown">
+                <i class="fa fa-cube"></i> <strong>Welcome to AppUI</strong>
+            </h1>
+            <!-- END Login Header -->
+
+            <!-- Login Block -->
+            <div class="block animation-fadeInQuickInv">
+                <!-- Login Title -->
+                <div class="block-title">
+                    <div class="block-options pull-right">
+                        <a href="page_ready_reminder.html" class="btn btn-effect-ripple btn-primary" data-toggle="tooltip" data-placement="left" title="Forgot your password?"><i class="fa fa-exclamation-circle"></i></a>
+                        <a href="page_ready_register.html" class="btn btn-effect-ripple btn-primary" data-toggle="tooltip" data-placement="left" title="Create new account"><i class="fa fa-plus"></i></a>
+                    </div>
+                    <h2>Please Login</h2>
+                </div>
+                <!-- END Login Title -->
+
+                <!-- Login Form -->
+                <!--<form id="form-login" action="index.html" method="post" class="form-horizontal">-->
+                <form [formGroup]="signinForm" (ngSubmit)="signinForm.valid && onSubmit()" class="">
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <!--<input type="text" id="login-email" name="login-email" class="form-control" placeholder="Your email..">-->
+                            <input formControlName="username" class="form-control textinput textInput" type="text" id="username" placeholder="User Name.." />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <!--<input type="password" id="login-password" name="login-password" class="form-control" placeholder="Your password..">-->
+                            <input [formControlValidator]="signinForm.controls.password" formControlName="password" class="form-control textinput textInput" type="password" id="password" />
+                        </div>
+                    </div>
+                    <div class="form-group form-actions">
+                        <div class="col-xs-8">
+                            <label class="csscheckbox csscheckbox-primary">
+                                <input type="checkbox" id="login-remember-me" name="login-remember-me">
+                                <span></span>
+                            </label>
+                            Remember Me?
+                        </div>
+                        <div class="col-xs-4 text-right">
+                            <button type="submit" class="btn btn-effect-ripple btn-sm btn-primary"><i class="fa fa-check"></i> Let's Go</button>
+                        </div>
+                    </div>
+                </form>
+                <!-- END Login Form -->
+            </div>
+            <!-- END Login Block -->
+
+            <!-- Footer -->
+            <footer class="text-muted text-center animation-pullUp">
+                <small><span id="year-copy"></span> &copy; <a href="http://goo.gl/RcsdAh" target="_blank">AppUI 2.8</a></small>
+            </footer>
+            <!-- END Footer -->
+        </div>

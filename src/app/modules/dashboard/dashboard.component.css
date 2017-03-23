@@ -1,0 +1,7 @@
+#page-wrapper.page-loading #page-container {
+    opacity: 1 !important;
+}
+
+.log-out:hover {
+    cursor: pointer;
+}
