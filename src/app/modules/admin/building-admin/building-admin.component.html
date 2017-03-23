@@ -149,13 +149,13 @@
               <!-- END Menu Title -->
               <a href="#" class="widget">
                 <div class="widget-content text-center">
-                  <img src="assets/img/placeholders/avatars/allison-goodman.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
+                  <img [src]="getPhotoUrl(editedBuilding.ContactPersonPhoto)" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
                   <h2 *ngIf="editedBuilding.contactPerson" class="widget-heading h3 text-muted">{{editedBuilding.contactPerson}}</h2>
                 </div>
                 <div class="widget-content themed-background-muted text-dark text-center">
                   <address class="m-t-md">
-                    <strong>Twitter, Inc.</strong><br> 795 Folsom Ave, Suite 600<br> San Francisco, CA 94107<br>
-                    <abbr title="Phone">P:</abbr> (123) 456-7890
+                    <strong>{{editedBuilding.primaryCompany}}</strong><br> {{editedBuilding.primaryCompanyAddress}}<span *ngIf="editedBuilding.primaryCompanyUnitNo">, </span>{{editedBuilding.primaryCompanyUnitNo}}<br *ngIf="editedBuilding.primaryCompanyAddress"> <span *ngIf="editedBuilding.primaryCompanyCity">{{editedBuilding.primaryCompanyCity}},</span> {{editedBuilding.primaryCompanyState}} {{editedBuilding.primaryCompanyPostalCode}}<br *ngIf="(editedBuilding.primaryCompanyState || editedBuilding.primaryCompanyPostalCode)">
+                    <abbr title="Phone">P:</abbr> {{editedBuilding.ContactPersonWorkPhone}}
                   </address>
                 </div>
                 <div class="widget-content">
@@ -244,236 +244,11 @@
         </div>
         <!-- END Tickets Content -->
       </div>
+      <!-- Tenants LIST-->
       <div class="tab-pane" id="bldg1-tenants">
-        <!-- START CONTACTS ALPHABET FILTER -->
-        <div class="text-center border-top push-inner-top-bottom">
-          <a href="#modal-add-contact" class="btn btn-sm btn-success" data-toggle="modal" style="overflow: hidden; position: relative;"><i class="fa fa-plus"></i></a>
-          <a href="#" class="btn btn-sm btn-muted">A</a>
-          <a href="#" class="btn btn-sm btn-muted">B</a>
-          <a href="#" class="btn btn-sm btn-muted">C</a>
-          <a href="#" class="btn btn-sm btn-muted">D</a>
-          <a href="#" class="btn btn-sm btn-muted">E</a>
-          <a href="#" class="btn btn-sm btn-muted">F</a>
-          <a href="#" class="btn btn-sm btn-muted">G</a>
-          <a href="#" class="btn btn-sm btn-muted">H</a>
-          <a href="#" class="btn btn-sm btn-muted">I</a>
-          <a href="#" class="btn btn-sm btn-muted">J</a>
-          <a href="#" class="btn btn-sm btn-muted">K</a>
-          <a href="#" class="btn btn-sm btn-muted">L</a>
-          <a href="#" class="btn btn-sm btn-muted">M</a>
-          <a href="#" class="btn btn-sm btn-muted">N</a>
-          <a href="#" class="btn btn-sm btn-muted">O</a>
-          <a href="#" class="btn btn-sm btn-muted">P</a>
-          <a href="#" class="btn btn-sm btn-muted">Q</a>
-          <a href="#" class="btn btn-sm btn-muted">R</a>
-          <a href="#" class="btn btn-sm btn-muted">S</a>
-          <a href="#" class="btn btn-sm btn-muted">T</a>
-          <a href="#" class="btn btn-sm btn-muted">V</a>
-          <a href="#" class="btn btn-sm btn-muted">U</a>
-          <a href="#" class="btn btn-sm btn-muted">W</a>
-          <a href="#" class="btn btn-sm btn-muted">X</a>
-          <a href="#" class="btn btn-sm btn-muted">Y</a>
-          <a href="#" class="btn btn-sm btn-muted">Z</a>
-        </div>
-        <!-- END CONTACTS ALPHABET FILTER -->
-
-        <!-- BEGIN LIST OF CONTACTS -->
-        <div class="col-sm-6 col-md-4 col-lg-3">
-          <a href="tenant-profile.html" class="widget">
-            <div class="widget-content text-center">
-              <img src="assets/img/placeholders/avatars/avatar9.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
-              <h2 class="widget-heading h3 text-muted">Anna Wigren</h2>
-            </div>
-            <div class="widget-content themed-background-muted text-dark text-center">
-              <address class="m-t-md">
-                <strong>Bank of America</strong><br> 795 Folsom Ave, Suite 600<br> San Francisco, CA 94107<br>
-                <abbr title="Phone">P:</abbr> (123) 456-7890
-              </address>
-            </div>
-            <div class="widget-content">
-              <div class="row text-center">
-                <div class="col-xs-6">
-                  <h3 class="widget-heading"><i class="gi gi-earphone text-info"></i> <br>
-                    <small>Call</small></h3>
-                </div>
-                <div class="col-xs-6">
-                  <h3 class="widget-heading"><i class="gi gi-envelope text-danger"></i> <br>
-                    <small>Email</small></h3>
-                </div>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-3">
-          <a href="tenant-profile.html" class="widget">
-            <div class="widget-content text-center">
-              <img src="assets/img/placeholders/avatars/avatar9.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
-              <h2 class="widget-heading h3 text-muted">Jacob Hunt</h2>
-            </div>
-            <div class="widget-content themed-background-muted text-dark text-center">
-              <address class="m-t-md">
-                <strong>Facebook</strong><br> 795 Folsom Ave, Suite 600<br> San Francisco, CA 94107<br>
-                <abbr title="Phone">P:</abbr> (123) 456-7890
-              </address>
-            </div>
-            <div class="widget-content">
-              <div class="row text-center">
-                <div class="col-xs-6">
-                  <h3 class="widget-heading"><i class="gi gi-earphone text-info"></i> <br><small>Call</small></h3>
-                </div>
-                <div class="col-xs-6">
-                  <h3 class="widget-heading"><i class="gi gi-envelope text-danger"></i> <br><small>Email</small></h3>
-                </div>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-3">
-          <a href="tenant-profile.html" class="widget">
-            <div class="widget-content text-center">
-              <img src="assets/img/placeholders/avatars/avatar9.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
-              <h2 class="widget-heading h3 text-muted">Michele Smith</h2>
-            </div>
-            <div class="widget-content themed-background-muted text-dark text-center">
-              <address class="m-t-md">
-                <strong>Twitter, Inc.</strong><br> 795 Folsom Ave, Suite 600<br> San Francisco, CA 94107<br>
-                <abbr title="Phone">P:</abbr> (123) 456-7890
-              </address>
-            </div>
-            <div class="widget-content">
-              <div class="row text-center">
-                <div class="col-xs-6">
-                  <h3 class="widget-heading"><i class="gi gi-earphone text-info"></i> <br><small>Call</small></h3>
-                </div>
-                <div class="col-xs-6">
-                  <h3 class="widget-heading"><i class="gi gi-envelope text-danger"></i> <br><small>Email</small></h3>
-                </div>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-3">
-          <a href="tenant-profile.html" class="widget">
-            <div class="widget-content text-center">
-              <img src="assets/img/placeholders/avatars/avatar9.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
-              <h2 class="widget-heading h3 text-muted">Alice Waters</h2>
-            </div>
-            <div class="widget-content themed-background-muted text-dark text-center">
-              <address class="m-t-md">
-                <strong>Sullivan, Amhurst, Walley</strong><br> 795 Folsom Ave, Suite 600<br> San Francisco, CA 94107<br>
-                <abbr title="Phone">P:</abbr> (123) 456-7890
-              </address>
-            </div>
-            <div class="widget-content">
-              <div class="row text-center">
-                <div class="col-xs-6">
-                  <h3 class="widget-heading"><i class="gi gi-earphone text-info"></i> <br><small>Call</small></h3>
-                </div>
-                <div class="col-xs-6">
-                  <h3 class="widget-heading"><i class="gi gi-envelope text-danger"></i> <br><small>Email</small></h3>
-                </div>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-3">
-          <a href="tenant-profile.html" class="widget">
-            <div class="widget-content text-center">
-              <img src="assets/img/placeholders/avatars/avatar9.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
-              <h2 class="widget-heading h3 text-muted">George Benson</h2>
-            </div>
-            <div class="widget-content themed-background-muted text-dark text-center">
-              <address class="m-t-md">
-                <strong>Trader Joes</strong><br> 795 Folsom Ave, Suite 600<br> San Francisco, CA 94107<br>
-                <abbr title="Phone">P:</abbr> (123) 456-7890
-              </address>
-            </div>
-            <div class="widget-content">
-              <div class="row text-center">
-                <div class="col-xs-6">
-                  <h3 class="widget-heading"><i class="gi gi-earphone text-info"></i> <br><small>Call</small></h3>
-                </div>
-                <div class="col-xs-6">
-                  <h3 class="widget-heading"><i class="gi gi-envelope text-danger"></i> <br><small>Email</small></h3>
-                </div>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-3">
-          <a href="tenant-profile.html" class="widget">
-            <div class="widget-content text-center">
-              <img src="assets/img/placeholders/avatars/avatar9.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
-              <h2 class="widget-heading h3 text-muted">Marc Johnson</h2>
-            </div>
-            <div class="widget-content themed-background-muted text-dark text-center">
-              <address class="m-t-md">
-                <strong>City of San Francisco</strong><br> 795 Folsom Ave, Suite 600<br> San Francisco, CA 94107<br>
-                <abbr title="Phone">P:</abbr> (123) 456-7890
-              </address>
-            </div>
-            <div class="widget-content">
-              <div class="row text-center">
-                <div class="col-xs-6">
-                  <h3 class="widget-heading"><i class="gi gi-earphone text-info"></i> <br><small>Call</small></h3>
-                </div>
-                <div class="col-xs-6">
-                  <h3 class="widget-heading"><i class="gi gi-envelope text-danger"></i> <br><small>Email</small></h3>
-                </div>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-3">
-          <a href="tenant-profile.html" class="widget">
-            <div class="widget-content text-center">
-              <img src="assets/img/placeholders/avatars/avatar9.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
-              <h2 class="widget-heading h3 text-muted">Ken Hampton</h2>
-            </div>
-            <div class="widget-content themed-background-muted text-dark text-center">
-              <address class="m-t-md">
-                <strong>Wells Fargo</strong><br> 795 Folsom Ave, Suite 600<br> San Francisco, CA 94107<br>
-                <abbr title="Phone">P:</abbr> (123) 456-7890
-              </address>
-            </div>
-            <div class="widget-content">
-              <div class="row text-center">
-                <div class="col-xs-6">
-                  <h3 class="widget-heading"><i class="gi gi-earphone text-info"></i> <br><small>Call</small></h3>
-                </div>
-                <div class="col-xs-6">
-                  <h3 class="widget-heading"><i class="gi gi-envelope text-danger"></i> <br><small>Email</small></h3>
-                </div>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-3">
-          <a href="tenant-profile.html" class="widget">
-            <div class="widget-content text-center">
-              <img src="assets/img/placeholders/avatars/avatar9.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
-              <h2 class="widget-heading h3 text-muted">Larry Jones</h2>
-            </div>
-            <div class="widget-content themed-background-muted text-dark text-center">
-              <address class="m-t-md">
-                <strong>Kaiser Permanente</strong><br> 795 Folsom Ave, Suite 600<br> San Francisco, CA 94107<br>
-                <abbr title="Phone">P:</abbr> (123) 456-7890
-              </address>
-            </div>
-            <div class="widget-content">
-              <div class="row text-center">
-                <div class="col-xs-6">
-                  <h3 class="widget-heading"><i class="gi gi-earphone text-info"></i> <br><small>Call</small></h3>
-                </div>
-                <div class="col-xs-6">
-                  <h3 class="widget-heading"><i class="gi gi-envelope text-danger"></i> <br><small>Email</small></h3>
-                </div>
-              </div>
-            </div>
-          </a>
-        </div>
-        <!-- END LIST OF TENANTS -->
+        <ewo-tenant></ewo-tenant>
       </div>
+      <!-- End Tenants LIST-->
       <div class="tab-pane" id="bldg1-notifications">
         <!-- START CONTACTS ALPHABET FILTER -->
         <div class="text-center border-top push-inner-top-bottom">

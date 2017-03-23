@@ -1,112 +1,65 @@
-<!-- Contacts Header -->
-<div class="content-header">
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="header-section">
-                <h1>Tenants</h1>
-            </div>
-        </div>
-        <div class="col-sm-6 hidden-xs">
-            <div class="header-section">
-                <ul class="breadcrumb breadcrumb-top">
-                    <li><a href="/dashboard">Dashboard</a></li>
-                    <li><a href="">Tenants</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <!--
-        FIXME: May be we will need to move this to a chile template or something similar.
-        Otherwise redundant HTMLs are producing.
-    -->
-    <div class="text-center border-top push-inner-top-bottom">
-        <a href="#modal-add-tenant" class="btn btn-sm btn-success" data-toggle="modal"><i class="fa fa-plus"></i></a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">A</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">B</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">C</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">D</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">E</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">F</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">G</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">H</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">I</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">J</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">K</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">L</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">M</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">N</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">O</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">P</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">Q</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">R</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">S</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">T</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">V</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">U</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">W</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">X</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">Y</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">Z</a>
-    </div>
+<!-- START CONTACTS ALPHABET FILTER -->
+<div class="text-center border-top push-inner-top-bottom">
+    <a href="#modal-add-tenant" class="btn btn-sm btn-success" data-toggle="modal" style="overflow: hidden; position: relative;"><i class="fa fa-plus"></i></a>
+    <a href="#" class="btn btn-sm btn-muted">A</a>
+    <a href="#" class="btn btn-sm btn-muted">B</a>
+    <a href="#" class="btn btn-sm btn-muted">C</a>
+    <a href="#" class="btn btn-sm btn-muted">D</a>
+    <a href="#" class="btn btn-sm btn-muted">E</a>
+    <a href="#" class="btn btn-sm btn-muted">F</a>
+    <a href="#" class="btn btn-sm btn-muted">G</a>
+    <a href="#" class="btn btn-sm btn-muted">H</a>
+    <a href="#" class="btn btn-sm btn-muted">I</a>
+    <a href="#" class="btn btn-sm btn-muted">J</a>
+    <a href="#" class="btn btn-sm btn-muted">K</a>
+    <a href="#" class="btn btn-sm btn-muted">L</a>
+    <a href="#" class="btn btn-sm btn-muted">M</a>
+    <a href="#" class="btn btn-sm btn-muted">N</a>
+    <a href="#" class="btn btn-sm btn-muted">O</a>
+    <a href="#" class="btn btn-sm btn-muted">P</a>
+    <a href="#" class="btn btn-sm btn-muted">Q</a>
+    <a href="#" class="btn btn-sm btn-muted">R</a>
+    <a href="#" class="btn btn-sm btn-muted">S</a>
+    <a href="#" class="btn btn-sm btn-muted">T</a>
+    <a href="#" class="btn btn-sm btn-muted">V</a>
+    <a href="#" class="btn btn-sm btn-muted">U</a>
+    <a href="#" class="btn btn-sm btn-muted">W</a>
+    <a href="#" class="btn btn-sm btn-muted">X</a>
+    <a href="#" class="btn btn-sm btn-muted">Y</a>
+    <a href="#" class="btn btn-sm btn-muted">Z</a>
 </div>
-<!-- END Contacts Header -->
-<div class="row">
-    <div class="col-sm-12 col-md-12 col-lg-12">
-        <!-- LEFT TABS WITH BUILDINGS -->
-        <!--
-            FIXME: Seems Something wrong with this HTML of Building list and tenant list
-                    Left menu and right side page body should be in a separate div, but
-                    they seems to be under same parent container.
-        -->
-        <div class="tabs-left clearfix">
-            <ul class="nav nav-tabs nav-pills nav-stacked">
-                <li *ngFor="let building of buildings; let isFirst = first" [class.active]="isFirst"><a (click)="getAllTenantsByBuilding(building.id)"
-                                                          data-toggle="tab" aria-expanded="true">{{building.name}}</a>
-                </li>
-            </ul>
-            <div class="tab-content">
-                <div class="tab-pane active">
-                    <div class="row">
-                        <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let tenant of tenants;">
-                            <!--<a href="tenant-profile.html" class="widget">-->
-                            <a *ngIf="tenant.contact_id" [routerLink]="['/contact-profile', tenant.contact_id ]" class="widget">
-                                <!--<a [routerLink]="['/', 'tenant']">Tenants</a>-->
-                                <div class="widget-content text-center">
-                                    <img [src]="getPhotoUrl(tenant)" alt="avatar"
-                                         class="img-circle img-thumbnail img-thumbnail-avatar">
-                                    <!--<h2 class="widget-heading h3 text-muted">{{tenant.tenant_company_name}}</h2>-->
-                                    <h2 class="widget-heading h3 text-muted">{{ buildName(tenant.first_name, tenant.last_name)}}</h2>
-                                </div>
-                                <div class="widget-content themed-background-muted text-dark text-center">
-                                    <address class="m-t-md" [innerHTML]="buildAddressHtml(tenant)"></address>
-                                </div>
-                                <div class="widget-content">
-                                    <div class="row text-center">
-                                        <div class="col-xs-6">
-                                            <a href="tel:{{tenant.phone}}" (click)="stopPropagation($event)">
-                                                <h3 class="widget-heading"><i class="gi gi-earphone text-info"></i> <br />
-                                                    <small>Call</small>
-                                                </h3>
-                                            </a>
-                                        </div>
-                                        <div class="col-xs-6">
-                                            <a href="mailto:{{ tenant.email }}" (click)="stopPropagation($event)">
-                                                <h3 class="widget-heading"><i class="gi gi-envelope text-danger"></i> <br />
-                                                    <small>Email</small>
-                                                </h3>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
+<!-- END CONTACTS ALPHABET FILTER -->
+<div *ngFor="let tenant of tenants" class="col-sm-6 col-md-4 col-lg-3">
+    <!--<a [routerLink]="['/contact-profile', tenant.contact_id ]" class="widget">-->
+    <a class="widget">
+        <div class="widget-content text-center">
+            <img [src]="getPhotoUrl(tenant)" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
+            <h2 class="widget-heading h3 text-muted">{{ buildName(tenant.first_name, tenant.last_name)}}</h2>
+        </div>
+        <div class="widget-content themed-background-muted text-dark text-center">
+            <address class="m-t-md">
+                <strong>{{tenant.tenant_company_name}}</strong><br *ngIf="tenant.unitNo"> {{tenant.unitNo}}<br *ngIf="tenant.title">{{tenant.title}}<br>
+                <abbr title="Phone">P:</abbr> <span *ngIf="tenant.extension">({{tenant.extension}}) &nbsp;</span> {{tenant.phone}}
+            </address>
+        </div>
+        <div class="widget-content">
+            <div class="row text-center">
+                <div class="col-xs-6">
+                    <a href="tel:{{tenant.phone}}" (click)="stopPropagation($event)">
+                        <h3 class="widget-heading"><i class="gi gi-earphone text-info"></i> <br>
+                            <small>Call</small></h3>
+                    </a>
+                </div>
+                <div class="col-xs-6">
+                    <a href="mailto:{{ tenant.email }}" (click)="stopPropagation($event)">
+                        <h3 class="widget-heading"><i class="gi gi-envelope text-danger"></i> <br>
+                            <small>Email</small></h3>
+                    </a>
                 </div>
             </div>
         </div>
-    </div>
+    </a>
 </div>
-
 
 <!-- Add Tenant Modal -->
 <div id="modal-add-tenant" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
@@ -117,11 +70,9 @@
                 <h3 class="modal-title"><i class="fa fa-plus"></i> <strong>New Tenant</strong></h3>
             </div>
             <div class="modal-body">
-                <form [formGroup]="tenantForm" (ngSubmit)="onSubmit()" id="clickable-wizard"
-                      class="form-horizontal form-bordered" novalidate>
+                <form [formGroup]="tenantForm" (ngSubmit)="onSubmit()" id="clickable-wizard" class="form-horizontal form-bordered" novalidate>
                     <!--<input formControlName="building_id" type="hidden" value="{{currentBuildingId}}">-->
-                    <div *ngIf="tabs.isBasicTabVisible" id="clickable-first" class="step ui-formwizard-content"
-                         style="display: block;">
+                    <div *ngIf="tabs.isBasicTabVisible" id="clickable-first" class="step ui-formwizard-content" style="display: block;">
                         <div class="form-group">
                             <div class="col-xs-12">
                                 <ul class="nav nav-pills nav-justified clickable-steps">
@@ -132,24 +83,23 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="form-group required">
-                            <label class="col-xs-3 control-label" for="tenant_company_name">Company Name:</label>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label" for="tenant_company_name">Company Name <span class="required">*</span></label>
                             <div class="col-xs-9">
-                                <input #tcn formControlName="tenant_company_name" type="text" id="tenant_company_name"
-                                       name="tenant_company_name" class="form-control"
-                                       placeholder="Tenant's Company Name">
-                                       <!-- Validation Way 1 -->
+                                <input #tcn formControlName="tenant_company_name" type="text" id="tenant_company_name" name="tenant_company_name" class="form-control"
+                                    placeholder="Tenant's Company Name">
+                                <!-- Validation Way 1 -->
                                 <validation-messages [el]="tcn" [control]="tenantForm.controls.tenant_company_name"></validation-messages>
                             </div>
                         </div>
-                        <div class="form-group required">
-                            <label class="col-md-3 control-label" for="mgtfeepercent">Management Fee</label>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="mgtfeepercent">Management Fee <span class="required">*</span></label>
                             <div class="col-xs-9">
                                 <input [formControlValidator]="tenantForm.controls.mgtfeepercent" formControlName="mgtfeepercent" type="text" id="mgtfeepercent"
-                                       name="mgtfeepercent" class="form-control col-xs-3" placeholder="Management Fee Percent" size="20">
-                                       <div class="input-group-addon">(%)</div>
+                                    name="mgtfeepercent" class="form-control col-xs-3" placeholder="Management Fee Percent" size="20">
+                                <div class="input-group-addon">(%)</div>
                                 <!-- Validation Way 2 -->
-                                        <span class="validation-error">{{tenantForm.controls.mgtfeepercent.error}}</span>
+                                <span class="validation-error">{{tenantForm.controls.mgtfeepercent.error}}</span>
 
                             </div>
                             <!--<div class="col-xs-1">%</div>-->
@@ -157,23 +107,21 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label" for="unitno">Unit Number</label>
                             <div class="col-xs-9">
-                                <input  [formControlValidator]="tenantForm.controls.unitno" formControlName="unitno" type="text" id="unitno" name="unitno"
-                                       class="form-control" placeholder="Unit Number">
-                                        <span class="validation-error">{{tenantForm.controls.unitno.error}}</span>
+                                <input [formControlValidator]="tenantForm.controls.unitno" formControlName="unitno" type="text" id="unitno" name="unitno"
+                                    class="form-control" placeholder="Unit Number">
+                                <span class="validation-error">{{tenantForm.controls.unitno.error}}</span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-3 control-label" for="inscertdate">Ins Cert exp date</label>
                             <div class="col-xs-9">
-                                <input formControlName="inscertdate" type="text" id="inscertdate" name="inscertdate"
-                                       class="form-control" placeholder="Ins Cert exp date">
+                                <input formControlName="inscertdate" type="text" id="inscertdate" name="inscertdate" class="form-control" placeholder="Ins Cert exp date">
                             </div>
                         </div>
 
                     </div>
 
-                    <div *ngIf="tabs.isContactTabVisible" id="clickable-second" class="step ui-formwizard-content"
-                         style="display: block;">
+                    <div *ngIf="tabs.isContactTabVisible" id="clickable-second" class="step ui-formwizard-content" style="display: block;">
                         <!-- Step Info -->
                         <div class="form-group">
                             <div class="col-xs-12">
@@ -190,15 +138,19 @@
                         <!-- END Step Info -->
                         <div *ngFor="let contact of tenantForm.get('tenant_contacts').controls; let i=index" [formGroup]="contact">
                             <div class="form-group">
-                                <label class="col-xs-3 control-label" for="fname">First Name</label>
+                                <label class="col-xs-3 control-label" for="fname">First Name <span class="required">*</span></label>
                                 <div class="col-xs-9">
-                                    <input formControlName="first_name" type="text" id="fname" class="form-control" placeholder="First Name">
+                                    <input [formControlValidator]="contact.controls.first_name" formControlName="first_name" type="text" id="fname" class="form-control"
+                                        placeholder="First Name">
+                                    <span class="validation-error">{{contact.controls.first_name.error}}</span>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-xs-3 control-label" for="lname">Last Name</label>
+                                <label class="col-xs-3 control-label" for="lname">Last Name <span class="required">*</span></label>
                                 <div class="col-xs-9">
-                                    <input formControlName="last_name" type="text" id="lname" class="form-control" placeholder="Last Name"/>
+                                    <input [formControlValidator]="contact.controls.last_name" formControlName="last_name" type="text" id="lname" class="form-control"
+                                        placeholder="Last Name" />
+                                    <span class="validation-error">{{contact.controls.last_name.error}}</span>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -210,23 +162,23 @@
                             <div class="form-group">
                                 <label class="col-xs-3 control-label" for="title">Title</label>
                                 <div class="col-xs-9">
-                                    <input formControlName="title" type="text" id="title" class="form-control" placeholder="Title"/>
+                                    <input formControlName="title" type="text" id="title" class="form-control" placeholder="Title" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-xs-3 control-label" for="email">Email</label>
                                 <div class="col-xs-9">
-                                    <input formControlName="email" type="text" for="email" class="form-control" placeholder="Email"/>
+                                    <input formControlName="email" type="text" for="email" class="form-control" placeholder="Email" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-xs-3 control-label" for="phone">Phone</label>
                                 <div class="col-xs-3">
-                                    <input formControlName="phone" type="text" id="phone" class="form-control" placeholder="(000) 000-0000"/>
+                                    <input formControlName="phone" type="text" id="phone" class="form-control" placeholder="(000) 000-0000" />
                                 </div>
                                 <label class="col-xs-3 control-label" for="phone_extension">Extention</label>
                                 <div class="col-xs-3">
-                                    <input formControlName="extension" id="phone_extension" type="text" class="form-control"/>
+                                    <input formControlName="extension" id="phone_extension" type="text" class="form-control" />
                                 </div>
                             </div>
                             <div class="form-group">
@@ -238,13 +190,13 @@
                             <div class="form-group">
                                 <label class="col-xs-3 control-label" for="mobile">Mobile Phone</label>
                                 <div class="col-xs-9">
-                                    <input formControlName="mobile" type="text" id="mobile" class="form-control"/>
+                                    <input formControlName="mobile" type="text" id="mobile" class="form-control" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-xs-3 control-label" for="emergencyphone">Emergency Phone</label>
                                 <div class="col-xs-9">
-                                    <input formControlName="emergency_phone" type="text" id="emergencyphone" class="form-control"/>
+                                    <input formControlName="emergency_phone" type="text" id="emergencyphone" class="form-control" />
                                 </div>
                             </div>
                             <div class="form-group">
@@ -269,13 +221,11 @@
 
                     <div class="form-group form-actions">
                         <div class="col-md-8 col-md-offset-4">
-                            <button type="reset"
-                                    class="btn btn-effect-ripple btn-danger ui-wizard-content ui-formwizard-button"
-                                    id="back1" style="overflow: hidden; position: relative;" value="Back"> Back
+                            <button type="reset" class="btn btn-effect-ripple btn-danger ui-wizard-content ui-formwizard-button" id="back1" style="overflow: hidden; position: relative;"
+                                value="Back"> Back
                             </button>
-                            <button type="submit"
-                                    class="btn btn-effect-ripple btn-primary ui-wizard-content ui-formwizard-button"
-                                    id="next1" style="overflow: hidden; position: relative;" value="Next">Next
+                            <button type="submit" class="btn btn-effect-ripple btn-primary ui-wizard-content ui-formwizard-button" id="next1" style="overflow: hidden; position: relative;"
+                                value="Next">Next
                             </button>
                         </div>
                     </div>

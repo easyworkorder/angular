@@ -36,13 +36,37 @@ export class BuildingAdminComponent implements OnInit {
     this.getBuilding(this._buildingId);
   }
 
+  // getBuilding(id) {
+  //   this.buildingService.getBuilding(id).subscribe(data => {
+  //     this.employeeService.getEmployeeById(data.primarycontact_id).subscribe(emp => {
+  //       // this.editedBuilding = Object.assign({}, data, { contactPerson: emp.last_name + ' ' + emp.first_name });
+  //       this.editedBuilding = Object.assign({}, data, { contactPerson: emp.last_name + ' ' + emp.first_name });
+  //     })
+  //   });
+  // }
+
   getBuilding(id) {
     this.buildingService.getBuilding(id).subscribe(data => {
       this.employeeService.getEmployeeById(data.primarycontact_id).subscribe(emp => {
-        this.editedBuilding = Object.assign({}, data, { contactPerson: emp.last_name + ' ' + emp.first_name });
+        // this.editedBuilding = Object.assign({}, data, { contactPerson: emp.last_name + ' ' + emp.first_name });
+        // this.editedBuilding = Object.assign({}, data, { contactPerson: emp.last_name + ' ' + emp.first_name });
+        this.employeeService.getCompanybyEmployeeId(emp.id).subscribe(company => {
+          this.editedBuilding = Object.assign({}, data,
+            {
+              contactPerson: emp.last_name + ' ' + emp.first_name,
+              ContactPersonPhoto: emp.photo,
+              ContactPersonWorkPhone: emp.work_phone
+            },
+            {
+              primaryCompany: company.name, primaryCompanyAddress: company.address,
+              primaryCompanyUnitNo: company.unit_no, primaryCompanyCity: company.city,
+              primaryCompanyState: company.state, primaryCompanyPostalCode: company.postal_code
+            });
+        })
       })
     });
   }
+
 
   getAllEmployees(company_id): void {
     this.employeeService.getAllEmployees(company_id).subscribe(
@@ -81,11 +105,18 @@ export class BuildingAdminComponent implements OnInit {
 
   editBuildingContactInfo() {
     this.getAllEmployees(this.currentCompanyId);
-    this.primarycontact_id = this.editedBuilding && [{id: this.editedBuilding.primarycontact_id, text: this.editedBuilding.contactPerson }];
+    this.primarycontact_id = this.editedBuilding && [{ id: this.editedBuilding.primarycontact_id, text: this.editedBuilding.contactPerson }];
     this.editedBuilding && this.buildingForm.setValue({
       id: this.editedBuilding.id,
       primarycontact_id: this.editedBuilding.primarycontact_id,
       url: this.editedBuilding.url
     });
   }
+
+  getPhotoUrl(employee) {
+    if (employee.photo != null && employee.photo.length > 0)
+      return employee.photo;
+    return 'assets/img/placeholders/avatars/avatar9.jpg';
+  }
+
 }

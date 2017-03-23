@@ -97,4 +97,16 @@ export class EmployeeService extends DataService {
     });
     return observable;
   }
+
+  /**
+   * Get All employee by Company Id
+   * @returns {Observable<any>}
+   */
+  getCompanybyEmployeeId(empId) {
+    const observable = this.http.get(`company/${empId}/`);
+    observable.subscribe(data => {
+      console.log('Company Data: ', data);
+    });
+    return observable;
+  }
 }

@@ -4,6 +4,7 @@ import { TenantService } from './tenant.service';
 import { BuildingService } from './../building/building.service';
 import { ValidationService } from './../../../services/validation.service';
 import { AuthenticationService } from "app/modules/authentication";
+import { ActivatedRoute } from "@angular/router";
 
 export class TabVisibility {
   isBasicTabVisible = true;
@@ -12,7 +13,7 @@ export class TabVisibility {
 }
 
 @Component({
-  selector: 'ewo-tenant-list',
+  selector: 'ewo-tenant',
   templateUrl: './tenant.component.html',
 })
 export class TenantComponent implements OnInit {
@@ -24,26 +25,75 @@ export class TenantComponent implements OnInit {
   buildings: any[] = [];
   tenants: any[] = [];
   selectedBuilding: any;
+  private _buildingId: any;
 
   tabs = new TabVisibility();
 
-  tenantForm: FormGroup;
+  // tenantForm: FormGroup;
 
   constructor(
     private tenantService: TenantService,
     private buildingService: BuildingService,
     private formBuilder: FormBuilder,
-    private authService: AuthenticationService) {
+    private authService: AuthenticationService,
+    private route: ActivatedRoute) {
+    // this.authService.verifyToken().take(1).subscribe(data => {
+    //   this.getAllBuildings();
+    //   this.getAllTenantsByBuilding(this.currentBuildingId);
+    // });
+  }
+
+  ngOnInit() {
+    this._buildingId = this.route.snapshot.params['id'];
+
     this.authService.verifyToken().take(1).subscribe(data => {
-      this.getAllBuildings();
-      this.getAllTenantsByBuilding(this.currentBuildingId);
+      // this.getAllBuildings();
+      this.getAllTenantsByBuilding(this._buildingId);
     });
   }
+
+  tenantForm = this.formBuilder.group({
+    // building: new FormControl('http://localhost:8080/api/building/6/'),
+    building: new FormControl(''),
+    tenant_company_name: new FormControl('', Validators.required),
+    inscertdate: new FormControl(null),
+    mgtfeepercent: new FormControl('', [Validators.required]),
+    gl_notify: new FormControl(true),
+    unitno: new FormControl(''),
+    isactive: new FormControl(true),
+    tenant_contacts: this.formBuilder.array(
+      [this.buildBlankContact('', '', '', true, '', '', '', '', '', '', true, null, '')],
+      null
+      // ItemsValidator.minQuantitySum(300)
+    )
+  })
+
+  buildBlankContact(firstName: string, lastName: string, title: string, viewinvoices: boolean,
+    phone: string, extension: string, mobile: string, emergencyPhone: string, fax: string,
+    email: string, isPrimaryContact: boolean, tenantID: number, notes: string) {
+    return new FormGroup({
+      title: new FormControl(title),
+      notes: new FormControl(notes),
+      viewinvoices: new FormControl(viewinvoices),
+      first_name: new FormControl(firstName, Validators.required),
+      last_name: new FormControl(lastName, Validators.required),
+      phone: new FormControl(phone),
+      extension: new FormControl(extension),
+      mobile: new FormControl(mobile),
+      emergency_phone: new FormControl(emergencyPhone),
+      fax: new FormControl(fax),
+      email: new FormControl(email),
+      isprimary_contact: new FormControl(isPrimaryContact),
+      tenant: new FormControl(tenantID),
+      active: new FormControl(true)
+    });
+  }
+
 
   getAllBuildings(): void {
     this.buildingService.getAllBuildings(this.currentCompanyId).subscribe(
       data => {
-        this.buildings = data.results;
+        this.buildings = data;
         if (this.buildings.length > 0) {
           this.selectedBuilding = this.buildings[0];
           this.getAllTenantsByBuilding(this.buildings[0].id);
@@ -53,7 +103,9 @@ export class TenantComponent implements OnInit {
   }
 
   getAllTenantsByBuilding(building_id): void {
-    this.currentBuildingId = building_id;
+    // this.currentBuildingId = building_id;
+    // this._buildingId = building_id;
+
     // this.selectedBuilding =
     this.tenantService.getAllTenantsByBuilding(building_id).subscribe(
       data => {
@@ -62,45 +114,15 @@ export class TenantComponent implements OnInit {
     );
   }
 
-  ngOnInit() {
-    this.tenantForm = this.formBuilder.group({
-      building: new FormControl('http://localhost:8080/api/building/1/'),
-      tenant_company_name: new FormControl('', Validators.required),
-      inscertdate: new FormControl(null),
-      mgtfeepercent: new FormControl('', [Validators.required]),
-      gl_notify: new FormControl(true),
-      unitno: new FormControl(''),
-      isactive: new FormControl(true),
-      tenant_contacts: this.formBuilder.array(
-        [this.buildBlankContact('', '', '', true, '', '', '', '', '', '', true, null, '')],
-        null
-        // ItemsValidator.minQuantitySum(300)
-      )
-    })
-  }
 
-  buildBlankContact(firstName: string, lastName: string, title: string, viewinvoices: boolean,
-    phone: string, extension: string, mobile: string, emergencyPhone: string, fax: string,
-    email: string, isPrimaryContact: boolean, tenantID: number, notes: string) {
-    return new FormGroup({
-      title: new FormControl(title),
-      notes: new FormControl(notes),
-      viewinvoices: new FormControl(viewinvoices),
-      first_name: new FormControl(firstName),
-      last_name: new FormControl(lastName),
-      phone: new FormControl(phone),
-      extension: new FormControl(extension),
-      mobile: new FormControl(mobile),
-      emergency_phone: new FormControl(emergencyPhone),
-      fax: new FormControl(fax),
-      email: new FormControl(email),
-      isprimary_contact: new FormControl(isPrimaryContact),
-      tenant: new FormControl(tenantID),
-    });
-  }
+
+
+
 
   onSubmit() {
     // this.tenantForm.get('mgtfeepercent').valid = false;
+    if(!this.tenantForm.valid) {return;}
+
     let val = this.tenantForm.value;
     this.tenantService.create(this.tenantForm.value).subscribe((tenant: any) => {
       console.log('Tenant created', tenant);
@@ -120,7 +142,7 @@ export class TenantComponent implements OnInit {
 
   buildName(firstName: string, lastName: string) {
     if (firstName != null && firstName.length > 0 && lastName != null && lastName.length > 0) {
-      return firstName + ' ' + lastName;
+      return lastName + ' ' + firstName;
     }
     if (firstName != null && firstName.length > 0)
       return firstName;
@@ -147,7 +169,6 @@ export class TenantComponent implements OnInit {
       return tenant.photo;
     return 'assets/img/placeholders/avatars/avatar9.jpg';
   }
-
 
   stopPropagation(event) {
     event.stopPropagation()

@@ -1,7 +1,7 @@
 const hostname = window.location.hostname;
 
 const api = {
-    //'localhost': 'http://localhost:5000/api/',
+    'localhost': 'http://localhost:8080/api/',
     'easyworkorder.herokuapp.com': 'https://easyworkorder.herokuapp.com/api/',
     'easyworkorderclient.herokuapp.com': 'https://easyworkorder.herokuapp.com/api/',
     'ewo-prod.com': ''
