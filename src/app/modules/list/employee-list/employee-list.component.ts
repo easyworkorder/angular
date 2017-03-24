@@ -7,7 +7,7 @@ declare var $: any;
 
 @Component({
   selector: 'ewo-employee-list',
-  templateUrl: 'employee.component.html',
+  templateUrl: 'employee-list.component.html',
 })
 
 export class EmployeeListComponent implements OnInit {

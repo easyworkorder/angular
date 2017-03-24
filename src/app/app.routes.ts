@@ -10,7 +10,7 @@ import { TenantListComponent } from './modules/list/tenant-list/tenant-list.comp
 import { TenantContactComponent } from './modules/admin/tenant/tenant-contact.component';
 import { ProblemTypeComponent } from './modules/admin/problem_type/problem_type.component';
 import { EmployeeComponent } from './modules/admin/employee/employee.component';
-import { EmployeeListComponent } from './modules/list/employee/employee.component';
+import { EmployeeListComponent } from './modules/list/employee-list/employee-list.component';
 import { AdminSetupComponent } from './modules/admin_setup/admin_setup.component';
 import { AdminDashboardComponent } from './modules/admin/admin-dashboard/admin-dashboard.component';
 import { AuthGuard } from "app/services/auth-guard.service";
