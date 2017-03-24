@@ -6,6 +6,8 @@ import { TObjectId } from '../interfaces/common.interface';
 import { IEvent } from '../interfaces/event.interface';
 
 import config from '../config';
+// import { Storage} from './index';
+
 import {
   EventService,
 } from './index';
@@ -37,6 +39,7 @@ export class DataService {
 
   constructor(
     protected events: EventService,
+    // private storage: Storage
   ) {
     // init observers
     ['list', 'view', 'edit'].forEach(prop => {
@@ -219,5 +222,13 @@ export class DataService {
   stopPropagation(event){
     event.stopPropagation()
   }
+
+  // private _userInfo: any;
+  // getUserInfo() {
+  //   if(!! this._userInfo) {
+  //     this._userInfo = this.storage.get(config.storage.user)
+  //   }
+  //   return this._userInfo;
+  // }
 
 }

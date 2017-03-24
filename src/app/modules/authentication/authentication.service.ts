@@ -206,6 +206,29 @@ export class AuthenticationService {
     this.router.navigate([config.routes.signoutRedirect]);
   }
 
+  getUserInfo(): any {
+    const observable = this.http.get('userinfo/');
+    observable.subscribe(
+      data => {
+        let userInfo = <any>data;
+        userInfo = Object.assign({}, userInfo, { IsContact: false, IsPropertyManager: false, IsEmployee: false })
+        // userInfo.IsContact = false;
+        // userInfo.IsPropertyManager = false;
+        // userInfo.IsEmployee = false;
+        if (userInfo.group_name == config.userGroup.CONTACT)
+          userInfo.IsContact = true;
+
+        this.storage.set(config.storage.user, userInfo);
+      },
+      error => {
+        this.toasterService.pop('Info', 'Failed to get additional user information!', 'Sorry! something went wrong, try to login again!!!');
+        console.log('Unable to get User Info: ', error);
+      }
+    );
+    return observable;
+  }
+
+
   update(user?: any): Observable<any> {
     user = user || this._data.edit;
 
@@ -287,8 +310,8 @@ export class AuthenticationService {
     },
       error => {
         // this.toasterService.pop('info', 'Token Expired!', 'Sorry your token has expired!!!');
-       this.router.navigate([config.routes.signin]);
+        this.router.navigate([config.routes.signin]);
       });
-      return observable;
+    return observable;
   }
 }

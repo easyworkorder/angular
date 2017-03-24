@@ -67,6 +67,7 @@ import { BuildingInformationComponent } from './modules/admin/building-admin/bui
 import { RemitInformationComponent } from './modules/admin/building-admin/remit-information.component';
 import { BreadcrumbHeaderComponent } from './modules/shared/breadcrumb-header/breadcrumb-header.component';
 import { BuildingAdminDetailsComponent } from './modules/admin/building-admin/building-admin-details.component';
+import { UserDashboardComponent } from './modules/dashboard/user-dashboard.component';
 
 export function translateStaticLoaderFactory(Backend, defaultOptions, storage, notificationService) {
     return new AppHttp(Backend, defaultOptions, storage, notificationService);
@@ -118,7 +119,8 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         BuildingInformationComponent,
         RemitInformationComponent,
         BreadcrumbHeaderComponent,
-        BuildingAdminDetailsComponent
+        BuildingAdminDetailsComponent,
+        UserDashboardComponent
     ],
     imports: [
         BrowserModule,

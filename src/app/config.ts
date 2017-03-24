@@ -64,6 +64,12 @@ const config = {
         WARNING: 'warning',
         ERROR: 'error',
         WAIT: 'wait',
+    },
+
+    userGroup: {
+        CONTACT: 'contact',
+        EMPLOYEE: 'employee',
+        PROPERTY_MANAGER: 'propertymanager'
     }
 }
 

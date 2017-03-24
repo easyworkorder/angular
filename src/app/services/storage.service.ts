@@ -1,5 +1,6 @@
 // TODO: supposed to be replaced with any stable angular/es6 storage lib
 import { Injectable } from '@angular/core';
+import config from '../config';
 
 @Injectable()
 export class Storage {
@@ -26,5 +27,13 @@ export class Storage {
 
   clear(): void {
     localStorage.clear();
+  }
+
+  private _userInfo: any;
+  getUserInfo() {
+    if(!this._userInfo) {
+      this._userInfo = this.get(config.storage.user)
+    }
+    return this._userInfo;
   }
 }

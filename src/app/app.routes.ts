@@ -18,6 +18,7 @@ import { APP_RESOLVER_PROVIDERS, AdminDashBoardResolver, TicketDashBoardResolver
 import { NoContentComponent } from "app/modules/shared/no-content.component";
 import { BuildingAdminComponent } from "app/modules/admin/building-admin/building-admin.component";
 import { BuildingAdminDetailsComponent } from "app/modules/admin/building-admin/building-admin-details.component";
+import { UserDashboardComponent } from "app/modules/dashboard/user-dashboard.component";
 
 
 export const appRoutes: Routes = [
@@ -27,7 +28,14 @@ export const appRoutes: Routes = [
         //   token: DashBoardResolver
         // },
         children: [
-            { path: '', component: TicketComponent, pathMatch: 'full' },
+            // FIXME: For the time being renaming the route to an arbitary name
+            // later on we will need to fix it.
+            // Probably after login based on user previladge this component will be loaded
+            // or routed dynamically.
+            // Now we are redirecting all type of users to the dashboard.
+            // And form there, user specific views will be loaded by their type(user group)
+            { path: '', component: UserDashboardComponent, pathMatch: 'full'},
+            { path: 'ticketlist', component: TicketComponent, pathMatch: 'full' },
             { path: 'employee', component: EmployeeListComponent, pathMatch: 'full' },
             { path: 'tenant', component: TenantListComponent, pathMatch: 'full' },
             { path: 'address', component: AddressComponent, pathMatch: 'full' },

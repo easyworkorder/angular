@@ -1,5 +1,8 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { AuthenticationService } from "app/modules/authentication";
+import config from './../../config';
+import { Storage } from './../../services/index';
+
 declare var App: any;
 declare var ReadyDashboard: any;
 declare var $:any;
@@ -11,9 +14,13 @@ declare var $:any;
 })
 export class DashboardComponent implements OnInit {
 
-    constructor(private authService: AuthenticationService) {
+    constructor(
+        private authService: AuthenticationService,
+        private storage: Storage) {
         //  this.authService.verifyToken();
      }
+
+    userInfo: any;
 
     ngOnInit() {
         App.init();
@@ -26,6 +33,8 @@ export class DashboardComponent implements OnInit {
             App.init();
             ReadyDashboard.init();
         });
+
+        this.userInfo = this.storage.getUserInfo();
     }
 
     ngAfterViewInit() {
