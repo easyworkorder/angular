@@ -49,7 +49,7 @@ import { BuildingComponent } from './modules/admin/building/building.component';
 import { AddressComponent } from './modules/address/address.component';
 import { TenantComponent } from './modules/admin/tenant/tenant.component';
 import { TenantListComponent } from './modules/list/tenant-list/tenant-list.component';
-import { TenantContactComponent} from './modules/admin/tenant/tenant-contact.component';
+import { TenantContactProfileComponent} from './modules/admin/tenant/tenant-contact-profile.component';
 import { ProblemTypeComponent } from './modules/admin/problem_type/problem_type.component';
 import { EmployeeComponent } from './modules/admin/employee/employee.component';
 import { EmployeeListComponent } from './modules/list/employee-list/employee-list.component';
@@ -100,7 +100,7 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         AddressComponent,
         TenantComponent,
         TenantListComponent,
-        TenantContactComponent,
+        TenantContactProfileComponent,
         ProblemTypeComponent,
         EmployeeComponent,
         EmployeeListComponent,

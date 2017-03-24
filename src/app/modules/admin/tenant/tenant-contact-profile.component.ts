@@ -15,9 +15,9 @@ import { TenantComponent } from './tenant.component';
 
 @Component({
   selector: 'ewo-tenant-contact-profile',
-  templateUrl: './tenant-contact.component.html',
+  templateUrl: './tenant-contact-profile.component.html',
 })
-export class TenantContactComponent implements OnInit {
+export class TenantContactProfileComponent implements OnInit {
     constructor(
         private tenantService: TenantService,
         private dataService: DataService,

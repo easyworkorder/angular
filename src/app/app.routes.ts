@@ -7,7 +7,7 @@ import { TicketComponent } from './modules/ticket/ticket.component';
 import { AddressComponent } from './modules/address/address.component';
 import { TenantComponent } from './modules/admin/tenant/tenant.component';
 import { TenantListComponent } from './modules/list/tenant-list/tenant-list.component';
-import { TenantContactComponent } from './modules/admin/tenant/tenant-contact.component';
+import { TenantContactProfileComponent } from './modules/admin/tenant/tenant-contact-profile.component';
 import { ProblemTypeComponent } from './modules/admin/problem_type/problem_type.component';
 import { EmployeeComponent } from './modules/admin/employee/employee.component';
 import { EmployeeListComponent } from './modules/list/employee-list/employee-list.component';
@@ -58,7 +58,7 @@ export const appRoutes: Routes = [
                         },
                         children: [
                             { path: '', component: BuildingAdminDetailsComponent },
-                            { path: 'tenant-profile/:id', component: TenantContactComponent }
+                            { path: 'tenant-profile/:id', component: TenantContactProfileComponent }
                         ]
                     },
                     // {
@@ -77,7 +77,7 @@ export const appRoutes: Routes = [
                         },
                     },
                     {
-                        path: 'contact-profile/:id', component: TenantContactComponent
+                        path: 'contact-profile/:id', component: TenantContactProfileComponent
                     },
                     {
                         path: 'problem-type', component: ProblemTypeComponent, resolve: {
