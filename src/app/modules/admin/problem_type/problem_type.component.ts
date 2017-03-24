@@ -21,9 +21,12 @@ export class ProblemTypeComponent implements OnInit {
     id: new FormControl(),
     company: new FormControl(config.api.base + 'company/' + this.currentCompanyId + '/'),
     problem_name: new FormControl('', Validators.required),
-    tenant_view: new FormControl(''),
+    tenant_view: new FormControl(false),
+    active: new FormControl('true'),
     url: new FormControl()
   });
+
+  problemTypeSearchControl = new FormControl('');
 
   constructor(
     private problemTypeService: ProblemTypeService,
@@ -34,6 +37,9 @@ export class ProblemTypeComponent implements OnInit {
   }
 
   ngOnInit() {
+    $('#modal-add-problem-type').on('hidden.bs.modal', () => {
+      this.closeModal();
+    });
   }
 
   getAllProblemTypes(company_id): void {
@@ -49,7 +55,7 @@ export class ProblemTypeComponent implements OnInit {
   }
 
   onSubmit() {
-
+console.log(this.problemTypeForm.value);
     if (this.problemTypeForm.value.id) {
       this.problemTypeService.update(this.problemTypeForm.value).subscribe((problemType: any) => {
         this.getAllProblemTypes(this.currentCompanyId);
@@ -70,7 +76,12 @@ export class ProblemTypeComponent implements OnInit {
   }
 
   resetForm() {
-    this.problemTypeForm.reset({ company: config.api.base + 'company/' + this.currentCompanyId + '/' });
+    this.problemTypeForm.reset({
+      company: config.api.base + 'company/' + this.currentCompanyId + '/',
+      problem_name: '',
+      tenant_view: false,
+      active: 'true',
+    });
   }
 }
 

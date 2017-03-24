@@ -37,7 +37,7 @@ export class EmployeeService extends DataService {
       console.log(data);
     },
       error => {
-        this.toasterService.pop('error', 'ADD', 'Employee not Saved!!!');
+        this.toasterService.pop('error', 'ADD', 'Employee not Saved due to API error!!!');
         console.log(error);
       });
 
@@ -55,7 +55,7 @@ export class EmployeeService extends DataService {
       console.log(data);
     },
       error => {
-        this.toasterService.pop('error', 'UPDATE', 'Employee not updated!!!');
+        this.toasterService.pop('error', 'UPDATE', 'Employee not updated due to API error!!!');
         console.log(error);
       });
 

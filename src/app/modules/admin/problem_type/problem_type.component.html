@@ -17,32 +17,33 @@
     </div>
     <div class="text-center border-top push-inner-top-bottom">
         <a href="#modal-add-problem-type" class="btn btn-sm btn-success" data-toggle="modal"><i class="fa fa-plus"></i></a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">A</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">B</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">C</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">D</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">E</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">F</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">G</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">H</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">I</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">J</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">K</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">L</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">M</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">N</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">O</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">P</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">Q</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">R</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">S</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">T</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">V</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">U</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">W</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">X</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">Y</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default">Z</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('')">ALL</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('A')">A</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('B')">B</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('C')">C</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('D')">D</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('E')">E</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('F')">F</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('G')">G</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('H')">H</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('I')">I</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('J')">J</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('K')">K</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('L')">L</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('M')">M</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('N')">N</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('O')">O</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('P')">P</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('Q')">Q</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('R')">R</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('S')">S</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('T')">T</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('U')">U</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('V')">V</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('W')">W</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('X')">X</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('Y')">Y</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('Z')">Z</a>
     </div>
 </div>
 <!-- END Contacts Header -->
@@ -55,7 +56,7 @@
 
     <!-- Problem Types -->
     <div class="row">
-        <div class="animation-fadeInQuickInv col-sm-6" *ngFor="let problemType of problemTypes;">
+        <div class="animation-fadeInQuickInv col-sm-6" *ngFor="let problemType of problemTypes | filterWithStartLetter: { problem_name: problemTypeSearchControl.value };">
             <div class="col-sm-10">{{problemType.problem_name}}</div>
             <div class="col-sm-2 text-center">
                 <a (click)="editProblemType(problemType)" data-toggle="modal" title="" href="#modal-add-problem-type"
@@ -64,15 +65,6 @@
             </div>
         </div>
     </div>
-    <!--<div class="text-center">
-        <ul class="pagination">
-            <li class="disabled"><a href="javascript:void(0)">Prev</a></li>
-            <li class="active"><a href="javascript:void(0)">1</a></li>
-            <li><a href="javascript:void(0)">2</a></li>
-            <li><a href="javascript:void(0)">3</a></li>
-            <li><a href="javascript:void(0)">Next</a></li>
-        </ul>
-    </div>-->
     <!-- END Problem Types -->
 </div>
 
@@ -95,8 +87,14 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-xs-3"></div>
-                        <label class="col-xs-9"><input formControlName="tenant_view" type="checkbox" id="tenant_view" name="tenant_view" class=""> Check if you want to allow tennats to view thsi work type?</label>
+                        <label class="col-xs-5 control-label">Check if you want to allow tennats to view thsi work type?</label>
+                        <label class="col-xs-7 switch switch-success"><input formControlName="tenant_view" type="checkbox" id="tenant_view" name="tenant_view" class=""> <span></span></label>
+                    </div>
+                    <div *ngIf="problemTypeForm.get('id').value" class="form-group">
+                        <label class="col-xs-5">Active</label>
+                        <label class="col-xs-7 switch switch-success">
+                            <input formControlName="active" type="checkbox" id="active" name="active" class=""><span></span>
+                        </label>
                     </div>
                     <div class="form-group form-actions">
                         <div class="col-xs-12 text-right">
@@ -108,188 +106,3 @@
         </div>
     </div>
 </div>
-
-
-<!-- Add Tenant Modal --
-<div id="modal-add-tenant" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3 class="modal-title"><i class="fa fa-plus"></i> <strong>New Employee</strong></h3>
-            </div>
-            <div class="modal-body">
-                <form [formGroup]="tenantForm" (ngSubmit)="onSubmit()" id="clickable-wizard"
-                      class="form-horizontal form-bordered" onsubmit="return false;">
-                    <input formControlName="building_id" type="hidden" value="{{currentBuildingId}}">
-                    <div *ngIf="tabs.isBasicTabVisible" id="clickable-first" class="step ui-formwizard-content"
-                         style="display: block;">
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <ul class="nav nav-pills nav-justified clickable-steps">
-                                    <li class="active"><a (click)="switchTab(1)" data-gotostep="clickable-first"><i
-                                        class="fa fa-user"></i> <strong>Basic</strong></a></li>
-                                    <li><a (click)="switchTab(2)" data-gotostep="clickable-second"><i
-                                        class="fa fa-pencil-square-o"></i> <strong>Contact</strong></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="form-group required">
-                            <label class="col-xs-3 control-label" for="tenant_company_name">Company Name:</label>
-                            <div class="col-xs-9">
-                                <input formControlName="tenant_company_name" type="text" id="tenant_company_name"
-                                       name="tenant_company_name" class="form-control"
-                                       placeholder="Tenant's Company Name">
-                                <validation-messages [control]="tenantForm.controls.tenant_company_name"></validation-messages>
-                            </div>
-                        </div>
-                        <div class="form-group required">
-                            <label class="col-md-3 control-label" for="mgtfeepercent">Management Fee Percent</label>
-                            <div class="col-xs-9">
-                                <input formControlName="mgtfeepercent" type="text" id="mgtfeepercent"
-                                       name="mgtfeepercent" class="form-control col-xs-3" placeholder="Management Fee Percent" size="20"> <div class="input-group-addon">(%)</div>
-                                <validation-messages [control]="tenantForm.controls.mgtfeepercent"></validation-messages>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-3 control-label" for="unitno">Unit Number</label>
-                            <div class="col-xs-9">
-                                <input formControlName="unitno" type="text" id="unitno" name="unitno"
-                                       class="form-control" placeholder="Unit Number">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-3 control-label" for="inscertdate">Ins Cert exp date</label>
-                            <div class="col-xs-9">
-                                <input formControlName="inscertdate" type="text" id="inscertdate" name="inscertdate"
-                                       class="form-control" placeholder="Ins Cert exp date">
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div *ngIf="tabs.isContactTabVisible" id="clickable-second" class="step ui-formwizard-content"
-                         style="display: block;">
-                        <!-- Step Info --
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <ul class="nav nav-pills nav-justified clickable-steps">
-                                    <li><a (click)="switchTab(1)" class="text-muted" data-gotostep="clickable-first"><i
-                                        class="fa fa-user"></i>
-                                        <del><strong>Basic</strong></del>
-                                    </a></li>
-                                    <li class="active"><a (click)="switchTab(2)" data-gotostep="clickable-second"><i
-                                        class="fa fa-pencil-square-o"></i> <strong>Contact</strong></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- END Step Info --
-
-                        <div class="form-group">
-                            <label class="col-xs-3 control-label" for="fname">First Name</label>
-                            <div class="col-xs-9">
-                                <input formControlName="fname" type="text" id="fname" name="fname" class="form-control"
-                                       placeholder="First Name">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-xs-3 control-label" for="lname">Last Name</label>
-                            <div class="col-xs-9">
-                                <input formControlName="lname" type="text" id="lname" name="lname" class="form-control"
-                                       placeholder="Last Name">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-3 control-label" for="photo">Photo</label>
-                            <div class="col-xs-9">
-                                <input formControlName="photo" type="file" id="photo" name="photo"
-                                       class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-xs-3 control-label" for="title">Title</label>
-                            <div class="col-xs-9">
-                                <input formControlName="title" type="text" id="title" name="title" class="form-control"
-                                       placeholder="Title">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-xs-3 control-label" for="email">Email</label>
-                            <div class="col-xs-9">
-                                <input formControlName="email" type="text" id="email" name="email" class="form-control"
-                                       placeholder="Email">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-xs-3 control-label" for="phone">Phone</label>
-                            <div class="col-xs-3">
-                                <input formControlName="phone" type="text" id="phone" name="phone" class="form-control"
-                                       placeholder="(000) 000-0000">
-                            </div>
-                            <label class="col-xs-3 control-label" for="phone_extension">Extention</label>
-                            <div class="col-xs-3">
-                                <input formControlName="phone_extension" type="text" id="phone_extension"
-                                       name="phone_extension" class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-xs-3 control-label" for="fax">Fax</label>
-                            <div class="col-xs-9">
-                                <input formControlName="fax" type="text" id="fax" name="fax" class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-xs-3 control-label" for="mobile">Mobile Phone</label>
-                            <div class="col-xs-9">
-                                <input formControlName="mobile" type="text" id="mobile" name="mobile"
-                                       class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-xs-3 control-label" for="emergencyphone">Emergency Phone</label>
-                            <div class="col-xs-9">
-                                <input formControlName="emergencyphone" type="text" id="emergencyphone"
-                                       name="emergencyphone" class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-xs-3 control-label" for="viewinvoices">View Invoices</label>
-                            <div class="col-xs-9">
-                      <span *ngFor="let option of viewInvoicesList">
-                        <label>
-                          <input formControlName="viewinvoices" type="radio" name="viewinvoices" [value]="option.value">
-                          {{option.display}}
-                        </label>
-                      </span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-xs-3 control-label" for="notes">Notes</label>
-                            <div class="col-xs-9">
-                                <textarea formControlName="notes" id="notes" name="emergencyphone"
-                                          class="form-control"></textarea>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="form-group form-actions">
-                        <div class="col-md-8 col-md-offset-4">
-                            <button type="reset"
-                                    class="btn btn-effect-ripple btn-danger ui-wizard-content ui-formwizard-button"
-                                    id="back1" style="overflow: hidden; position: relative;" value="Back"> Back
-                            </button>
-                            <button type="submit" [disabled]="!tenantForm.valid"
-                                    class="btn btn-effect-ripple btn-primary ui-wizard-content ui-formwizard-button"
-                                    id="next1" style="overflow: hidden; position: relative;" value="Next">Next
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- END Add Contact Modal -->
-
-

@@ -30,11 +30,11 @@ export class ProblemTypeService extends DataService {
     const observable = this.http.post('problemType/', data);
 
     observable.subscribe(data => {
-      this.toaster.pop(config.messageType.SUCCESS, 'Problem Type', 'Saved Successfully');
+      this.toaster.pop(config.messageType.SUCCESS, 'Problem Type', 'Problem type has been Saved Successfully');
       console.log(data);
     },
       error => {
-        this.toaster.pop(config.messageType.ERROR, 'Problem Type', 'Not Saved!!!');
+        this.toaster.pop(config.messageType.ERROR, 'Problem Type', 'Problem type not saved due to API error!!!');
         console.log(error);
       });
 
@@ -48,11 +48,11 @@ export class ProblemTypeService extends DataService {
     const observable = this.http.put(data.url, data);
 
     observable.subscribe(data => {
-      this.toaster.pop(config.messageType.SUCCESS, 'Problem Type', 'Update Successfully');
+      this.toaster.pop(config.messageType.SUCCESS, 'Problem Type', 'Problem type has been updated successfully');
       console.log(data);
     },
       error => {
-        this.toaster.pop(config.messageType.ERROR, 'Problem Type', 'Not Update!!!');
+        this.toaster.pop(config.messageType.ERROR, 'Problem Type', 'Problem type not updated due to API error!!!');
         console.log(error);
       });
 
@@ -72,7 +72,7 @@ export class ProblemTypeService extends DataService {
    * @returns {Observable<any>}
    */
   getAllProblemTypes(company_id) {
-    const observable = this.http.get('problemType/', { company: company_id });
+    const observable = this.http.get('problemType/', { company_id: company_id, ordering: 'problem_name' });
     observable.subscribe(data => {
       console.log(data);
     });
