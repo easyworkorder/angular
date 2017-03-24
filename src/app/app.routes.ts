@@ -17,61 +17,71 @@ import { AuthGuard } from "app/services/auth-guard.service";
 import { APP_RESOLVER_PROVIDERS, AdminDashBoardResolver, TicketDashBoardResolver, DashBoardResolver } from './app.route-resolvers';
 import { NoContentComponent } from "app/modules/shared/no-content.component";
 import { BuildingAdminComponent } from "app/modules/admin/building-admin/building-admin.component";
+import { BuildingAdminDetailsComponent } from "app/modules/admin/building-admin/building-admin-details.component";
 
 
 export const appRoutes: Routes = [
-  {
-    path: '', component: DashboardComponent,
-    // resolve: {
-    //   token: DashBoardResolver
-    // },
-    children: [
-      { path: '', component: TicketComponent, pathMatch: 'full' },
-      { path: 'employee', component: EmployeeListComponent, pathMatch: 'full' },
-      { path: 'tenant', component: TenantListComponent, pathMatch: 'full' },
-      { path: 'address', component: AddressComponent, pathMatch: 'full' },
-      {
-        path: 'admin', component: AdminDashboardComponent,
-        resolve: {
-          ticket: TicketDashBoardResolver
-        },
-        // canActivateChild: [AuthGuard],
+    {
+        path: '', component: DashboardComponent,
+        // resolve: {
+        //   token: DashBoardResolver
+        // },
         children: [
-          { path: '', component: AdminSetupComponent },
-          {
-            path: 'building', component: BuildingComponent, resolve: {
-              admin: AdminDashBoardResolver
+            { path: '', component: TicketComponent, pathMatch: 'full' },
+            { path: 'employee', component: EmployeeListComponent, pathMatch: 'full' },
+            { path: 'tenant', component: TenantListComponent, pathMatch: 'full' },
+            { path: 'address', component: AddressComponent, pathMatch: 'full' },
+            {
+                path: 'admin', component: AdminDashboardComponent,
+                resolve: {
+                    ticket: TicketDashBoardResolver
+                },
+                // canActivateChild: [AuthGuard],
+                children: [
+                    { path: '', component: AdminSetupComponent },
+                    {
+                        path: 'building', component: BuildingComponent, resolve: {
+                            admin: AdminDashBoardResolver
+                        },
+                    },
+                    {
+                        path: 'building-details/:id', component: BuildingAdminComponent, resolve: {
+                            admin: AdminDashBoardResolver
+                        },
+                        children: [
+                            { path: '', component: BuildingAdminDetailsComponent },
+                            { path: 'tenant-profile/:id', component: TenantContactComponent }
+                        ]
+                    },
+                    // {
+                    //   path: 'building-details/:id/tenant-profile/:id', component: TenantContactComponent, resolve: {
+                    //     admin: AdminDashBoardResolver
+                    //   },
+                    // },
+                    {
+                        path: 'employee', component: EmployeeComponent, resolve: {
+                            admin: AdminDashBoardResolver
+                        },
+                    },
+                    {
+                        path: 'tenant', component: TenantComponent, resolve: {
+                            admin: AdminDashBoardResolver
+                        },
+                    },
+                    {
+                        path: 'contact-profile/:id', component: TenantContactComponent
+                    },
+                    {
+                        path: 'problem-type', component: ProblemTypeComponent, resolve: {
+                            admin: AdminDashBoardResolver
+                        },
+                    },
+                ]
             },
-          },
-          {
-            path: 'building-details/:id', component: BuildingAdminComponent, resolve: {
-              admin: AdminDashBoardResolver
-            },
-          },
-          {
-            path: 'employee', component: EmployeeComponent, resolve: {
-              admin: AdminDashBoardResolver
-            },
-          },
-          {
-            path: 'tenant', component: TenantComponent, resolve: {
-              admin: AdminDashBoardResolver
-            },
-          },
-          {
-            path: 'contact-profile/:id', component: TenantContactComponent
-          },
-          {
-            path: 'problem-type', component: ProblemTypeComponent, resolve: {
-              admin: AdminDashBoardResolver
-            },
-          },
         ]
-      },
-    ]
-  },
-  { path: 'signin', component: SigninComponent },
-  { path: '**', component: NoContentComponent },
+    },
+    { path: 'signin', component: SigninComponent },
+    { path: '**', component: NoContentComponent },
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);
