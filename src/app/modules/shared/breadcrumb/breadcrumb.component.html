@@ -1,0 +1,14 @@
+<ul class="breadcrumb breadcrumb-top">
+<!--<li><a href="admin-setup.html">Administrator Portal</a></li>
+  <li><a href="building_admin2.html">Buildings</a></li>
+  <li>Building Admin</li>-->
+<li *ngFor="let breadcrumb of breadcrumbs">
+    <a [routerLink]="[breadcrumb.url, breadcrumb.params]">{{breadcrumb.label}}</a>
+  </li>
+</ul>
+
+<!--
+<span *ngFor="let breadcrumb of breadcrumbs; let last = last">
+      <a [routerLink]="breadcrumb.url">{{breadcrumb.label}}</a>
+      <span *ngIf="!last">></span>
+</span>-->

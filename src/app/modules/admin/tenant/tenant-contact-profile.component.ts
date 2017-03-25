@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TenantService } from './tenant.service';
 import { DataService } from './../../../services/data.service';
 import { Contact } from "app/modules/admin/contact-profile-card/contact";
+import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
 
 
 @Component({
@@ -17,11 +18,13 @@ export class TenantContactProfileComponent implements OnInit {
     constructor(
         private tenantService: TenantService,
         private dataService: DataService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private breadcrumbHeaderService: BreadcrumbHeaderService
     ) {
     }
 
     ngOnInit() {
+        this.breadcrumbHeaderService.setBreadcrumbTitle('Tenant Profile');
         const contactId = this.route.snapshot.params['id'];
         this.getContactDetails(contactId);
     }

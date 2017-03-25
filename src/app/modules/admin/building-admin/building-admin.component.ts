@@ -6,6 +6,7 @@ import { ActivatedRoute, Params } from "@angular/router";
 import { BuildingService } from "app/modules/admin/building/building.service";
 import { EmployeeService } from "app/modules/admin/employee/employee.service";
 import { Observable } from 'rxjs/Rx';
+import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
 declare var $: any;
 
 @Component({
@@ -29,11 +30,18 @@ export class BuildingAdminComponent implements OnInit {
     // })
 
 
-    constructor(private route: ActivatedRoute, private buildingService: BuildingService, private employeeService: EmployeeService) { }
+    constructor(
+        private route: ActivatedRoute,
+        private buildingService: BuildingService,
+        private employeeService: EmployeeService,
+        private breadcrumbHeaderService: BreadcrumbHeaderService,
+
+    ) { }
 
     ngOnInit() {
         // this._buildingId = this.route.snapshot.params['id'];
         // this.getBuilding(this._buildingId);
+        this.breadcrumbHeaderService.setBreadcrumbTitle('Building Admin');
     }
 
     // getBuilding(id) {

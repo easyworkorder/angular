@@ -72,6 +72,8 @@ import { BuildingAdminDetailsComponent } from './modules/admin/building-admin/bu
 import { UserDashboardComponent } from './modules/dashboard/user-dashboard.component';
 import { ContactProfileCardComponent } from './modules/admin/contact-profile-card/contact-profile-card.component';
 import { ContactActivitiesComponent } from './modules/admin/contact-activities/contact-activities.component';
+import { BreadcrumbComponent } from './modules/shared/breadcrumb/breadcrumb.component';
+import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
 
 export function translateStaticLoaderFactory(Backend, defaultOptions, storage, notificationService) {
     return new AppHttp(Backend, defaultOptions, storage, notificationService);
@@ -127,7 +129,8 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         BuildingAdminDetailsComponent,
         UserDashboardComponent,
         ContactProfileCardComponent,
-        ContactActivitiesComponent
+        ContactActivitiesComponent,
+        BreadcrumbComponent
     ],
     imports: [
         BrowserModule,
@@ -165,7 +168,8 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         ValidationService,
         ToasterService,
         HeaderService,
-        ...APP_RESOLVER_PROVIDERS
+        ...APP_RESOLVER_PROVIDERS,
+        BreadcrumbHeaderService
         // { provide: XSRFStrategy, useValue: new      CookieXSRFStrategy('token', 'x-csrftoken')
         // },
     ],

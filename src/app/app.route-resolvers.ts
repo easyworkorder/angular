@@ -4,14 +4,21 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import { HeaderService } from "app/modules/shared/header/header.service";
 import { AuthenticationService } from "app/modules/authentication";
+import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
 
 @Injectable()
 export class AdminDashBoardResolver implements Resolve<any> {
     constructor(private headerService: HeaderService,
-        private authService: AuthenticationService) {
+        private authService: AuthenticationService,
+        private breadcrumbHeaderService: BreadcrumbHeaderService) {
     }
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         // this.authService.verifyToken();
+        // let title = route.data['breadcrumb'];
+
+        // this.breadcrumbHeaderService.setBreadcrumbTitle(title);
+
+
         return this.headerService.setDashBoardTitle({ title: 'ADMINISTRATION PORTAL', link: ['/', 'admin'] });
     }
 }
@@ -37,7 +44,7 @@ export class DashBoardResolver implements Resolve<any> {
         // }, error => {
         //     console.log('error>>>', error);
         // });
-         return this.authService.verifyToken();
+        return this.authService.verifyToken();
     }
 }
 

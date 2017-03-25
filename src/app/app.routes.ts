@@ -35,7 +35,7 @@ export const appRoutes: Routes = [
             // or routed dynamically.
             // Now we are redirecting all type of users to the dashboard.
             // And form there, user specific views will be loaded by their type(user group)
-            { path: '', component: UserDashboardComponent, pathMatch: 'full'},
+            { path: '', component: UserDashboardComponent, pathMatch: 'full' },
             { path: 'ticketlist', component: TicketComponent, pathMatch: 'full' },
             { path: 'employee', component: EmployeeListComponent, pathMatch: 'full' },
             { path: 'tenant', component: TenantListComponent, pathMatch: 'full' },
@@ -45,6 +45,9 @@ export const appRoutes: Routes = [
                 resolve: {
                     ticket: TicketDashBoardResolver
                 },
+                data: {
+                    breadcrumb: "Administrator Portal"
+                },
                 // canActivateChild: [AuthGuard],
                 children: [
                     { path: '', component: AdminSetupComponent },
@@ -52,14 +55,28 @@ export const appRoutes: Routes = [
                         path: 'building', component: BuildingComponent, resolve: {
                             admin: AdminDashBoardResolver
                         },
+                        data: {
+                            breadcrumb: "Buildings"
+                        },
                     },
                     {
                         path: 'building-details/:id', component: BuildingAdminComponent, resolve: {
                             admin: AdminDashBoardResolver
                         },
+                        data: {
+                            breadcrumb: "Building Admin"
+                        },
                         children: [
                             { path: '', component: BuildingAdminDetailsComponent },
-                            { path: 'tenant-profile/:id', component: TenantContactProfileComponent }
+                            {
+                                path: 'tenant-profile/:id', component: TenantContactProfileComponent,
+                                resolve: {
+                                    admin: AdminDashBoardResolver
+                                },
+                                data: {
+                                    breadcrumb: "Tenant Profile"
+                                },
+                            }
                         ]
                     },
                     // {

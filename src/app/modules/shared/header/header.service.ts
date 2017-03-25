@@ -5,7 +5,7 @@ import { Subject }    from 'rxjs/Subject';
 
 @Injectable()
 export class HeaderService{
-  private dashboardTitleSource = new Subject<boolean>();
+  private dashboardTitleSource = new Subject<string>();
 
   constructor() {
   }
