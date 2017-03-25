@@ -39,6 +39,15 @@ export const appRoutes: Routes = [
             { path: 'ticketlist', component: TicketComponent, pathMatch: 'full' },
             { path: 'employee', component: EmployeeListComponent, pathMatch: 'full' },
             { path: 'tenant', component: TenantListComponent, pathMatch: 'full' },
+            {
+                path: 'tenant-profile/:id', component: TenantContactProfileComponent,
+                resolve: {
+                    admin: AdminDashBoardResolver
+                },
+                data: {
+                    breadcrumb: "Tenant Profile"
+                },
+            },
             { path: 'address', component: AddressComponent, pathMatch: 'full' },
             {
                 path: 'admin', component: AdminDashboardComponent,

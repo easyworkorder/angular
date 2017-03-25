@@ -107,7 +107,7 @@ export class TenantComponent implements OnInit {
     getAllTenantsByBuilding(building_id): void {
         this.tenantService.getAllTenantsByBuilding(building_id).subscribe(
             data => {
-                this.tenants = data.length > 0 && data.filter(d => d.contact_id !== null);
+                this.tenants = data.length > 0 && data.filter(d => d.contact_id !== null) || [];
             }
         );
     }

@@ -46,7 +46,7 @@ export class TenantListComponent implements OnInit {
     // this.selectedBuilding =
     this.tenantService.getAllTenantsByBuilding(building_id).subscribe(
       data => {
-        this.tenants = data;
+        this.tenants = data.length > 0 && data.filter(d => d.contact_id !== null)  || [];
       }
     );
   }
