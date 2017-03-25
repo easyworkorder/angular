@@ -105,6 +105,13 @@ export class TenantComponent implements OnInit {
     }
 
     onSubmit() {
+
+        if (!this.validateBasicInfo()) {
+            this.switchTab(1);
+        } else if (!this.validateContactInfo()) {
+            this.switchTab(2);
+        }
+
         if (!this.tenantForm.valid) { return; }
 
         let val = this.tenantForm.value;
@@ -112,6 +119,15 @@ export class TenantComponent implements OnInit {
             console.log('Tenant created', tenant);
             this.isSuccess = true;
         });
+    }
+
+    validateBasicInfo() {
+        return this.tenantForm.get('tenant_company_name').valid &&
+            this.tenantForm.get('mgtfeepercent').valid;
+    }
+
+    validateContactInfo() {
+        return this.tenantForm.get('tenant_contacts').valid;
     }
 
     switchTab(tabId: number) {
