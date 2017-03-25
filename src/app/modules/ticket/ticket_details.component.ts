@@ -13,10 +13,9 @@ declare var $: any;
 
 @Component({
     selector: 'ewo-ticket',
-    templateUrl: './ticket.component.html',
-    styleUrls: ['./ticket.component.css']
+    templateUrl: './ticket_details.component.html'
 })
-export class TicketComponent implements OnInit {
+export class TicketDetailsComponent implements OnInit {
 
     _submitted = false;
     building: any[] = [];

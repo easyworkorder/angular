@@ -24,25 +24,36 @@ export class TicketService extends DataService {
     super(events);
   }
 
+  /**
+   * Get All tickets by Company Id
+   * @returns {Observable<any>}
+   */
+  getAllTickets() {
+    const observable = this.http.get('company-workorders/');
+    observable.subscribe(data => {
+      console.log(data);
+    });
+    return observable;
+  }
+
   create(data?: any): Observable<ITicket> {
     data = Object.assign({}, data);
 
-    // POST '/employee'
     const observable = this.http.post('ticket/', data);
 
     observable.subscribe(data => {
-      this.toasterService.pop('success', 'ADD', 'Employee has been saved successfully');
+      this.toasterService.pop('success', 'ADD', 'Ticket has been posted successfully');
       console.log(data);
     },
       error => {
-        this.toasterService.pop('error', 'ADD', 'Employee not Saved!!!');
+        this.toasterService.pop('error', 'ADD', 'Ticket not posted due to API error!!!');
         console.log(error);
       });
 
     return observable;
   }
 
-  update(data?: any): Observable<ITicket> {
+  /*update(data?: any): Observable<ITicket> {
     data = Object.assign({}, data);
 
     // PUT '/employee'
@@ -58,6 +69,6 @@ export class TicketService extends DataService {
       });
 
     return observable;
-  }
+  }*/
 
 }
