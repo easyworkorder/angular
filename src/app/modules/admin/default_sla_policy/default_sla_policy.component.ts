@@ -21,14 +21,14 @@ export class DefaultSLAPolicyComponent implements OnInit {
                 private formBuilder: FormBuilder,
                 private authService: AuthenticationService) {
         this.authService.verifyToken().take(1).subscribe(data => {
-            this.getDefaultSlaPolicy(this.currentCompanyId);
+            //this.getDefaultSlaPolicy(this.currentCompanyId);
         });
     }
 
     ngOnInit() {
 
     }
-
+/*
     defaultSlaForm = this.formBuilder.group({
         id: new FormControl(),
         company: new FormControl(config.api.base + 'company/' + this.currentCompanyId + '/'),
@@ -80,6 +80,6 @@ export class DefaultSLAPolicyComponent implements OnInit {
             this.getAllProblemTypes(this.currentCompanyId);
             this.closeModal();
         });
-    }
+    }*/
 }
 

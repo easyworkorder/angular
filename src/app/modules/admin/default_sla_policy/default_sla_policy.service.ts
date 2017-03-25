@@ -15,7 +15,7 @@ import {
 @Injectable()
 export class DefaultSLAPolicyService extends DataService {
 
-  constructor(
+  /*constructor(
     protected http: AppHttp,
     protected events: EventService,
     private notifications: NotificationService,
@@ -57,6 +57,6 @@ export class DefaultSLAPolicyService extends DataService {
       });
 
     return observable;
-  }
+  }*/
 
 }
