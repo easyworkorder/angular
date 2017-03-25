@@ -10,9 +10,19 @@ export class LeftMenuComponent implements OnInit {
 
     constructor(private storage: Storage) { }
     userInfo: any;
+    contactStat: any;
     
     ngOnInit() {
         this.userInfo = this.storage.getUserInfo();
+        // FIXME: Call an api and get these statistics for contact
+        if(this.userInfo.IsContact){
+            this.contactStat = {
+                new: 10,
+                pending: 20,
+                closed: 203,
+                replies: 7
+            };
+        }
     }
 
 }

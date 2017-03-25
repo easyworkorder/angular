@@ -1,3 +1,43 @@
-<div *ngIf="userInfo.IsContact">This is Contact menu</div>
+<div *ngIf="userInfo.IsContact">
+    <!-- Menu Block for Tenant's users -->
+    <div class="block full">
+        <!-- Menu Title -->
+        <div class="block-title clearfix">
+            
+            <h2>Manage Requests</h2>
+        </div>
+        <!-- END Menu Title -->
+
+        <!-- Menu Content -->
+        <ul class="nav nav-pills nav-stacked">
+            <li class="active">
+                <a href="index-tenant.html">
+                    <span class="badge pull-right">{{contactStat.new}}</span>
+                    <i class="fa fa-fw fa-ticket icon-push"></i> <strong>New</strong>
+                </a>
+            </li>
+            <li>
+                <a href="wo-replies-tenant.html">
+                    <span class="badge pull-right">{{contactStat.replies}}</span>
+                    <i class="fa fa-fw fa-exclamation-triangle icon-push"></i> <strong>Replies</strong>
+                </a>
+            </li>
+            <li>
+                <a href="wo-pending-tenant.html">
+                    <span class="badge pull-right">{{contactStat.pending}}</span>
+                    <i class="fa fa-fw fa-folder-open-o icon-push"></i> <strong>Pending</strong>
+                </a>
+            </li>
+            <li>
+                <a href="wo-closed-tenant.html">
+                    <span class="badge pull-right">{{contactStat.closed}}</span>
+                    <i class="fa fa-fw fa-folder-o icon-push"></i> <strong>Closed</strong>
+                </a>
+            </li>
+        </ul>
+        <!-- END Menu Content -->
+    </div>
+    <!-- END Menu Block for Tenant's users -->
+</div>
 <div *ngIf="userInfo.IsEmployee">This is Employee menu</div>
 <div *ngIf="userInfo.IsPropertyManager">This is Property manager menu</div>
