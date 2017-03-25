@@ -9,6 +9,7 @@ import { TenantComponent } from './modules/admin/tenant/tenant.component';
 import { TenantListComponent } from './modules/list/tenant-list/tenant-list.component';
 import { TenantContactProfileComponent } from './modules/admin/tenant/tenant-contact-profile.component';
 import { ProblemTypeComponent } from './modules/admin/problem_type/problem_type.component';
+import { DefaultSLAPolicyComponent } from './modules/admin/default_sla_policy/default_sla_policy.component';
 import { EmployeeComponent } from './modules/admin/employee/employee.component';
 import { EmployeeListComponent } from './modules/list/employee-list/employee-list.component';
 import { AdminSetupComponent } from './modules/admin_setup/admin_setup.component';
@@ -81,6 +82,11 @@ export const appRoutes: Routes = [
                     },
                     {
                         path: 'problem-type', component: ProblemTypeComponent, resolve: {
+                            admin: AdminDashBoardResolver
+                        },
+                    },
+                    {
+                        path: 'default-sla-policy', component: DefaultSLAPolicyComponent, resolve: {
                             admin: AdminDashBoardResolver
                         },
                     },
