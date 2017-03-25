@@ -70,6 +70,10 @@ const config = {
         CONTACT: 'contact',
         EMPLOYEE: 'employee',
         PROPERTY_MANAGER: 'propertymanager'
+    },
+    sortButtonColor: {
+        WHITE: 'white',
+        GRAY: 'gray'
     }
 }
 

@@ -74,6 +74,7 @@ import { ContactProfileCardComponent } from './modules/admin/contact-profile-car
 import { ContactActivitiesComponent } from './modules/admin/contact-activities/contact-activities.component';
 import { BreadcrumbComponent } from './modules/shared/breadcrumb/breadcrumb.component';
 import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
+import { AlphabeticalSortComponent } from './modules/shared/alphabetical-sort/alphabetical-sort.component';
 
 export function translateStaticLoaderFactory(Backend, defaultOptions, storage, notificationService) {
     return new AppHttp(Backend, defaultOptions, storage, notificationService);
@@ -130,7 +131,8 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         UserDashboardComponent,
         ContactProfileCardComponent,
         ContactActivitiesComponent,
-        BreadcrumbComponent
+        BreadcrumbComponent,
+        AlphabeticalSortComponent
     ],
     imports: [
         BrowserModule,

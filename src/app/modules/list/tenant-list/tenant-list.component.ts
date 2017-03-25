@@ -3,6 +3,7 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { TenantService } from './../../admin/tenant/tenant.service';
 import { BuildingService } from './../../admin/building/building.service';
 import { AuthenticationService } from "app/modules/authentication";
+import { DataService } from "app/services";
 
 @Component({
   selector: 'ewo-tenant-list',
@@ -21,7 +22,8 @@ export class TenantListComponent implements OnInit {
     private tenantService: TenantService,
     private buildingService: BuildingService,
     private formBuilder: FormBuilder,
-    private authService: AuthenticationService) {
+    private authService: AuthenticationService,
+    private dataService: DataService) {
     this.authService.verifyToken().take(1).subscribe(data => {
       this.getAllActiveBuildings();
       this.getAllTenantsByBuilding(this.currentBuildingId);
@@ -58,16 +60,17 @@ export class TenantListComponent implements OnInit {
   }
 
   buildAddressHtml(tenant: any) {
-    var html = '<strong>' + tenant.tenant_company_name + '</strong><br />';
-    if (tenant.unitNo != null && tenant.unitNo.length > 0)
-      html += tenant.unitNo + '<br />';
-    if (tenant.title != null && tenant.title.length > 0)
-      html += tenant.title + '<br />';
-    var extension = (tenant.extension != null && tenant.extension.length > 0) ? '(' + tenant.extension + ')' : '';
-    if (tenant.phone != null && tenant.phone.length > 0)
-      html += 'P: ' + extension + tenant.phone;
+   return this.dataService.buildAddressHtml(tenant, tenant.tenant_company_name);
+    // var html = '<strong>' + tenant.tenant_company_name + '</strong><br />';
+    // if (tenant.unitNo != null && tenant.unitNo.length > 0)
+    //   html += tenant.unitNo + '<br />';
+    // if (tenant.title != null && tenant.title.length > 0)
+    //   html += tenant.title + '<br />';
+    // var extension = (tenant.extension != null && tenant.extension.length > 0) ? '(' + tenant.extension + ')' : '';
+    // if (tenant.phone != null && tenant.phone.length > 0)
+    //   html += 'P: ' + extension + tenant.phone;
 
-    return html;
+    // return html;
   }
 
   getPhotoUrl(tenant) {

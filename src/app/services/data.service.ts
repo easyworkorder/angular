@@ -200,15 +200,15 @@ export class DataService {
         return '';
     }
 
-    buildAddressHtml(tenant: any) {
-        var html = '<strong>' + tenant.tenant_company_name + '</strong><br />';
-        if (tenant.unitNo != null && tenant.unitNo.length > 0)
-            html += tenant.unitNo + '<br />';
-        if (tenant.title != null && tenant.title.length > 0)
-            html += tenant.title + '<br />';
-        var extension = (tenant.extension != null && tenant.extension.length > 0) ? '(' + tenant.extension + ')' : '';
-        if (tenant.phone != null && tenant.phone.length > 0)
-            html += 'P: ' + extension + tenant.phone;
+    buildAddressHtml(tenantContact: any, companyName: string) {
+        var html = '<strong>' + companyName + '</strong><br />';
+        if (tenantContact.unitNo != null && tenantContact.unitNo.length > 0)
+            html += tenantContact.unitNo + '<br />';
+        if (tenantContact.title != null && tenantContact.title.length > 0)
+            html += tenantContact.title + '<br />';
+        var extension = (tenantContact.extension != null && tenantContact.extension.length > 0) ? '(' + tenantContact.extension + ')' : '';
+        if (tenantContact.phone != null && tenantContact.phone.length > 0)
+            html += 'P: ' + extension + tenantContact.phone;
 
         return html;
     }

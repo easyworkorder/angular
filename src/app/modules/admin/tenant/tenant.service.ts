@@ -11,6 +11,7 @@ import {
   EventService,
   NotificationService
 } from '../../../services';
+import { ToasterService } from "angular2-toaster/angular2-toaster";
 
 @Injectable()
 export class TenantService extends DataService {
@@ -18,7 +19,8 @@ export class TenantService extends DataService {
   constructor(
     protected http: AppHttp,
     protected events: EventService,
-    private notifications: NotificationService
+    private notifications: NotificationService,
+    private toasterService: ToasterService
   ) {
     super(events);
   }
@@ -30,8 +32,12 @@ export class TenantService extends DataService {
     const observable = this.http.post('tenant/', data);
 
     observable.subscribe(data => {
-      console.log(data);
-    });
+      // console.log(data);
+      this.toasterService.pop('success', 'ADD', 'Tenant has been saved successfully');
+    },
+      error => {
+        this.toasterService.pop('error', 'ADD', 'Tenant not Saved due to API error!!!');
+      });
 
     return observable;
   }
@@ -58,7 +64,7 @@ export class TenantService extends DataService {
    * @param building_id
    */
   getActiveTenantsByBuilding(building_id) {
-    const observable = this.http.get('tenant/', { building_id: building_id, active: true, ordering: 'name'});
+    const observable = this.http.get('tenant/', { building_id: building_id, active: true, ordering: 'name' });
     observable.subscribe(data => {
       console.log(data);
     });

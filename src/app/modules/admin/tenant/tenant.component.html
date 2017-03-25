@@ -1,46 +1,22 @@
 <!-- START CONTACTS ALPHABET FILTER -->
 <div class="text-center border-top push-inner-top-bottom">
     <a href="#modal-add-tenant" class="btn btn-sm btn-success" data-toggle="modal" style="overflow: hidden; position: relative;"><i class="fa fa-plus"></i></a>
-    <a href="#" class="btn btn-sm btn-muted">A</a>
-    <a href="#" class="btn btn-sm btn-muted">B</a>
-    <a href="#" class="btn btn-sm btn-muted">C</a>
-    <a href="#" class="btn btn-sm btn-muted">D</a>
-    <a href="#" class="btn btn-sm btn-muted">E</a>
-    <a href="#" class="btn btn-sm btn-muted">F</a>
-    <a href="#" class="btn btn-sm btn-muted">G</a>
-    <a href="#" class="btn btn-sm btn-muted">H</a>
-    <a href="#" class="btn btn-sm btn-muted">I</a>
-    <a href="#" class="btn btn-sm btn-muted">J</a>
-    <a href="#" class="btn btn-sm btn-muted">K</a>
-    <a href="#" class="btn btn-sm btn-muted">L</a>
-    <a href="#" class="btn btn-sm btn-muted">M</a>
-    <a href="#" class="btn btn-sm btn-muted">N</a>
-    <a href="#" class="btn btn-sm btn-muted">O</a>
-    <a href="#" class="btn btn-sm btn-muted">P</a>
-    <a href="#" class="btn btn-sm btn-muted">Q</a>
-    <a href="#" class="btn btn-sm btn-muted">R</a>
-    <a href="#" class="btn btn-sm btn-muted">S</a>
-    <a href="#" class="btn btn-sm btn-muted">T</a>
-    <a href="#" class="btn btn-sm btn-muted">V</a>
-    <a href="#" class="btn btn-sm btn-muted">U</a>
-    <a href="#" class="btn btn-sm btn-muted">W</a>
-    <a href="#" class="btn btn-sm btn-muted">X</a>
-    <a href="#" class="btn btn-sm btn-muted">Y</a>
-    <a href="#" class="btn btn-sm btn-muted">Z</a>
+    <ewo-alphabetical-sort [isWhiteBackground]="true" [searchControl]="searchControl"></ewo-alphabetical-sort>
 </div>
 <!-- END CONTACTS ALPHABET FILTER -->
-<div *ngFor="let tenant of tenants" class="col-sm-6 col-md-4 col-lg-3">
+<div *ngFor="let tenant of tenants  | filterWithStartLetter: { last_name: searchControl.value }" class="col-sm-6 col-md-4 col-lg-3">
     <!--<a [routerLink]="['/contact-profile', tenant.contact_id ]" class="widget">-->
-    <a [routerLink]="['tenant-profile', tenant.id]" class="widget">
+    <a [routerLink]="['tenant-profile', tenant.contact_id]" class="widget">
         <div class="widget-content text-center">
             <img [src]="getPhotoUrl(tenant)" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
             <h2 class="widget-heading h3 text-muted">{{ buildName(tenant.first_name, tenant.last_name)}}</h2>
         </div>
         <div class="widget-content themed-background-muted text-dark text-center">
-            <address class="m-t-md">
+            <!--<address class="m-t-md">
                 <strong>{{tenant.tenant_company_name}}</strong><br *ngIf="tenant.unitNo"> {{tenant.unitNo}}<br *ngIf="tenant.title">{{tenant.title}}<br>
                 <abbr title="Phone">P:</abbr> <span *ngIf="tenant.extension">({{tenant.extension}}) &nbsp;</span> {{tenant.phone}}
-            </address>
+            </address>-->
+             <address class="m-t-md" [innerHTML]="buildAddressHtml(tenant)"></address>
         </div>
         <div class="widget-content">
             <div class="row text-center">
@@ -94,14 +70,15 @@
                         </div>
                         <div class="form-group">
                             <label class="col-md-3 control-label" for="mgtfeepercent">Management Fee <span class="required">*</span></label>
-                            <div class="col-xs-9">
+                            <div class="col-xs-9" style="display: flex;">
                                 <input [formControlValidator]="tenantForm.controls.mgtfeepercent" formControlName="mgtfeepercent" type="text" id="mgtfeepercent"
                                     name="mgtfeepercent" class="form-control col-xs-3" placeholder="Management Fee Percent" size="20">
-                                <div class="input-group-addon">(%)</div>
-                                <!-- Validation Way 2 -->
-                                <span class="validation-error">{{tenantForm.controls.mgtfeepercent.error}}</span>
-
+                                <div class="input-group-addon"> (%) </div>
                             </div>
+                            <span class="col-md-offset-3 col-xs-9 validation-error">{{tenantForm.controls.mgtfeepercent.error}}</span>
+                            <!--<div class="col-xs-1 input-group-addon">
+                                (%)
+                            </div>-->
                             <!--<div class="col-xs-1">%</div>-->
                         </div>
                         <div class="form-group">
@@ -166,9 +143,11 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-xs-3 control-label" for="email">Email</label>
+                                <label class="col-xs-3 control-label" for="email">Email <span class="required">*</span></label>
                                 <div class="col-xs-9">
-                                    <input formControlName="email" type="text" for="email" class="form-control" placeholder="Email" />
+                                    <input [formControlValidator]="contact.controls.email" formControlName="email" type="text" for="email" class="form-control"
+                                        placeholder="Email" />
+                                    <span class="validation-error">{{contact.controls.email.error}}</span>
                                 </div>
                             </div>
                             <div class="form-group">

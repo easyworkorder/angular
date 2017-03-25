@@ -18,10 +18,14 @@ export class ContactProfileCardComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.contactInfo = new Contact('', '', '', '', '', '', '', '', '', '', '', '');
+        this.contactInfo = new Contact('', '', '', '', '', '', '', '', '', '', '', '', '');
     }
 
     getPhotoUrl(contact) {
         return this.dataService.getPhotoUrl(contact);
+    }
+
+    buildAddressHtml(contact) {
+        return this.dataService.buildAddressHtml(contact, contact.companyName);
     }
 }

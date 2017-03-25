@@ -58,7 +58,8 @@ export class TenantContactProfileComponent implements OnInit {
                     photo: this.primaryContact.photo,
                     email: this.primaryContact.email,
                     companyName: this.tenant.tenant_company_name,
-                    unitNo: this.tenant.unitno
+                    unitNo: this.tenant.unitno,
+                    extension: this.tenant.extension
                 }
             })
     }
@@ -68,7 +69,6 @@ export class TenantContactProfileComponent implements OnInit {
     }
 
     buildAddressHtml(contact) {
-        contact.tenant_company_name = this.tenant.tenant_company_name;
-        return this.dataService.buildAddressHtml(contact);
+        return this.dataService.buildAddressHtml(contact, this.tenant.tenant_company_name);
     }
 }

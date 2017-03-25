@@ -5,6 +5,9 @@ import { BuildingService } from './../building/building.service';
 import { ValidationService } from './../../../services/validation.service';
 import { AuthenticationService } from "app/modules/authentication";
 import { ActivatedRoute } from "@angular/router";
+import config from '../../../config';
+import { DataService } from "app/services";
+declare var $: any;
 
 export class TabVisibility {
     isBasicTabVisible = true;
@@ -17,7 +20,6 @@ export class TabVisibility {
     templateUrl: './tenant.component.html',
 })
 export class TenantComponent implements OnInit {
-
     currentCompanyId = 1;
     isSuccess: boolean = false;
     viewInvoicesList = [{ value: true, display: 'Yes, they are authorized (default)' }, { value: false, display: 'No, they are not authorized' }];
@@ -25,6 +27,7 @@ export class TenantComponent implements OnInit {
     tenants: any[] = [];
     selectedBuilding: any;
     buildingId: any;
+    searchControl: FormControl = new FormControl('');
 
     tabs = new TabVisibility();
 
@@ -33,7 +36,8 @@ export class TenantComponent implements OnInit {
         private buildingService: BuildingService,
         private formBuilder: FormBuilder,
         private authService: AuthenticationService,
-        private route: ActivatedRoute) {
+        private route: ActivatedRoute,
+        private dataService: DataService) {
 
     }
 
@@ -44,11 +48,15 @@ export class TenantComponent implements OnInit {
             // this.getAllBuildings();
             this.getAllTenantsByBuilding(this.buildingId);
         });
+
+        $('#modal-add-tenant').on('hidden.bs.modal', () => {
+            this.closeModal();
+        });
     }
 
     tenantForm = this.formBuilder.group({
         // building: new FormControl('http://localhost:8080/api/building/6/'),
-        building: new FormControl(''),
+        building: new FormControl(),
         tenant_company_name: new FormControl('', Validators.required),
         inscertdate: new FormControl(null),
         mgtfeepercent: new FormControl('', [Validators.required]),
@@ -76,7 +84,7 @@ export class TenantComponent implements OnInit {
             mobile: new FormControl(mobile),
             emergency_phone: new FormControl(emergencyPhone),
             fax: new FormControl(fax),
-            email: new FormControl(email),
+            email: new FormControl(email, [Validators.required, ValidationService.emailValidator]),
             isprimary_contact: new FormControl(isPrimaryContact),
             tenant: new FormControl(tenantID),
             active: new FormControl(true)
@@ -99,7 +107,7 @@ export class TenantComponent implements OnInit {
     getAllTenantsByBuilding(building_id): void {
         this.tenantService.getAllTenantsByBuilding(building_id).subscribe(
             data => {
-                this.tenants = data;
+                this.tenants = data.length > 0 && data.filter(d => d.contact_id !== null);
             }
         );
     }
@@ -114,10 +122,13 @@ export class TenantComponent implements OnInit {
 
         if (!this.tenantForm.valid) { return; }
 
+        this.tenantForm.get('building').setValue(`${config.api.base}building/${this.buildingId}/`);
         let val = this.tenantForm.value;
         this.tenantService.create(this.tenantForm.value).subscribe((tenant: any) => {
             console.log('Tenant created', tenant);
+            this.getAllTenantsByBuilding(this.buildingId);
             this.isSuccess = true;
+            this.closeModal();
         });
     }
 
@@ -151,18 +162,9 @@ export class TenantComponent implements OnInit {
         return '';
     }
 
-    // buildAddressHtml(tenant: any) {
-    //   var html = '<strong>' + tenant.tenant_company_name + '</strong><br />';
-    //   if (tenant.unitNo != null && tenant.unitNo.length > 0)
-    //     html += tenant.unitNo + '<br />';
-    //   if (tenant.title != null && tenant.title.length > 0)
-    //     html += tenant.title + '<br />';
-    //   var extension = (tenant.extension != null && tenant.extension.length > 0) ? '(' + tenant.extension + ')' : '';
-    //   if (tenant.phone != null && tenant.phone.length > 0)
-    //     html += 'P: ' + extension + tenant.phone;
-
-    //   return html;
-    // }
+    buildAddressHtml(tenant: any) {
+        return this.dataService.buildAddressHtml(tenant, tenant.tenant_company_name);
+    }
 
     getPhotoUrl(tenant) {
         if (tenant.photo != null && tenant.photo.length > 0)
@@ -173,5 +175,25 @@ export class TenantComponent implements OnInit {
     stopPropagation(event) {
         event.stopPropagation()
     }
+
+    closeModal() {
+        this.resetForm();
+        this.switchTab(1);
+        $('#modal-add-tenant').modal('hide');
+    }
+
+    resetForm() {
+        this.tenantForm.reset({
+            building: new FormControl(config.api.base + 'building/' + this.buildingId + '/'),
+            gl_notify: true,
+            isactive: true,
+            tenant_contacts: [{
+                viewinvoices: true,
+                isprimary_contact: true,
+                active: true
+            }]
+        });
+    }
+
 }
 
