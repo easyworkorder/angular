@@ -9,114 +9,113 @@ import { Observable } from 'rxjs/Rx';
 declare var $: any;
 
 @Component({
-  selector: 'ewo-building-admin-details',
-  templateUrl: './building-admin-details.component.html',
-  styleUrls: ['./building-admin-details.component.css']
+    selector: 'ewo-building-admin-details',
+    templateUrl: './building-admin-details.component.html',
+    styleUrls: ['./building-admin-details.component.css']
 })
 export class BuildingAdminDetailsComponent implements OnInit {
 
-   currentCompanyId = 1;
-  employees: any[] = [];
-  primarycontact_id: any = [];
+    currentCompanyId = 1;
+    employees: any[] = [];
+    primarycontact_id: any = [];
 
-  editedBuilding: any;
-  private _buildingId: any;
+    editedBuilding: any;
+    private _buildingId: any;
 
-  buildingForm = new FormGroup({
-    id: new FormControl(),
-    primarycontact_id: new FormControl(),
-    url: new FormControl()
-  })
-
-
-  constructor(private route: ActivatedRoute, private buildingService: BuildingService, private employeeService: EmployeeService) { }
-
-  ngOnInit() {
-    this._buildingId = this.route.snapshot.params['id'];
-    this.getBuilding(this._buildingId);
-  }
-
-  // getBuilding(id) {
-  //   this.buildingService.getBuilding(id).subscribe(data => {
-  //     this.employeeService.getEmployeeById(data.primarycontact_id).subscribe(emp => {
-  //       // this.editedBuilding = Object.assign({}, data, { contactPerson: emp.last_name + ' ' + emp.first_name });
-  //       this.editedBuilding = Object.assign({}, data, { contactPerson: emp.last_name + ' ' + emp.first_name });
-  //     })
-  //   });
-  // }
-
-  getBuilding(id) {
-    this.buildingService.getBuilding(id).subscribe(data => {
-      this.employeeService.getEmployeeById(data.primarycontact_id).subscribe(emp => {
-        // this.editedBuilding = Object.assign({}, data, { contactPerson: emp.last_name + ' ' + emp.first_name });
-        // this.editedBuilding = Object.assign({}, data, { contactPerson: emp.last_name + ' ' + emp.first_name });
-        this.employeeService.getCompanyById(emp.company).subscribe(company => {
-          this.editedBuilding = Object.assign({}, data,
-            {
-              contactPerson: emp.last_name + ' ' + emp.first_name,
-              ContactPersonPhoto: emp.photo,
-              ContactPersonWorkPhone: emp.work_phone
-            },
-            {
-              primaryCompany: company.name, primaryCompanyAddress: company.address,
-              primaryCompanyUnitNo: company.unit_no, primaryCompanyCity: company.city,
-              primaryCompanyState: company.state, primaryCompanyPostalCode: company.postal_code
-            });
-        })
-      })
-    });
-  }
+    buildingForm = new FormGroup({
+        id: new FormControl(),
+        primarycontact_id: new FormControl(),
+        url: new FormControl()
+    })
 
 
-  getAllEmployees(company_id): void {
-    this.employeeService.getAllEmployees(company_id).subscribe(
-      data => {
-        let _employee: any[] = data.results.map(item => {
-          return { id: item.id, text: (item.last_name + ' ' + item.first_name) };
-        });
-        this.employees = _employee;
-      }
-    );
-  }
+    constructor(private route: ActivatedRoute, private buildingService: BuildingService, private employeeService: EmployeeService) { }
 
-  onSubmit() {
-    this.buildingForm.get('primarycontact_id').setValue(this.primarycontact_id[0].id);
-    if (!this.buildingForm.valid) return;
-
-    if (this.buildingForm.value.id) {
-      this.buildingService.update(this.buildingForm.value).subscribe((building: any) => {
-        this.updateInfo(true);
-        this.closeModal();
-      });
+    ngOnInit() {
+        this._buildingId = this.route.snapshot.params['id'];
+        this.getBuilding(this._buildingId);
     }
-  }
 
-  closeModal() {
-    $('#modalEditContactInfo').modal('hide');
-  }
+    // getBuilding(id) {
+    //   this.buildingService.getBuilding(id).subscribe(data => {
+    //     this.employeeService.getEmployeeById(data.primarycontact_id).subscribe(emp => {
+    //       // this.editedBuilding = Object.assign({}, data, { contactPerson: emp.last_name + ' ' + emp.first_name });
+    //       this.editedBuilding = Object.assign({}, data, { contactPerson: emp.last_name + ' ' + emp.first_name });
+    //     })
+    //   });
+    // }
 
-  public selectedPrimaryContact(value: any): void {
-    this.primarycontact_id = [value];
-  }
+    getBuilding(id) {
+        this.buildingService.getBuilding(id).subscribe(data => {
+            this.employeeService.getEmployeeById(data.primarycontact_id).subscribe(emp => {
+                // this.editedBuilding = Object.assign({}, data, { contactPerson: emp.last_name + ' ' + emp.first_name });
+                // this.editedBuilding = Object.assign({}, data, { contactPerson: emp.last_name + ' ' + emp.first_name });
+                this.employeeService.getCompanyById(emp.company).subscribe(company => {
+                    this.editedBuilding = Object.assign({}, data,
+                        {
+                            contactPerson: emp.last_name + ' ' + emp.first_name,
+                            ContactPersonPhoto: emp.photo,
+                            ContactPersonWorkPhone: emp.work_phone
+                        },
+                        {
+                            primaryCompany: company.name, primaryCompanyAddress: company.address,
+                            primaryCompanyUnitNo: company.unit_no, primaryCompanyCity: company.city,
+                            primaryCompanyState: company.state, primaryCompanyPostalCode: company.postal_code
+                        });
+                })
+            })
+        });
+    }
 
-  updateInfo(event) {
-    this._buildingId && this.getBuilding(this._buildingId);
-  }
 
-  editBuildingContactInfo() {
-    this.getAllEmployees(this.currentCompanyId);
-    this.primarycontact_id = this.editedBuilding && [{ id: this.editedBuilding.primarycontact_id, text: this.editedBuilding.contactPerson }];
-    this.editedBuilding && this.buildingForm.setValue({
-      id: this.editedBuilding.id,
-      primarycontact_id: this.editedBuilding.primarycontact_id,
-      url: this.editedBuilding.url
-    });
-  }
+    getAllEmployees(company_id): void {
+        this.employeeService.getAllEmployees(company_id).subscribe(
+            data => {
+                let _employee: any[] = data.results.map(item => {
+                    return { id: item.id, text: (item.last_name + ' ' + item.first_name) };
+                });
+                this.employees = _employee;
+            }
+        );
+    }
 
-  getPhotoUrl(employee) {
-    if (employee.photo != null && employee.photo.length > 0)
-      return employee.photo;
-    return 'assets/img/placeholders/avatars/avatar9.jpg';
-  }
+    onSubmit() {
+        this.buildingForm.get('primarycontact_id').setValue(this.primarycontact_id[0].id);
+        if (!this.buildingForm.valid) return;
 
+        if (this.buildingForm.value.id) {
+            this.buildingService.update(this.buildingForm.value).subscribe((building: any) => {
+                this.updateInfo(true);
+                this.closeModal();
+            });
+        }
+    }
+
+    closeModal() {
+        $('#modalEditContactInfo').modal('hide');
+    }
+
+    public selectedPrimaryContact(value: any): void {
+        this.primarycontact_id = [value];
+    }
+
+    updateInfo(event) {
+        this._buildingId && this.getBuilding(this._buildingId);
+    }
+
+    editBuildingContactInfo() {
+        this.getAllEmployees(this.currentCompanyId);
+        this.primarycontact_id = this.editedBuilding && [{ id: this.editedBuilding.primarycontact_id, text: this.editedBuilding.contactPerson }];
+        this.editedBuilding && this.buildingForm.setValue({
+            id: this.editedBuilding.id,
+            primarycontact_id: this.editedBuilding.primarycontact_id,
+            url: this.editedBuilding.url
+        });
+    }
+
+    getPhotoUrl(employee) {
+        if (employee.photo != null && employee.photo.length > 0)
+            return employee.photo;
+        return 'assets/img/placeholders/avatars/avatar9.jpg';
+    }
 }

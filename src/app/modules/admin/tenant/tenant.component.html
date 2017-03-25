@@ -31,7 +31,7 @@
 <!-- END CONTACTS ALPHABET FILTER -->
 <div *ngFor="let tenant of tenants" class="col-sm-6 col-md-4 col-lg-3">
     <!--<a [routerLink]="['/contact-profile', tenant.contact_id ]" class="widget">-->
-    <a class="widget">
+    <a [routerLink]="['tenant-profile', tenant.id]" class="widget">
         <div class="widget-content text-center">
             <img [src]="getPhotoUrl(tenant)" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
             <h2 class="widget-heading h3 text-muted">{{ buildName(tenant.first_name, tenant.last_name)}}</h2>

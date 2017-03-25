@@ -70,6 +70,8 @@ import { RemitInformationComponent } from './modules/admin/building-admin/remit-
 import { BreadcrumbHeaderComponent } from './modules/shared/breadcrumb-header/breadcrumb-header.component';
 import { BuildingAdminDetailsComponent } from './modules/admin/building-admin/building-admin-details.component';
 import { UserDashboardComponent } from './modules/dashboard/user-dashboard.component';
+import { ContactProfileCardComponent } from './modules/admin/contact-profile-card/contact-profile-card.component';
+import { ContactActivitiesComponent } from './modules/admin/contact-activities/contact-activities.component';
 
 export function translateStaticLoaderFactory(Backend, defaultOptions, storage, notificationService) {
     return new AppHttp(Backend, defaultOptions, storage, notificationService);
@@ -123,7 +125,9 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         RemitInformationComponent,
         BreadcrumbHeaderComponent,
         BuildingAdminDetailsComponent,
-        UserDashboardComponent
+        UserDashboardComponent,
+        ContactProfileCardComponent,
+        ContactActivitiesComponent
     ],
     imports: [
         BrowserModule,

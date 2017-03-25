@@ -9,226 +9,226 @@ import config from '../config';
 // import { Storage} from './index';
 
 import {
-  EventService,
+    EventService,
 } from './index';
 
 @Injectable()
 export class DataService {
 
-  protected _type = null; // should be assigned in child services
+    protected _type = null; // should be assigned in child services
 
-  protected _params = { // snakecase naming
-    page: 1,
-    page_size: 30,
-  };
+    protected _params = { // snakecase naming
+        page: 1,
+        page_size: 30,
+    };
 
-  protected _data: any = {
-    list: null,
-    view: null,
-    edit: null,
-  };
+    protected _data: any = {
+        list: null,
+        view: null,
+        edit: null,
+    };
 
-  protected _observables: any = {
-    list: null, // Experimental
-    view: null,
-    edit: null,
-  };
+    protected _observables: any = {
+        list: null, // Experimental
+        view: null,
+        edit: null,
+    };
 
-  public data = this._data;
-  public observables = this._observables;
+    public data = this._data;
+    public observables = this._observables;
 
-  constructor(
-    protected events: EventService,
-    // private storage: Storage
-  ) {
-    // init observers
-    ['list', 'view', 'edit'].forEach(prop => {
-      let observable = new ReplaySubject(1); // buffer last value
-      this._observables[prop] = observable;
-    });
+    constructor(
+        protected events: EventService,
+        // private storage: Storage
+    ) {
+        // init observers
+        ['list', 'view', 'edit'].forEach(prop => {
+            let observable = new ReplaySubject(1); // buffer last value
+            this._observables[prop] = observable;
+        });
 
-    // init refresh
-    this.events
-      .filter(e => e.type == 'PROCESS_COMPLETED')
-      .subscribe((event: IEvent) => this.refresh(event.data.targetId, event.data.target));
+        // init refresh
+        this.events
+            .filter(e => e.type == 'PROCESS_COMPLETED')
+            .subscribe((event: IEvent) => this.refresh(event.data.targetId, event.data.target));
 
-    // init reset
-    this.events
-      .filter(e => e.type == 'USER_SIGNOUT')
-      .subscribe((event: IEvent) => this.reset(this._data));
-  }
-
-  private _cloneForm(abstractControl: AbstractControl): AbstractControl {
-    // experimental and weird
-    // supposed to be used to clone ControlArray elements
-    let control: FormControl | FormGroup | FormArray;
-
-    // ControlGroup
-    if (abstractControl instanceof FormGroup) {
-      let props = Object.keys(abstractControl.controls);
-      control = <FormGroup> new FormGroup({}, abstractControl.validator, abstractControl.asyncValidator);
-
-      for (let i = 0; i < props.length; ++i) {
-        let abstractControlItem = abstractControl.controls[props[i]];
-        control.addControl(props[i], this._cloneForm(abstractControlItem));
-      }
+        // init reset
+        this.events
+            .filter(e => e.type == 'USER_SIGNOUT')
+            .subscribe((event: IEvent) => this.reset(this._data));
     }
 
-    // ControlArray
-    if (abstractControl instanceof FormArray) {
-      let length = abstractControl.controls.length;
-      control = <FormArray> new FormArray([], abstractControl.validator, abstractControl.asyncValidator);
+    private _cloneForm(abstractControl: AbstractControl): AbstractControl {
+        // experimental and weird
+        // supposed to be used to clone ControlArray elements
+        let control: FormControl | FormGroup | FormArray;
 
-      for (let i = 0; i < length; ++i) {
-        let abstractControlItem = abstractControl.controls[i];
-        control.push(this._cloneForm(abstractControlItem));
-      }
+        // ControlGroup
+        if (abstractControl instanceof FormGroup) {
+            let props = Object.keys(abstractControl.controls);
+            control = <FormGroup>new FormGroup({}, abstractControl.validator, abstractControl.asyncValidator);
+
+            for (let i = 0; i < props.length; ++i) {
+                let abstractControlItem = abstractControl.controls[props[i]];
+                control.addControl(props[i], this._cloneForm(abstractControlItem));
+            }
+        }
+
+        // ControlArray
+        if (abstractControl instanceof FormArray) {
+            let length = abstractControl.controls.length;
+            control = <FormArray>new FormArray([], abstractControl.validator, abstractControl.asyncValidator);
+
+            for (let i = 0; i < length; ++i) {
+                let abstractControlItem = abstractControl.controls[i];
+                control.push(this._cloneForm(abstractControlItem));
+            }
+        }
+
+        // Control
+        if (abstractControl instanceof FormControl) {
+            // how to set default values? :/
+            control = new FormControl(null, abstractControl.validator, abstractControl.asyncValidator);
+        }
+
+        return control;
     }
 
-    // Control
-    if (abstractControl instanceof FormControl) {
-      // how to set default values? :/
-      control = new FormControl(null, abstractControl.validator, abstractControl.asyncValidator);
+    // TODO: how about to drop it to replace with FormGroup.patchValue
+    private _editForm(abstractControl: AbstractControl, data: any): void {
+        // set initial values for form controls (recursively)
+        if (data === undefined) { return; }
+
+        // ControlGroup
+        if (abstractControl instanceof FormGroup) {
+
+            data = data || {};
+            let props = Object.keys(abstractControl.controls);
+
+            for (let i = 0; i < props.length; ++i) {
+                let abstractControlItem = abstractControl.controls[props[i]];
+                this._editForm(abstractControlItem, data[props[i]]);
+            }
+        }
+
+        // ControlArray
+        if (abstractControl instanceof FormArray) {
+
+            data = data || [];
+            let length = Math.max(abstractControl.controls.length, data.length);
+
+            for (let i = 0; i < length; ++i) {
+                let abstractControlItem = abstractControl.controls[i] || this.__editFormExtendArray(abstractControl);
+                this._editForm(abstractControlItem, data[i]);
+            }
+        }
+
+        // Control
+        if (abstractControl instanceof FormControl) {
+            abstractControl.setValue(data, { emitEvent: false, emitModelToViewChange: false }); // do it silently (last param)
+        }
     }
 
-    return control;
-  }
+    private __editFormExtendArray(controlArray: FormArray): AbstractControl {
+        // to extend control array (see _editForm)
+        let prototypeControl = controlArray.controls[0] || new FormControl(); // could be even smarter
+        let control: AbstractControl = this._cloneForm(prototypeControl);
 
-  // TODO: how about to drop it to replace with FormGroup.patchValue
-  private _editForm(abstractControl: AbstractControl, data: any): void {
-    // set initial values for form controls (recursively)
-    if (data === undefined) { return; }
-
-    // ControlGroup
-    if (abstractControl instanceof FormGroup) {
-
-      data = data || {};
-      let props = Object.keys(abstractControl.controls);
-
-      for (let i = 0; i < props.length; ++i) {
-        let abstractControlItem = abstractControl.controls[props[i]];
-        this._editForm(abstractControlItem, data[props[i]]);
-      }
+        controlArray.push(control);
+        return control;
     }
 
-    // ControlArray
-    if (abstractControl instanceof FormArray) {
+    view(item?: Object): void {
+        const data = item ? Object.assign({}, item) : null;
 
-      data = data || [];
-      let length = Math.max(abstractControl.controls.length, data.length);
-
-      for (let i = 0; i < length; ++i) {
-        let abstractControlItem = abstractControl.controls[i] || this.__editFormExtendArray(abstractControl);
-        this._editForm(abstractControlItem, data[i]);
-      }
+        this._data.view = data;
+        this._observables.view.next(data);
     }
 
-    // Control
-    if (abstractControl instanceof FormControl) {
-      abstractControl.setValue(data, {emitEvent: false, emitModelToViewChange: false}); // do it silently (last param)
+    edit(item?: Object): void {
+        item = item || this._data.view; // || {}
+        const data = item ? Object.assign({}, item) : null;
+
+        this._data.edit = data;
+        this._observables.edit.next(data);
     }
-  }
 
-  private __editFormExtendArray(controlArray: FormArray): AbstractControl {
-    // to extend control array (see _editForm)
-    let prototypeControl = controlArray.controls[0] || new FormControl(); // could be even smarter
-    let control: AbstractControl = this._cloneForm(prototypeControl);
+    editForm(form: FormGroup, item?: Object): void {
+        item = item || this._data.view || {};
+        const data = Object.assign({}, item);
 
-    controlArray.push(control);
-    return control;
-  }
+        this._editForm(form, data);
 
-  view(item?: Object): void {
-    const data = item ? Object.assign({}, item) : null;
-
-    this._data.view = data;
-    this._observables.view.next(data);
-  }
-
-  edit(item?: Object): void {
-    item = item || this._data.view; // || {}
-    const data = item ? Object.assign({}, item) : null;
-
-    this._data.edit = data;
-    this._observables.edit.next(data);
-  }
-
-  editForm(form: FormGroup, item?: Object): void {
-    item = item || this._data.view || {};
-    const data = Object.assign({}, item);
-
-    this._editForm(form, data);
-
-    this._data.edit = data;
-    this._observables.edit.next(data);
-  }
-
-  trackBy(index: number, item): any {
-    return item && item['id'];
-  }
-
-  // experimental
-  reset(obj: Object) {
-    Object.keys(obj).forEach(prop => { delete obj[prop]; });
-  }
-
-  // experimental
-  refresh(id: TObjectId, type: string) {
-    type = type || this._type;
-    if (type != this._type) { return; }
-
-    // update list
-    let list = (this._data.list || []).map(item => item.id);
-    list.length && list.indexOf(id) > -1 && this['list'] && this['list']();
-
-    // update view
-    this._data.view && this._data.view.id == id && this['retrive'] && this['retrive'](id);
-
-    // update edit
-    //this._data.edit && this._data.edit.id == id && this['retrive'] && this['retrive'](id);
-  }
-
-  // Few Common Methods used in different components
-  buildName(firstName: string, lastName: string) {
-    if(firstName != null && firstName.length > 0 && lastName != null && lastName.length > 0){
-      return firstName + ' ' + lastName;
+        this._data.edit = data;
+        this._observables.edit.next(data);
     }
-    if( firstName != null && firstName.length > 0 )
-      return firstName;
-    if(lastName != null && lastName.length > 0)
-      return lastName;
-    return '';
-  }
 
-  buildAddressHtml(tenant: any) {
-    var html = '<strong>' + tenant.tenant_company_name + '</strong><br />';
-    if(tenant.unitNo != null && tenant.unitNo.length > 0)
-      html += tenant.unitNo + '<br />';
-    if(tenant.title != null && tenant.title.length > 0 )
-      html += tenant.title + '<br />';
-    var extension =  (tenant.extension != null && tenant.extension.length > 0) ? '(' + tenant.extension + ')' : '';
-    if(tenant.phone != null && tenant.phone.length > 0 )
-      html += 'P: ' + extension + tenant.phone;
+    trackBy(index: number, item): any {
+        return item && item['id'];
+    }
 
-    return html;
-  }
+    // experimental
+    reset(obj: Object) {
+        Object.keys(obj).forEach(prop => { delete obj[prop]; });
+    }
 
-  getPhotoUrl(tenant) {
-    if(tenant.photo != null && tenant.photo.length > 0)
-      return tenant.photo;
-    return 'assets/img/placeholders/avatars/avatar9.jpg';
-  }
+    // experimental
+    refresh(id: TObjectId, type: string) {
+        type = type || this._type;
+        if (type != this._type) { return; }
 
-  stopPropagation(event){
-    event.stopPropagation()
-  }
+        // update list
+        let list = (this._data.list || []).map(item => item.id);
+        list.length && list.indexOf(id) > -1 && this['list'] && this['list']();
 
-  // private _userInfo: any;
-  // getUserInfo() {
-  //   if(!! this._userInfo) {
-  //     this._userInfo = this.storage.get(config.storage.user)
-  //   }
-  //   return this._userInfo;
-  // }
+        // update view
+        this._data.view && this._data.view.id == id && this['retrive'] && this['retrive'](id);
+
+        // update edit
+        //this._data.edit && this._data.edit.id == id && this['retrive'] && this['retrive'](id);
+    }
+
+    // Few Common Methods used in different components
+    buildName(firstName: string, lastName: string) {
+        if (firstName != null && firstName.length > 0 && lastName != null && lastName.length > 0) {
+            return firstName + ' ' + lastName;
+        }
+        if (firstName != null && firstName.length > 0)
+            return firstName;
+        if (lastName != null && lastName.length > 0)
+            return lastName;
+        return '';
+    }
+
+    buildAddressHtml(tenant: any) {
+        var html = '<strong>' + tenant.tenant_company_name + '</strong><br />';
+        if (tenant.unitNo != null && tenant.unitNo.length > 0)
+            html += tenant.unitNo + '<br />';
+        if (tenant.title != null && tenant.title.length > 0)
+            html += tenant.title + '<br />';
+        var extension = (tenant.extension != null && tenant.extension.length > 0) ? '(' + tenant.extension + ')' : '';
+        if (tenant.phone != null && tenant.phone.length > 0)
+            html += 'P: ' + extension + tenant.phone;
+
+        return html;
+    }
+
+    getPhotoUrl(tenant) {
+        if (tenant && tenant.photo != null && tenant.photo.length > 0)
+            return tenant.photo;
+        return 'assets/img/placeholders/avatars/avatar9.jpg';
+    }
+
+    stopPropagation(event) {
+        event.stopPropagation()
+    }
+
+    // private _userInfo: any;
+    // getUserInfo() {
+    //   if(!! this._userInfo) {
+    //     this._userInfo = this.storage.get(config.storage.user)
+    //   }
+    //   return this._userInfo;
+    // }
 
 }
