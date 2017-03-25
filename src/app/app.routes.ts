@@ -4,6 +4,7 @@ import { SigninComponent } from './modules/authentication/signin.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { BuildingComponent } from './modules/admin/building/building.component';
 import { TicketComponent } from './modules/ticket/ticket.component';
+import { TicketDetailsComponent } from './modules/ticket/ticket_details.component';
 import { AddressComponent } from './modules/address/address.component';
 import { TenantComponent } from './modules/admin/tenant/tenant.component';
 import { TenantListComponent } from './modules/list/tenant-list/tenant-list.component';
@@ -37,6 +38,15 @@ export const appRoutes: Routes = [
             // And form there, user specific views will be loaded by their type(user group)
             { path: '', component: UserDashboardComponent, pathMatch: 'full' },
             { path: 'ticketlist', component: TicketComponent, pathMatch: 'full' },
+            {
+                path: 'ticket-details/:id', component: TicketDetailsComponent,
+                resolve: {
+                    admin: TicketDashBoardResolver
+                },
+                data: {
+                    breadcrumb: "Ticket Details"
+                },
+            },
             { path: 'employee', component: EmployeeListComponent, pathMatch: 'full' },
             { path: 'tenant', component: TenantListComponent, pathMatch: 'full' },
             {
