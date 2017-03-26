@@ -52,7 +52,7 @@
     <div class="col-sm-3" *ngFor="let employee of employees | filterWithStartLetter: { last_name: employeeSearchControl.value }">
         <!--<div class="col-sm-3" *ngFor="let employee of employees | filterMultipleStartWith: employeeSearchControl.value">-->
         <!--<div class="col-sm-3" *ngFor="let employee of employees">-->
-        <div class="widget">
+        <a class="widget widget-cursor-default">
             <div class="widget-content text-center">
                 <div class="col-sm-2 text-center" style="position: absolute; right: 0;">
                     <a (click)="editEmployee(employee)" data-toggle="modal" title="" href="#modal-add-employee" class="btn btn-effect-ripple btn-xs btn-success"
@@ -85,7 +85,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </a>
     </div>
 </div>
 
@@ -194,9 +194,9 @@
                         <div class="form-group">
                             <label class="col-xs-3 control-label" for="wireless_email">Wireless Email</label>
                             <div class="col-xs-9">
-                                <input formControlName="wireless_email" type="text" id="wireless_email"
-                                    name="wireless_email" class="form-control" placeholder="Wireless Email">
-                                <span *ngIf="!employeeForm.get('wireless_email').pristine && employeeForm.get('wireless_email').dirty && employeeForm.get('wireless_email').hasError('invalidEmailAddress')" class="validation-error">This is an invalid email address</span>
+                                <input formControlName="wireless_email" type="text" id="wireless_email" name="wireless_email" class="form-control" placeholder="Wireless Email">
+                                <span *ngIf="!employeeForm.get('wireless_email').pristine && employeeForm.get('wireless_email').dirty && employeeForm.get('wireless_email').hasError('invalidEmailAddress')"
+                                    class="validation-error">This is an invalid email address</span>
                                 <div class="small">(Enter your 10 digit mobile number, ex: 9991234567@vtext.com)</div>
                                 <div class="small bg-info offset1">
                                     Some common carriers are:<br/> AT&T: @mobile.att.com<br/> Cingular: @mycingular.textmsg.com<br/>                                    Metro PCS: @mymetropcs.com<br/> Nextel: @messaging.nextel.com<br/> Sprint: @messaging.sprintpcs.com<br/>                                    T-Mobile: @tomail.com<br/> Verizon: @vtext.com<br/> The above carriers may have different
@@ -206,9 +206,12 @@
                             </div>
                         </div>
                         <div *ngIf="employeeForm.get('id').value" class="form-group">
-                            <div class="col-xs-3"></div>
-                            <label class="col-xs-9">
-                            <input formControlName="active" type="checkbox" id="active" name="active" class=""> Active </label>
+                            <div class="col-xs-3 control-label">Active</div>
+                            <label class="col-xs-9 switch switch-success">
+                            <input formControlName="active" type="checkbox" id="active" name="active" class=""><span></span></label>
+                            <!--<label class="col-xs-7 switch switch-success">
+                                <input formControlName="active" type="checkbox" id="active" name="active" class=""><span></span>
+                            </label>-->
                         </div>
                         <div class="form-group">
                             <label class="col-xs-3 control-label" for="notes">Notes</label>

@@ -51,7 +51,7 @@
     <div class="col-sm-3" *ngFor="let employee of employees | filterWithStartLetter: { last_name: employeeSearchControl.value }">
         <!--<div class="col-sm-3" *ngFor="let employee of employees | filterMultipleStartWith: employeeSearchControl.value">-->
         <!--<div class="col-sm-3" *ngFor="let employee of employees">-->
-        <div class="widget">
+        <a class="widget widget-cursor-default">
             <div class="widget-content text-center">
                 <div class="col-sm-2 text-center" style="position: absolute; right: 0;">
                 </div>
@@ -81,7 +81,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </a>
     </div>
 </div>
 

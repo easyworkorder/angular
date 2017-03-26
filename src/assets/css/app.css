@@ -25,3 +25,18 @@ no-content {
 .help-text--custom-size {
     font-size: 0.65em;
 }
+
+.widget-cursor-default {
+    cursor: default !important;
+}
+
+.view-invoice-label-text {
+    position: relative;
+    top: 15px;
+}
+
+.view-invoice-display-label {
+    position: relative;
+    top: -8px;
+    padding: 4px;
+}

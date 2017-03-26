@@ -107,7 +107,8 @@
                 <h2>Building Contact</h2>
               </div>
               <!-- END Menu Title -->
-              <a href="#" class="widget">
+              <!--<a href="#" class="widget">-->
+              <a class="widget widget-cursor-default">
                 <div class="widget-content text-center">
                   <img [src]="getPhotoUrl(editedBuilding.ContactPersonPhoto)" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
                   <h2 *ngIf="editedBuilding.contactPerson" class="widget-heading h3 text-muted">{{editedBuilding.contactPerson}}</h2>
@@ -862,7 +863,7 @@
           </div>
           <div class="form-group form-actions">
             <div class="col-xs-12 text-right">
-              <button type="submit" class="btn btn-effect-ripple btn-success" style="overflow: hidden; position: relative;">Add</button>
+              <button type="submit" class="btn btn-effect-ripple btn-success" style="overflow: hidden; position: relative;">Save</button>
             </div>
           </div>
         </form>

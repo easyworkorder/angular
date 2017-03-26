@@ -16,7 +16,7 @@
                 <strong>{{tenant.tenant_company_name}}</strong><br *ngIf="tenant.unitNo"> {{tenant.unitNo}}<br *ngIf="tenant.title">{{tenant.title}}<br>
                 <abbr title="Phone">P:</abbr> <span *ngIf="tenant.extension">({{tenant.extension}}) &nbsp;</span> {{tenant.phone}}
             </address>-->
-             <address class="m-t-md" [innerHTML]="buildAddressHtml(tenant)"></address>
+            <address class="m-t-md" [innerHTML]="buildAddressHtml(tenant)"></address>
         </div>
         <div class="widget-content">
             <div class="row text-center">
@@ -130,10 +130,19 @@
                                     <span class="validation-error">{{contact.controls.last_name.error}}</span>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <!--<div class="form-group">
                                 <label class="col-md-3 control-label" for="photo">Photo</label>
                                 <div class="col-xs-9">
                                     <input type="file" id="photo" name="photo" class="form-control">
+                                </div>
+                            </div>-->
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label text-muted">NO AVATAR</label>
+                                <div class="col-xs-9">
+                                    <i class="fa fa-fw fa-upload"></i> <a href="javascript:void(0)">Upload New
+                                Avatar</a><br>
+                                    <i class="fa fa-fw fa-picture-o"></i> <a href="javascript:void(0)">Choose from
+                                Library</a>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -179,13 +188,13 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-xs-3 control-label" for="viewinvoices">View Invoices</label>
+                                <label class="col-xs-3 control-label view-invoice-label-text" for="viewinvoices">View Invoices</label>
                                 <div class="col-xs-9">
                                     <span *ngFor="let option of viewInvoicesList">
-                                        <label>
-                                        <input formControlName="viewinvoices" type="radio" name="viewinvoices" [value]="option.value">
-                                        {{option.display}}
-                                        </label>
+                                        <label class="switch switch-success">
+                                        <input formControlName="viewinvoices" type="radio" name="viewinvoices" [value]="option.value"><span></span>
+                                    <label class="view-invoice-display-label"> {{option.display}}</label>
+                                    </label>
                                     </span>
                                 </div>
                             </div>
@@ -200,11 +209,14 @@
 
                     <div class="form-group form-actions">
                         <div class="col-md-8 col-md-offset-4">
-                            <button type="reset" class="btn btn-effect-ripple btn-danger ui-wizard-content ui-formwizard-button" id="back1" style="overflow: hidden; position: relative;"
+                            <!--<button type="reset" class="btn btn-effect-ripple btn-danger ui-wizard-content ui-formwizard-button" id="back1" style="overflow: hidden; position: relative;"
                                 value="Back"> Back
-                            </button>
-                            <button type="submit" class="btn btn-effect-ripple btn-primary ui-wizard-content ui-formwizard-button" id="next1" style="overflow: hidden; position: relative;"
+                            </button>-->
+                            <!--<button type="submit" class="btn btn-effect-ripple btn-primary ui-wizard-content ui-formwizard-button" id="next1" style="overflow: hidden; position: relative;"
                                 value="Next">Next
+                            </button>-->
+                             <button type="submit" class="btn btn-effect-ripple btn-primary ui-wizard-content ui-formwizard-button" id="btnSave" style="overflow: hidden; position: relative;"
+                                value="Save">Save
                             </button>
                         </div>
                     </div>

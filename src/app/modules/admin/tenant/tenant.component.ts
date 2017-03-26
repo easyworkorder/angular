@@ -22,7 +22,10 @@ export class TabVisibility {
 export class TenantComponent implements OnInit {
     currentCompanyId = 1;
     isSuccess: boolean = false;
-    viewInvoicesList = [{ value: true, display: 'Yes, they are authorized (default)' }, { value: false, display: 'No, they are not authorized' }];
+    viewInvoicesList = [
+        { value: true, display: 'Yes, they are authorized (default)' },
+        { value: false, display: 'No, they are not authorized' }
+    ];
     buildings: any[] = [];
     tenants: any[] = [];
     selectedBuilding: any;

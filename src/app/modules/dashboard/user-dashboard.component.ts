@@ -17,8 +17,10 @@ export class UserDashboardComponent implements OnInit {
 
     ngOnInit() {
         var user = this.storage.getUserInfo();
-        if(user && user.IsContact) {
-            this.tenant = this.getTenantById(user.tenant_id);
+        if (user && user.IsContact) {
+            this.getTenantById(user.tenant_id).subscribe(data => {
+                this.tenant = data;
+            });
         }
     }
 
