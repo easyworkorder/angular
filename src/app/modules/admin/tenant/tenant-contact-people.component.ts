@@ -85,9 +85,9 @@ export class TenantContactPeopleComponent implements OnInit {
     resetForm() {
         this.tenantContactPeopleForm.reset({
             isprimary_contact: false,
-            active: true
+            active: true,
+            viewinvoices: true
         });
     }
-
 
 }
