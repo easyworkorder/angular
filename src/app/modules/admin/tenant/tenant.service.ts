@@ -42,6 +42,23 @@ export class TenantService extends DataService {
     return observable;
   }
 
+  createTenantContact(data?: any): Observable<any> {
+    data = Object.assign({}, data);
+
+    // POST '/tenant'
+    const observable = this.http.post('tenantcontact/', data);
+
+    observable.subscribe(data => {
+      // console.log(data);
+      this.toasterService.pop('success', 'ADD', 'Contact has been saved successfully');
+    },
+      error => {
+        this.toasterService.pop('error', 'ADD', 'Contact not Saved due to API error!!!');
+      });
+
+    return observable;
+  }
+
   getTenant(url) {
     const observable = this.http.getByFullUrl(url);
     observable.subscribe(data => {

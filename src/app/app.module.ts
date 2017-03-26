@@ -79,6 +79,9 @@ import { BreadcrumbComponent } from './modules/shared/breadcrumb/breadcrumb.comp
 import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
 import { AlphabeticalSortComponent } from './modules/shared/alphabetical-sort/alphabetical-sort.component';
 import { ContactListComponent } from "app/modules/shared/contact-list/contact-list.component";
+import { TenantContactActivitiesComponent } from './modules/admin/tenant/tenant-contact-activities.component';
+import { TenantContactPeopleComponent } from './modules/admin/tenant/tenant-contact-people.component';
+import { UpdatePeopleService } from "app/modules/admin/tenant/people.service";
 
 export function translateStaticLoaderFactory(Backend, defaultOptions, storage, notificationService) {
     return new AppHttp(Backend, defaultOptions, storage, notificationService);
@@ -139,7 +142,9 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         ContactActivitiesComponent,
         BreadcrumbComponent,
         AlphabeticalSortComponent,
-        ContactListComponent
+        ContactListComponent,
+        TenantContactActivitiesComponent,
+        TenantContactPeopleComponent
     ],
     imports: [
         BrowserModule,
@@ -179,7 +184,8 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         ToasterService,
         HeaderService,
         ...APP_RESOLVER_PROVIDERS,
-        BreadcrumbHeaderService
+        BreadcrumbHeaderService,
+        UpdatePeopleService
         // { provide: XSRFStrategy, useValue: new      CookieXSRFStrategy('token', 'x-csrftoken')
         // },
     ],

@@ -4,7 +4,8 @@
        <ewo-contact-profile-card  [contactInfo]="contactInfo"></ewo-contact-profile-card>
     </div>
     <div class="col-md-7 col-lg-8">
-      <ewo-contact-activities></ewo-contact-activities>
+      <!--<ewo-contact-activities [tenant]="tenant"></ewo-contact-activities>-->
+      <ewo-tenant-contact-activities *ngIf="tenant" [tenant]="tenant" (update)="updateInActivity($event)"></ewo-tenant-contact-activities>
     </div>
 </div>
 <!-- END Contact Profile Row -->

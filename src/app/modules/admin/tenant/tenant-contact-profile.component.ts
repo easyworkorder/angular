@@ -14,6 +14,7 @@ export class TenantContactProfileComponent implements OnInit {
     tenant: any;
     primaryContact: any;
     contactInfo: Contact;
+    tenantContactPeoples: any;
 
     constructor(
         private tenantService: TenantService,
@@ -61,6 +62,12 @@ export class TenantContactProfileComponent implements OnInit {
                     unitNo: this.tenant.unitno,
                     extension: this.tenant.extension
                 }
+
+                let tempContact = this.tenant.tenant_contacts.filter(data => {
+                    return !data.isprimary_contact;
+                });
+
+                this.tenant.tenant_contacts = tempContact;
             })
     }
 
@@ -70,5 +77,9 @@ export class TenantContactProfileComponent implements OnInit {
 
     buildAddressHtml(contact) {
         return this.dataService.buildAddressHtml(contact, this.tenant.tenant_company_name);
+    }
+
+    updateInActivity(event) {
+        this.getContactDetails(this.route.snapshot.params['id']);
     }
 }

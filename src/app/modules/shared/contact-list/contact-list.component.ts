@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { DataService, AppHttp } from "app/services";
 
 @Component({
@@ -15,16 +15,22 @@ export class ContactListComponent implements OnInit {
     /// A List of TenantContact objects to display
     @Input() tenant: any[];
     @Input() isEditable: boolean = true;
+    @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
+
     ngOnInit() {
 
     }
 
-    getPhotoUrl(contact: any){
+    getPhotoUrl(contact: any) {
         var photo = this.dataService.getPhotoUrl(contact.photo);
         return photo;
     }
 
     stopPropagation(event) {
         event.stopPropagation()
+    }
+
+    updateContact(data) {
+        this.change.emit(data);
     }
 }

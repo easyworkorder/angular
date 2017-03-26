@@ -13,7 +13,7 @@
                 <a href="tel:{{ contact.phone }}" (click)="stopPropagation($event)" class="btn btn btn-default" data-toggle="tooltip" title="" data-original-title="Call"><i class="fa fa-phone"></i></a>
                 <a href="mailto:{{ contact.email }}" (click)="stopPropagation($event)" class="btn btn btn-info" data-toggle="tooltip" title="" data-original-title="Email"><i class="fa fa-envelope"></i></a>
                 <a href="javascript:void(0)" class="btn btn btn-danger" data-toggle="tooltip" title="" data-original-title="Send Password"><i class="fa fa-share"></i></a>
-                <a *ngIf="isEditable" href="javascript:void(0)" class="btn btn btn-success" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                <a *ngIf="isEditable" href="javascript:void(0)" (click)="updateContact(contact)" class="btn btn btn-success" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
             </td>
         </tr>
         <!--<tr class="animation-fadeInQuick2">
