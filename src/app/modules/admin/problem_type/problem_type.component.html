@@ -16,7 +16,7 @@
         </div>
     </div>
     <div class="text-center border-top push-inner-top-bottom">
-        <a href="#modal-add-problem-type" class="btn btn-sm btn-success" data-toggle="modal"><i class="fa fa-plus"></i></a>
+        <!--<a href="#modal-add-problem-type" class="btn btn-sm btn-success" data-toggle="modal"><i class="fa fa-plus"></i></a>-->
         <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('')">ALL</a>
         <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('A')">A</a>
         <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('B')">B</a>
@@ -47,14 +47,11 @@
     </div>
 </div>
 <!-- END Contacts Header -->
-<div class="block full">
-    <!-- Get Started Title -->
+<!--<div class="block full">
     <div class="block-title">
         <h2>Problem Types</h2>
     </div>
-    <!-- END Get Started Title -->
 
-    <!-- Problem Types -->
     <div class="row">
         <div class="animation-fadeInQuickInv col-sm-6" *ngFor="let problemType of problemTypes | filterWithStartLetter: { problem_name: problemTypeSearchControl.value };">
             <div class="col-sm-10">{{problemType.problem_name}}</div>
@@ -65,9 +62,65 @@
             </div>
         </div>
     </div>
+</div>-->
+
+<div class="block full">
+    <!-- Get Started Title -->
+    <div class="block-title">
+        <div class="block-options pull-right">
+            <a href="#modal-add-problem-type" class="btn btn-effect-ripple btn-success" data-toggle="modal" title="" style="overflow: hidden; position: relative;"
+                data-original-title="Add Problem Type"><i class="fa fa-plus"></i></a>
+        </div>
+        <h2>Problem Types</h2>
+    </div>
+    <!-- END Get Started Title -->
+
+    <!-- Problem Types -->
+    <div class="row">
+        <div class="col-sm-6">
+            <table class="table table-striped table-borderless table-hover table-vcenter">
+                <tbody>
+                    <tr *ngFor="let problemType of problemTypesList1 | filterWithStartLetter: { problem_name: problemTypeSearchControl.value };" class="animation-fadeInQuickInv">
+                        <td class="hidden-xs">{{problemType.problem_name}}</td>
+                        <td class="text-center" style="width: 100px;">
+                            <a href="#modal-add-problem-type" (click)="editProblemType(problemType)" data-toggle="modal" title="" class="btn btn-effect-ripple btn-xs btn-success" style="overflow: hidden; position: relative;"
+                                data-original-title="Edit"><span class="btn-ripple animate" style="height: 22px; width: 22px; top: -2.60001px; left: -10.9875px;"></span><i class="fa fa-pencil"></i></a>
+                            <!--<a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;"
+                                data-original-title="Delete"><i class="fa fa-times"></i></a>-->
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-6">
+            <table class="table table-striped table-borderless table-hover table-vcenter">
+                <tbody>
+                     <tr *ngFor="let problemType of problemTypesList2 | filterWithStartLetter: { problem_name: problemTypeSearchControl.value };" class="animation-fadeInQuickInv">
+                        <td class="hidden-xs">{{problemType.problem_name}}</td>
+                        <td class="text-center" style="width: 100px;">
+                            <a href="#modal-add-problem-type" (click)="editProblemType(problemType)" data-toggle="modal" title="" class="btn btn-effect-ripple btn-xs btn-success" style="overflow: hidden; position: relative;"
+                                data-original-title="Edit"><span class="btn-ripple animate" style="height: 22px; width: 22px; top: -2.60001px; left: -10.9875px;"></span><i class="fa fa-pencil"></i></a>
+                            <!--<a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;"
+                                data-original-title="Delete"><i class="fa fa-times"></i></a>-->
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="text-center">
+        <!--<ul class="pagination">
+            <li class="disabled"><a href="javascript:void(0)">Prev</a></li>
+            <li class="active"><a href="javascript:void(0)">1</a></li>
+            <li><a href="javascript:void(0)">2</a></li>
+            <li><a href="javascript:void(0)">3</a></li>
+            <li><a href="javascript:void(0)">Next</a></li>
+        </ul>-->
+    </div>
     <!-- END Problem Types -->
 </div>
 
+<!-- Modal Add Problem types-->
 <div id="modal-add-problem-type" class="modal fade in" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -80,9 +133,7 @@
                     <div class="form-group">
                         <label class="col-xs-3 control-label" for="problem_name">Name</label>
                         <div class="col-xs-9">
-                            <input formControlName="problem_name" type="text" id="problem_name"
-                                   name="problem_name" class="form-control"
-                                   placeholder="Problem Name">
+                            <input formControlName="problem_name" type="text" id="problem_name" name="problem_name" class="form-control" placeholder="Problem Name">
                             <validation-messages [control]="problemTypeForm.controls.problem_name"></validation-messages>
                         </div>
                     </div>
@@ -98,7 +149,7 @@
                     </div>
                     <div class="form-group form-actions">
                         <div class="col-xs-12 text-right">
-                            <button type="submit" class="btn btn-effect-ripple btn-success" style="overflow: hidden; position: relative;">Save</button>
+                            <button type="submit" class="btn btn-effect-ripple btn-success" style="overflow: hidden; position: relative;">{{problemTypeForm.get('id').value == null ? 'Save' : 'Update'}}</button>
                         </div>
                     </div>
                 </form>
