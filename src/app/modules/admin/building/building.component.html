@@ -45,7 +45,7 @@
                     <div class="widget-content themed-background-default clearfix">
                         <h2 class="widget-heading text-light"><strong>{{building.name}}</strong></h2>
                         <address class="widget-heading text-light">
-                            {{building.address}}<br/> {{building.city}}, {{building.state}} {{building.postal_code}}
+                            {{building.address}}<br/> <span *ngIf="building.city">{{building.city}},</span> {{building.state}} {{building.postal_code}}
                         </address>
                     </div>
                 </div>
@@ -60,8 +60,8 @@
                                 <td>Building Contact</td>
                                 <td class="text-left"><span class="text-muted">
                                                             {{building.last_name}} {{building.first_name}}<br>
-                                                            {{building.work_phone}}, Direct<br>
-                                                            {{building.mobile_phone}}, Mobile<br>
+                                                           <span *ngIf="building.work_phone">{{building.work_phone}}, Direct<br></span>
+                                                            <span *ngIf="building.mobile_phone">{{building.mobile_phone}}, Mobile<br></span>
                                                             <a href="mailto:{{building.email}}">{{building.email}}</a>
                                                         </span></td>
                             </tr>
@@ -71,11 +71,11 @@
                             </tr>
                             <tr>
                                 <td>Conference Rooms</td>
-                                <td class="text-left"><span class="text-muted">building.conf_count</span></td>
+                                <td class="text-left"><span class="text-muted">{{building.conf_count}}</span></td>
                             </tr>
                             <tr>
                                 <td>Open Service Requests</td>
-                                <td class="text-left"><span class="text-muted">building.ticket_count</span></td>
+                                <td class="text-left"><span class="text-muted">{{building.ticket_count}}</span></td>
                             </tr>
                         </tbody>
                     </table>
