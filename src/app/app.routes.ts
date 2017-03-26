@@ -22,6 +22,7 @@ import { BuildingAdminComponent } from "app/modules/admin/building-admin/buildin
 import { BuildingAdminDetailsComponent } from "app/modules/admin/building-admin/building-admin-details.component";
 import { UserDashboardComponent } from "app/modules/dashboard/user-dashboard.component";
 import {VendorComponent} from "./modules/admin/vendor/vendor.component";
+import {VendorListComponent} from "./modules/list/vendor-list/vendor-list.component";
 
 
 export const appRoutes: Routes = [
@@ -59,6 +60,7 @@ export const appRoutes: Routes = [
                     breadcrumb: "Tenant Profile"
                 },
             },
+            { path: 'vendor', component: VendorListComponent, pathMatch: 'full' },
             { path: 'address', component: AddressComponent, pathMatch: 'full' },
             {
                 path: 'admin', component: AdminDashboardComponent,

@@ -71,6 +71,38 @@
                                 <span *ngIf="selectedProblemTypes.length == 0" class="validation-error">This field is Required</span>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label" for="address">Address <span class="required">*</span></label>
+                            <div class="col-xs-9">
+                                <input [formControlValidator]="vendorForm.controls.address" formControlName="address" type="text" id="address" name="address"
+                                       class="form-control" placeholder="Address">
+                                <span class="validation-error">{{vendorForm.controls.address.error}}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label" for="city">City <span class="required">*</span></label>
+                            <div class="col-xs-9">
+                                <input [formControlValidator]="vendorForm.controls.city" formControlName="city" type="text" id="city" name="city" class="form-control"
+                                       placeholder="City">
+                                <span class="validation-error">{{vendorForm.controls.city.error}}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label" for="state">State <span class="required">*</span></label>
+                            <div class="col-xs-9">
+                                <input [formControlValidator]="vendorForm.controls.state" formControlName="state" type="text" id="state" name="state" class="form-control"
+                                       placeholder="State">
+                                <span class="validation-error">{{vendorForm.controls.state.error}}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label" for="postal_code">Postal Code <span class="required">*</span></label>
+                            <div class="col-xs-9">
+                                <input [formControlValidator]="vendorForm.controls.postal_code" formControlName="postal_code" type="text" id="postal_code"
+                                       name="postal_code" class="form-control" placeholder="Postal Code">
+                                <span class="validation-error">{{vendorForm.controls.postal_code.error}}</span>
+                            </div>
+                        </div>
                     </div>
 
                     <div *ngIf="tabs.isContactTabVisible" id="clickable-second" class="step ui-formwizard-content" style="display: block;">

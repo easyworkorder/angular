@@ -1,6 +1,10 @@
 export interface IVendor {
     vendor_company_name: string;
     problem_types: string;
+    address: string;
+    city: string;
+    state: string;
+    postal_code: string;
     first_name: string;
     last_name: string;
     title: string;

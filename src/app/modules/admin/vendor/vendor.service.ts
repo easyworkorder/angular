@@ -67,7 +67,7 @@ export class VendorService extends DataService {
    * @returns {Observable<any>}
    */
   getAllActiveVendors(company_id) {
-    const observable = this.http.get('vendoractivelist/', { company_id: company_id});
+    const observable = this.http.get('vendorlist/'+ company_id+ '/?active=true');
     observable.subscribe(data => {
       console.log(data);
     });

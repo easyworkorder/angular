@@ -57,6 +57,10 @@ export class VendorComponent implements OnInit {
         company: new FormControl(config.api.base + 'company/' + this.currentCompanyId + '/'),
         company_name: new FormControl('', Validators.required),
         problem_types: new FormControl(''),
+        address: new FormControl('', Validators.required),
+        city: new FormControl('', Validators.required),
+        state: new FormControl('', Validators.required),
+        postal_code: new FormControl('', Validators.required),
         active: new FormControl(true),
         vendor_contacts: this.formBuilder.array(
             [this.buildBlankContact('', '', '', '', '', '', '', '', '', true, null, '', true)],
@@ -88,7 +92,7 @@ export class VendorComponent implements OnInit {
     getAllVendors(): void {
         this.vendorService.getAllVendors(this.currentCompanyId).subscribe(
             data => {
-                this.vendors = data.results;
+                this.vendors = data;
             }
         );
     }
@@ -163,11 +167,10 @@ export class VendorComponent implements OnInit {
         if (!this.vendorForm.valid) { return; }
 
         let val = this.vendorForm.value;
-        console.log(val);
         this.vendorService.create(this.vendorForm.value).subscribe((vendor: any) => {
-            console.log('Vendor created', vendor);
             this.isSuccess = true;
             this.closeModal();
+            this.getAllVendors();
         });
     }
 
@@ -191,18 +194,11 @@ export class VendorComponent implements OnInit {
     }
 
     buildName(firstName: string, lastName: string) {
-        if (firstName != null && firstName.length > 0 && lastName != null && lastName.length > 0) {
-            return lastName + ' ' + firstName;
-        }
-        if (firstName != null && firstName.length > 0)
-            return firstName;
-        if (lastName != null && lastName.length > 0)
-            return lastName;
-        return '';
+        return this.dataService.buildName(firstName, lastName);
     }
 
-    buildAddressHtml(tenant: any) {
-        return this.dataService.buildAddressHtml(tenant, tenant.tenant_company_name);
+    buildAddressHtml(vendor: any) {
+        return this.dataService.buildVendorAddressHtml(vendor, vendor.company_name);
     }
 
     getPhotoUrl(vendor) {

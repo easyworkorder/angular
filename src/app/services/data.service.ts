@@ -206,9 +206,20 @@ export class DataService {
             html += tenantContact.unitNo + '<br />';
         if (tenantContact.title != null && tenantContact.title.length > 0)
             html += tenantContact.title + '<br />';
-        var extension = (tenantContact.extension != null && tenantContact.extension.length > 0) ? '(' + tenantContact.extension + ')' : '';
+        var extension = (tenantContact.extension != null && tenantContact.extension.length > 0) ? (' ext. ' + tenantContact.phone_extension) : '';
         if (tenantContact.phone != null && tenantContact.phone.length > 0)
-            html += 'P: ' + extension + tenantContact.phone;
+            html += 'P: ' + tenantContact.phone + extension;
+
+        return html;
+    }
+
+    buildVendorAddressHtml(contact: any, companyName: string) {
+        var html = '<strong>' + companyName + '</strong><br />';
+            html += contact.address + '<br />';
+            html += contact.city + ', '+ contact.state + ' '+ contact.postal_code+'<br />';
+        var extension = (contact.phone_extension != null && contact.phone_extension.length > 0) ? (' ext. ' + contact.phone_extension) : '';
+        if (contact.phone != null && contact.phone.length > 0)
+            html += 'P: ' + contact.phone + extension;
 
         return html;
     }

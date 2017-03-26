@@ -61,6 +61,7 @@ import { TicketDetailsComponent } from './modules/ticket/ticket_details.componen
 import { AdminSetupComponent } from './modules/admin_setup/admin_setup.component';
 import { ValidationMessagesComponent } from './validation_messages.component';
 import { VendorComponent } from './modules/admin/vendor/vendor.component';
+import { VendorListComponent } from './modules/list/vendor-list/vendor-list.component';
 
 import { ValidationService } from './services/validation.service'
 import { AuthGuard } from "app/services/auth-guard.service";
@@ -122,6 +123,7 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         TicketComponent,
         TicketDetailsComponent,
         VendorComponent,
+        VendorListComponent,
         AdminSetupComponent,
 
         //Validation Messages
