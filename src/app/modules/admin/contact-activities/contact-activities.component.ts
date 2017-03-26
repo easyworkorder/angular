@@ -14,6 +14,7 @@ export class ContactActivitiesComponent implements OnInit {
     ) { }
 
     @Input() tenant: any;
+    @Input() isEditable: boolean = true;
 
     ngOnInit() {
         var user = this.storage.getUserInfo();

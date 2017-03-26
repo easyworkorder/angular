@@ -14,13 +14,17 @@ export class ContactListComponent implements OnInit {
     ) { }
     /// A List of TenantContact objects to display
     @Input() tenant: any[];
-    isEditable: boolean = false;
+    @Input() isEditable: boolean = true;
     ngOnInit() {
 
     }
 
     getPhotoUrl(contact: any){
-        this.dataService.getPhotoUrl(contact);
+        var photo = this.dataService.getPhotoUrl(contact.photo);
+        return photo;
     }
 
+    stopPropagation(event) {
+        event.stopPropagation()
+    }
 }

@@ -6,6 +6,7 @@ import { ActivatedRoute, Params } from "@angular/router";
 import { BuildingService } from "app/modules/admin/building/building.service";
 import { EmployeeService } from "app/modules/admin/employee/employee.service";
 import { Observable } from 'rxjs/Rx';
+import { DataService } from "app/services";
 declare var $: any;
 
 @Component({
@@ -29,7 +30,13 @@ export class BuildingAdminDetailsComponent implements OnInit {
     })
 
 
-    constructor(private route: ActivatedRoute, private buildingService: BuildingService, private employeeService: EmployeeService) { }
+    constructor(
+        private route: ActivatedRoute, 
+        private buildingService: BuildingService,
+        private employeeService: EmployeeService,
+        private dataService: DataService
+    ) 
+    { }
 
     ngOnInit() {
         this._buildingId = this.route.snapshot.params['id'];
@@ -114,8 +121,9 @@ export class BuildingAdminDetailsComponent implements OnInit {
     }
 
     getPhotoUrl(employee) {
-        if (employee.photo != null && employee.photo.length > 0)
-            return employee.photo;
-        return 'assets/img/placeholders/avatars/avatar9.jpg';
+        // if (employee.photo != null && employee.photo.length > 0)
+        //     return employee.photo;
+        // return 'assets/img/placeholders/avatars/avatar9.jpg';
+        return this.dataService.getPhotoUrl(employee.photo);
     }
 }

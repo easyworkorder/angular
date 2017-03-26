@@ -25,7 +25,6 @@ export class UserDashboardComponent implements OnInit {
     }
 
     getTenantById(tenantId) {
-        // const observable = this.http.get('tenant/?building=' + building_id); //can call this or
         const observable = this.http.get('tenant/' + tenantId + '/');
         observable.subscribe(data => {
             console.log(data);

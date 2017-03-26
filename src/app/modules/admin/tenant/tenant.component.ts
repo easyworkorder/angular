@@ -170,9 +170,10 @@ export class TenantComponent implements OnInit {
     }
 
     getPhotoUrl(tenant) {
-        if (tenant.photo != null && tenant.photo.length > 0)
-            return tenant.photo;
-        return 'assets/img/placeholders/avatars/avatar9.jpg';
+        // if (tenant.photo != null && tenant.photo.length > 0)
+        //     return tenant.photo;
+        // return 'assets/img/placeholders/avatars/avatar9.jpg';
+        return this.dataService.getPhotoUrl(tenant.photo)
     }
 
     stopPropagation(event) {

@@ -213,9 +213,9 @@ export class DataService {
         return html;
     }
 
-    getPhotoUrl(tenant) {
-        if (tenant && tenant.photo != null && tenant.photo.length > 0)
-            return tenant.photo;
+    getPhotoUrl(photo: string) {
+        if (photo != null && photo.length > 0)
+            return photo;
         return 'assets/img/placeholders/avatars/avatar9.jpg';
     }
 

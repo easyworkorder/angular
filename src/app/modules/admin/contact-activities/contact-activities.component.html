@@ -5,11 +5,11 @@
       <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Settings"><i class="fa fa-cog"></i></a>
     </div>
     <ul class="nav nav-tabs" data-toggle="tabs">
-      <li class="active"><a href="#profile-tickets">Tickets</a></li>
-      <li><a href="#profile-invoices">Invoices</a></li>
-      <li><a href="#profile-people">People</a></li>
-      <li><a href="#profile-insurance">Insurance</a></li>
-      <li><a href="#profile-files">Files</a></li>
+      <li class="active"><a href="#profile-tickets" data-toggle="tab">Tickets</a></li>
+      <li><a href="#profile-invoices" data-toggle="tab">Invoices</a></li>
+      <li><a href="#profile-people" data-toggle="tab">People</a></li>
+      <li><a href="#profile-insurance" data-toggle="tab">Insurance</a></li>
+      <li><a href="#profile-files" data-toggle="tab">Files</a></li>
     </ul>
   </div>
   <!-- END Block Tabs Title -->
@@ -211,7 +211,7 @@
             </tr>
           </tbody>
         </table>-->
-        <ewo-contact-list [tenant]="tenant"></ewo-contact-list>
+        <ewo-contact-list [tenant]="tenant" [isEditable]="isEditable"></ewo-contact-list>
       </div>
     </div>
     <!-- END People -->

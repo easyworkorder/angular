@@ -65,7 +65,7 @@ export class TenantContactProfileComponent implements OnInit {
     }
 
     getPhotoUrl(contact) {
-        return this.dataService.getPhotoUrl(contact);
+        return this.dataService.getPhotoUrl(contact.photo);
     }
 
     buildAddressHtml(contact) {
