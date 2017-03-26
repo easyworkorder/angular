@@ -1,0 +1,62 @@
+<!-- Contacts Header -->
+<div class="content-header">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="header-section">
+                <h1>Vendors</h1>
+            </div>
+        </div>
+        <div class="col-sm-6 hidden-xs">
+            <div class="header-section">
+                <ul class="breadcrumb breadcrumb-top">
+                    <li><a href="/dashboard">Dashboard</a></li>
+                    <li><a href="">Vendors</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--
+        FIXME: May be we will need to move this to a chile template or something similar.
+        Otherwise redundant HTMLs are producing.
+    -->
+    <ewo-alphabetical-sort [isWhiteBackground]="true" [searchControl]="searchControl"></ewo-alphabetical-sort>
+</div>
+<!-- END Contacts Header -->
+<div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <!-- LEFT TABS WITH BUILDINGS -->
+        <!--
+            FIXME: Seems Something wrong with this HTML of Building list and tenant list
+                    Left menu and right side page body should be in a separate div, but
+                    they seems to be under same parent container.
+        -->
+        <div *ngFor="let vendor of vendors  | filterWithStartLetter: { last_name: searchControl.value }" class="col-sm-6 col-md-4 col-lg-3">
+            <a [routerLink]="['tenant-profile', vendor.contact_id]" class="widget">
+                <div class="widget-content text-center">
+                    <img [src]="getPhotoUrl(vendor)" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
+                    <h2 class="widget-heading h3 text-muted">{{ buildName(vendor.first_name, vendor.last_name)}}</h2>
+                </div>
+                <div class="widget-content themed-background-muted text-dark text-center">
+                    <address class="m-t-md" [innerHTML]="buildAddressHtml(vendor)"></address>
+                </div>
+                <div class="widget-content">
+                    <div class="row text-center">
+                        <div class="col-xs-6">
+                            <a href="tel:{{vendor.phone}}" (click)="stopPropagation($event)">
+                                <h3 class="widget-heading"><i class="gi gi-earphone text-info"></i> <br>
+                                    <small>Call</small></h3>
+                            </a>
+                        </div>
+                        <div class="col-xs-6">
+                            <a href="mailto:{{ vendor.email }}" (click)="stopPropagation($event)">
+                                <h3 class="widget-heading"><i class="gi gi-envelope text-danger"></i> <br>
+                                    <small>Email</small></h3>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
