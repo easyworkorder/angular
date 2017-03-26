@@ -109,7 +109,7 @@ export class EmployeeComponent implements OnInit {
         );
     }
     getAllProblemTypes(company_id): void {
-        this.problemTypeService.getAllProblemTypes(company_id).subscribe(
+        this.problemTypeService.getAllActiveProblemTypes(company_id).subscribe(
             data => {
                 // this.buildings = data.results;
                 let _probTypes: any[] = data.results.map(item => {

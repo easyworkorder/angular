@@ -30,6 +30,7 @@ import { TenantService } from './modules/admin/tenant/tenant.service';
 import { ProblemTypeService } from './modules/admin/problem_type/problem_type.service';
 import { DefaultSLAPolicyService } from './modules/admin/default_sla_policy/default_sla_policy.service';
 import { EmployeeService } from './modules/admin/employee/employee.service';
+import { VendorService } from './modules/admin/vendor/vendor.service';
 import { TicketService } from './modules/ticket/ticket.service';
 
 // import { NotFoundComponent } from './components/not-found/not-found.component';
@@ -59,6 +60,7 @@ import { TicketComponent } from './modules/ticket/ticket.component';
 import { TicketDetailsComponent } from './modules/ticket/ticket_details.component';
 import { AdminSetupComponent } from './modules/admin_setup/admin_setup.component';
 import { ValidationMessagesComponent } from './validation_messages.component';
+import { VendorComponent } from './modules/admin/vendor/vendor.component';
 
 import { ValidationService } from './services/validation.service'
 import { AuthGuard } from "app/services/auth-guard.service";
@@ -116,6 +118,7 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         EmployeeListComponent,
         TicketComponent,
         TicketDetailsComponent,
+        VendorComponent,
         AdminSetupComponent,
 
         //Validation Messages
@@ -160,6 +163,7 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         ProblemTypeService,
         DefaultSLAPolicyService,
         EmployeeService,
+        VendorService,
         EventService,
         NotificationService,
         {

@@ -21,6 +21,7 @@ import { NoContentComponent } from "app/modules/shared/no-content.component";
 import { BuildingAdminComponent } from "app/modules/admin/building-admin/building-admin.component";
 import { BuildingAdminDetailsComponent } from "app/modules/admin/building-admin/building-admin-details.component";
 import { UserDashboardComponent } from "app/modules/dashboard/user-dashboard.component";
+import {VendorComponent} from "./modules/admin/vendor/vendor.component";
 
 
 export const appRoutes: Routes = [
@@ -105,6 +106,11 @@ export const appRoutes: Routes = [
                     // },
                     {
                         path: 'employee', component: EmployeeComponent, resolve: {
+                            admin: AdminDashBoardResolver
+                        },
+                    },
+                    {
+                        path: 'vendor', component: VendorComponent, resolve: {
                             admin: AdminDashBoardResolver
                         },
                     },
