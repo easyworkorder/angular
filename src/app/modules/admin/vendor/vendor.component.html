@@ -1,0 +1,180 @@
+<!-- START CONTACTS ALPHABET FILTER -->
+<div class="text-center border-top push-inner-top-bottom">
+    <a href="#modal-add-vendor" class="btn btn-sm btn-success" data-toggle="modal" style="overflow: hidden; position: relative;"><i class="fa fa-plus"></i></a>
+    <ewo-alphabetical-sort [isWhiteBackground]="true" [searchControl]="searchControl"></ewo-alphabetical-sort>
+</div>
+<!-- END CONTACTS ALPHABET FILTER -->
+<div *ngFor="let vendor of vendors  | filterWithStartLetter: { last_name: searchControl.value }" class="col-sm-6 col-md-4 col-lg-3">
+    <a [routerLink]="['tenant-profile', vendor.contact_id]" class="widget">
+        <div class="widget-content text-center">
+            <img [src]="getPhotoUrl(vendor)" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
+            <h2 class="widget-heading h3 text-muted">{{ buildName(vendor.first_name, vendor.last_name)}}</h2>
+        </div>
+        <div class="widget-content themed-background-muted text-dark text-center">
+             <address class="m-t-md" [innerHTML]="buildAddressHtml(vendor)"></address>
+        </div>
+        <div class="widget-content">
+            <div class="row text-center">
+                <div class="col-xs-6">
+                    <a href="tel:{{vendor.phone}}" (click)="stopPropagation($event)">
+                        <h3 class="widget-heading"><i class="gi gi-earphone text-info"></i> <br>
+                            <small>Call</small></h3>
+                    </a>
+                </div>
+                <div class="col-xs-6">
+                    <a href="mailto:{{ vendor.email }}" (click)="stopPropagation($event)">
+                        <h3 class="widget-heading"><i class="gi gi-envelope text-danger"></i> <br>
+                            <small>Email</small></h3>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+<!-- Add Vendor Modal -->
+<div id="modal-add-vendor" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title"><i class="fa fa-plus"></i> <strong>New Vendor</strong></h3>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="vendorForm" (ngSubmit)="onSubmit()" id="clickable-wizard" class="form-horizontal form-bordered" novalidate>
+                    <!--<input formControlName="building_id" type="hidden" value="{{currentBuildingId}}">-->
+                    <div *ngIf="tabs.isBasicTabVisible" id="clickable-first" class="step ui-formwizard-content" style="display: block;">
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <ul class="nav nav-pills nav-justified clickable-steps">
+                                    <li class="active"><a (click)="switchTab(1)" data-gotostep="clickable-first"><i
+                                        class="fa fa-user"></i> <strong>Basic</strong></a></li>
+                                    <li><a (click)="switchTab(2)" data-gotostep="clickable-second"><i
+                                        class="fa fa-pencil-square-o"></i> <strong>Contact</strong></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label" for="company_name">Company Name <span class="required">*</span></label>
+                            <div class="col-xs-9">
+                                <input #tcn formControlName="company_name" type="text" id="company_name" name="company_name" class="form-control"
+                                    placeholder="Company Name">
+                                <!-- Validation Way 1 -->
+                                <validation-messages [el]="tcn" [control]="vendorForm.controls.company_name"></validation-messages>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Problem Types <span class="required">*</span></label>
+                            <div class="col-xs-9">
+                                <ng-select [multiple]="true" [items]="problemTypes" (selected)="selectedProblemType($event)" (removed)="removedProblemType($event)"
+                                           placeholder="Select Problem types" [active]="selectedProblemTypes"></ng-select>
+                                <span *ngIf="selectedProblemTypes.length == 0" class="validation-error">This field is Required</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="tabs.isContactTabVisible" id="clickable-second" class="step ui-formwizard-content" style="display: block;">
+                        <!-- Step Info -->
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <ul class="nav nav-pills nav-justified clickable-steps">
+                                    <li><a (click)="switchTab(1)" class="text-muted" data-gotostep="clickable-first"><i
+                                        class="fa fa-user"></i>
+                                        <del><strong>Basic</strong></del>
+                                    </a></li>
+                                    <li class="active"><a (click)="switchTab(2)" data-gotostep="clickable-second"><i
+                                        class="fa fa-pencil-square-o"></i> <strong>Contact</strong></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- END Step Info -->
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label text-muted">NO AVATAR</label>
+                            <div class="col-xs-9">
+                                <i class="fa fa-fw fa-upload"></i> <a href="javascript:void(0)">Upload New
+                                Avatar</a><br>
+                                <i class="fa fa-fw fa-picture-o"></i> <a href="javascript:void(0)">Choose from
+                                Library</a>
+                            </div>
+                        </div>
+                        <div *ngFor="let contact of vendorForm.get('vendor_contacts').controls; let i=index" [formGroup]="contact">
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label" for="fname">First Name <span class="required">*</span></label>
+                                <div class="col-xs-9">
+                                    <input [formControlValidator]="contact.controls.first_name" formControlName="first_name" type="text" id="fname" class="form-control"
+                                        placeholder="First Name">
+                                    <span class="validation-error">{{contact.controls.first_name.error}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label" for="lname">Last Name <span class="required">*</span></label>
+                                <div class="col-xs-9">
+                                    <input [formControlValidator]="contact.controls.last_name" formControlName="last_name" type="text" id="lname" class="form-control"
+                                        placeholder="Last Name" />
+                                    <span class="validation-error">{{contact.controls.last_name.error}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label" for="title">Title</label>
+                                <div class="col-xs-9">
+                                    <input formControlName="title" type="text" id="title" class="form-control" placeholder="Title" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label" for="email">Email <span class="required">*</span></label>
+                                <div class="col-xs-9">
+                                    <input [formControlValidator]="contact.controls.email" formControlName="email" type="text" id="email" class="form-control"
+                                        placeholder="Email" />
+                                    <span class="validation-error">{{contact.controls.email.error}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label" for="phone">Phone</label>
+                                <div class="col-xs-3">
+                                    <input formControlName="phone" type="text" id="phone" class="form-control" placeholder="(000) 000-0000" />
+                                </div>
+                                <label class="col-xs-3 control-label" for="phone_extension">Extention</label>
+                                <div class="col-xs-3">
+                                    <input formControlName="phone_extension" id="phone_extension" type="text" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label" for="fax">Fax</label>
+                                <div class="col-xs-9">
+                                    <input formControlName="fax" type="text" id="fax" name="fax" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label" for="mobile">Mobile Phone</label>
+                                <div class="col-xs-9">
+                                    <input formControlName="mobile" type="text" id="mobile" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label" for="emergencyphone">Emergency Phone</label>
+                                <div class="col-xs-9">
+                                    <input formControlName="emergency_phone" type="text" id="emergencyphone" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label" for="notes">Notes</label>
+                                <div class="col-xs-9">
+                                    <textarea formControlName="notes" id="notes" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-actions">
+                        <div class="col-md-8 col-md-offset-4">
+                            <button type="submit" class="btn btn-effect-ripple btn-primary ui-wizard-content ui-formwizard-button" id="next1" style="overflow: hidden; position: relative;"
+                                value="Submit">Submit
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END Add Contact Modal -->
