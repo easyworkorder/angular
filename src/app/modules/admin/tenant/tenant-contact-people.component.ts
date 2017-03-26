@@ -36,15 +36,21 @@ export class TenantContactPeopleComponent implements OnInit {
         private updatePeopleService: UpdatePeopleService) {
         this.updatePeopleService.updatePeopleInfo$.subscribe(data => {
             this.updatePeopleInfo = data;
-            console.log('people>>>', this.updatePeopleInfo);
+            // console.log('people>>>', this.updatePeopleInfo);
+            this.tenantContactPeopleForm.setValue(this.updatePeopleInfo);
         });
     }
 
     ngOnInit() {
-        console.log('Edited Data', this.updatePeopleInfo);
+        // console.log('Edited Data', this.updatePeopleInfo);
+        $('#add-tenant-cotact-people').on('hidden.bs.modal', () => {
+            this.closeModal();
+        });
     }
 
     tenantContactPeopleForm = new FormGroup({
+        id: new FormControl(),
+        url: new FormControl(''),
         title: new FormControl(''),
         notes: new FormControl(''),
         viewinvoices: new FormControl(true),
@@ -58,7 +64,9 @@ export class TenantContactPeopleComponent implements OnInit {
         email: new FormControl('', [Validators.required, ValidationService.emailValidator]),
         isprimary_contact: new FormControl(false),
         tenant: new FormControl(''),
-        active: new FormControl(true)
+        active: new FormControl(true),
+        photo: new FormControl(),
+        user_id: new FormControl()
     });
 
 
@@ -66,15 +74,28 @@ export class TenantContactPeopleComponent implements OnInit {
 
         if (!this.tenantContactPeopleForm.valid) { return; }
 
+        //Update People
+        if (this.tenantContactPeopleForm.value.id) {
+            this.tenantService.updateTenantContact(this.tenantContactPeopleForm.value).subscribe((people: any) => {
+                this.change.emit(true);
+                this.closeModal();
+            });
+            return;
+        }
+
+        //Add people
         this.tenantContactPeopleForm.get('tenant').setValue(`${config.api.base}tenant/${this.tenant.id}/`);
         let val = this.tenantContactPeopleForm.value;
-        this.tenantService.createTenantContact(this.tenantContactPeopleForm.value).subscribe((tenant: any) => {
+        this.tenantContactPeopleForm.removeControl('id');
+        this.tenantService.createTenantContact(this.tenantContactPeopleForm.value).subscribe((people: any) => {
             // console.log('Tenant created', tenant);
             // this.getAllTenantsByBuilding(this.buildingId);
             // this.isSuccess = true;
+
             this.change.emit(true);
             this.closeModal();
         });
+        this.tenantContactPeopleForm.addControl('id', new FormControl());
     }
 
     closeModal() {
@@ -89,5 +110,4 @@ export class TenantContactPeopleComponent implements OnInit {
             viewinvoices: true
         });
     }
-
 }

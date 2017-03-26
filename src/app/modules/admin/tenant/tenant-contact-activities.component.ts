@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output, Injectable } from '@angular/core';
 import { Subject } from "rxjs/Subject";
 import { UpdatePeopleService } from "app/modules/admin/tenant/people.service";
+declare var $:any;
 
 export class TabVisibility {
     isTicketTabVisible = true;
@@ -46,5 +47,6 @@ export class TenantContactActivitiesComponent implements OnInit {
     updateContactInfo(data) {
         // this.updatePeopleInfo = data;
         this.updatePeopleService.setUpdatePeople(data);
+         $('#add-tenant-cotact-people').modal('show');
     }
 }

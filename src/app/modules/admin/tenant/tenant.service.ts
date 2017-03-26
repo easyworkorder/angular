@@ -59,6 +59,25 @@ export class TenantService extends DataService {
     return observable;
   }
 
+   updateTenantContact(data?: any): Observable<any> {
+    data = Object.assign({}, data);
+
+    // PUT '/employee'
+    // const observable = this.http.put(data.url, data);
+    const observable = this.http.patch(data.url, data);
+
+    observable.subscribe(data => {
+      this.toasterService.pop('success', 'UPDATE', 'Contact has been updated successfully');
+      console.log(data);
+    },
+      error => {
+        this.toasterService.pop('error', 'UPDATE', 'Contact not updated due to API error!!!');
+        console.log(error);
+      });
+
+    return observable;
+  }
+
   getTenant(url) {
     const observable = this.http.getByFullUrl(url);
     observable.subscribe(data => {
