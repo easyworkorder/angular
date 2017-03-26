@@ -1,9 +1,9 @@
-<div *ngIf="userInfo.IsContact">
+<div *ngIf="userInfo?.IsContact">
     <!-- Menu Block for Tenant's users -->
     <div class="block full">
         <!-- Menu Title -->
         <div class="block-title clearfix">
-            
+
             <h2>Manage Requests</h2>
         </div>
         <!-- END Menu Title -->
@@ -39,5 +39,5 @@
     </div>
     <!-- END Menu Block for Tenant's users -->
 </div>
-<div *ngIf="userInfo.IsEmployee">This is Employee menu</div>
-<div *ngIf="userInfo.IsPropertyManager">This is Property manager menu</div>
+<div *ngIf="userInfo?.IsEmployee">This is Employee menu</div>
+<div *ngIf="userInfo?.IsPropertyManager">This is Property manager menu</div>
