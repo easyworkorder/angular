@@ -22,6 +22,7 @@ export class BuildingAdminDetailsComponent implements OnInit {
 
     editedBuilding: any;
     private _buildingId: any;
+    photoUrl:any;
 
     buildingForm = new FormGroup({
         id: new FormControl(),
@@ -31,11 +32,11 @@ export class BuildingAdminDetailsComponent implements OnInit {
 
 
     constructor(
-        private route: ActivatedRoute, 
+        private route: ActivatedRoute,
         private buildingService: BuildingService,
         private employeeService: EmployeeService,
         private dataService: DataService
-    ) 
+    )
     { }
 
     ngOnInit() {
@@ -69,6 +70,7 @@ export class BuildingAdminDetailsComponent implements OnInit {
                             primaryCompanyUnitNo: company.unit_no, primaryCompanyCity: company.city,
                             primaryCompanyState: company.state, primaryCompanyPostalCode: company.postal_code
                         });
+                        this.getPhotoUrl(this.editedBuilding.ContactPersonPhoto);
                 })
             })
         });
@@ -124,6 +126,6 @@ export class BuildingAdminDetailsComponent implements OnInit {
         // if (employee.photo != null && employee.photo.length > 0)
         //     return employee.photo;
         // return 'assets/img/placeholders/avatars/avatar9.jpg';
-        return this.dataService.getPhotoUrl(employee.photo);
+        this.photoUrl = this.dataService.getPhotoUrl(employee);
     }
 }

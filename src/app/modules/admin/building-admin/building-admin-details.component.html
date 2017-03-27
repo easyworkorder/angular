@@ -110,7 +110,8 @@
               <!--<a href="#" class="widget">-->
               <a class="widget widget-cursor-default">
                 <div class="widget-content text-center">
-                  <img [src]="getPhotoUrl(editedBuilding.ContactPersonPhoto)" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
+                  <!--<img *ngIf="editedBuilding" src="getPhotoUrl(editedBuilding.ContactPersonPhoto)" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">-->
+                  <img *ngIf="photoUrl" [src]="photoUrl" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
                   <h2 *ngIf="editedBuilding.contactPerson" class="widget-heading h3 text-muted">{{editedBuilding.contactPerson}}</h2>
                 </div>
                 <div class="widget-content themed-background-muted text-dark text-center">
