@@ -1,11 +1,24 @@
-<!--<p>
-    user-dashboard works!
-</p>-->
+<div class="content-header">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="header-section">
+                <h1>Desktop</h1>
+            </div>
+        </div>
+        <div class="col-sm-6 hidden-xs">
+            <div class="header-section">
+                <ul class="breadcrumb breadcrumb-top">
+                    <li>Desktop</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="row">
     <!-- Tickets Content -->
     <div class="col-md-4 col-lg-3">
-        <app-left-menu></app-left-menu>
+        <app-left-menu *ngIf="contactStat && userInfo" [contactStat]="contactStat" [userInfo]="userInfo"></app-left-menu>
     </div>
 
     <div class="col-md-7 col-lg-9">

@@ -69,7 +69,8 @@ const config = {
     userGroup: {
         CONTACT: 'contact',
         EMPLOYEE: 'employee',
-        PROPERTY_MANAGER: 'propertymanager'
+        PROPERTY_MANAGER: 'propertymanager',
+        VENDOR: 'vendor'
     },
     sortButtonColor: {
         WHITE: 'white',

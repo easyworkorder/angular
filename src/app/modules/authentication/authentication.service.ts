@@ -211,12 +211,15 @@ export class AuthenticationService {
     observable.subscribe(
       data => {
         let userInfo = <any>data;
-        userInfo = Object.assign({}, userInfo, { IsContact: false, IsPropertyManager: false, IsEmployee: false })
-        // userInfo.IsContact = false;
-        // userInfo.IsPropertyManager = false;
-        // userInfo.IsEmployee = false;
+        userInfo = Object.assign({}, userInfo, { IsContact: false, IsPropertyManager: false, IsEmployee: false, IsVendor: false });
         if (userInfo.group_name == config.userGroup.CONTACT)
           userInfo.IsContact = true;
+        else if(userInfo.group_name == config.userGroup.PROPERTY_MANAGER)
+          userInfo.IsPropertyManager = true;
+        else if(userInfo.group_name == config.userGroup.EMPLOYEE)
+          userInfo.IsEmployee = true;
+        else if(userInfo.group_name == config.userGroup.VENDOR)
+          userInfo.IsVendor = true;
 
         this.storage.set(config.storage.user, userInfo);
       },
