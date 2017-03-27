@@ -2,16 +2,16 @@
   <!-- Block Tabs Title -->
   <div class="block-title">
     <div class="block-options pull-right">
-      <a *ngIf="tabs.isTicketTabVisible" href="#add-tenant-ticket" class="btn btn-effect-ripple btn-default" data-toggle="modal" title="" style="overflow: hidden; position: relative;"
-        data-original-title="Add Contact"><i class="fa fa-plus"></i></a>
-      <a *ngIf="tabs.isInvoiceTabVisible" href="#add-tenant-invoice" class="btn btn-effect-ripple btn-default" data-toggle="modal" title="" style="overflow: hidden; position: relative;"
-        data-original-title="Add Contact"><i class="fa fa-plus"></i></a>
-      <a *ngIf="tabs.isPeopleTabVisible" href="#add-tenant-cotact-people" class="btn btn-effect-ripple btn-default" data-toggle="modal" title="" style="overflow: hidden; position: relative;"
-        data-original-title="Add Contact"><i class="fa fa-plus"></i></a>
-      <a *ngIf="tabs.isInsuranceTabVisible" href="#add-tenant-insurance" class="btn btn-effect-ripple btn-default" data-toggle="modal" title="" style="overflow: hidden; position: relative;"
-        data-original-title="Add Contact"><i class="fa fa-plus"></i></a>
-      <a *ngIf="tabs.isFilesTabVisible" href="#add-tenant-files" class="btn btn-effect-ripple btn-default" data-toggle="modal" title="" style="overflow: hidden; position: relative;"
-        data-original-title="Add Contact"><i class="fa fa-plus"></i></a>
+      <a *ngIf="tabs.isTicketTabVisible" href="#add-tenant-ticket" class="btn btn-effect-ripple btn-default" data-toggle="modal"
+        title="" style="overflow: hidden; position: relative;" data-original-title="Add Contact"><i class="fa fa-plus"></i></a>
+      <a *ngIf="tabs.isInvoiceTabVisible" href="#add-tenant-invoice" class="btn btn-effect-ripple btn-default" data-toggle="modal"
+        title="" style="overflow: hidden; position: relative;" data-original-title="Add Contact"><i class="fa fa-plus"></i></a>
+      <a *ngIf="tabs.isPeopleTabVisible" href="#add-tenant-cotact-people" class="btn btn-effect-ripple btn-default" data-toggle="modal"
+        title="" style="overflow: hidden; position: relative;" data-original-title="Add Contact"><i class="fa fa-plus"></i></a>
+      <a *ngIf="tabs.isInsuranceTabVisible" href="#add-tenant-insurance" class="btn btn-effect-ripple btn-default" data-toggle="modal"
+        title="" style="overflow: hidden; position: relative;" data-original-title="Add Contact"><i class="fa fa-plus"></i></a>
+      <a *ngIf="tabs.isFilesTabVisible" href="#add-tenant-files" class="btn btn-effect-ripple btn-default" data-toggle="modal"
+        title="" style="overflow: hidden; position: relative;" data-original-title="Add Contact"><i class="fa fa-plus"></i></a>
     </div>
     <ul class="nav nav-tabs" data-toggle="tabs">
       <li class="active"><a (click)="switchTab(2)" href="#profile-tickets" data-toggle="tab">Tickets</a></li>
@@ -162,7 +162,9 @@
 
     <!-- People -->
     <div class="tab-pane" id="profile-people">
-      <ewo-contact-list [tenant]="tenant" (update)="updateContactInfo($event)"></ewo-contact-list>
+      <div class="block-content-full">
+        <ewo-contact-list [tenant]="tenant" (update)="updateContactInfo($event)"></ewo-contact-list>
+      </div>
     </div>
     <!-- END People -->
 
@@ -365,4 +367,5 @@
 </div>
 
 <!--<ewo-tenant-contact-people id="add-tenant-cotact-people" [tenant]="tenant" [updatePeopleInfo]="updatePeopleInfo" (update)="updatePeople($event)" class="modal fade" role="dialog" aria-hidden="true"></ewo-tenant-contact-people>-->
-<ewo-tenant-contact-people id="add-tenant-cotact-people" [tenant]="tenant" (update)="updatePeople($event)" class="modal fade" role="dialog" aria-hidden="true"></ewo-tenant-contact-people>
+<ewo-tenant-contact-people id="add-tenant-cotact-people" [tenant]="tenant" (update)="updatePeople($event)" class="modal fade"
+  role="dialog" aria-hidden="true"></ewo-tenant-contact-people>
