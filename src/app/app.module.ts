@@ -83,6 +83,7 @@ import { ContactListComponent } from "app/modules/shared/contact-list/contact-li
 import { TenantContactActivitiesComponent } from './modules/admin/tenant/tenant-contact-activities.component';
 import { TenantContactPeopleComponent } from './modules/admin/tenant/tenant-contact-people.component';
 import { UpdatePeopleService } from "app/modules/admin/tenant/people.service";
+import { NumericSortComponent } from "app/modules/shared/alphabetical-sort/numeric-sort.component";
 
 export function translateStaticLoaderFactory(Backend, defaultOptions, storage, notificationService) {
     return new AppHttp(Backend, defaultOptions, storage, notificationService);
@@ -146,7 +147,8 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         AlphabeticalSortComponent,
         ContactListComponent,
         TenantContactActivitiesComponent,
-        TenantContactPeopleComponent
+        TenantContactPeopleComponent,
+        NumericSortComponent
     ],
     imports: [
         BrowserModule,
