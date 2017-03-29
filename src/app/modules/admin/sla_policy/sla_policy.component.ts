@@ -2,26 +2,26 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, FormBuilder, Validators} from '@angular/forms';
 
 import config from '../../../config';
-import {DefaultSLAPolicyService} from './default_sla_policy.service';
+import {SLAPolicyService} from './sla_policy.service';
 import {AuthenticationService} from "app/modules/authentication";
 
 declare var $: any;
 
 @Component({
-    selector: 'ewo-default-sla-policy-list',
-    templateUrl: 'default_sla_policy.component.html',
+    selector: 'ewo-sla-policy-list',
+    templateUrl: 'sla_policy.component.html',
 })
 
-export class DefaultSLAPolicyComponent implements OnInit {
+export class SLAPolicyComponent implements OnInit {
 
     sla_policy: any[] = [];
     currentCompanyId = 1;
 
-    constructor(private slaPolicyService: DefaultSLAPolicyService,
+    constructor(private slaPolicyService: SLAPolicyService,
                 private formBuilder: FormBuilder,
                 private authService: AuthenticationService) {
         this.authService.verifyToken().take(1).subscribe(data => {
-            //this.getDefaultSlaPolicy(this.currentCompanyId);
+            //this.getSlaPolicy(this.currentCompanyId);
         });
     }
 
@@ -29,7 +29,7 @@ export class DefaultSLAPolicyComponent implements OnInit {
 
     }
 /*
-    defaultSlaForm = this.formBuilder.group({
+    slaForm = this.formBuilder.group({
         id: new FormControl(),
         company: new FormControl(config.api.base + 'company/' + this.currentCompanyId + '/'),
         name: new FormControl('', Validators.required),
@@ -55,8 +55,8 @@ export class DefaultSLAPolicyComponent implements OnInit {
         });
     }
 
-    getDefaultSlaPolicy(company_id): void {
-        this.slaPolicyService.getDefaultSlaPolicy(company_id).subscribe(
+    getSlaPolicy(company_id): void {
+        this.slaPolicyService.getSlaPolicy(company_id).subscribe(
             data => {
                 this.sla_policy = data.results;
             }

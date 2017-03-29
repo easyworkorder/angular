@@ -1,0 +1,11 @@
+<!-- Contact Profile Row -->
+<div class="row">
+    <div class="col-md-5 col-lg-4">
+       <ewo-vendor-contact-profile-card [contactInfo]="contactInfo"></ewo-vendor-contact-profile-card>
+    </div>
+    <div class="col-md-7 col-lg-8">
+      <!--<ewo-contact-activities [tenant]="tenant"></ewo-contact-activities>--
+      <ewo-tenant-contact-activities *ngIf="vendor" [vendor]="vendor" (update)="updateInActivity($event)"></ewo-tenant-contact-activities>-->
+    </div>
+</div>
+<!-- END Contact Profile Row -->
