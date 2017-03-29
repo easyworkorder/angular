@@ -6,7 +6,7 @@
 </div>
 <!-- END CONTACTS ALPHABET FILTER -->
 <div *ngFor="let vendor of vendors  | filterWithStartLetter: { last_name: searchControl.value }" class="col-sm-6 col-md-4 col-lg-3">
-    <a [routerLink]="['tenant-profile', vendor.contact_id]" class="widget">
+    <a (click)="vendorDetailsLink(vendor)" class="widget">
         <div class="widget-content text-center">
             <img [src]="getPhotoUrl(vendor)" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
             <h2 class="widget-heading h3 text-muted">{{ buildName(vendor.first_name, vendor.last_name)}}</h2>

@@ -4,7 +4,7 @@ import { VendorService } from './vendor.service';
 import { ProblemTypeService } from './../problem_type/problem_type.service';
 import { ValidationService } from './../../../services/validation.service';
 import { AuthenticationService } from "app/modules/authentication";
-import { ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import config from '../../../config';
 import { DataService } from "app/services";
 declare var $: any;
@@ -35,6 +35,7 @@ export class VendorComponent implements OnInit {
         private formBuilder: FormBuilder,
         private authService: AuthenticationService,
         private route: ActivatedRoute,
+        private router: Router,
         private dataService: DataService) {
 
     }
@@ -226,6 +227,10 @@ export class VendorComponent implements OnInit {
                 active: true
             }]
         });
+    }
+
+    vendorDetailsLink(vendor) {
+        this.router.navigate(['/admin', 'vendor-profile', vendor.id]);
     }
 
 }

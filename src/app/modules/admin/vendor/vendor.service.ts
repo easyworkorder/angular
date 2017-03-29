@@ -42,13 +42,13 @@ export class VendorService extends DataService {
     return observable;
   }
 
-  /*getTenant(url) {
+  getVendor(url) {
     const observable = this.http.getByFullUrl(url);
     observable.subscribe(data => {
       console.log(data);
     });
     return observable;
-  }*/
+  }
 
   /**
    * Get All vendor by Company Id
@@ -74,11 +74,12 @@ export class VendorService extends DataService {
     return observable;
   }
 
-  /*getContactDetails(contactId) {
-    const observable = this.http.get('tenantcontact/' + contactId + '/');
+  getContactDetails(contactId) {
+    const observable = this.http.get('vendorcontact/' + contactId + '/');
     observable.subscribe(data => {
       console.log(data);
     });
     return observable;
-  }*/
+  }
 }
+

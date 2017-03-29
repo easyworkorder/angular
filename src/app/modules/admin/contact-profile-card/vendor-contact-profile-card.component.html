@@ -1,0 +1,33 @@
+<div class="widget">
+  <div class="widget-content themed-background-default text-right clearfix">
+    <a href="javascript:void(0)" class="pull-left">
+      <!--<img [src]="getPhotoUrl(primaryContact)" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar"/>-->
+      <img [src]="getPhotoUrl(contactInfo)" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar" />
+    </a>
+    <h3 class="widget-heading text-light">{{contactInfo.lastName}} {{contactInfo.firstName}}</h3>
+    <h4 class="widget-heading text-light-op">{{contactInfo.title}}</h4>
+  </div>
+  <div class="widget-content themed-background-muted text-center">
+    <div class="btn-group">
+      <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default"><i class="fa fa-share"></i> Send Password</a>
+      <a href="mailto:{{ contactInfo.email }}" class="btn btn-effect-ripple btn-default"><i class="fa fa-envelope"></i> Email</a>
+      <a href="tel:{{contactInfo.phone}}" class="btn btn-effect-ripple btn-default"><i class="fa fa-phone"></i> Call</a>
+    </div>
+  </div>
+  <div class="widget-content">
+    <div class="row text-center">
+      <div class="col-xs-12">
+        <h4 class="widget-heading">
+          <address class="m-t-md" [innerHTML]="buildAddressHtml(contactInfo)"></address>
+          <!--<address class="m-t-md">
+            <strong >{{contactInfo.companyName}}</strong><br *ngIf="contactInfo && contactInfo.email">
+           <span > {{contactInfo.email}} </span> <br *ngIf="contactInfo && contactInfo.phone">
+            <abbr title="Mobile">Mob:</abbr> {{contactInfo && contactInfo.mobile}} <br *ngIf="contactInfo && contactInfo.mobile">
+            <abbr title="Phone">P:</abbr> {{contactInfo?.phone}}
+          </address>-->
+          <!--<address class="m-t-md" [innerHTML]="buildAddressHtml(primaryContact)"></address>-->
+        </h4>
+      </div>
+    </div>
+  </div>
+</div>

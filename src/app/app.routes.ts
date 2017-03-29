@@ -10,7 +10,7 @@ import { TenantComponent } from './modules/admin/tenant/tenant.component';
 import { TenantListComponent } from './modules/list/tenant-list/tenant-list.component';
 import { TenantContactProfileComponent } from './modules/admin/tenant/tenant-contact-profile.component';
 import { ProblemTypeComponent } from './modules/admin/problem_type/problem_type.component';
-import { DefaultSLAPolicyComponent } from './modules/admin/default_sla_policy/default_sla_policy.component';
+import { SLAPolicyComponent } from './modules/admin/sla_policy/sla_policy.component';
 import { EmployeeComponent } from './modules/admin/employee/employee.component';
 import { EmployeeListComponent } from './modules/list/employee-list/employee-list.component';
 import { AdminSetupComponent } from './modules/admin_setup/admin_setup.component';
@@ -23,6 +23,7 @@ import { BuildingAdminDetailsComponent } from "app/modules/admin/building-admin/
 import { UserDashboardComponent } from "app/modules/dashboard/user-dashboard.component";
 import {VendorComponent} from "./modules/admin/vendor/vendor.component";
 import {VendorListComponent} from "./modules/list/vendor-list/vendor-list.component";
+import { VendorContactProfileComponent } from './modules/admin/vendor/vendor-contact-profile.component';
 
 
 export const appRoutes: Routes = [
@@ -115,6 +116,17 @@ export const appRoutes: Routes = [
                         path: 'vendor', component: VendorComponent, resolve: {
                             admin: AdminDashBoardResolver
                         },
+                        data: {
+                            breadcrumb: "Vendors"
+                        },
+                    },
+                    {
+                        path: 'vendor-profile/:id', component: VendorContactProfileComponent, resolve: {
+                            admin: AdminDashBoardResolver
+                        },
+                        data: {
+                            breadcrumb: "Vendor Profile"
+                        },
                     },
                     {
                         path: 'tenant', component: TenantComponent, resolve: {
@@ -130,7 +142,7 @@ export const appRoutes: Routes = [
                         },
                     },
                     {
-                        path: 'default-sla-policy', component: DefaultSLAPolicyComponent, resolve: {
+                        path: 'sla-policy', component: SLAPolicyComponent, resolve: {
                             admin: AdminDashBoardResolver
                         },
                     },

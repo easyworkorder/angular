@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { ISLAPolicy } from '../../../interfaces/default_sla_policy.interface';
+import { ISLAPolicy } from '../../../interfaces/sla_policy.interface';
 import { ToasterService } from 'angular2-toaster';
 import config from '../../../config';
 
@@ -13,7 +13,7 @@ import {
 } from '../../../services';
 
 @Injectable()
-export class DefaultSLAPolicyService extends DataService {
+export class SLAPolicyService extends DataService {
 
   /*constructor(
     protected http: AppHttp,

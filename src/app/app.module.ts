@@ -28,7 +28,7 @@ import { BuildingService } from './modules/admin/building/building.service';
 import { AddressService } from './modules/address/address.service';
 import { TenantService } from './modules/admin/tenant/tenant.service';
 import { ProblemTypeService } from './modules/admin/problem_type/problem_type.service';
-import { DefaultSLAPolicyService } from './modules/admin/default_sla_policy/default_sla_policy.service';
+import { SLAPolicyService } from './modules/admin/sla_policy/sla_policy.service';
 import { EmployeeService } from './modules/admin/employee/employee.service';
 import { VendorService } from './modules/admin/vendor/vendor.service';
 import { TicketService } from './modules/ticket/ticket.service';
@@ -53,7 +53,7 @@ import { TenantComponent } from './modules/admin/tenant/tenant.component';
 import { TenantListComponent } from './modules/list/tenant-list/tenant-list.component';
 import { TenantContactProfileComponent} from './modules/admin/tenant/tenant-contact-profile.component';
 import { ProblemTypeComponent } from './modules/admin/problem_type/problem_type.component';
-import { DefaultSLAPolicyComponent } from './modules/admin/default_sla_policy/default_sla_policy.component';
+import { SLAPolicyComponent } from './modules/admin/sla_policy/sla_policy.component';
 import { EmployeeComponent } from './modules/admin/employee/employee.component';
 import { EmployeeListComponent } from './modules/list/employee-list/employee-list.component';
 import { TicketComponent } from './modules/ticket/ticket.component';
@@ -62,6 +62,8 @@ import { AdminSetupComponent } from './modules/admin_setup/admin_setup.component
 import { ValidationMessagesComponent } from './validation_messages.component';
 import { VendorComponent } from './modules/admin/vendor/vendor.component';
 import { VendorListComponent } from './modules/list/vendor-list/vendor-list.component';
+import { VendorContactProfileComponent } from './modules/admin/vendor/vendor-contact-profile.component';
+import { VendorContactProfileCardComponent } from './modules/admin/contact-profile-card/vendor-contact-profile-card.component';
 
 import { ValidationService } from './services/validation.service'
 import { AuthGuard } from "app/services/auth-guard.service";
@@ -118,13 +120,15 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         TenantListComponent,
         TenantContactProfileComponent,
         ProblemTypeComponent,
-        DefaultSLAPolicyComponent,
+        SLAPolicyComponent,
         EmployeeComponent,
         EmployeeListComponent,
         TicketComponent,
         TicketDetailsComponent,
         VendorComponent,
         VendorListComponent,
+        VendorContactProfileComponent,
+        VendorContactProfileCardComponent,
         AdminSetupComponent,
 
         //Validation Messages
@@ -170,7 +174,7 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         TenantService,
         TicketService,
         ProblemTypeService,
-        DefaultSLAPolicyService,
+        SLAPolicyService,
         EmployeeService,
         VendorService,
         EventService,
