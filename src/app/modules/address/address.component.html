@@ -53,8 +53,27 @@
   <!-- END Contacts Header -->
 </div>
 
+<div placeholder="File Upload Control Test">
+  <form [formGroup]="addressCreateForm" (ngSubmit)="onSubmit()" class="form-horizontal form-bordered" onsubmit="return false;">
+    <table class="table table-stripped" style="width:40%;">
+        <tr>
+            <td>Address 1</td>
+            <td><input formControlName="address1" type="text" id="address1" name="address1" class="form-control" placeholder="Address 1"/></td>
+        </tr>
+        <tr>
+            <td>Address 2</td>
+            <td><input formControlName="address2" type="file" id="address2" name="address2" class="form-control" placeholder="Address 2"/></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Submit"/> </td>
+        </tr>
+    </table>
+  </form>
+</div>
+
 <!-- Add Contact Modal -->
-<div id="modal-add-contact" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+<!--<div id="modal-add-contact" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -129,5 +148,5 @@
       </div>
     </div>
   </div>
-</div>
+</div>-->
 <!-- END Add Contact Modal -->

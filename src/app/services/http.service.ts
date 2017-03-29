@@ -306,4 +306,22 @@ export class AppHttp extends Http {
     }
   }
 
+  post_with_file(url: string, body?: any, params?: any, options?: RequestOptionsArgs): Observable<any> {
+    options = this._headers(options);
+    body = this._serialize(body);
+    params && (options.search = this._encode(params));
+
+    let res = super.post(this.prepareRequestUrl(url), body, options);
+    return this._deserialize(res).share(); // share: to make cosecutive observers calls
+
+    // let headers = new Headers();
+    // headers.set('Accept', 'application/json');
+    // // headers.set('Authorization', 'JWT ' + localStorage.getItem('id_token'));
+    // // headers.set('Content-Type', 'multipart/form-data' );
+    // // headers.set('Content-Type', 'application/json' );
+    // headers.set('Content-Type', 'undefined' );
+    // let options = new RequestOptions({ headers: headers });
+    // return this.http.post(URL, model, options).map((response: Response) => response.json());
+  }
+
 }
