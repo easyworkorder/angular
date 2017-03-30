@@ -27,7 +27,8 @@ export class AddressService extends DataService {
     data = Object.assign({}, data);
 
     // POST '/address'
-    const observable = this.http.post('address/', data);
+    // const observable = this.http.post('address/', data);
+    const observable = this.http.post_with_file('address/', data)
 
     observable.subscribe(data => {
       console.log(data);

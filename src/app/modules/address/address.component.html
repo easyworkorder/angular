@@ -62,7 +62,7 @@
         </tr>
         <tr>
             <td>Address 2</td>
-            <td><input formControlName="address2" type="file" id="address2" name="address2" class="form-control" placeholder="Address 2"/></td>
+            <td><input formControlName="address2" type="file" id="address2" name="address2" (change)="fileChange($event)" class="form-control" placeholder="Address 2"/></td>
         </tr>
         <tr>
             <td></td>
