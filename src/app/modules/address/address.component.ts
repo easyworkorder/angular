@@ -99,7 +99,7 @@ export class AddressComponent implements OnInit {
             formData.append('address2', file, file.name);
             let headers = new Headers();
             // headers.append('Content-Type', 'multipart/form-data');
-            headers.append('Content-Type', 'undefined');
+            // headers.append('Content-Type', 'undefined');
             headers.append('Accept', 'application/json');
             headers.append(config.api.tokenLabel, this.http.getToken());
             // let options: RequestOptionsArgs;
