@@ -42,6 +42,53 @@ export class VendorService extends DataService {
     return observable;
   }
 
+
+  /**
+   * Add vendor contact
+   * @param data
+   * @returns {Observable<any>}
+   */
+
+  createVendorContact(data?: any): Observable<any> {
+    data = Object.assign({}, data);
+
+    // POST '/tenant'
+    const observable = this.http.post('vendorcontact/', data);
+
+    observable.subscribe(data => {
+          // console.log(data);
+          this.toasterService.pop('success', 'ADD', 'Vendor people has been added successfully');
+        },
+        error => {
+          this.toasterService.pop('error', 'ADD', 'Vendor people not Saved due to API error!!!');
+        });
+
+    return observable;
+  }
+
+
+  /**
+   * Update vendor contact
+   * @param data
+   * @returns {Observable<any>}
+   */
+  updateVendorContact(data?: any): Observable<any> {
+    data = Object.assign({}, data);
+
+    const observable = this.http.patch(data.url, data);
+
+    observable.subscribe(data => {
+          this.toasterService.pop('success', 'UPDATE', 'Vendor people has been updated successfully');
+          //console.log(data);
+        },
+        error => {
+          this.toasterService.pop('error', 'UPDATE', 'Vendor people not updated due to API error!!!');
+          console.log(error);
+        });
+
+    return observable;
+  }
+
   getVendor(url) {
     const observable = this.http.getByFullUrl(url);
     observable.subscribe(data => {
@@ -79,6 +126,65 @@ export class VendorService extends DataService {
     observable.subscribe(data => {
       console.log(data);
     });
+    return observable;
+  }
+
+  /**
+   * Get All insurances by vendor id
+   * @param vendor_id
+   * @returns {Observable<any>}
+   */
+  getInsurances(vendor_id) {
+    const observable = this.http.get('vendorinsurance/?vendor_id=' + vendor_id);
+    observable.subscribe(data => {
+      console.log(data);
+    });
+    return observable;
+  }
+
+
+  /**
+   * Add vendor Insurance
+   * @param data
+   * @returns {Observable<any>}
+   */
+
+  createVendorInsurance(data?: any): Observable<any> {
+    data = Object.assign({}, data);
+
+    const observable = this.http.post('vendorinsurance/', data);
+
+    observable.subscribe(data => {
+          // console.log(data);
+          this.toasterService.pop('success', 'ADD', 'Vendor insurance has been added successfully');
+        },
+        error => {
+          this.toasterService.pop('error', 'ADD', 'Vendor insurance not Saved due to API error!!!');
+        });
+
+    return observable;
+  }
+
+
+  /**
+   * Update vendor insurance
+   * @param data
+   * @returns {Observable<any>}
+   */
+  updateVendorInsurance(data?: any): Observable<any> {
+    data = Object.assign({}, data);
+
+    const observable = this.http.patch(data.url, data);
+
+    observable.subscribe(data => {
+          this.toasterService.pop('success', 'UPDATE', 'Vendor insurance has been updated successfully');
+          //console.log(data);
+        },
+        error => {
+          this.toasterService.pop('error', 'UPDATE', 'Vendor insurance not updated due to API error!!!');
+          console.log(error);
+        });
+
     return observable;
   }
 }

@@ -8,7 +8,7 @@
     <a (click)="vendorDetailsLink(vendor)" class="widget">
         <div class="widget-content text-center">
             <img [src]="getPhotoUrl(vendor)" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
-            <h2 class="widget-heading h3 text-muted">{{vendor.company_name}}</h2>
+            <h2 class="widget-heading h3 text-muted">{{vendor.company_name}} -- {{vendor.contact_id}}</h2>
         </div>
         <div class="widget-content themed-background-muted text-dark text-center">
              <address class="m-t-md" [innerHTML]="buildAddressHtml(vendor)"></address>

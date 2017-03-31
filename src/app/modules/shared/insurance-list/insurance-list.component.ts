@@ -2,17 +2,17 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { DataService, AppHttp } from "app/services";
 
 @Component({
-    selector: 'ewo-contact-list',
-    templateUrl: './contact-list.component.html'
+    selector: 'ewo-insurance-list',
+    templateUrl: './insurance-list.component.html'
 })
-export class ContactListComponent implements OnInit {
+export class InsuranceListComponent implements OnInit {
 
     constructor(
         // private http: ApdpHttp,
         private dataService: DataService
     ) { }
     /// A List of Contact objects to display
-    @Input() contactList: any[];
+    @Input() insuranceList: any[];
     @Input() isEditable: boolean = true;
     @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
 
@@ -20,16 +20,12 @@ export class ContactListComponent implements OnInit {
 
     }
 
-    getPhotoUrl(contact: any) {
-        var photo = this.dataService.getPhotoUrl(contact.photo);
-        return photo;
-    }
 
     stopPropagation(event) {
         event.stopPropagation()
     }
 
-    updateContact(data) {
+    updateInsurance(data) {
         this.change.emit(data);
     }
 }

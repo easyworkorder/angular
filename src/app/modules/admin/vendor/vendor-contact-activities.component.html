@@ -2,20 +2,17 @@
   <!-- Block Tabs Title -->
   <div class="block-title">
     <div class="block-options pull-right">
-      <a *ngIf="tabs.isTicketTabVisible" href="#add-tenant-ticket" class="btn btn-effect-ripple btn-default" data-toggle="modal"
+      <a *ngIf="tabs.isTicketTabVisible" href="#add-vendor-ticket" class="btn btn-effect-ripple btn-default" data-toggle="modal"
         title="" style="overflow: hidden; position: relative;" data-original-title="Add Contact"><i class="fa fa-plus"></i></a>
-      <a *ngIf="tabs.isInvoiceTabVisible" href="#add-tenant-invoice" class="btn btn-effect-ripple btn-default" data-toggle="modal"
+      <a *ngIf="tabs.isPeopleTabVisible" href="#add-vendor-cotact-people" class="btn btn-effect-ripple btn-default" data-toggle="modal"
         title="" style="overflow: hidden; position: relative;" data-original-title="Add Contact"><i class="fa fa-plus"></i></a>
-      <a *ngIf="tabs.isPeopleTabVisible" href="#add-tenant-cotact-people" class="btn btn-effect-ripple btn-default" data-toggle="modal"
+      <a *ngIf="tabs.isInsuranceTabVisible" href="#add-vendor-insurance" class="btn btn-effect-ripple btn-default" data-toggle="modal"
         title="" style="overflow: hidden; position: relative;" data-original-title="Add Contact"><i class="fa fa-plus"></i></a>
-      <a *ngIf="tabs.isInsuranceTabVisible" href="#add-tenant-insurance" class="btn btn-effect-ripple btn-default" data-toggle="modal"
-        title="" style="overflow: hidden; position: relative;" data-original-title="Add Contact"><i class="fa fa-plus"></i></a>
-      <a *ngIf="tabs.isFilesTabVisible" href="#add-tenant-files" class="btn btn-effect-ripple btn-default" data-toggle="modal"
+      <a *ngIf="tabs.isFilesTabVisible" href="#add-vendor-files" class="btn btn-effect-ripple btn-default" data-toggle="modal"
         title="" style="overflow: hidden; position: relative;" data-original-title="Add Contact"><i class="fa fa-plus"></i></a>
     </div>
     <ul class="nav nav-tabs" data-toggle="tabs">
       <li class="active"><a (click)="switchTab(2)" href="#profile-tickets" data-toggle="tab">Tickets</a></li>
-      <li class=""><a (click)="switchTab(2)" href="#profile-invoices" data-toggle="tab">Invoices</a></li>
       <li class=""><a (click)="switchTab(3)" href="#profile-people" data-toggle="tab">People</a></li>
       <li class=""><a (click)="switchTab(4)" href="#profile-insurance" data-toggle="tab">Insurance</a></li>
       <li><a (click)="switchTab(5)" href="#profile-files" data-toggle="tab">Files</a></li>
@@ -112,58 +109,10 @@
     </div>
     <!-- END Tickets -->
 
-    <!-- Invoices -->
-    <div class="tab-pane" id="profile-invoices">
-      <div class="block-content-full">
-        <!-- Partial Responsive Content -->
-        <table class="table table-striped table-borderless table-vcenter">
-          <thead>
-            <tr>
-              <th>Inv No</th>
-              <th class="hidden-xs">Date</th>
-              <th class="hidden-sm hidden-xs">Amount</th>
-              <th colspan="2"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong><a href="tenant_invoice.html">117011</a></strong></td>
-              <td class="hidden-xs">06/30/2017</td>
-              <td class="hidden-sm hidden-xs">$1,500,00</td>
-              <td class="text-center">
-                <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn btn-default" style="overflow: hidden; position: relative;"
-                  data-original-title="Print"><i class="fa fa-print"></i></a>
-              </td>
-            </tr>
-            <tr>
-              <td><strong><a href="tenant_invoice.html">217129</a></strong></td>
-              <td class="hidden-xs">06/30/2017</td>
-              <td class="hidden-sm hidden-xs">$1,500,00</td>
-              <td class="text-center">
-                <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn btn-default" style="overflow: hidden; position: relative;"
-                  data-original-title="Print"><i class="fa fa-print"></i></a>
-              </td>
-            </tr>
-            <tr>
-              <td><strong><a href="tenant_invoice.html">317013</a></strong></td>
-              <td class="hidden-xs">06/30/2017</td>
-              <td class="hidden-sm hidden-xs">$1,500,00</td>
-              <td class="text-center">
-                <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn btn-default" style="overflow: hidden; position: relative;"
-                  data-original-title="Print"><i class="fa fa-print"></i></a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <!-- END Partial Responsive Content -->
-      </div>
-    </div>
-    <!-- END Invoices -->
-
     <!-- People -->
     <div class="tab-pane" id="profile-people">
       <div class="block-content-full">
-        <ewo-contact-list [contactList]="tenant" (update)="updateContactInfo($event)"></ewo-contact-list>
+        <ewo-contact-list [contactList]="vendor" (update)="updateContactInfo($event)"></ewo-contact-list>
       </div>
     </div>
     <!-- END People -->
@@ -171,68 +120,7 @@
     <!-- Insurance -->
     <div class="tab-pane" id="profile-insurance">
       <div class="block-content-full">
-        <!-- Partial Responsive Content -->
-        <table class="table table-striped table-borderless table-vcenter">
-          <thead>
-            <tr>
-              <th>Type</th>
-              <th class="hidden-xs">Expires</th>
-              <th class="hidden-sm hidden-xs">per Occur</th>
-              <th colspan="2">Aggregate</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>General Liability</strong></td>
-              <td class="hidden-xs">06/30/2017</td>
-              <td class="hidden-sm hidden-xs">$1,500,00</td>
-              <td>$2,500,000</td>
-              <td class="text-center"><a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-success"
-                  style="overflow: hidden; position: relative;" data-original-title="Edit"><i class="fa fa-pencil"></i></a></td>
-            </tr>
-            <tr>
-              <td><strong>Auto</strong></td>
-              <td class="hidden-xs">06/30/2017</td>
-              <td class="hidden-sm hidden-xs">$1,500,00</td>
-              <td>$2,500,000</td>
-              <td class="text-center"><a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-success"
-                  style="overflow: hidden; position: relative;" data-original-title="Edit"><i class="fa fa-pencil"></i></a></td>
-            </tr>
-            <tr>
-              <td><strong>Garage</strong></td>
-              <td class="hidden-xs">06/30/2017</td>
-              <td class="hidden-sm hidden-xs">$1,500,00</td>
-              <td>$2,500,000</td>
-              <td class="text-center"><a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-success"
-                  style="overflow: hidden; position: relative;" data-original-title="Edit"><i class="fa fa-pencil"></i></a></td>
-            </tr>
-            <tr>
-              <td><strong>Excess</strong></td>
-              <td class="hidden-xs">06/30/2017</td>
-              <td class="hidden-sm hidden-xs">$1,500,00</td>
-              <td>$2,500,000</td>
-              <td class="text-center"><a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-success"
-                  style="overflow: hidden; position: relative;" data-original-title="Edit"><i class="fa fa-pencil"></i></a></td>
-            </tr>
-            <tr>
-              <td><strong>Worker's Compensation</strong></td>
-              <td class="hidden-xs">06/30/2017</td>
-              <td class="hidden-sm hidden-xs">$1,500,00</td>
-              <td>$2,500,000</td>
-              <td class="text-center"><a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-success"
-                  style="overflow: hidden; position: relative;" data-original-title="Edit"><i class="fa fa-pencil"></i></a></td>
-            </tr>
-            <tr>
-              <td><strong>Other</strong></td>
-              <td class="hidden-xs">06/30/2017</td>
-              <td class="hidden-sm hidden-xs">$1,500,00</td>
-              <td>$2,500,000</td>
-              <td class="text-center"><a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-success"
-                  style="overflow: hidden; position: relative;" data-original-title="Edit"><i class="fa fa-pencil"></i></a></td>
-            </tr>
-          </tbody>
-        </table>
-        <!-- END Partial Responsive Content -->
+        <ewo-insurance-list [insuranceList]="insurances" (update)="updateInsuranceInfo($event)"></ewo-insurance-list>
       </div>
     </div>
     <!-- END Insurance -->
@@ -366,6 +254,9 @@
   <!-- END Tabs Content -->
 </div>
 
-<!--<ewo-tenant-contact-people id="add-tenant-cotact-people" [tenant]="tenant" [updatePeopleInfo]="updatePeopleInfo" (update)="updatePeople($event)" class="modal fade" role="dialog" aria-hidden="true"></ewo-tenant-contact-people>-->
-<ewo-tenant-contact-people id="add-tenant-cotact-people" [tenant]="tenant" (update)="updatePeople($event)" class="modal fade"
-  role="dialog" aria-hidden="true"></ewo-tenant-contact-people>
+<ewo-vendor-contact-people id="add-vendor-cotact-people" [vendor]="vendor" (update)="updatePeople($event)" class="modal fade"
+  role="dialog" aria-hidden="true"></ewo-vendor-contact-people>
+
+
+<ewo-vendor-insurance id="add-vendor-insurance" [vendor]="vendor" (update)="updateInsurance($event)" class="modal fade"
+                           role="dialog" aria-hidden="true"></ewo-vendor-insurance>

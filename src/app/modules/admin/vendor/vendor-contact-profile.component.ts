@@ -14,7 +14,6 @@ export class VendorContactProfileComponent implements OnInit {
     vendor: any;
     primaryContact: any;
     contactInfo: VendorContact;
-    vendorContactPeoples: any;
 
     constructor(
         private vendorService: VendorService,
@@ -39,22 +38,26 @@ export class VendorContactProfileComponent implements OnInit {
                 this.vendor = data.vendorInfo;
                 this.contactInfo = {
                     id: this.primaryContact.id,
-                    firstName: this.primaryContact.first_name,
-                    lastName: this.primaryContact.last_name,
+                    first_name: this.primaryContact.first_name,
+                    last_name: this.primaryContact.last_name,
                     title: this.primaryContact.title,
                     phone: this.primaryContact.phone,
                     phone_extension: this.primaryContact.phone_extension,
                     mobile: this.primaryContact.mobile,
                     photo: this.primaryContact.photo,
                     email: this.primaryContact.email,
-                    companyName: this.vendor.company_name
+                    companyName: this.vendor.company_name,
+                    address: this.vendor.address,
+                    city: this.vendor.city,
+                    state: this.vendor.state,
+                    postal_code: this.vendor.postal_code,
                 }
 
                 let tempContact = this.vendor.vendor_contacts.filter(data => {
                     return !data.isprimary_contact;
                 });
 
-                this.vendor.vendor_contacts = tempContact;
+                this.vendor.contacts = tempContact;
             })
     }
 
