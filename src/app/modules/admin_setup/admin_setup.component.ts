@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { AuthenticationService } from "app/modules/authentication";
+import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
 declare var App: any;
 
 @Component({
@@ -8,9 +9,9 @@ declare var App: any;
 })
 export class AdminSetupComponent implements OnInit {
 
-    constructor() {}
+    constructor(private breadcrumbHeaderService: BreadcrumbHeaderService) { }
 
     ngOnInit() {
-
+        this.breadcrumbHeaderService.setBreadcrumbTitle('Administration Portal');
     }
 }

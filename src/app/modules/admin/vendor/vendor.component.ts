@@ -7,6 +7,7 @@ import { AuthenticationService } from "app/modules/authentication";
 import { Router, ActivatedRoute } from "@angular/router";
 import config from '../../../config';
 import { DataService } from "app/services";
+import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
 declare var $: any;
 
 export class TabVisibility {
@@ -36,7 +37,8 @@ export class VendorComponent implements OnInit {
         private authService: AuthenticationService,
         private route: ActivatedRoute,
         private router: Router,
-        private dataService: DataService) {
+        private dataService: DataService,
+        private breadcrumbHeaderService: BreadcrumbHeaderService) {
 
     }
 
@@ -50,6 +52,7 @@ export class VendorComponent implements OnInit {
         $('#modal-add-vendor').on('hidden.bs.modal', () => {
             this.closeModal();
         });
+        this.breadcrumbHeaderService.setBreadcrumbTitle('Vendors');
     }
 
     vendorForm = this.formBuilder.group({

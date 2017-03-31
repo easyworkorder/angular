@@ -7,6 +7,7 @@ import { BuildingService } from '../building/building.service';
 import { ProblemTypeService } from '../problem_type/problem_type.service';
 import { ValidationService } from "../../../services/validation.service";
 import { AuthenticationService } from "app/modules/authentication";
+import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
 declare var $: any;
 
 export class TabVisibility {
@@ -60,7 +61,8 @@ export class EmployeeComponent implements OnInit {
     constructor(private employeeService: EmployeeService,
         private buildingService: BuildingService,
         private problemTypeService: ProblemTypeService,
-        private authService: AuthenticationService) {
+        private authService: AuthenticationService,
+        private breadcrumbHeaderService: BreadcrumbHeaderService) {
         this.authService.verifyToken().take(1).subscribe(data => {
             this.getAllEmployees(this.currentCompanyId);
             this.getAllBuildings(this.currentCompanyId);
@@ -69,6 +71,8 @@ export class EmployeeComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.breadcrumbHeaderService.setBreadcrumbTitle('Employees');
+
         $('#modal-add-employee').on('hidden.bs.modal', () => {
             this.closeModal();
         });

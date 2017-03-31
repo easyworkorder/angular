@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import config from '../../../config';
 import { ProblemTypeService } from './problem_type.service';
 import { AuthenticationService } from "app/modules/authentication";
+import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
 
 declare var $: any;
 
@@ -32,7 +33,8 @@ export class ProblemTypeComponent implements OnInit {
 
     constructor(
         private problemTypeService: ProblemTypeService,
-        private authService: AuthenticationService) {
+        private authService: AuthenticationService,
+        private breadcrumbHeaderService: BreadcrumbHeaderService) {
         this.authService.verifyToken().take(1).subscribe(data => {
             this.getAllProblemTypes(this.currentCompanyId);
         });
@@ -42,6 +44,7 @@ export class ProblemTypeComponent implements OnInit {
         $('#modal-add-problem-type').on('hidden.bs.modal', () => {
             this.closeModal();
         });
+        this.breadcrumbHeaderService.setBreadcrumbTitle('Problem Types');
     }
 
     getAllProblemTypes(company_id): void {

@@ -8,7 +8,7 @@ import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/br
 })
 export class SLAPolicyComponent implements OnInit {
 
-  constructor( private breadcrumbHeaderService: BreadcrumbHeaderService) { }
+  constructor(private breadcrumbHeaderService: BreadcrumbHeaderService) { }
 
   ngOnInit() {
     this.breadcrumbHeaderService.setBreadcrumbTitle('SLA Policies');

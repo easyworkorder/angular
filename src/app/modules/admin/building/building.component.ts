@@ -7,6 +7,7 @@ import { BuildingService } from './building.service';
 import { ValidationService } from "../../../services/validation.service";
 import { AuthenticationService } from "app/modules/authentication";
 import { Router, NavigationExtras, ActivatedRoute } from "@angular/router";
+import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
 declare var $: any;
 
 export class TabVisibility {
@@ -61,7 +62,8 @@ export class BuildingComponent implements OnInit {
     private employeeService: EmployeeService,
     private authService: AuthenticationService,
     private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private breadcrumbHeaderService: BreadcrumbHeaderService) {
     this.authService.verifyToken().take(1).subscribe(data => {
       this.getAllBuildings();
       this.getAllEmployees(this.currentCompanyId);
@@ -91,6 +93,7 @@ export class BuildingComponent implements OnInit {
     $('#modal-add-building').on('hidden.bs.modal', () => {
       this.closeModal();
     });
+    this.breadcrumbHeaderService.setBreadcrumbTitle('Buildings');
   }
 
   switchTab(tabId: number) {
