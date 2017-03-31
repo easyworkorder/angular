@@ -123,6 +123,13 @@ export class TenantComponent implements OnInit {
             this.switchTab(2);
         }
 
+        if (this.tenantForm.get('inscertdate').value) {
+            let date: Date = this.tenantForm.get('inscertdate').value;
+            // console.log(date.toISOString());
+            let dateAndTime = date.toISOString().split('T');
+            this.tenantForm.get('inscertdate').setValue(dateAndTime[0]);
+        }
+
         if (!this.tenantForm.valid) { return; }
 
         this.tenantForm.get('building').setValue(`${config.api.base}building/${this.buildingId}/`);

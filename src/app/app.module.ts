@@ -86,6 +86,8 @@ import { TenantContactActivitiesComponent } from './modules/admin/tenant/tenant-
 import { TenantContactPeopleComponent } from './modules/admin/tenant/tenant-contact-people.component';
 import { UpdatePeopleService } from "app/modules/admin/tenant/people.service";
 import { NumericSortComponent } from "app/modules/shared/alphabetical-sort/numeric-sort.component";
+import { CalendarModule } from "app/modules/shared/calendar/calendar.component";
+
 
 export function translateStaticLoaderFactory(Backend, defaultOptions, storage, notificationService) {
     return new AppHttp(Backend, defaultOptions, storage, notificationService);
@@ -161,7 +163,8 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         HttpModule,
         routing,
         ToasterModule,
-        SelectModule
+        SelectModule,
+        CalendarModule,
     ],
     providers: [
         AuthGuard,

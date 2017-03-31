@@ -40,3 +40,15 @@ no-content {
     top: -8px;
     padding: 4px;
 }
+
+.input-group-addon {
+    width: 2em;
+    height: 2.4em;
+}
+.calendar-wrapper{
+    /*border: 1px solid red;*/
+    display: flex;
+    -ms-flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}

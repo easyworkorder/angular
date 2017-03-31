@@ -26,7 +26,7 @@
         "assets/js/vendor/bootstrap.min.js",
         "assets/js/vendor/modernizr-3.3.1.min.js",
         "assets/js/plugins.js",
-        "assets/js/app.js",        
+        "assets/js/app.js",
         "assets/js/pages/readyLogin.js",
         "assets/js/pages/readyDashboard.js",
         "assets/js/app_custom_scripts.js"
