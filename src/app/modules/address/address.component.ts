@@ -1,3 +1,4 @@
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppHttp } from './../../services/http.service';
 import { Observable } from 'rxjs/Observable';
 import { Http, Headers, RequestOptions, RequestOptionsArgs } from '@angular/http';
@@ -18,6 +19,7 @@ export class AddressComponent implements OnInit {
 
     isSuccess: boolean = false;
     addresses: any[] = [];
+    address2File: File;
 
     addressCreateForm = new FormGroup({
         address1: new FormControl(''),
@@ -59,78 +61,71 @@ export class AddressComponent implements OnInit {
         //     this.isSuccess = true;
         // });
         this.newOnSubmit();
-        // this.http.post('http://localhost:8080/api/address/', item);
     }
-
-    // saveTask() {
-    //     this.taskForm.value.file = this.file;
-    //     console.log(this.taskForm.value);
-    //     this.taskService.addTask(this.file).subscribe(
-    //     (data) => {
-    //         console.log(data)
-    //     },
-    //     (error) => {
-    //         console.log(error)
-    //     }
-    //     );
-    // }
-
-
-    // onChange(event) {
-    //     let files = event.target.files;
-    //     console.log(files);
-    //     let formData: FormData = new FormData();
-    //     formData.append('photo', files[0], files[0].name);
-    //     //if (files.length > 0) {
-    //     //  let formData: FormData = new FormData();
-    //     //  for (let file of files) {
-    //     //    formData.append('files', file, file.name);
-    //     //  }
-    //     console.log(formData);
-    //     // this.file = formData
-        
-    // }
 
     fileChange(event) {
         let fileList: FileList = event.target.files;
         if(fileList.length > 0) {
-            let file: File = fileList[0];
-            let formData:FormData = new FormData();
-            formData.append('address2', file, file.name);
-            let headers = new Headers();
-            // headers.append('Content-Type', 'multipart/form-data');
-            // headers.append('Content-Type', 'undefined');
-            headers.append('Accept', 'application/json');
-            headers.append(config.api.tokenLabel, this.http.getToken());
-            // let options: RequestOptionsArgs;
-            let options = {};
-            options['headers'] = headers;
-            // let options = new RequestOptions({ headers: headers });
-            // let options.
-            this.myHttp.post('http://localhost:8080/api/address/', formData, options)
-                .map(res => res.json())
-                .catch(error => Observable.throw(error))
-                .subscribe(
-                    data => console.log('success'),
-                    error => console.log(error)
-                )
+            this.address2File = fileList[0];
         }
     }
 
     newOnSubmit() {
+        console.log('Inside New On Submit');
+        if(this.address2File) {
+            let formData:FormData = this.mapToFormData(this.addressCreateForm);
+            // let headers = new Headers();
+            // headers.append('Content-Type', 'multipart/form-data');
+            // headers.append('Accept', 'application/json');
+            // // Following line is very important, if there is any 'Content-Type' set 
+            // // the API backend will not recognize the request, and will ignore it.
+            // // Browser explicitly sets the contencttype for a file upload form
+            // // API backend understands that
+            // headers.delete('Content-Type');
+            // headers.append(config.api.tokenLabel, this.http.getToken());
+            // let options = {};
+            // options['headers'] = headers;
+            // this.myHttp.post('http://localhost:8080/api/address/', formData, options)
+            //     .map(res => res.json())
+            //     .catch(error => Observable.throw(error))
+            //     .subscribe(
+            //         data => console.log('success'),
+            //         error => console.log(error));
+            this.addressService.createWithFile(formData).subscribe((address: any) => {
+                console.log('Address created with file', address);
+                this.addresses.push(address);
+                this.isSuccess = true;
+            });
+        } else {
+            // Simple Object Posting should go here, and the address2 field needs to be removed 
+            // If there is not any address2 file selected by the user
+            
+            // let val = this.addressCreateForm.value;
+            if(this.addressCreateForm.contains('address2')) {
+                this.addressCreateForm.removeControl('address2');
+                console.log('Address2 Removed');
+            }
+            
+            this.addressService.create(this.addressCreateForm.value).subscribe((address: any) => {
+                console.log('Address created', address);
+                this.addresses.push(address);
+                this.isSuccess = true;
+            });
+        }
 
     }
 
-
-    // addTask(model:any): Observable<TaskId> {
-    //     let headers = new Headers();
-    //     headers.set('Accept', 'application/json');
-    //     // headers.set('Authorization', 'JWT ' + localStorage.getItem('id_token'));
-    //     // headers.set('Content-Type', 'multipart/form-data' );
-    //     // headers.set('Content-Type', 'application/json' );
-    //     headers.set('Content-Type', '*/*' );
-    //     let options = new RequestOptions({ headers: headers });
+    mapToFormData(form:FormGroup): FormData {
+        let formData:FormData = new FormData();
+        formData.append('address2', this.address2File, this.address2File.name);
+        formData.append('address1', form.get('address1').value);
+        // formData.append('city', form.get('city').value);
+        // formData.append('fax', form.get('fax').value);
+        formData.append('postal_code', form.get('postal_code').value);
+        // formData.append('state', form.get('state').value);
+        // formData.append('country', form.get('country').value);
+        // formData.append('type', form.get('type').value);
         
-    //     return this.myHttp.post('address', model, options).map((response: Response) => response.json());
-    // }
+        return formData;
+    }
 }

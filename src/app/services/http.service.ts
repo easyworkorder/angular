@@ -323,18 +323,18 @@ export class AppHttp extends Http {
   //   // let options = new RequestOptions({ headers: headers });
   //   // return this.http.post(URL, model, options).map((response: Response) => response.json());
   // }
-  post_with_file(url: string, body?: any, params?: any, options?: RequestOptionsArgs): Observable<any> {
+  postWithFile(url: string, formData: FormData, params?: any, options?: RequestOptionsArgs): Observable<any> {
     options = this._headers(options);
     options.headers.delete('Content-Type');
     // options.headers.append('Content-Type', 'undefined');
-    options.headers.append('Content-Type', 'multipart/form-data');
-    options.headers.append('Accept', 'application/json');
+    // options.headers.append('Content-Type', 'multipart/form-data');
+    // options.headers.append('Accept', 'application/json');
 
     // body = this._serialize(body);
     // params && (options.search = this._encode(params));
 
     // let res = super.post(config.api.base + url, body, options);
-    let res = super.post(this.prepareRequestUrl(url), body, options);
+    let res = super.post(this.prepareRequestUrl(url), formData, options);
     // let res = super.post(this.prepareRequestUrl(url), formData, options)
     //   .map(res => res.json())
     //   .catch(error => Observable.throw(error))
