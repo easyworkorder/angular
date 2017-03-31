@@ -4,5 +4,4 @@ node_modules/*
 dist/*
 OBSOLATE/*
 *.log
-*.js
 *.js.map
