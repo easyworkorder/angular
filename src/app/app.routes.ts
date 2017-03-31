@@ -10,7 +10,6 @@ import { TenantComponent } from './modules/admin/tenant/tenant.component';
 import { TenantListComponent } from './modules/list/tenant-list/tenant-list.component';
 import { TenantContactProfileComponent } from './modules/admin/tenant/tenant-contact-profile.component';
 import { ProblemTypeComponent } from './modules/admin/problem_type/problem_type.component';
-import { SLAPolicyComponent } from './modules/admin/sla_policy/sla_policy.component';
 import { EmployeeComponent } from './modules/admin/employee/employee.component';
 import { EmployeeListComponent } from './modules/list/employee-list/employee-list.component';
 import { AdminSetupComponent } from './modules/admin_setup/admin_setup.component';
@@ -24,6 +23,7 @@ import { UserDashboardComponent } from "app/modules/dashboard/user-dashboard.com
 import {VendorComponent} from "./modules/admin/vendor/vendor.component";
 import {VendorListComponent} from "./modules/list/vendor-list/vendor-list.component";
 import { VendorContactProfileComponent } from './modules/admin/vendor/vendor-contact-profile.component';
+import { SLAPolicyComponent } from "app/modules/admin/sla-policy/sla-policy.component";
 
 
 export const appRoutes: Routes = [

@@ -1,0 +1,231 @@
+<!-- START SLA TARGETS Block -->
+<div class="block full">
+    <!-- Get Started Title -->
+    <div class="block-title">
+        <h2>Edit SLA Policy</h2>
+    </div>
+
+    <!-- BEGIN SLA POLICIES FORM -->
+    <form action="page_forms_components.html" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered"
+        onsubmit="return false;">
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="example-text-input">Name</label>
+            <div class="col-md-5">
+                <input type="text" id="example-text-input" name="example-text-input" class="form-control" placeholder="Default SLA Policy">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="example-textarea-input">Description</label>
+            <div class="col-md-5">
+                <textarea id="example-textarea-input" name="example-textarea-input" rows="7" class="form-control" placeholder="Default policy"></textarea>
+            </div>
+        </div>
+    </form>
+    <!-- BEGIN SLA POLICIES FORM -->
+</div>
+<!-- END SLA TARGETS Block -->
+
+<!-- START SLA TARGETS Block -->
+<div class="block full">
+    <!-- Get Started Title -->
+    <div class="block-title">
+        <h2>SLA Targets</h2>
+    </div>
+
+    <!-- BEGIN SLA POLICIES FORM -->
+    <div class="form-group">
+        <table id="general-table" class="table table-vcenter">
+            <thead>
+                <tr>
+                    <th>Priority</th>
+                    <th>Respond Within</th>
+                    <th>Resolve Within</th>
+                    <th>Operational Hours</th>
+                    <th>Escalation Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Urgent</td>
+                    <td>
+                        <div class="input-group">
+                            <input type="text" id="example-input2-group3" name="example-input2-group3" class="form-control" style="width: 40%;" value="1">
+                            <select id="example-select2" name="example-select2" class="select-select2 select2-hidden-accessible" style="width: 60%;"
+                                data-placeholder="Choose one.." tabindex="-1" aria-hidden="true">
+                                <option value="HTML">Mins</option>
+                                <option value="HTML" selected="">Hrs</option>
+                                <option value="HTML">Days</option>
+                                <option value="HTML">Mos</option>
+                            </select>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="input-group">
+                            <input type="text" id="example-input2-group3" name="example-input2-group3" class="form-control" style="width: 40%;" value="24">
+                            <select id="example-select2" name="example-select2" class="select-select2 select2-hidden-accessible" style="width: 60%;"
+                                data-placeholder="Choose one.." tabindex="-1" aria-hidden="true">
+                                <option value="HTML">Mins</option>
+                                <option value="HTML" selected="">Hrs</option>
+                                <option value="HTML">Days</option>
+                                <option value="HTML">Mos</option>
+                            </select>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="form-group">
+                            <select id="example-select2" name="example-select2" class="select-select2 select2-hidden-accessible" style="width: 100%;"
+                                data-placeholder="Choose one.." tabindex="-1" aria-hidden="true">
+                                <option></option>
+                                <option value="HTML" selected="">Business Hours</option>
+                                <option value="CSS">Calendar Hours</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                        <label class="switch switch-success" for="urgent">
+                            <input type="checkbox" id="urgent" name="example-clickable-terms" value="1">
+                            <span data-toggle="tooltip" title="" data-original-title="Escalate"></span>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>High</td>
+                    <td>
+                        <div class="input-group">
+                            <input type="text" id="example-input2-group3" name="example-input2-group3" class="form-control" style="width: 40%;" value="4">
+                            <select id="example-select2" name="example-select2" class="select-select2 select2-hidden-accessible" style="width: 60%;"
+                                data-placeholder="Choose one.." tabindex="-1" aria-hidden="true">
+                                <option value="HTML">Mins</option>
+                                <option value="HTML" selected="">Hrs</option>
+                                <option value="HTML">Days</option>
+                                <option value="HTML">Mos</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <input type="text" id="example-input2-group3" name="example-input2-group3" class="form-control" style="width: 40%;" value="48">
+                            <select id="example-select2" name="example-select2" class="select-select2 select2-hidden-accessible" style="width: 60%;"
+                                data-placeholder="Choose one.." tabindex="-1" aria-hidden="true">
+                                <option value="HTML">Mins</option>
+                                <option value="HTML" selected="">Hrs</option>
+                                <option value="HTML">Days</option>
+                                <option value="HTML">Mos</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <select id="example-select2" name="example-select2" class="select-select2 select2-hidden-accessible" style="width: 100%;"
+                                data-placeholder="Choose one.." tabindex="-1" aria-hidden="true">
+                                <option></option>
+                                <option value="HTML" selected="">Business Hours</option>
+                                <option value="CSS">Calendar Hours</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                        <label class="switch switch-success" for="high">
+                            <input type="checkbox" id="high" name="example-clickable-terms" value="2">
+                            <span data-toggle="tooltip" title="" data-original-title="Escalate"></span>
+                        </label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Medium</td>
+                    <td>
+                        <div class="input-group">
+                            <input type="text" id="example-input2-group3" name="example-input2-group3" class="form-control" style="width: 40%;" value="8">
+                            <select id="example-select2" name="example-select2" class="select-select2 select2-hidden-accessible" style="width: 60%;"
+                                data-placeholder="Choose one.." tabindex="-1" aria-hidden="true">
+                                <option value="HTML">Mins</option>
+                                <option value="HTML" selected="">Hrs</option>
+                                <option value="HTML">Days</option>
+                                <option value="HTML">Mos</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <input type="text" id="example-input2-group3" name="example-input2-group3" class="form-control" style="width: 40%;" value="4">
+                            <select id="example-select2" name="example-select2" class="select-select2 select2-hidden-accessible" style="width: 60%;"
+                                data-placeholder="Choose one.." tabindex="-1" aria-hidden="true">
+                                <option></option>
+                                <option value="HTML">Mins</option>
+                                <option value="HTML">Hrs</option>
+                                <option value="HTML" selected="">Days</option>
+                                <option value="HTML">Mos</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <select id="example-select2" name="example-select2" class="select-select2 select2-hidden-accessible" style="width: 100%;"
+                                data-placeholder="Choose one.." tabindex="-1" aria-hidden="true">
+                                <option></option>
+                                <option value="HTML" selected="">Business Hours</option>
+                                <option value="CSS">Calendar Hours</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                        <label class="switch switch-success" for="medium">
+                            <input type="checkbox" id="medium" name="example-clickable-terms" value="3">
+                            <span data-toggle="tooltip" title="" data-original-title="Escalate"></span>
+                        </label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Low</td>
+                    <td>
+                        <div class="input-group">
+                            <input type="text" id="example-input2-group3" name="example-input2-group3" class="form-control" style="width: 40%;" value="24">
+                            <select id="example-select2" name="example-select2" class="select-select2 select2-hidden-accessible" style="width: 60%;"
+                                data-placeholder="Choose one.." tabindex="-1" aria-hidden="true">
+                                <option value="HTML">Mins</option>
+                                <option value="HTML" selected="">Hrs</option>
+                                <option value="HTML">Days</option>
+                                <option value="HTML">Mos</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <input type="text" id="example-input2-group3" name="example-input2-group3" class="form-control" style="width: 40%;" value="7">
+                            <select id="example-select2" name="example-select2" class="select-select2 select2-hidden-accessible" style="width: 60%;"
+                                data-placeholder="Choose one.." tabindex="-1" aria-hidden="true">
+                                <option value="HTML">Mins</option>
+                                <option value="HTML">Hrs</option>
+                                <option value="HTML" selected="">Days</option>
+                                <option value="HTML">Mos</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <select id="example-select2" name="example-select2" class="select-select2 select2-hidden-accessible" style="width: 100%;"
+                                data-placeholder="Choose one.." tabindex="-1" aria-hidden="true">
+                                <option></option>
+                                <option value="HTML" selected="">Business Hours</option>
+                                <option value="CSS">Calendar Hours</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                        <label class="switch switch-success" for="low">
+                            <input type="checkbox" id="low" name="example-clickable-terms" value="4">
+                            <span data-toggle="tooltip" title="" data-original-title="Escalate"></span>
+                        </label>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <!-- BEGIN SLA POLICIES FORM -->
+</div>
+<!-- END SLA TARGETS Block -->

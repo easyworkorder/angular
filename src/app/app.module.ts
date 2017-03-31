@@ -28,7 +28,6 @@ import { BuildingService } from './modules/admin/building/building.service';
 import { AddressService } from './modules/address/address.service';
 import { TenantService } from './modules/admin/tenant/tenant.service';
 import { ProblemTypeService } from './modules/admin/problem_type/problem_type.service';
-import { SLAPolicyService } from './modules/admin/sla_policy/sla_policy.service';
 import { EmployeeService } from './modules/admin/employee/employee.service';
 import { VendorService } from './modules/admin/vendor/vendor.service';
 import { TicketService } from './modules/ticket/ticket.service';
@@ -53,7 +52,6 @@ import { TenantComponent } from './modules/admin/tenant/tenant.component';
 import { TenantListComponent } from './modules/list/tenant-list/tenant-list.component';
 import { TenantContactProfileComponent} from './modules/admin/tenant/tenant-contact-profile.component';
 import { ProblemTypeComponent } from './modules/admin/problem_type/problem_type.component';
-import { SLAPolicyComponent } from './modules/admin/sla_policy/sla_policy.component';
 import { EmployeeComponent } from './modules/admin/employee/employee.component';
 import { EmployeeListComponent } from './modules/list/employee-list/employee-list.component';
 import { TicketComponent } from './modules/ticket/ticket.component';
@@ -86,6 +84,7 @@ import { TenantContactActivitiesComponent } from './modules/admin/tenant/tenant-
 import { TenantContactPeopleComponent } from './modules/admin/tenant/tenant-contact-people.component';
 import { UpdatePeopleService } from "app/modules/admin/tenant/people.service";
 import { CalendarModule } from "app/modules/shared/calendar/calendar.component";
+import { SLAPolicyComponent } from './modules/admin/sla-policy/sla-policy.component';
 
 
 export function translateStaticLoaderFactory(Backend, defaultOptions, storage, notificationService) {
@@ -121,7 +120,6 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         TenantListComponent,
         TenantContactProfileComponent,
         ProblemTypeComponent,
-        SLAPolicyComponent,
         EmployeeComponent,
         EmployeeListComponent,
         TicketComponent,
@@ -152,7 +150,8 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         AlphabeticalSortComponent,
         ContactListComponent,
         TenantContactActivitiesComponent,
-        TenantContactPeopleComponent
+        TenantContactPeopleComponent,
+        SLAPolicyComponent
     ],
     imports: [
         BrowserModule,
@@ -175,7 +174,6 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         TenantService,
         TicketService,
         ProblemTypeService,
-        SLAPolicyService,
         EmployeeService,
         VendorService,
         EventService,
