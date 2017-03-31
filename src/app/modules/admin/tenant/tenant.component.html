@@ -70,7 +70,8 @@
                         </div>
                         <div class="form-group">
                             <label class="col-md-3 control-label" for="mgtfeepercent">Management Fee <span class="required">*</span></label>
-                            <div class="col-xs-9" style="display: flex;">
+                            <!--<div class="col-xs-9" data-style="display: flex; -js-display:flex;">-->
+                            <div class="col-xs-9" style="display: flex; -ms-flex-direction: row;">
                                 <input [formControlValidator]="tenantForm.controls.mgtfeepercent" formControlName="mgtfeepercent" type="text" id="mgtfeepercent"
                                     name="mgtfeepercent" class="form-control col-xs-3" placeholder="Management Fee Percent" size="20">
                                 <div class="input-group-addon"> (%) </div>
@@ -92,7 +93,8 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label" for="inscertdate">Ins Cert exp date</label>
                             <div class="col-xs-9">
-                                <input formControlName="inscertdate" type="text" id="inscertdate" name="inscertdate" class="form-control" placeholder="Ins Cert exp date">
+                                <!--<input formControlName="inscertdate" type="text" id="inscertdate" name="inscertdate" class="form-control" placeholder="Ins Cert exp date">-->
+                                <ewo-calendar formControlName="inscertdate" dateFormat="yy-mm-dd" [icon]="fa-calendar" [showIcon]="true" inputStyleClass="form-control"></ewo-calendar>
                             </div>
                         </div>
 
@@ -215,7 +217,7 @@
                             <!--<button type="submit" class="btn btn-effect-ripple btn-primary ui-wizard-content ui-formwizard-button" id="next1" style="overflow: hidden; position: relative;"
                                 value="Next">Next
                             </button>-->
-                             <button type="submit" class="btn btn-effect-ripple btn-primary ui-wizard-content ui-formwizard-button" id="btnSave" style="overflow: hidden; position: relative;"
+                            <button type="submit" class="btn btn-effect-ripple btn-primary ui-wizard-content ui-formwizard-button" id="btnSave" style="overflow: hidden; position: relative;"
                                 value="Save">Save
                             </button>
                         </div>

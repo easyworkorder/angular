@@ -25,6 +25,6 @@ export class VendorContactProfileCardComponent implements OnInit {
     }
 
     buildAddressHtml(contact) {
-        return this.dataService.buildAddressHtml(contact, contact.companyName);
+        return this.dataService.buildVendorAddressHtml(contact, contact.companyName);
     }
 }
