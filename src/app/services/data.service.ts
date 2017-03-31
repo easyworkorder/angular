@@ -214,7 +214,7 @@ export class DataService {
     }
 
     buildVendorAddressHtml(contact: any, companyName: string) {
-        var html = '<strong>' + companyName + '</strong><br />';
+        var html = '<strong>' + this.buildName(contact.first_name, contact.last_name) + '</strong><br />';
             html += contact.address + '<br />';
             html += contact.city + ', '+ contact.state + ' '+ contact.postal_code+'<br />';
         var extension = (contact.phone_extension != null && contact.phone_extension.length > 0) ? (' ext. ' + contact.phone_extension) : '';

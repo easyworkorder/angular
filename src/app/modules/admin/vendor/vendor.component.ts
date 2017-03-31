@@ -230,7 +230,7 @@ export class VendorComponent implements OnInit {
     }
 
     vendorDetailsLink(vendor) {
-        this.router.navigate(['/admin', 'vendor-profile', vendor.id]);
+        this.router.navigate(['/admin', 'vendor-profile', vendor.contact_id]);
     }
 
 }

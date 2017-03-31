@@ -12,6 +12,7 @@ export class AlphabeticalSortComponent implements OnInit {
     @Input() searchControl: FormControl;
     @Output() change: EventEmitter<any> = new EventEmitter<any>();
     @Input() isWhiteBackground: boolean = false;
+    @Input() isNumericSearch: boolean = false;
 
     constructor(private renderer: Renderer) { }
 
