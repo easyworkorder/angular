@@ -5,3 +5,4 @@ dist/*
 OBSOLATE/*
 *.log
 *.js.map
+*.js

@@ -62,6 +62,11 @@ import { VendorComponent } from './modules/admin/vendor/vendor.component';
 import { VendorListComponent } from './modules/list/vendor-list/vendor-list.component';
 import { VendorContactProfileComponent } from './modules/admin/vendor/vendor-contact-profile.component';
 import { VendorContactProfileCardComponent } from './modules/admin/contact-profile-card/vendor-contact-profile-card.component';
+import { VendorContactActivitiesComponent } from './modules/admin/vendor/vendor-contact-activities.component';
+import { VendorContactPeopleComponent } from './modules/admin/vendor/vendor-contact-people.component';
+import { VendorInsuranceComponent } from './modules/admin/vendor/vendor-insurance.component';
+import { UpdateVendorPeopleService } from 'app/modules/admin/vendor/vendor-people.service';
+import { UpdateVendorInsuranceService } from 'app/modules/admin/vendor/vendor-insurance.service';
 
 import { ValidationService } from './services/validation.service'
 import { AuthGuard } from "app/services/auth-guard.service";
@@ -80,6 +85,7 @@ import { BreadcrumbComponent } from './modules/shared/breadcrumb/breadcrumb.comp
 import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
 import { AlphabeticalSortComponent } from './modules/shared/alphabetical-sort/alphabetical-sort.component';
 import { ContactListComponent } from "app/modules/shared/contact-list/contact-list.component";
+import { InsuranceListComponent } from "app/modules/shared/insurance-list/insurance-list.component";
 import { TenantContactActivitiesComponent } from './modules/admin/tenant/tenant-contact-activities.component';
 import { TenantContactPeopleComponent } from './modules/admin/tenant/tenant-contact-people.component';
 import { UpdatePeopleService } from "app/modules/admin/tenant/people.service";
@@ -128,6 +134,9 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         VendorListComponent,
         VendorContactProfileComponent,
         VendorContactProfileCardComponent,
+        VendorContactActivitiesComponent,
+        VendorContactPeopleComponent,
+        VendorInsuranceComponent,
         AdminSetupComponent,
 
         //Validation Messages
@@ -149,6 +158,7 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         BreadcrumbComponent,
         AlphabeticalSortComponent,
         ContactListComponent,
+        InsuranceListComponent,
         TenantContactActivitiesComponent,
         TenantContactPeopleComponent,
         SLAPolicyComponent
@@ -192,7 +202,9 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         HeaderService,
         ...APP_RESOLVER_PROVIDERS,
         BreadcrumbHeaderService,
-        UpdatePeopleService
+        UpdatePeopleService,
+        UpdateVendorPeopleService,
+        UpdateVendorInsuranceService
         // { provide: XSRFStrategy, useValue: new      CookieXSRFStrategy('token', 'x-csrftoken')
         // },
     ],
