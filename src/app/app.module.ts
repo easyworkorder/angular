@@ -88,6 +88,8 @@ import { ContactListComponent } from "app/modules/shared/contact-list/contact-li
 import { InsuranceListComponent } from "app/modules/shared/insurance-list/insurance-list.component";
 import { TenantContactActivitiesComponent } from './modules/admin/tenant/tenant-contact-activities.component';
 import { TenantContactPeopleComponent } from './modules/admin/tenant/tenant-contact-people.component';
+import { TenantInsuranceComponent } from './modules/admin/tenant/tenant-insurance.component';
+import { UpdateTenantInsuranceService } from 'app/modules/admin/tenant/tenant-insurance.service';
 import { UpdatePeopleService } from "app/modules/admin/tenant/people.service";
 import { CalendarModule } from "app/modules/shared/calendar/calendar.component";
 import { SLAPolicyComponent } from './modules/admin/sla-policy/sla-policy.component';
@@ -125,6 +127,7 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         TenantComponent,
         TenantListComponent,
         TenantContactProfileComponent,
+        TenantInsuranceComponent,
         ProblemTypeComponent,
         EmployeeComponent,
         EmployeeListComponent,
@@ -204,7 +207,8 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         BreadcrumbHeaderService,
         UpdatePeopleService,
         UpdateVendorPeopleService,
-        UpdateVendorInsuranceService
+        UpdateVendorInsuranceService,
+        UpdateTenantInsuranceService
         // { provide: XSRFStrategy, useValue: new      CookieXSRFStrategy('token', 'x-csrftoken')
         // },
     ],

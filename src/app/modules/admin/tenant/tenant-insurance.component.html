@@ -1,0 +1,51 @@
+<!--<div id="modal-add-tenant" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">-->
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="closeModal()">&times;</button>
+            <h3 *ngIf="!tenantInsuranceForm.get('id').value" class="modal-title"><i class="fa fa-plus"></i> <strong>New Insurance</strong></h3>
+            <h3 *ngIf="tenantInsuranceForm.get('id').value" class="modal-title"><i class="fa fa-pencil"></i> <strong>Edit Insurance</strong></h3>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="tenantInsuranceForm" (ngSubmit)="onSubmit()" id="clickable-wizard" class="form-horizontal form-bordered"
+                  novalidate>
+
+                <div class="form-group">
+                    <label class="col-xs-3 control-label">Type</label>
+                    <div class="col-xs-9 control-label">{{tenantInsuranceForm.get('type').value}}</div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-3 control-label">Expire Date <span class="required">*</span></label>
+                    <div class="col-xs-9">
+                        <ewo-calendar formControlName="exp_date"  dateFormat="yy-mm-dd" [icon]="fa-calendar" [showIcon]="true" inputStyleClass="form-control"></ewo-calendar>
+                        <span *ngIf="exp_date_not_valid" class="validation-error">This field is required.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-3 control-label" for="per_occur">Per Occur <span class="required">*</span></label>
+                    <div class="col-xs-9">
+                        <input [formControlValidator]="tenantInsuranceForm.controls.per_occur" formControlName="per_occur" type="text" id="per_occur" class="form-control"
+                               placeholder="Per Occur" />
+                        <span class="validation-error">{{tenantInsuranceForm.controls.per_occur.error}}</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-3 control-label" for="aggregate">Aggregate <span class="required">*</span></label>
+                    <div class="col-xs-9">
+                        <input [formControlValidator]="tenantInsuranceForm.controls.aggregate" formControlName="aggregate" type="text" id="aggregate" class="form-control"
+                               placeholder="Aggregate" />
+                        <span class="validation-error">{{tenantInsuranceForm.controls.aggregate.error}}</span>
+                    </div>
+                </div>
+
+                <div class="form-group form-actions">
+                    <div class="col-md-8 col-md-offset-4">
+                        <button type="submit" class="btn btn-effect-ripple btn-primary ui-wizard-content ui-formwizard-button" id="btnSave" style="overflow: hidden; position: relative;"
+                                value="Save">Save
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

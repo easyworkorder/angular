@@ -171,68 +171,7 @@
     <!-- Insurance -->
     <div class="tab-pane" id="profile-insurance">
       <div class="block-content-full">
-        <!-- Partial Responsive Content -->
-        <table class="table table-striped table-borderless table-vcenter">
-          <thead>
-            <tr>
-              <th>Type</th>
-              <th class="hidden-xs">Expires</th>
-              <th class="hidden-sm hidden-xs">per Occur</th>
-              <th colspan="2">Aggregate</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>General Liability</strong></td>
-              <td class="hidden-xs">06/30/2017</td>
-              <td class="hidden-sm hidden-xs">$1,500,00</td>
-              <td>$2,500,000</td>
-              <td class="text-center"><a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-success"
-                  style="overflow: hidden; position: relative;" data-original-title="Edit"><i class="fa fa-pencil"></i></a></td>
-            </tr>
-            <tr>
-              <td><strong>Auto</strong></td>
-              <td class="hidden-xs">06/30/2017</td>
-              <td class="hidden-sm hidden-xs">$1,500,00</td>
-              <td>$2,500,000</td>
-              <td class="text-center"><a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-success"
-                  style="overflow: hidden; position: relative;" data-original-title="Edit"><i class="fa fa-pencil"></i></a></td>
-            </tr>
-            <tr>
-              <td><strong>Garage</strong></td>
-              <td class="hidden-xs">06/30/2017</td>
-              <td class="hidden-sm hidden-xs">$1,500,00</td>
-              <td>$2,500,000</td>
-              <td class="text-center"><a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-success"
-                  style="overflow: hidden; position: relative;" data-original-title="Edit"><i class="fa fa-pencil"></i></a></td>
-            </tr>
-            <tr>
-              <td><strong>Excess</strong></td>
-              <td class="hidden-xs">06/30/2017</td>
-              <td class="hidden-sm hidden-xs">$1,500,00</td>
-              <td>$2,500,000</td>
-              <td class="text-center"><a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-success"
-                  style="overflow: hidden; position: relative;" data-original-title="Edit"><i class="fa fa-pencil"></i></a></td>
-            </tr>
-            <tr>
-              <td><strong>Worker's Compensation</strong></td>
-              <td class="hidden-xs">06/30/2017</td>
-              <td class="hidden-sm hidden-xs">$1,500,00</td>
-              <td>$2,500,000</td>
-              <td class="text-center"><a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-success"
-                  style="overflow: hidden; position: relative;" data-original-title="Edit"><i class="fa fa-pencil"></i></a></td>
-            </tr>
-            <tr>
-              <td><strong>Other</strong></td>
-              <td class="hidden-xs">06/30/2017</td>
-              <td class="hidden-sm hidden-xs">$1,500,00</td>
-              <td>$2,500,000</td>
-              <td class="text-center"><a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-success"
-                  style="overflow: hidden; position: relative;" data-original-title="Edit"><i class="fa fa-pencil"></i></a></td>
-            </tr>
-          </tbody>
-        </table>
-        <!-- END Partial Responsive Content -->
+        <ewo-insurance-list [insuranceList]="insurances" (update)="updateInsuranceInfo($event)"></ewo-insurance-list>
       </div>
     </div>
     <!-- END Insurance -->
@@ -369,3 +308,6 @@
 <!--<ewo-tenant-contact-people id="add-tenant-cotact-people" [tenant]="tenant" [updatePeopleInfo]="updatePeopleInfo" (update)="updatePeople($event)" class="modal fade" role="dialog" aria-hidden="true"></ewo-tenant-contact-people>-->
 <ewo-tenant-contact-people id="add-tenant-cotact-people" [tenant]="tenant" (update)="updatePeople($event)" class="modal fade"
   role="dialog" aria-hidden="true"></ewo-tenant-contact-people>
+
+<ewo-tenant-insurance id="add-tenant-insurance" [tenant]="tenant" (update)="updateInsurance($event)" class="modal fade"
+                      role="dialog" aria-hidden="true"></ewo-tenant-insurance>

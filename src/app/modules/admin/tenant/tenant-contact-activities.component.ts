@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output, Injectable } from '@angular/core';
 import { Subject } from "rxjs/Subject";
 import { UpdatePeopleService } from "app/modules/admin/tenant/people.service";
+import { UpdateTenantInsuranceService } from "./tenant-insurance.service";
 declare var $:any;
 
 export class TabVisibility {
@@ -18,13 +19,15 @@ export class TabVisibility {
 })
 export class TenantContactActivitiesComponent implements OnInit {
     @Input() tenant: any;
+    @Input() insurances: any;
     @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
 
     // updatePeopleInfo: any;
 
 
     tabs = new TabVisibility();
-    constructor(private updatePeopleService: UpdatePeopleService) { }
+    constructor(private updatePeopleService: UpdatePeopleService,
+                private updateTenantInsuranceService: UpdateTenantInsuranceService) { }
 
     ngOnInit() {
 
@@ -47,5 +50,15 @@ export class TenantContactActivitiesComponent implements OnInit {
         // this.updatePeopleInfo = data;
         this.updatePeopleService.setUpdatePeople(data);
          $('#add-tenant-cotact-people').modal('show');
+    }
+
+    updateInsurance(event) {
+        this.change.emit(event);
+    }
+
+    updateInsuranceInfo(data) {
+        // this.updatePeopleInfo = data;
+        this.updateTenantInsuranceService.setUpdateInsurance(data);
+        $('#add-tenant-insurance').modal('show');
     }
 }

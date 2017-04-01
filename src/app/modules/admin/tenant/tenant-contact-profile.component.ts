@@ -12,9 +12,9 @@ import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/br
 })
 export class TenantContactProfileComponent implements OnInit {
     tenant: any;
+    insurances: any;
     primaryContact: any;
     contactInfo: Contact;
-    tenantContactPeoples: any;
 
     constructor(
         private tenantService: TenantService,
@@ -55,6 +55,7 @@ export class TenantContactProfileComponent implements OnInit {
                 });
 
                 this.tenant.contacts = tempContact;
+                this.getInsurances(this.tenant.id);
             })
     }
 
@@ -68,5 +69,16 @@ export class TenantContactProfileComponent implements OnInit {
 
     updateInActivity(event) {
         this.getContactDetails(this.route.snapshot.params['id']);
+    }
+
+    /**
+     * Get Insurance list by vendor
+     */
+    getInsurances(tenant_id){
+        this.tenantService.getInsurances(tenant_id).subscribe(
+            data => {
+                this.insurances = data.results;
+            }
+        );
     }
 }

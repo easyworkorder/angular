@@ -114,4 +114,63 @@ export class TenantService extends DataService {
     });
     return observable;
   }
+
+  /**
+   * Get All insurances by tenant id
+   * @param tenant_id
+   * @returns {Observable<any>}
+   */
+  getInsurances(tenant_id) {
+    const observable = this.http.get('tenantinsurance/?tenant_id=' + tenant_id+'&ordering=id');
+    observable.subscribe(data => {
+      console.log(data);
+    });
+    return observable;
+  }
+
+
+  /**
+   * Add tenant Insurance
+   * @param data
+   * @returns {Observable<any>}
+   */
+
+  createTenantInsurance(data?: any): Observable<any> {
+    data = Object.assign({}, data);
+
+    const observable = this.http.post('tenantinsurance/', data);
+
+    observable.subscribe(data => {
+          // console.log(data);
+          this.toasterService.pop('success', 'ADD', 'Tenant insurance has been added successfully');
+        },
+        error => {
+          this.toasterService.pop('error', 'ADD', 'Tenant insurance not Saved due to API error!!!');
+        });
+
+    return observable;
+  }
+
+
+  /**
+   * Update tenant insurance
+   * @param data
+   * @returns {Observable<any>}
+   */
+  updateTenantInsurance(data?: any): Observable<any> {
+    data = Object.assign({}, data);
+
+    const observable = this.http.patch(data.url, data);
+
+    observable.subscribe(data => {
+          this.toasterService.pop('success', 'UPDATE', 'Tenant insurance has been updated successfully');
+          //console.log(data);
+        },
+        error => {
+          this.toasterService.pop('error', 'UPDATE', 'Tenant insurance not updated due to API error!!!');
+          console.log(error);
+        });
+
+    return observable;
+  }
 }
