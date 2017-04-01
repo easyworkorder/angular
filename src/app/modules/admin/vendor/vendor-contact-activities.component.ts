@@ -20,9 +20,8 @@ export class TabVisibility {
 })
 export class VendorContactActivitiesComponent implements OnInit {
 
-    insurances: any;
-
     @Input() vendor: any;
+    @Input() insurances: any;
     @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
 
     // updatePeopleInfo: any;
@@ -32,9 +31,7 @@ export class VendorContactActivitiesComponent implements OnInit {
     constructor(
                 private vendorService: VendorService,
                 private updateVendorPeopleService: UpdateVendorPeopleService,
-                private updateVendorInsuranceService: UpdateVendorInsuranceService) {
-        this.getInsurances();
-    }
+                private updateVendorInsuranceService: UpdateVendorInsuranceService) {}
 
     ngOnInit() {
 
@@ -57,17 +54,6 @@ export class VendorContactActivitiesComponent implements OnInit {
         // this.updatePeopleInfo = data;
         this.updateVendorPeopleService.setUpdatePeople(data);
          $('#add-vendor-cotact-people').modal('show');
-    }
-
-    /**
-     * Get Insurance list by vendor
-     */
-    getInsurances(){
-        this.vendorService.getInsurances(6).subscribe(
-            data => {
-                this.insurances = data.results;
-            }
-        );
     }
 
     updateInsurance(event) {

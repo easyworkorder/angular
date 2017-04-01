@@ -12,6 +12,7 @@ import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/br
 })
 export class VendorContactProfileComponent implements OnInit {
     vendor: any;
+    insurances: any;
     primaryContact: any;
     contactInfo: VendorContact;
 
@@ -58,6 +59,7 @@ export class VendorContactProfileComponent implements OnInit {
                 });
 
                 this.vendor.contacts = tempContact;
+                this.getInsurances(this.vendor.id);
             })
     }
 
@@ -71,5 +73,16 @@ export class VendorContactProfileComponent implements OnInit {
 
     updateInActivity(event) {
         this.getContactDetails(this.route.snapshot.params['id']);
+    }
+
+    /**
+     * Get Insurance list by vendor
+     */
+    getInsurances(vendor_id){
+        this.vendorService.getInsurances(vendor_id).subscribe(
+            data => {
+                this.insurances = data.results;
+            }
+        );
     }
 }

@@ -31,19 +31,6 @@ export class TenantContactProfileComponent implements OnInit {
     }
 
     getContactDetails(contactId) {
-        // this.tenantService.getContactDetails(contactId).subscribe(
-        //     data => {
-        //         this.primaryContact = data;
-        //         if (this.primaryContact) {
-        //             this.tenantService.getTenant(this.primaryContact.tenant).subscribe(
-        //                 data => {
-        //                     this.tenant = data;
-        //                 }
-        //             );
-        //         }
-        //     }
-        // );
-
         this.tenantService.getContactDetails(contactId)
             .mergeMap(conact => this.tenantService.getTenant(conact.tenant), (contactInfo, tenantInfo) => ({ contactInfo, tenantInfo }))
             .subscribe(data => {
@@ -67,7 +54,7 @@ export class TenantContactProfileComponent implements OnInit {
                     return !data.isprimary_contact;
                 });
 
-                this.tenant.tenant_contacts = tempContact;
+                this.tenant.contacts = tempContact;
             })
     }
 

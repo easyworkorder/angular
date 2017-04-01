@@ -15,7 +15,7 @@ declare var $: any;
 })
 export class VendorInsuranceComponent implements OnInit {
     @Input() vendor: any;
-    @Input() updateInsuranceInfo: any;
+    @Input() updateInsuranceDataInfo: any;
     @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
 
     exp_date_not_valid = false;
@@ -28,9 +28,9 @@ export class VendorInsuranceComponent implements OnInit {
         private dataService: DataService,
         private updateVendorInsuranceService: UpdateVendorInsuranceService) {
         this.updateVendorInsuranceService.updateInsuranceInfo$.subscribe(data => {
-            this.updateInsuranceInfo = data;
+            this.updateInsuranceDataInfo = data;
             // console.log('people>>>', this.updatePeopleInfo);
-            this.vendorInsuranceForm.setValue(this.updateInsuranceInfo);
+            this.vendorInsuranceForm.setValue(this.updateInsuranceDataInfo);
         });
     }
 
@@ -44,10 +44,10 @@ export class VendorInsuranceComponent implements OnInit {
     vendorInsuranceForm = new FormGroup({
         id: new FormControl(),
         url: new FormControl(''),
-        type: new FormControl('', Validators.required),
+        type: new FormControl(''),
         exp_date: new FormControl(null),
-        per_occur: new FormControl('', [Validators.required, ValidationService.numericValidator]),
-        aggregate: new FormControl('', [Validators.required, ValidationService.numericValidator]),
+        per_occur: new FormControl('', [Validators.required]),
+        aggregate: new FormControl('', [Validators.required]),
         vendor: new FormControl('')
     });
 
@@ -58,8 +58,14 @@ export class VendorInsuranceComponent implements OnInit {
 
         if (this.vendorInsuranceForm.get('exp_date').value) {
             let date: Date = this.vendorInsuranceForm.get('exp_date').value;
-            let dateAndTime = date.toISOString().split('T');
-            this.vendorInsuranceForm.get('exp_date').setValue(dateAndTime[0]);
+            if(date.toString().indexOf('T') > -1) {
+                let dateAndTime = date.toISOString().split('T');
+                this.vendorInsuranceForm.get('exp_date').setValue(dateAndTime[0]);
+            }
+            else {
+                this.vendorInsuranceForm.get('exp_date').setValue(date);
+            }
+
         }
         else{
             this.exp_date_not_valid = true;

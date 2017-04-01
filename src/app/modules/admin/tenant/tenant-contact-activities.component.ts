@@ -14,8 +14,7 @@ export class TabVisibility {
 
 @Component({
     selector: 'ewo-tenant-contact-activities',
-    templateUrl: './tenant-contact-activities.component.html',
-    styleUrls: ['./tenant-contact-activities.component.css']
+    templateUrl: './tenant-contact-activities.component.html'
 })
 export class TenantContactActivitiesComponent implements OnInit {
     @Input() tenant: any;

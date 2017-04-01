@@ -12,8 +12,7 @@ declare var $: any;
 
 @Component({
     selector: 'ewo-tenant-contact-people',
-    templateUrl: './tenant-contact-people.component.html',
-    styleUrls: ['./tenant-contact-people.component.css']
+    templateUrl: './tenant-contact-people.component.html'
 })
 export class TenantContactPeopleComponent implements OnInit {
     @Input() tenant: any;
@@ -86,6 +85,7 @@ export class TenantContactPeopleComponent implements OnInit {
         //Add people
         this.tenantContactPeopleForm.get('tenant').setValue(`${config.api.base}tenant/${this.tenant.id}/`);
         let val = this.tenantContactPeopleForm.value;
+        console.log(this.tenantContactPeopleForm.value);
         this.tenantContactPeopleForm.removeControl('id');
         this.tenantService.createTenantContact(this.tenantContactPeopleForm.value).subscribe((people: any) => {
             // console.log('Tenant created', tenant);

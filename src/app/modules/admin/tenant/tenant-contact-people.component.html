@@ -9,10 +9,15 @@
     <div class="modal-body">
       <form [formGroup]="tenantContactPeopleForm" (ngSubmit)="onSubmit()" id="clickable-wizard" class="form-horizontal form-bordered"
         novalidate>
-        <!--<input formControlName="building_id" type="hidden" value="{{currentBuildingId}}">-->
-
-        <!-- END Step Info -->
-        <!--<div *ngFor="let contact of tenantContactPeopleForm.get('tenant_contacts').controls; let i=index" [formGroup]="contact">-->
+        <div class="form-group">
+          <label class="col-xs-3 control-label text-muted">NO AVATAR</label>
+          <div class="col-xs-9">
+            <i class="fa fa-fw fa-upload"></i> <a href="javascript:void(0)">Upload New
+            Avatar</a><br>
+            <i class="fa fa-fw fa-picture-o"></i> <a href="javascript:void(0)">Choose from
+            Library</a>
+          </div>
+        </div>
         <div class="form-group">
           <label class="col-xs-3 control-label" for="fname">First Name <span class="required">*</span></label>
           <div class="col-xs-9">
@@ -29,21 +34,6 @@
             <span class="validation-error">{{tenantContactPeopleForm.controls.last_name.error}}</span>
           </div>
         </div>
-        <!--<div class="form-group">
-                                <label class="col-md-3 control-label" for="photo">Photo</label>
-                                <div class="col-xs-9">
-                                    <input type="file" id="photo" name="photo" class="form-control">
-                                </div>
-                            </div>-->
-        <div class="form-group">
-          <label class="col-xs-3 control-label text-muted">NO AVATAR</label>
-          <div class="col-xs-9">
-            <i class="fa fa-fw fa-upload"></i> <a href="javascript:void(0)">Upload New
-                                Avatar</a><br>
-            <i class="fa fa-fw fa-picture-o"></i> <a href="javascript:void(0)">Choose from
-                                Library</a>
-          </div>
-        </div>
         <div class="form-group">
           <label class="col-xs-3 control-label" for="title">Title</label>
           <div class="col-xs-9">
@@ -53,7 +43,7 @@
         <div class="form-group">
           <label class="col-xs-3 control-label" for="email">Email <span class="required">*</span></label>
           <div class="col-xs-9">
-            <input [formControlValidator]="tenantContactPeopleForm.controls.email" formControlName="email" type="text" for="email" class="form-control"
+            <input [formControlValidator]="tenantContactPeopleForm.controls.email" formControlName="email" id="email" type="text" for="email" class="form-control"
               placeholder="Email" />
             <span class="validation-error">{{tenantContactPeopleForm.controls.email.error}}</span>
           </div>
