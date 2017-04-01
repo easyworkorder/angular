@@ -59,7 +59,8 @@
                         style="overflow: hidden; position: relative;" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
                     <!--<a data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;" data-original-title="Delete"><i class="fa fa-times"></i></a>-->
                 </div>
-                <img src="assets/img/placeholders/avatars/avatar9.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
+                <!--<img src="assets/img/placeholders/avatars/avatar9.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">-->
+                <img [src]="employee.photo" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
                 <h2 class="widget-heading h3 text-muted">{{employee.last_name}} {{employee.first_name}}</h2>
             </div>
 
@@ -104,22 +105,19 @@
                         <div class="form-group">
                             <div class="col-xs-12">
                                 <ul class="nav nav-pills nav-justified clickable-steps">
-                                    <li class="active"><a (click)="switchTab(1)"><i class="fa fa-user"></i> <strong>Employee</strong></a>
-                                    </li>
-                                    <li><a (click)="switchTab(2)"><i class="fa fa-pencil-square-o"></i>
-                                        <strong>Building</strong></a></li>
-                                    <li><a (click)="switchTab(3)"><i class="fa fa-check"></i> <strong>Problem
-                                        Types</strong></a></li>
+                                    <li class="active"><a (click)="switchTab(1)"><i class="fa fa-user"></i> <strong>Employee</strong></a></li>
+                                    <li><a (click)="switchTab(2)"><i class="fa fa-pencil-square-o"></i><strong>Building</strong></a></li>
+                                    <li><a (click)="switchTab(3)"><i class="fa fa-check"></i> <strong>Problem Types</strong></a></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-xs-3 control-label text-muted">NO AVATAR</label>
                             <div class="col-xs-9">
-                                <i class="fa fa-fw fa-upload"></i> <a href="javascript:void(0)">Upload New
-                                Avatar</a><br>
-                                <i class="fa fa-fw fa-picture-o"></i> <a href="javascript:void(0)">Choose from
-                                Library</a>
+                                <!--<input formControlName="photo" type="file" name="photo" id="photo" (change)="photoSelectionChange($event)" />-->
+                                <input name="photo" type="file" (change)="photoSelectionChange($event)" />
+                                <i class="fa fa-fw fa-upload"></i> <a href="javascript:void(0)">Upload New Avatar</a><br />
+                                <i class="fa fa-fw fa-picture-o"></i> <a href="javascript:void(0)">Choose from Library</a>
                             </div>
                         </div>
                         <div class="form-group">
@@ -275,8 +273,7 @@
                     </div>
                     <div class="form-group form-actions">
                         <div class="col-xs-12 text-right">
-                            <button type="submit" class="btn btn-effect-ripple btn-success" style="overflow: hidden; position: relative;">Save
-                            </button>
+                            <button type="submit" class="btn btn-effect-ripple btn-success">Save</button>
                         </div>
                     </div>
                 </form>

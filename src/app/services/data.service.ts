@@ -234,12 +234,15 @@ export class DataService {
         event.stopPropagation()
     }
 
-    // private _userInfo: any;
-    // getUserInfo() {
-    //   if(!! this._userInfo) {
-    //     this._userInfo = this.storage.get(config.storage.user)
-    //   }
-    //   return this._userInfo;
-    // }
+    mapToFormData(form:FormGroup, fileFieldKeys: string[]): FormData {
+        let formData:FormData = new FormData();
+        Object.keys(form.controls);
+        for (let key of Object.keys(form.controls)) {
+            if(fileFieldKeys.indexOf(key) < 0 ) {
+                formData.append(key, form.get(key).value);
+            }
+        }
+        return formData;
+    }
 
 }

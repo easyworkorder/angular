@@ -8,6 +8,7 @@ import { ProblemTypeService } from '../problem_type/problem_type.service';
 import { ValidationService } from "../../../services/validation.service";
 import { AuthenticationService } from "app/modules/authentication";
 import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
+import { DataService } from "app/services";
 declare var $: any;
 
 export class TabVisibility {
@@ -31,6 +32,7 @@ export class EmployeeComponent implements OnInit {
     currentCompanyId = 1;
     selectedBuildings: any[] = [{ id: -1, text: 'All' }];
     selectedProblemTypes: any[] = [{ id: -1, text: 'All' }];
+    photoFile:File;
 
     employeeForm = new FormGroup({
         id: new FormControl(),
@@ -50,9 +52,9 @@ export class EmployeeComponent implements OnInit {
         wireless_email: new FormControl('', ValidationService.emailValidator),
         building_list: new FormControl('', Validators.required),
         problem_type_list: new FormControl('', Validators.required),
-        photo: new FormControl(''),
+        // photo: new FormControl(''),
         active: new FormControl('true'),
-        user_id: new FormControl(),
+        user_id: new FormControl(null),
         url: new FormControl()
     });
 
@@ -62,7 +64,9 @@ export class EmployeeComponent implements OnInit {
         private buildingService: BuildingService,
         private problemTypeService: ProblemTypeService,
         private authService: AuthenticationService,
-        private breadcrumbHeaderService: BreadcrumbHeaderService) {
+        private breadcrumbHeaderService: BreadcrumbHeaderService,
+        private dataService: DataService
+        ) {
         this.authService.verifyToken().take(1).subscribe(data => {
             this.getAllEmployees(this.currentCompanyId);
             this.getAllBuildings(this.currentCompanyId);
@@ -141,30 +145,64 @@ export class EmployeeComponent implements OnInit {
         employee.problem_type_list.split(',').forEach(id => sp.push(this.getProblemType(id)));
         this.selectedBuildings = sb;
         this.selectedProblemTypes = sp;
-        this.employeeForm.setValue(employee);
+        // this.employeeForm.setValue(employee);
+        this.employeeForm.patchValue(employee);
     }
 
     onSubmit() {
         this.setBuildingList();
         this.setProblemTypeLsit();
 
-        let val = this.employeeForm.value;
+        // let val = this.employeeForm.value;
+        
+        if(this.photoFile) {
+            console.log('Inside On Submit');
+            let user_id = this.employeeForm.get('user_id').value;
+            let formData:FormData = this.dataService.mapToFormData(this.employeeForm, ['user_id']);
+            formData.append('photo', this.photoFile, this.photoFile.name);
+            if (this.employeeForm.value.id) {
+                formData.append('user_id', user_id);
+                this.employeeService.updateWithFile(this.employeeForm.value.url, formData).subscribe((employee: any) => {
+                    console.log('Employee created with file', employee);
+                    this.employees.push(employee);
+                });
+            } else {
+                console.log('Creating employee')
+                this.employeeService.createWithFile(formData).subscribe((employee: any) => {
+                    console.log('Employee created with file', employee);
+                    this.employees.push(employee);
+                });
+            }
+        } else {
+            // Simple Object Posting should go here, and the photo field needs to be removed 
+            // It is obvious that the user hasn't selected any file
+            if(this.employeeForm.contains('photo'))
+                this.employeeForm.removeControl('photo');
 
-        if (this.employeeForm.value.id) {
-            this.employeeService.update(this.employeeForm.value).subscribe((employee: any) => {
-                this.getAllEmployees(this.currentCompanyId);
-                this.closeModal();
-            });
-            return;
+            if (this.employeeForm.value.id) {
+                this.employeeService.update(this.employeeForm.value).subscribe((employee: any) => {
+                    console.log('Employee Updated.')
+                    this.getAllEmployees(this.currentCompanyId);
+                    this.closeModal();
+                });
+            } else {
+                if(this.employeeForm.contains('user_id'))
+                    this.employeeForm.removeControl('user_id');
+                this.employeeService.create(this.employeeForm.value).subscribe((employee: any) => {
+                    console.log('Employee created', employee);
+                    this.getAllEmployees(this.currentCompanyId);
+                    this.closeModal();
+                });
+            }
         }
-
-        this.employeeService.create(this.employeeForm.value).subscribe((employee: any) => {
-            console.log('Employee created', employee);
-            this.getAllEmployees(this.currentCompanyId);
-            //this.isSuccess = true;
-            this.closeModal();
-        });
         // this.http.post('http://localhost:8080/api/tenant/', item);
+    }
+
+    photoSelectionChange(event) {
+        let fileList: FileList = event.target.files;
+        if(fileList.length > 0) {
+            this.photoFile = fileList[0];
+        }
     }
 
     setBuildingList() {
