@@ -33,6 +33,7 @@ export class EmployeeComponent implements OnInit {
     selectedBuildings: any[] = [{ id: -1, text: 'All' }];
     selectedProblemTypes: any[] = [{ id: -1, text: 'All' }];
     photoFile:File;
+    selectedPhoto:string = '';
 
     employeeForm = new FormGroup({
         id: new FormControl(),
@@ -163,14 +164,12 @@ export class EmployeeComponent implements OnInit {
             if (this.employeeForm.value.id) {
                 formData.append('user_id', user_id);
                 this.employeeService.updateWithFile(this.employeeForm.value.url, formData).subscribe((employee: any) => {
-                    console.log('Employee created with file', employee);
-                    this.employees.push(employee);
+                    this.refreshEditor('Employee created with file', employee);
                 });
             } else {
                 console.log('Creating employee')
                 this.employeeService.createWithFile(formData).subscribe((employee: any) => {
-                    console.log('Employee created with file', employee);
-                    this.employees.push(employee);
+                    this.refreshEditor('Employee created with file', employee);
                 });
             }
         } else {
@@ -181,27 +180,29 @@ export class EmployeeComponent implements OnInit {
 
             if (this.employeeForm.value.id) {
                 this.employeeService.update(this.employeeForm.value).subscribe((employee: any) => {
-                    console.log('Employee Updated.')
-                    this.getAllEmployees(this.currentCompanyId);
-                    this.closeModal();
+                    this.refreshEditor('Employee Updated.', employee);
                 });
             } else {
                 if(this.employeeForm.contains('user_id'))
                     this.employeeForm.removeControl('user_id');
                 this.employeeService.create(this.employeeForm.value).subscribe((employee: any) => {
-                    console.log('Employee created', employee);
-                    this.getAllEmployees(this.currentCompanyId);
-                    this.closeModal();
+                    this.refreshEditor('Employee created', employee);
                 });
             }
         }
         // this.http.post('http://localhost:8080/api/tenant/', item);
+    }
+    private refreshEditor(logMsg:string, obj: any) {
+        console.log(logMsg, obj);
+        this.getAllEmployees(this.currentCompanyId);
+        this.closeModal();
     }
 
     photoSelectionChange(event) {
         let fileList: FileList = event.target.files;
         if(fileList.length > 0) {
             this.photoFile = fileList[0];
+            this.selectedPhoto = this.photoFile.name;
         }
     }
 

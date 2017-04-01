@@ -115,8 +115,10 @@
                             <label class="col-xs-3 control-label text-muted">NO AVATAR</label>
                             <div class="col-xs-9">
                                 <!--<input formControlName="photo" type="file" name="photo" id="photo" (change)="photoSelectionChange($event)" />-->
-                                <input name="photo" type="file" (change)="photoSelectionChange($event)" />
-                                <i class="fa fa-fw fa-upload"></i> <a href="javascript:void(0)">Upload New Avatar</a><br />
+                                <input id="photo" name="photo" type="file" (change)="photoSelectionChange($event)" class="hidden" />
+                                <i class="fa fa-fw fa-upload"></i> <a href="javascript:void(0)" onclick="$('#photo').click();">Upload New Avatar</a>
+                                <span id="selected_photo">{{ selectedPhoto }}</span>
+                                <br />
                                 <i class="fa fa-fw fa-picture-o"></i> <a href="javascript:void(0)">Choose from Library</a>
                             </div>
                         </div>
