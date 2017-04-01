@@ -58,3 +58,9 @@ no-content {
     justify-content: center;
     align-items: center;
 }
+
+/* For sla policy */
+.sla span.btn.btn-default.btn-secondary.form-control.ui-select-toggle,
+.sla-business-hr span.btn.btn-default.btn-secondary.form-control.ui-select-toggle {
+    background: #fff;
+}

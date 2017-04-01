@@ -93,6 +93,7 @@ import { UpdateTenantInsuranceService } from 'app/modules/admin/tenant/tenant-in
 import { UpdatePeopleService } from "app/modules/admin/tenant/people.service";
 import { CalendarModule } from "app/modules/shared/calendar/calendar.component";
 import { SLAPolicyComponent } from './modules/admin/sla-policy/sla-policy.component';
+import { SLAPolicyService } from "app/modules/admin/sla-policy/sla-policy.service";
 
 
 export function translateStaticLoaderFactory(Backend, defaultOptions, storage, notificationService) {
@@ -208,7 +209,9 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         UpdatePeopleService,
         UpdateVendorPeopleService,
         UpdateVendorInsuranceService,
-        UpdateTenantInsuranceService
+        UpdateTenantInsuranceService,
+        SLAPolicyService
+
         // { provide: XSRFStrategy, useValue: new      CookieXSRFStrategy('token', 'x-csrftoken')
         // },
     ],
