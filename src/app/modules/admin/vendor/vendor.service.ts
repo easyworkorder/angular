@@ -135,7 +135,7 @@ export class VendorService extends DataService {
    * @returns {Observable<any>}
    */
   getInsurances(vendor_id) {
-    const observable = this.http.get('vendorinsurance/?vendor_id=' + vendor_id);
+    const observable = this.http.get('vendorinsurance/?vendor_id=' + vendor_id+'&ordering=id');
     observable.subscribe(data => {
       console.log(data);
     });

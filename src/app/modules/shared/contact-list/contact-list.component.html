@@ -6,8 +6,8 @@
             </td>
             <td>
                 <h4><strong>{{contact.first_name}} {{ contact.last_name }}</strong></h4>
-                <i class="fa fa-fw fa-user text-danger"></i> {{contact.title}}<br>
-                <i class="fa fa-fw fa-map-marker text-info"></i> {{ contactList.state }}
+                <span *ngIf="contact.title"><i class="fa fa-fw fa-user text-danger"></i> {{contact.title}}<br></span>
+                <span *ngIf="contactList.state"><i class="fa fa-fw fa-map-marker text-info"></i> {{ contactList.state }}</span>
             </td>
             <td class="text-right">
                 <a href="tel:{{ contact.phone }}" (click)="stopPropagation($event)" class="btn btn btn-default" data-toggle="tooltip" title="" data-original-title="Call"><i class="fa fa-phone"></i></a>
@@ -16,47 +16,5 @@
                 <a *ngIf="isEditable" href="javascript:void(0)" (click)="updateContact(contact)" class="btn btn btn-success" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
             </td>
         </tr>
-        <!--<tr class="animation-fadeInQuick2">
-            <td class="text-center" style="width: 100px;"><img src="img/placeholders/avatars/karen-carr.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar"></td>
-            <td>
-                <h4><strong>Karen Carr</strong></h4>
-                <i class="fa fa-fw fa-user text-danger"></i> Logo Designer<br>
-                <i class="fa fa-fw fa-map-marker text-info"></i> Sydney, Australia
-            </td>
-              <td class="text-right">
-                <a href="javascript:void(0)" class="btn btn btn-default" data-toggle="tooltip" title="" data-original-title="Call"><i class="fa fa-phone"></i></a>
-                <a href="javascript:void(0)" class="btn btn btn-info" data-toggle="tooltip" title="" data-original-title="Email"><i class="fa fa-envelope"></i></a>
-                <a href="javascript:void(0)" class="btn btn btn-danger" data-toggle="tooltip" title="" data-original-title="Send Password"><i class="fa fa-share"></i></a>
-                <a href="javascript:void(0)" class="btn btn btn-success" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
-            </td>
-        </tr>
-        <tr class="animation-fadeInQuick2">
-            <td class="text-center" style="width: 100px;"><img src="img/placeholders/avatars/ramthota.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar"></td>
-            <td>
-                <h4><strong>Willie Walsh</strong></h4>
-                <i class="fa fa-fw fa-user text-danger"></i> Web Developer<br>
-                <i class="fa fa-fw fa-map-marker text-info"></i> Los Angeles, USA
-            </td>
-            <td class="text-right">
-                <a href="javascript:void(0)" class="btn btn btn-default" data-toggle="tooltip" title="" data-original-title="Call"><i class="fa fa-phone"></i></a>
-                <a href="javascript:void(0)" class="btn btn btn-info" data-toggle="tooltip" title="" data-original-title="Email"><i class="fa fa-envelope"></i></a>
-                <a href="javascript:void(0)" class="btn btn btn-danger" data-toggle="tooltip" title="" data-original-title="Send Password"><i class="fa fa-share"></i></a>
-                <a href="javascript:void(0)" class="btn btn btn-success" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
-            </td>
-        </tr>
-        <tr class="animation-fadeInQuick2">
-            <td class="text-center" style="width: 100px;"><img src="img/placeholders/avatars/royce.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar"></td>
-            <td>
-                <h4><strong>Alan George</strong></h4>
-                <i class="fa fa-fw fa-user text-danger"></i> Photographer<br>
-                <i class="fa fa-fw fa-map-marker text-info"></i> Tokyo, Japan
-            </td>
-            <td class="text-right">
-                <a href="javascript:void(0)" class="btn btn btn-default" data-toggle="tooltip" title="" data-original-title="Call"><i class="fa fa-phone"></i></a>
-                <a href="javascript:void(0)" class="btn btn btn-info" data-toggle="tooltip" title="" data-original-title="Email"><i class="fa fa-envelope"></i></a>
-                <a href="javascript:void(0)" class="btn btn btn-danger" data-toggle="tooltip" title="" data-original-title="Send Password"><i class="fa fa-share"></i></a>
-                <a href="javascript:void(0)" class="btn btn btn-success" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
-            </td>
-        </tr>-->
     </tbody>
 </table>
