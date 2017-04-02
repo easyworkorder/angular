@@ -4,7 +4,7 @@
        <ewo-vendor-contact-profile-card [contactInfo]="contactInfo"></ewo-vendor-contact-profile-card>
     </div>
     <div class="col-md-7 col-lg-8">
-      <ewo-vendor-contact-activities *ngIf="vendor" [vendor]="vendor" [insurances]="insurances" [isAdmin]="true" (update)="updateInActivity($event)"></ewo-vendor-contact-activities>
+      <ewo-vendor-contact-activities *ngIf="vendor" [vendor]="vendor" [insurances]="insurances" [isAdmin]="false" (update)="updateInActivity($event)"></ewo-vendor-contact-activities>
     </div>
 </div>
 <!-- END Contact Profile Row -->

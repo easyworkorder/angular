@@ -22,6 +22,7 @@ export class VendorContactActivitiesComponent implements OnInit {
 
     @Input() vendor: any;
     @Input() insurances: any;
+    @Input() isAdmin:boolean = false;
     @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
 
     // updatePeopleInfo: any;

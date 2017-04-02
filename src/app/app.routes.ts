@@ -20,9 +20,18 @@ import { NoContentComponent } from "app/modules/shared/no-content.component";
 import { BuildingAdminComponent } from "app/modules/admin/building-admin/building-admin.component";
 import { BuildingAdminDetailsComponent } from "app/modules/admin/building-admin/building-admin-details.component";
 import { UserDashboardComponent } from "app/modules/dashboard/user-dashboard.component";
+
+/**
+ * Vendor Admin
+ */
 import {VendorComponent} from "./modules/admin/vendor/vendor.component";
-import {VendorListComponent} from "./modules/list/vendor-list/vendor-list.component";
 import { VendorContactProfileComponent } from './modules/admin/vendor/vendor-contact-profile.component';
+/**
+ * Vendor Dashboard List
+ */
+import {VendorListComponent} from "./modules/list/vendor-list/vendor-list.component";
+import {VendorProfileComponent} from "./modules/list/vendor-list/vendor-profile.component";
+
 import { SLAPolicyComponent } from "app/modules/admin/sla-policy/sla-policy.component";
 
 
@@ -62,6 +71,15 @@ export const appRoutes: Routes = [
                 },
             },
             { path: 'vendor', component: VendorListComponent, pathMatch: 'full' },
+            {
+                path: 'vendor-profile/:id', component: VendorProfileComponent,
+                resolve: {
+                    admin: AdminDashBoardResolver
+                },
+                data: {
+                    breadcrumb: "Vendor Profile"
+                },
+            },
             { path: 'address', component: AddressComponent, pathMatch: 'full' },
             {
                 path: 'admin', component: AdminDashboardComponent,

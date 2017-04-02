@@ -1,7 +1,7 @@
 <div class="block full">
   <!-- Block Tabs Title -->
   <div class="block-title">
-    <div class="block-options pull-right">
+    <div *ngIf="isAdmin" class="block-options pull-right">
       <a *ngIf="tabs.isTicketTabVisible" href="#add-vendor-ticket" class="btn btn-effect-ripple btn-default" data-toggle="modal"
         title="" style="overflow: hidden; position: relative;" data-original-title="Add Contact"><i class="fa fa-plus"></i></a>
       <a *ngIf="tabs.isPeopleTabVisible" href="#add-vendor-cotact-people" class="btn btn-effect-ripple btn-default" data-toggle="modal"
@@ -112,7 +112,7 @@
     <!-- People -->
     <div class="tab-pane" id="profile-people">
       <div class="block-content-full">
-        <ewo-contact-list [contactList]="vendor" (update)="updateContactInfo($event)"></ewo-contact-list>
+        <ewo-contact-list [contactList]="vendor" [isEditable]="isAdmin" (update)="updateContactInfo($event)"></ewo-contact-list>
       </div>
     </div>
     <!-- END People -->
@@ -120,7 +120,7 @@
     <!-- Insurance -->
     <div class="tab-pane" id="profile-insurance">
       <div class="block-content-full">
-        <ewo-insurance-list [insuranceList]="insurances" (update)="updateInsuranceInfo($event)"></ewo-insurance-list>
+        <ewo-insurance-list [insuranceList]="insurances" [isEditable]="isAdmin" (update)="updateInsuranceInfo($event)"></ewo-insurance-list>
       </div>
     </div>
     <!-- END Insurance -->
@@ -254,9 +254,10 @@
   <!-- END Tabs Content -->
 </div>
 
-<ewo-vendor-contact-people id="add-vendor-cotact-people" [vendor]="vendor" (update)="updatePeople($event)" class="modal fade"
-  role="dialog" aria-hidden="true"></ewo-vendor-contact-people>
+<div *ngIf="isAdmin">
+  <ewo-vendor-contact-people id="add-vendor-cotact-people" [vendor]="vendor" (update)="updatePeople($event)" class="modal fade"
+    role="dialog" aria-hidden="true"></ewo-vendor-contact-people>
 
-
-<ewo-vendor-insurance id="add-vendor-insurance" [vendor]="vendor" (update)="updateInsurance($event)" class="modal fade"
-                           role="dialog" aria-hidden="true"></ewo-vendor-insurance>
+  <ewo-vendor-insurance id="add-vendor-insurance" [vendor]="vendor" (update)="updateInsurance($event)" class="modal fade"
+                             role="dialog" aria-hidden="true"></ewo-vendor-insurance>
+</div>

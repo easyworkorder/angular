@@ -69,6 +69,7 @@ export class VendorInsuranceComponent implements OnInit {
         }
         else{
             this.exp_date_not_valid = true;
+            return;
         }
 
         //Update People
@@ -98,5 +99,6 @@ export class VendorInsuranceComponent implements OnInit {
 
     resetForm() {
         this.vendorInsuranceForm.reset();
+        this.exp_date_not_valid = false;
     }
 }

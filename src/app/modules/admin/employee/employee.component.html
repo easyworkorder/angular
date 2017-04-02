@@ -1,57 +1,14 @@
 <!-- Contacts Header -->
 <div class="content-header">
-    <!--<div class="row">
-        <div class="col-sm-6">
-            <div class="header-section">
-                <h1>Employees</h1>
-            </div>
-        </div>
-        <div class="col-sm-6 hidden-xs">
-            <div class="header-section">
-                <ul class="breadcrumb breadcrumb-top">
-                    <li><a href="/admin">Administration Portal</a></li>
-                    <li><a href="/admin/employee">Employees</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>-->
     <div class="text-center border-top push-inner-top-bottom">
         <a href="#modal-add-employee" class="btn btn-sm btn-success" data-toggle="modal"><i class="fa fa-plus"></i></a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('')">ALL</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('A')">A</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('B')">B</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('C')">C</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('D')">D</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('E')">E</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('F')">F</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('G')">G</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('H')">H</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('I')">I</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('J')">J</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('K')">K</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('L')">L</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('M')">M</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('N')">N</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('O')">O</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('P')">P</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('Q')">Q</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('R')">R</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('S')">S</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('T')">T</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('U')">U</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('V')">V</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('W')">W</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('X')">X</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('Y')">Y</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="employeeSearchControl.setValue('Z')">Z</a>
+        <ewo-alphabetical-sort [isWhiteBackground]="false" [searchControl]="searchControl" [isNumericSearch]="true"></ewo-alphabetical-sort>
     </div>
 </div>
 <!-- END Contacts Header -->
 
 <div class="row">
-    <div class="col-sm-3" *ngFor="let employee of employees | filterWithStartLetter: { last_name: employeeSearchControl.value }">
-        <!--<div class="col-sm-3" *ngFor="let employee of employees | filterMultipleStartWith: employeeSearchControl.value">-->
-        <!--<div class="col-sm-3" *ngFor="let employee of employees">-->
+    <div class="col-sm-3" *ngFor="let employee of employees | filterWithStartLetter: { first_name: searchControl.value }">
         <a class="widget widget-cursor-default">
             <div class="widget-content text-center">
                 <div class="col-sm-2 text-center" style="position: absolute; right: 0;">

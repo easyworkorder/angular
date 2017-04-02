@@ -5,8 +5,7 @@ import config from '../../../config';
 
 @Component({
     selector: 'ewo-alphabetical-sort',
-    templateUrl: './alphabetical-sort.component.html',
-    styleUrls: ['./alphabetical-sort.component.css']
+    templateUrl: './alphabetical-sort.component.html'
 })
 export class AlphabeticalSortComponent implements OnInit {
     @Input() searchControl: FormControl;

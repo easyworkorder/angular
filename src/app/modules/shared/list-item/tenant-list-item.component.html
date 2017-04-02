@@ -1,0 +1,33 @@
+<a class="widget widget-cursor-default">
+    <div class="widget-content text-center">
+        <div class="col-sm-2 text-center" style="position: absolute; right: 0;">
+            <a *ngIf="isEditable" (click)="editEmployee(employee)" data-toggle="modal" title="" href="#modal-add-employee" class="btn btn-effect-ripple btn-xs btn-success"
+               style="overflow: hidden; position: relative;" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+        </div>
+        <img [src]="employee.photo" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
+        <h2 class="widget-heading h3 text-muted">{{employee.last_name}} {{employee.first_name}}</h2>
+    </div>
+
+    <div class="widget-content themed-background-muted text-dark text-center">
+        <address class="m-t-md">
+            <strong>{{employee.title}}</strong><br/>
+            <abbr title="Phone">P:</abbr> {{employee.work_phone}}
+        </address>
+    </div>
+    <div class="widget-content">
+        <div class="row text-center">
+            <div class="col-xs-6">
+                <h3 class="widget-heading">
+                    <a href="tel:{{employee.work_phone}}"><i class="gi gi-earphone text-info"></i></a> <br>
+                    <small><a href="tel:{{employee.work_phone}}">Call</a></small>
+                </h3>
+            </div>
+            <div class="col-xs-6">
+                <h3 class="widget-heading">
+                    <a href="mailto:{{employee.email}}"><i class="gi gi-envelope text-danger"></i></a> <br>
+                    <small><a href="mailto:{{employee.email}}">Email</a></small>
+                </h3>
+            </div>
+        </div>
+    </div>
+</a>

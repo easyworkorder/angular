@@ -4,9 +4,7 @@ import { VendorService } from './vendor.service';
 import { ProblemTypeService } from './../problem_type/problem_type.service';
 import { ValidationService } from './../../../services/validation.service';
 import { AuthenticationService } from "app/modules/authentication";
-import { Router, ActivatedRoute } from "@angular/router";
 import config from '../../../config';
-import { DataService } from "app/services";
 import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
 declare var $: any;
 
@@ -25,8 +23,10 @@ export class VendorComponent implements OnInit {
     isSuccess: boolean = false;
     problemTypes: any[] = [];
     vendors: any[] = [];
-    selectedProblemTypes: any[] = [{ id: -1, text: 'All' }];
+    selectedProblemTypes: any[] = []; //[{ id: -1, text: 'All' }];
     searchControl: FormControl = new FormControl('');
+    _submitted: boolean = false;
+    exp_date_not_valid: boolean = false;
 
     tabs = new TabVisibility();
 
@@ -35,9 +35,6 @@ export class VendorComponent implements OnInit {
         private problemTypeService: ProblemTypeService,
         private formBuilder: FormBuilder,
         private authService: AuthenticationService,
-        private route: ActivatedRoute,
-        private router: Router,
-        private dataService: DataService,
         private breadcrumbHeaderService: BreadcrumbHeaderService) {
 
     }
@@ -65,6 +62,7 @@ export class VendorComponent implements OnInit {
         city: new FormControl('', Validators.required),
         state: new FormControl('', Validators.required),
         postal_code: new FormControl('', Validators.required),
+        gl_expire_date: new FormControl(null),
         active: new FormControl(true),
         vendor_contacts: this.formBuilder.array(
             [this.buildBlankContact('', '', '', '', '', '', '', '', '', true, null, '', true)],
@@ -127,7 +125,7 @@ export class VendorComponent implements OnInit {
     setProblemTypeLsit() {
         let problemTypeList = this.itemsToString(this.selectedProblemTypes);
         problemTypeList = problemTypeList.split(',').filter(item => item != '-1').join(',');
-        this.vendorForm.get('problem_types').setValue(problemTypeList == "" ? "-1" : problemTypeList);
+        this.vendorForm.get('problem_types').setValue(problemTypeList == "" ? "" : problemTypeList);
     }
 
     public selectedProblemType(value: any): void {
@@ -161,7 +159,7 @@ export class VendorComponent implements OnInit {
     }
 
     onSubmit() {
-
+        this._submitted = true;
         if (!this.validateBasicInfo()) {
             this.switchTab(1);
         } else if (!this.validateContactInfo()) {
@@ -169,6 +167,32 @@ export class VendorComponent implements OnInit {
         }
 
         if (!this.vendorForm.valid) { return; }
+
+        /**
+         * Problem type validation
+         */
+        if(this.selectedProblemTypes.length == 0){
+            this.switchTab(1);
+            return;
+        }
+        /**
+         * Expire Date validation
+         */
+        if (this.vendorForm.get('gl_expire_date').value) {
+            let date: Date = this.vendorForm.get('gl_expire_date').value;
+            if(date.toString().indexOf('T') > -1) {
+                let dateAndTime = date.toISOString().split('T');
+                this.vendorForm.get('gl_expire_date').setValue(dateAndTime[0]);
+            }
+            else {
+                this.vendorForm.get('gl_expire_date').setValue(date);
+            }
+
+        }
+        else{
+            this.exp_date_not_valid = true;
+            return;
+        }
 
         let val = this.vendorForm.value;
         this.vendorService.create(this.vendorForm.value).subscribe((vendor: any) => {
@@ -197,24 +221,6 @@ export class VendorComponent implements OnInit {
         this.tabs.selectedTabNo = tabId;
     }
 
-    buildName(firstName: string, lastName: string) {
-        return this.dataService.buildName(firstName, lastName);
-    }
-
-    buildAddressHtml(vendor: any) {
-        return this.dataService.buildVendorAddressHtml(vendor, vendor.company_name);
-    }
-
-    getPhotoUrl(vendor) {
-        if (vendor.photo != null && vendor.photo.length > 0)
-            return vendor.photo;
-        return 'assets/img/placeholders/avatars/avatar9.jpg';
-    }
-
-    stopPropagation(event) {
-        event.stopPropagation()
-    }
-
     closeModal() {
         this.resetForm();
         this.switchTab(1);
@@ -231,10 +237,5 @@ export class VendorComponent implements OnInit {
             }]
         });
     }
-
-    vendorDetailsLink(vendor) {
-        this.router.navigate(['/admin', 'vendor-profile', vendor.contact_id]);
-    }
-
 }
 

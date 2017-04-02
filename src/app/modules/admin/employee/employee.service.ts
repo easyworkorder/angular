@@ -84,7 +84,7 @@ export class EmployeeService extends DataService {
      * @returns {Observable<any>}
      */
     getAllEmployees(company_id) {
-        const observable = this.http.get('employee/', { company_id: company_id, ordering: 'last_name' });
+        const observable = this.http.get('employee/', { company_id: company_id, ordering: 'last_name, first_name' });
         observable.subscribe(data => {
             console.log(data);
         });
@@ -96,7 +96,7 @@ export class EmployeeService extends DataService {
      * @returns {Observable<any>}
      */
     getAllActiveEmployees(company_id) {
-        const observable = this.http.get('employee/', { company_id: company_id, active: true, ordering: 'last_name' });
+        const observable = this.http.get('employee/', { company_id: company_id, active: true, ordering: 'last_name, first_name' });
         observable.subscribe(data => {
             console.log(data);
         });

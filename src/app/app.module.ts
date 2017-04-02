@@ -58,8 +58,11 @@ import { TicketComponent } from './modules/ticket/ticket.component';
 import { TicketDetailsComponent } from './modules/ticket/ticket_details.component';
 import { AdminSetupComponent } from './modules/admin_setup/admin_setup.component';
 import { ValidationMessagesComponent } from './validation_messages.component';
+
+/**
+ * Vendor Admin
+ */
 import { VendorComponent } from './modules/admin/vendor/vendor.component';
-import { VendorListComponent } from './modules/list/vendor-list/vendor-list.component';
 import { VendorContactProfileComponent } from './modules/admin/vendor/vendor-contact-profile.component';
 import { VendorContactProfileCardComponent } from './modules/admin/contact-profile-card/vendor-contact-profile-card.component';
 import { VendorContactActivitiesComponent } from './modules/admin/vendor/vendor-contact-activities.component';
@@ -67,6 +70,12 @@ import { VendorContactPeopleComponent } from './modules/admin/vendor/vendor-cont
 import { VendorInsuranceComponent } from './modules/admin/vendor/vendor-insurance.component';
 import { UpdateVendorPeopleService } from 'app/modules/admin/vendor/vendor-people.service';
 import { UpdateVendorInsuranceService } from 'app/modules/admin/vendor/vendor-insurance.service';
+
+/**
+ * Vendor Dashboard
+ */
+import { VendorListComponent } from './modules/list/vendor-list/vendor-list.component';
+import { VendorProfileComponent } from './modules/list/vendor-list/vendor-profile.component';
 
 import { ValidationService } from './services/validation.service'
 import { AuthGuard } from "app/services/auth-guard.service";
@@ -94,6 +103,11 @@ import { UpdatePeopleService } from "app/modules/admin/tenant/people.service";
 import { CalendarModule } from "app/modules/shared/calendar/calendar.component";
 import { SLAPolicyComponent } from './modules/admin/sla-policy/sla-policy.component';
 import { SLAPolicyService } from "app/modules/admin/sla-policy/sla-policy.service";
+
+/**
+ * Import list components
+ */
+import { VendorListItemComponent } from './modules/shared/list-item/vendor-list-item.component';
 
 
 export function translateStaticLoaderFactory(Backend, defaultOptions, storage, notificationService) {
@@ -134,13 +148,23 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         EmployeeListComponent,
         TicketComponent,
         TicketDetailsComponent,
+
+        /**
+         * Vendor Admin component
+         */
         VendorComponent,
-        VendorListComponent,
         VendorContactProfileComponent,
         VendorContactProfileCardComponent,
         VendorContactActivitiesComponent,
         VendorContactPeopleComponent,
         VendorInsuranceComponent,
+
+        /**
+         * Vendor dashboard list component
+         */
+        VendorListComponent,
+        VendorProfileComponent,
+
         AdminSetupComponent,
 
         //Validation Messages
@@ -165,7 +189,10 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         InsuranceListComponent,
         TenantContactActivitiesComponent,
         TenantContactPeopleComponent,
-        SLAPolicyComponent
+        SLAPolicyComponent,
+
+        // List Item components
+        VendorListItemComponent
     ],
     imports: [
         BrowserModule,
