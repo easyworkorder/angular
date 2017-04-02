@@ -1,0 +1,97 @@
+<form [formGroup]="buildingPolicyForm" (ngSubmit)="onSubmit()" class="form-horizontal form-bordered">
+
+  <div class="block full">
+    <!-- Get Started Title -->
+    <div class="block-title">
+      <h2>SLA Targets</h2>
+    </div>
+    <!-- BEGIN SLA POLICIES FORM -->
+    <span *ngIf="selectedRespondWithinUnit.length == 0 || selectedResolveWithinUnit.length == 0 || selectedOperationHours.length == 0">Loading Data....</span>
+    <div class="form-group" *ngIf="selectedRespondWithinUnit.length > 0 && selectedResolveWithinUnit.length > 0 && selectedOperationHours.length > 0">
+      <table id="general-table" class="table table-vcenter">
+        <thead>
+          <tr>
+            <th>Priority</th>
+            <th>Respond Within</th>
+            <th>Resolve Within</th>
+            <th>Operational Hours</th>
+            <th>Escalation Email</th>
+          </tr>
+        </thead>
+        <tbody formArrayName="buildingTargets" *ngFor="let slaTarget of buildingTargets.controls; let i=index">
+          <!--<div >-->
+          <tr [formGroupName]="i">
+            <!--<template [formGroupName]="i">-->
+            <td>{{slaTarget.controls.priority.value}}</td>
+            <td>
+              <!--<input formControlName="respond_within" type="text" id="example-input2-group3" name="example-input2-group3" class="form-control"
+                                    style="width: 40%;" value="1">
+                                <select id="example-select2" name="example-select2" class="select-select2 select2-hidden-accessible" style="width: 60%;"
+                                    data-placeholder="Choose one.." tabindex="-1" aria-hidden="true">
+                                    <option #mins value="Mins" [selected]="mins.value == slaTarget.controls.respond_within_unit.value">Mins</option>
+                                    <option #hrs value="Hrs" [selected]="hrs.value == slaTarget.controls.respond_within_unit.value">Hrs</option>
+                                    <option value="Days">Days</option>
+                                    <option value="Mos">Mos</option>
+                                    </select>-->
+
+              <div class="input-group sla">
+                <input formControlName="respond_within" type="text" id="{{'example-input2-group3' + i}}" name="{{'example-input2-group3' + i}}"
+                  class="form-control" style="width: 40%;">
+                <ng-select id="{{'respond_within_unit' + i}}" [multiple]="false" [items]="respondWithInUnit" placeholder="" (selected)="onSelectedRespondWithInUnit(i, $event)"
+                  [active]="selectedRespondWithinUnit[i].selected" style="width: 60%;"></ng-select>
+              </div>
+            </td>
+
+            <td>
+
+              <!-- <input type="text" id="example-input2-group3" name="example-input2-group3" class="form-control" style="width: 40%;" value="24">
+                            <select id="example-select2" name="example-select2" class="select-select2 select2-hidden-accessible" style="width: 60%;"
+                                        data-placeholder="Choose one.." tabindex="-1" aria-hidden="true">
+                                        <option value="HTML">Mins</option>
+                                        <option value="HTML" selected="">Hrs</option>
+                                        <option value="HTML">Days</option>
+                                        <option value="HTML">Mos</option>
+                                    </select>-->
+              <div class="input-group sla">
+                <input formControlName="resolve_within" type="text" id="{{'example-input2-group33' + i}}" name="{{'example-input2-group33' + i}}"
+                  class="form-control" style="width: 40%;">
+                <ng-select id="{{'resolve_within_unit' + i}}" [multiple]="false" [items]="resolveWithinUnit" placeholder="" (selected)="onSelectedResolveWithInUnit(i, $event)"
+                  [active]="selectedResolveWithinUnit[i].selected" style="width: 60%;" aria-hidden="true"></ng-select>
+              </div>
+
+            </td>
+
+            <td>
+              <div class="form-group sla-business-hr">
+                <!--<select id="example-select2" name="example-select2" class="select-select2 select2-hidden-accessible" style="width: 100%;"
+                                        data-placeholder="Choose one.." tabindex="-1" aria-hidden="true">
+                                <option></option>
+                                <option value="HTML" selected="">Business Hours</option>
+                                <option value="CSS">Calendar Hours</option>
+                            </select>-->
+                <ng-select id="{{'resolve_within_unit'+ i}}" [multiple]="false" [items]="OperationHours" placeholder="" (selected)="onSelectedOperationHours(i, $event)"
+                  [active]="selectedOperationHours[i].selected" class="operation-hour1" style="width: 100%;" aria-hidden="true"></ng-select>
+              </div>
+            </td>
+            <td>
+              <label class="switch switch-success" for="{{'escalation_email'+ i}}">
+                            <input formControlName="escalation_email" type="checkbox" id="{{'escalation_email'+ i}}" name="{{'escalation_email'+ i}}" value="{{i}}">
+                            <span data-toggle="tooltip" title="" data-original-title="Escalate"></span>
+                        </label>
+            </td>
+            <!--</template>-->
+          </tr>
+          <!--</div>-->
+        </tbody>
+      </table>
+    </div>
+    <!-- BEGIN SLA POLICIES FORM -->
+    <div class="form-group form-actions">
+      <div class="col-md-8 col-md-offset-4">
+        <button type="submit" class="btn btn-effect-ripple btn-primary ui-wizard-content ui-formwizard-button" id="btnSave" style="overflow: hidden; position: relative;"
+          value="Save">Save
+            </button>
+      </div>
+    </div>
+  </div>
+</form>

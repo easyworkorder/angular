@@ -62,4 +62,30 @@ export class SLAPolicyService extends DataService {
 
         return observable;
     }
+
+    getBuildingSLAPolicy(building) {
+        const observable = this.http.get('buildingslapolicy/', { building_id: building, ordering: 'id' }); // this
+        // const observable = this.http.get(`companyslapolicy/?company=${company}`); // this
+        observable.map(data => data.results).subscribe(data => {
+            console.log(data);
+        });
+        return observable;
+    }
+
+    updateBuildingSLATarget(data?: any): Observable<any> {
+        data = Object.assign({}, data);
+
+        const observable = this.http.patch(data.url, data);
+
+        observable.subscribe(data => {
+            // this.toasterService.pop('success', 'UPDATE', 'Building SLA Target has been updated successfully');
+            console.log(data);
+        },
+            error => {
+                // this.toasterService.pop('error', 'UPDATE', 'Building SLA Target not updated due to API error!!!');
+                console.log(error);
+            });
+
+        return observable;
+    }
 }

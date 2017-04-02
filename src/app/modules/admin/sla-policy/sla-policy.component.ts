@@ -101,7 +101,7 @@ export class SLAPolicyComponent implements OnInit {
         console.log('Valid?', this.slaPolicyForm.get('company_sla_policy_targets').valid);
         if(!this.slaPolicyForm.valid) return;
 
-        this.slaPolicyForm.get('company_sla_policy_targets').valid
+        // this.slaPolicyForm.get('company_sla_policy_targets').valid
 
         const tmpSlaTargets = this.slaPolicyForm.value.company_sla_policy_targets;
 

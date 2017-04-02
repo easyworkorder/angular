@@ -23,9 +23,8 @@
                             <!-- Quick Month Stats Title -->
                             <div class="block-title">
                                 <div class="block-options pull-right">
-                                    <a href="#modalEditBuildingInfo" class="btn btn-effect-ripple btn-success"
-                                       data-toggle="modal" title="" style="overflow: hidden; position: relative;"
-                                       data-original-title=""><span class="btn-ripple animate"
+                                    <a href="#modalEditBuildingInfo" class="btn btn-effect-ripple btn-success" data-toggle="modal" title="" style="overflow: hidden; position: relative;"
+                                        data-original-title=""><span class="btn-ripple animate"
                                                                     style="height: 34px; width: 34px; top: 0.800003px; left: -0.325012px;"></span><i
                                             class="fa fa-pencil"></i></a>
                                 </div>
@@ -36,35 +35,34 @@
                             <!-- Quick Month Stats Content -->
                             <table class="table table-striped table-borderless table-vcenter">
                                 <tbody>
-                                <tr>
-                                    <td style="width: 60%;">
-                                        <strong>Name</strong>
-                                    </td>
-                                    <td>{{editedBuilding.name}}</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" align="center">
-                                        <address class="m-t-md">
-                                            <strong>{{editedBuilding.address}}</strong><br> {{editedBuilding.city}},
-                                            {{editedBuilding.state}}
-                                            {{editedBuilding.postal_code}}
-                                            <br>
-                                            <abbr title="Phone">P:</abbr> (123) 456-7890
-                                        </address>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <strong>Square Footage</strong>
-                                    </td>
-                                    <td>{{editedBuilding.sqfootage | number}}</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <strong>Management Fee</strong>
-                                    </td>
-                                    <td>{{editedBuilding.mgt_fee_percent}}%</td>
-                                </tr>
+                                    <tr>
+                                        <td style="width: 60%;">
+                                            <strong>Name</strong>
+                                        </td>
+                                        <td>{{editedBuilding.name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" align="center">
+                                            <address class="m-t-md">
+                                                <strong>{{editedBuilding.address}}</strong><br> {{editedBuilding.city}},
+                                                {{editedBuilding.state}} {{editedBuilding.postal_code}}
+                                                <br>
+                                                <abbr title="Phone">P:</abbr> (123) 456-7890
+                                            </address>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Square Footage</strong>
+                                        </td>
+                                        <td>{{editedBuilding.sqfootage | number}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Management Fee</strong>
+                                        </td>
+                                        <td>{{editedBuilding.mgt_fee_percent}}%</td>
+                                    </tr>
                                 </tbody>
                             </table>
                             <!-- END Quick Month Stats Content -->
@@ -75,9 +73,8 @@
                         <div class="block">
                             <div class="block-title">
                                 <div class="block-options pull-right">
-                                    <a href="#modalEditRemitInfo" class="btn btn-effect-ripple btn-success"
-                                       data-toggle="modal" title="" style="overflow: hidden; position: relative;"
-                                       data-original-title="Edit Remit To"><i class="fa fa-pencil"></i></a>
+                                    <a href="#modalEditRemitInfo" class="btn btn-effect-ripple btn-success" data-toggle="modal" title="" style="overflow: hidden; position: relative;"
+                                        data-original-title="Edit Remit To"><i class="fa fa-pencil"></i></a>
                                 </div>
                                 <h2>Remit to Adress</h2>
                             </div>
@@ -86,16 +83,15 @@
                             <!-- Quick Month Stats Content -->
                             <table class="table table-striped table-borderless table-vcenter">
                                 <tbody>
-                                <tr>
-                                    <td colspan="2" align="center">
-                                        <address class="m-t-md">
-                                            <strong>{{editedBuilding.remit_company}}</strong><br>
-                                            {{editedBuilding.remit_addr}}<br> {{editedBuilding.remit_city}},
-                                            {{editedBuilding.remit_state}} {{editedBuilding.remit_postal_code}}<br>
-                                            <abbr title="Phone">P:</abbr> (123) 456-7890
-                                        </address>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td colspan="2" align="center">
+                                            <address class="m-t-md">
+                                                <strong>{{editedBuilding.remit_company}}</strong><br> {{editedBuilding.remit_addr}}
+                                                <br> {{editedBuilding.remit_city}}, {{editedBuilding.remit_state}} {{editedBuilding.remit_postal_code}}<br>
+                                                <abbr title="Phone">P:</abbr> (123) 456-7890
+                                            </address>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                             <!-- END Quick Month Stats Content -->
@@ -108,10 +104,8 @@
                             <!-- Menu Title -->
                             <div class="block-title clearfix">
                                 <div class="block-options pull-right">
-                                    <a href="#modalEditContactInfo" class="btn btn-effect-ripple btn-success"
-                                       data-toggle="modal" title="" style="overflow: hidden; position: relative;"
-                                       data-original-title="Edit Building Contact"
-                                       (click)="editBuildingContactInfo()"><i class="fa fa-pencil"></i></a>
+                                    <a href="#modalEditContactInfo" class="btn btn-effect-ripple btn-success" data-toggle="modal" title="" style="overflow: hidden; position: relative;"
+                                        data-original-title="Edit Building Contact" (click)="editBuildingContactInfo()"><i class="fa fa-pencil"></i></a>
                                 </div>
                                 <h2>Building Contact</h2>
                             </div>
@@ -120,22 +114,18 @@
                             <a class="widget widget-cursor-default">
                                 <div class="widget-content text-center">
                                     <!--<img *ngIf="editedBuilding" src="getPhotoUrl(editedBuilding.ContactPersonPhoto)" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">-->
-                                    <img *ngIf="photoUrl" [src]="photoUrl" alt="avatar"
-                                         class="img-circle img-thumbnail img-thumbnail-avatar">
+                                    <img *ngIf="photoUrl" [src]="photoUrl" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
                                     <h2 *ngIf="editedBuilding.contactPerson" class="widget-heading h3 text-muted">
                                         {{editedBuilding.contactPerson}}</h2>
                                 </div>
                                 <div class="widget-content themed-background-muted text-dark text-center">
                                     <address class="m-t-md">
-                                        <strong>{{editedBuilding.primaryCompany}}</strong><br>
-                                        {{editedBuilding.primaryCompanyAddress}}<span
-                                            *ngIf="editedBuilding.primaryCompanyUnitNo">, </span>{{editedBuilding.primaryCompanyUnitNo}}<br
-                                            *ngIf="editedBuilding.primaryCompanyAddress"> <span
-                                            *ngIf="editedBuilding.primaryCompanyCity">{{editedBuilding.primaryCompanyCity}},</span>
-                                        {{editedBuilding.primaryCompanyState}}
-                                        {{editedBuilding.primaryCompanyPostalCode}}<br
-                                            *ngIf="(editedBuilding.primaryCompanyState || editedBuilding.primaryCompanyPostalCode)">
-                                        <abbr title="Phone">P:</abbr> {{editedBuilding.ContactPersonWorkPhone}}
+                                        <strong>{{editedBuilding.primaryCompany}}</strong><br> {{editedBuilding.primaryCompanyAddress}}
+                                        <span *ngIf="editedBuilding.primaryCompanyUnitNo">, </span>{{editedBuilding.primaryCompanyUnitNo}}
+                                        <br
+                                            *ngIf="editedBuilding.primaryCompanyAddress"> <span *ngIf="editedBuilding.primaryCompanyCity">{{editedBuilding.primaryCompanyCity}},</span>                                            {{editedBuilding.primaryCompanyState}} {{editedBuilding.primaryCompanyPostalCode}}
+                                            <br *ngIf="(editedBuilding.primaryCompanyState || editedBuilding.primaryCompanyPostalCode)">
+                                            <abbr title="Phone">P:</abbr> {{editedBuilding.ContactPersonWorkPhone}}
                                     </address>
                                 </div>
                                 <div class="widget-content">
@@ -167,9 +157,8 @@
                             <!-- Quick Month Stats Title -->
                             <div class="block-title">
                                 <div class="block-options pull-right">
-                                    <a href="javascript:void(0)" class="btn btn-effect-ripple btn-success"
-                                       data-toggle="tooltip" title="" style="overflow: hidden; position: relative;"
-                                       data-original-title="Edit SLA Policy"><i class="fa fa-pencil"></i></a>
+                                    <a href="#modalBuildingSLAInfo" class="btn btn-effect-ripple btn-success" data-toggle="modal" title="" style="overflow: hidden; position: relative;"
+                                        data-original-title="Edit SLA Policy"><i class="fa fa-pencil"></i></a>
                                 </div>
                                 <h2>SLA Policies</h2>
                             </div>
@@ -178,51 +167,51 @@
                             <!-- Quick Month Stats Content -->
                             <table class="table table-striped table-borderless table-vcenter">
                                 <thead class="small">
-                                <tr>
-                                    <th small="">Priority</th>
-                                    <th>Respond</th>
-                                    <th>Resolve</th>
-                                    <th>Op Hrs</th>
-                                    <th>Escalate</th>
-                                </tr>
+                                    <tr>
+                                        <th small="">Priority</th>
+                                        <th>Respond</th>
+                                        <th>Resolve</th>
+                                        <th>Op Hrs</th>
+                                        <th>Escalate</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>
-                                        <strong>Urgent</strong>
-                                    </td>
-                                    <td>1 hour</td>
-                                    <td>8 hour</td>
-                                    <td>Business</td>
-                                    <td>Yes</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <strong>High</strong>
-                                    </td>
-                                    <td>2 hours</td>
-                                    <td>24 hour</td>
-                                    <td>Business</td>
-                                    <td>Yes</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <strong>Medium</strong>
-                                    </td>
-                                    <td>24 hours</td>
-                                    <td>5 days</td>
-                                    <td>Business</td>
-                                    <td>Yes</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <strong>Low</strong>
-                                    </td>
-                                    <td>2 days</td>
-                                    <td>7 days</td>
-                                    <td>Business</td>
-                                    <td>Yes</td>
-                                </tr>
+                                    <tr *ngFor="let slaTarget of buildingSlaPolicyTargets">
+                                        <td>
+                                            <strong>{{slaTarget.priority}}</strong>
+                                        </td>
+                                        <td>{{slaTarget.respond_within}} {{slaTarget.respond_within_unit}}</td>
+                                        <td>{{slaTarget.resolve_within}} {{slaTarget.resolve_within_unit}}</td>
+                                        <td>{{slaTarget.operational_hours}}</td>
+                                        <td>{{slaTarget.escalation_email}}</td>
+                                    </tr>
+                                    <!--<tr>
+                                        <td>
+                                            <strong>High</strong>
+                                        </td>
+                                        <td>2 hours</td>
+                                        <td>24 hour</td>
+                                        <td>Business</td>
+                                        <td>Yes</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Medium</strong>
+                                        </td>
+                                        <td>24 hours</td>
+                                        <td>5 days</td>
+                                        <td>Business</td>
+                                        <td>Yes</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Low</strong>
+                                        </td>
+                                        <td>2 days</td>
+                                        <td>7 days</td>
+                                        <td>Business</td>
+                                        <td>Yes</td>
+                                    </tr>-->
                                 </tbody>
                             </table>
                             <!-- END Quick Month Stats Content -->
@@ -276,8 +265,7 @@
                     <div class="col-sm-6 col-md-4 col-lg-3">
                         <a href="tenant-profile.html" class="widget">
                             <div class="widget-content text-center">
-                                <img src="assets/img/placeholders/avatars/alfred.jpg" alt="avatar"
-                                     class="img-circle img-thumbnail img-thumbnail-avatar">
+                                <img src="assets/img/placeholders/avatars/alfred.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
                                 <h2 class="widget-heading h3 text-muted">Alfred Knox</h2>
                             </div>
                             <div class="widget-content themed-background-muted text-dark text-center">
@@ -308,8 +296,7 @@
                     <div class="col-sm-6 col-md-4 col-lg-3">
                         <a href="tenant-profile.html" class="widget">
                             <div class="widget-content text-center">
-                                <img src="assets/img/placeholders/avatars/antwan-dahle.jpg" alt="avatar"
-                                     class="img-circle img-thumbnail img-thumbnail-avatar">
+                                <img src="assets/img/placeholders/avatars/antwan-dahle.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
                                 <h2 class="widget-heading h3 text-muted">Jacob Hunt</h2>
                             </div>
                             <div class="widget-content themed-background-muted text-dark text-center">
@@ -340,8 +327,7 @@
                     <div class="col-sm-6 col-md-4 col-lg-3">
                         <a href="tenant-profile.html" class="widget">
                             <div class="widget-content text-center">
-                                <img src="assets/img/placeholders/avatars/karen-carr.jpg" alt="avatar"
-                                     class="img-circle img-thumbnail img-thumbnail-avatar">
+                                <img src="assets/img/placeholders/avatars/karen-carr.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
                                 <h2 class="widget-heading h3 text-muted">Karen Carr</h2>
                             </div>
                             <div class="widget-content themed-background-muted text-dark text-center">
@@ -372,8 +358,7 @@
                     <div class="col-sm-6 col-md-4 col-lg-3">
                         <a href="tenant-profile.html" class="widget">
                             <div class="widget-content text-center">
-                                <img src="assets/img/placeholders/avatars/paloma.jpg" alt="avatar"
-                                     class="img-circle img-thumbnail img-thumbnail-avatar">
+                                <img src="assets/img/placeholders/avatars/paloma.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
                                 <h2 class="widget-heading h3 text-muted">Alice Hiward</h2>
                             </div>
                             <div class="widget-content themed-background-muted text-dark text-center">
@@ -404,8 +389,7 @@
                     <div class="col-sm-6 col-md-4 col-lg-3">
                         <a href="tenant-profile.html" class="widget">
                             <div class="widget-content text-center">
-                                <img src="assets/img/placeholders/avatars/maya-mann.jpg" alt="avatar"
-                                     class="img-circle img-thumbnail img-thumbnail-avatar">
+                                <img src="assets/img/placeholders/avatars/maya-mann.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
                                 <h2 class="widget-heading h3 text-muted">Maya Mann</h2>
                             </div>
                             <div class="widget-content themed-background-muted text-dark text-center">
@@ -436,8 +420,7 @@
                     <div class="col-sm-6 col-md-4 col-lg-3">
                         <a href="tenant-profile.html" class="widget">
                             <div class="widget-content text-center">
-                                <img src="assets/img/placeholders/avatars/bob-been.jpg" alt="avatar"
-                                     class="img-circle img-thumbnail img-thumbnail-avatar">
+                                <img src="assets/img/placeholders/avatars/bob-been.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
                                 <h2 class="widget-heading h3 text-muted">Bob Beene</h2>
                             </div>
                             <div class="widget-content themed-background-muted text-dark text-center">
@@ -468,8 +451,7 @@
                     <div class="col-sm-6 col-md-4 col-lg-3">
                         <a href="tenant-profile.html" class="widget">
                             <div class="widget-content text-center">
-                                <img src="assets/img/placeholders/avatars/mark-aurabach.jpg" alt="avatar"
-                                     class="img-circle img-thumbnail img-thumbnail-avatar">
+                                <img src="assets/img/placeholders/avatars/mark-aurabach.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
                                 <h2 class="widget-heading h3 text-muted">Mark Aurabach</h2>
                             </div>
                             <div class="widget-content themed-background-muted text-dark text-center">
@@ -500,8 +482,7 @@
                     <div class="col-sm-6 col-md-4 col-lg-3">
                         <a href="tenant-profile.html" class="widget">
                             <div class="widget-content text-center">
-                                <img src="assets/img/placeholders/avatars/rae-maya.jpg" alt="avatar"
-                                     class="img-circle img-thumbnail img-thumbnail-avatar">
+                                <img src="assets/img/placeholders/avatars/rae-maya.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
                                 <h2 class="widget-heading h3 text-muted">Anna Smith</h2>
                             </div>
                             <div class="widget-content themed-background-muted text-dark text-center">
@@ -538,9 +519,8 @@
                     <!-- Quick Month Stats Title -->
                     <div class="block-title">
                         <div class="block-options pull-right">
-                            <a href="javascript:void(0)" class="btn btn-effect-ripple btn-info" data-toggle="tooltip"
-                               title="" style="overflow: hidden; position: relative;"
-                               data-original-title="Upload Files"><i class="fa fa-upload"></i></a>
+                            <a href="javascript:void(0)" class="btn btn-effect-ripple btn-info" data-toggle="tooltip" title="" style="overflow: hidden; position: relative;"
+                                data-original-title="Upload Files"><i class="fa fa-upload"></i></a>
                         </div>
                         <h2>Files</h2>
                     </div>
@@ -565,8 +545,7 @@
                         <div class="col-sm-4 col-lg-3">
                             <div class="media-items animation-fadeInQuick2" data-category="image">
                                 <div class="media-items-options text-right">
-                                    <a href="assets/img/placeholders/photos/photo1.jpg" class="btn btn-xs btn-info"
-                                       data-toggle="lightbox-image">View</a>
+                                    <a href="assets/img/placeholders/photos/photo1.jpg" class="btn btn-xs btn-info" data-toggle="lightbox-image">View</a>
                                     <a href="javascript:void(0)" class="btn btn-xs btn-success"><i
                                             class="fa fa-pencil"></i></a>
                                     <a href="javascript:void(0)" class="btn btn-xs btn-danger"><i
@@ -601,8 +580,7 @@
                         <div class="col-sm-4 col-lg-3">
                             <div class="media-items animation-fadeInQuick2" data-category="image">
                                 <div class="media-items-options text-right">
-                                    <a href="assets/img/placeholders/photos/photo2.jpg" class="btn btn-xs btn-info"
-                                       data-toggle="lightbox-image">View</a>
+                                    <a href="assets/img/placeholders/photos/photo2.jpg" class="btn btn-xs btn-info" data-toggle="lightbox-image">View</a>
                                     <a href="javascript:void(0)" class="btn btn-xs btn-success"><i
                                             class="fa fa-pencil"></i></a>
                                     <a href="javascript:void(0)" class="btn btn-xs btn-danger"><i
@@ -655,8 +633,7 @@
                         <div class="col-sm-4 col-lg-3">
                             <div class="media-items animation-fadeInQuick2" data-category="image">
                                 <div class="media-items-options text-right">
-                                    <a href="assets/img/placeholders/photos/photo7.jpg" class="btn btn-xs btn-info"
-                                       data-toggle="lightbox-image">View</a>
+                                    <a href="assets/img/placeholders/photos/photo7.jpg" class="btn btn-xs btn-info" data-toggle="lightbox-image">View</a>
                                     <a href="javascript:void(0)" class="btn btn-xs btn-success"><i
                                             class="fa fa-pencil"></i></a>
                                     <a href="javascript:void(0)" class="btn btn-xs btn-danger"><i
@@ -691,8 +668,7 @@
                         <div class="col-sm-4 col-lg-3">
                             <div class="media-items animation-fadeInQuick2" data-category="image">
                                 <div class="media-items-options text-right">
-                                    <a href="assets/img/placeholders/photos/photo3.jpg" class="btn btn-xs btn-info"
-                                       data-toggle="lightbox-image">View</a>
+                                    <a href="assets/img/placeholders/photos/photo3.jpg" class="btn btn-xs btn-info" data-toggle="lightbox-image">View</a>
                                     <a href="javascript:void(0)" class="btn btn-xs btn-success"><i
                                             class="fa fa-pencil"></i></a>
                                     <a href="javascript:void(0)" class="btn btn-xs btn-danger"><i
@@ -717,8 +693,7 @@
                     <div class="widget">
                         <div class="widget-content widget-content-mini themed-background-default">
                             <div class="block-options pull-right">
-                                <a href="javascript:void(0)" class="btn btn-success" data-toggle="tooltip" title=""
-                                   data-original-title="Edit Conference Room"><i class="fa fa-pencil"></i></a>
+                                <a href="javascript:void(0)" class="btn btn-success" data-toggle="tooltip" title="" data-original-title="Edit Conference Room"><i class="fa fa-pencil"></i></a>
                             </div>
 
                             <div class="widget-content themed-background-default clearfix">
@@ -729,58 +704,58 @@
                         <div class="widget-content widget-content-full">
                             <table class="table table-striped table-borderless remove-margin">
                                 <tbody>
-                                <tr>
-                                    <td><a href="javascript:void(0)" class="text-black">Capacity</a></td>
-                                    <td class="text-left"><span class="text-muted">50</span></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="javascript:void(0)" class="text-black">Days Available</a></td>
-                                    <td class="text-left"><span class="text-muted">Mon - Sat</span></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="javascript:void(0)" class="text-black">Hours Available</a></td>
-                                    <td class="text-left"><span class="text-muted">7am - 6:30pm</span></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="javascript:void(0)" class="text-black">Hourly Rate</a></td>
-                                    <td class="text-left"><span class="text-muted">$25</span></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="javascript:void(0)" class="text-black">Conference Call Availability</a>
-                                    </td>
-                                    <td class="text-left"><span class="text-muted">Yes</span></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="javascript:void(0)" class="text-black">Phone Number</a></td>
-                                    <td class="text-left"><span class="text-muted">415 768 9988</span></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="javascript:void(0)" class="text-black">Network Access</a></td>
-                                    <td class="text-left"><span class="text-muted">Yes</span></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="javascript:void(0)" class="text-black">Internet Access</a></td>
-                                    <td class="text-left"><span class="text-muted">Yes</span></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="javascript:void(0)" class="text-black">Audio/Visual Availability</a>
-                                    </td>
-                                    <td class="text-left"><span class="text-muted">Yes</span></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="javascript:void(0)" class="text-black">Private, no tenants allowed</a>
-                                    </td>
-                                    <td class="text-left"><span class="text-muted"></span></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2"><strong>Notes</strong></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                        - 24 hour cancellation notice required.<br> - Catering available with a $150
-                                        cleaning deposit.<br> - Weekend availability by management office approval only.
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class="text-black">Capacity</a></td>
+                                        <td class="text-left"><span class="text-muted">50</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class="text-black">Days Available</a></td>
+                                        <td class="text-left"><span class="text-muted">Mon - Sat</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class="text-black">Hours Available</a></td>
+                                        <td class="text-left"><span class="text-muted">7am - 6:30pm</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class="text-black">Hourly Rate</a></td>
+                                        <td class="text-left"><span class="text-muted">$25</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class="text-black">Conference Call Availability</a>
+                                        </td>
+                                        <td class="text-left"><span class="text-muted">Yes</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class="text-black">Phone Number</a></td>
+                                        <td class="text-left"><span class="text-muted">415 768 9988</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class="text-black">Network Access</a></td>
+                                        <td class="text-left"><span class="text-muted">Yes</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class="text-black">Internet Access</a></td>
+                                        <td class="text-left"><span class="text-muted">Yes</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class="text-black">Audio/Visual Availability</a>
+                                        </td>
+                                        <td class="text-left"><span class="text-muted">Yes</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class="text-black">Private, no tenants allowed</a>
+                                        </td>
+                                        <td class="text-left"><span class="text-muted"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"><strong>Notes</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            - 24 hour cancellation notice required.<br> - Catering available with a $150
+                                            cleaning deposit.<br> - Weekend availability by management office approval only.
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -791,8 +766,7 @@
                     <div class="widget">
                         <div class="widget-content widget-content-mini themed-background-default">
                             <div class="block-options pull-right">
-                                <a href="javascript:void(0)" class="btn btn-success" data-toggle="tooltip" title=""
-                                   data-original-title="Edit Conference Room"><i class="fa fa-pencil"></i></a>
+                                <a href="javascript:void(0)" class="btn btn-success" data-toggle="tooltip" title="" data-original-title="Edit Conference Room"><i class="fa fa-pencil"></i></a>
                             </div>
 
                             <div class="widget-content themed-background-default clearfix">
@@ -803,58 +777,58 @@
                         <div class="widget-content widget-content-full">
                             <table class="table table-striped table-borderless remove-margin">
                                 <tbody>
-                                <tr>
-                                    <td><a href="javascript:void(0)" class="text-black">Capacity</a></td>
-                                    <td class="text-left"><span class="text-muted">50</span></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="javascript:void(0)" class="text-black">Days Available</a></td>
-                                    <td class="text-left"><span class="text-muted">Mon - Sat</span></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="javascript:void(0)" class="text-black">Hours Available</a></td>
-                                    <td class="text-left"><span class="text-muted">7am - 6:30pm</span></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="javascript:void(0)" class="text-black">Hourly Rate</a></td>
-                                    <td class="text-left"><span class="text-muted">$25</span></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="javascript:void(0)" class="text-black">Conference Call Availability</a>
-                                    </td>
-                                    <td class="text-left"><span class="text-muted">Yes</span></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="javascript:void(0)" class="text-black">Phone Number</a></td>
-                                    <td class="text-left"><span class="text-muted">415 768 9988</span></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="javascript:void(0)" class="text-black">Network Access</a></td>
-                                    <td class="text-left"><span class="text-muted">Yes</span></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="javascript:void(0)" class="text-black">Internet Access</a></td>
-                                    <td class="text-left"><span class="text-muted">Yes</span></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="javascript:void(0)" class="text-black">Audio/Visual Availability</a>
-                                    </td>
-                                    <td class="text-left"><span class="text-muted">Yes</span></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="javascript:void(0)" class="text-black">Private, no tenants allowed</a>
-                                    </td>
-                                    <td class="text-left"><span class="text-muted"></span></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2"><strong>Notes</strong></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                        - 24 hour cancellation notice required.<br> - Catering available with a $150
-                                        cleaning deposit.<br> - Weekend availability by management office approval only.
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class="text-black">Capacity</a></td>
+                                        <td class="text-left"><span class="text-muted">50</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class="text-black">Days Available</a></td>
+                                        <td class="text-left"><span class="text-muted">Mon - Sat</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class="text-black">Hours Available</a></td>
+                                        <td class="text-left"><span class="text-muted">7am - 6:30pm</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class="text-black">Hourly Rate</a></td>
+                                        <td class="text-left"><span class="text-muted">$25</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class="text-black">Conference Call Availability</a>
+                                        </td>
+                                        <td class="text-left"><span class="text-muted">Yes</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class="text-black">Phone Number</a></td>
+                                        <td class="text-left"><span class="text-muted">415 768 9988</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class="text-black">Network Access</a></td>
+                                        <td class="text-left"><span class="text-muted">Yes</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class="text-black">Internet Access</a></td>
+                                        <td class="text-left"><span class="text-muted">Yes</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class="text-black">Audio/Visual Availability</a>
+                                        </td>
+                                        <td class="text-left"><span class="text-muted">Yes</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class="text-black">Private, no tenants allowed</a>
+                                        </td>
+                                        <td class="text-left"><span class="text-muted"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"><strong>Notes</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            - 24 hour cancellation notice required.<br> - Catering available with a $150
+                                            cleaning deposit.<br> - Weekend availability by management office approval only.
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -865,8 +839,7 @@
                     <div class="widget">
                         <div class="widget-content widget-content-mini themed-background-default">
                             <div class="block-options pull-right">
-                                <a href="javascript:void(0)" class="btn btn-success" data-toggle="tooltip" title=""
-                                   data-original-title="Edit Conference Room"><i class="fa fa-pencil"></i></a>
+                                <a href="javascript:void(0)" class="btn btn-success" data-toggle="tooltip" title="" data-original-title="Edit Conference Room"><i class="fa fa-pencil"></i></a>
                             </div>
 
                             <div class="widget-content themed-background-default clearfix">
@@ -877,58 +850,58 @@
                         <div class="widget-content widget-content-full">
                             <table class="table table-striped table-borderless remove-margin">
                                 <tbody>
-                                <tr>
-                                    <td><a href="javascript:void(0)" class="text-black">Capacity</a></td>
-                                    <td class="text-left"><span class="text-muted">50</span></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="javascript:void(0)" class="text-black">Days Available</a></td>
-                                    <td class="text-left"><span class="text-muted">Mon - Sat</span></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="javascript:void(0)" class="text-black">Hours Available</a></td>
-                                    <td class="text-left"><span class="text-muted">7am - 6:30pm</span></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="javascript:void(0)" class="text-black">Hourly Rate</a></td>
-                                    <td class="text-left"><span class="text-muted">$25</span></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="javascript:void(0)" class="text-black">Conference Call Availability</a>
-                                    </td>
-                                    <td class="text-left"><span class="text-muted">Yes</span></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="javascript:void(0)" class="text-black">Phone Number</a></td>
-                                    <td class="text-left"><span class="text-muted">415 768 9988</span></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="javascript:void(0)" class="text-black">Network Access</a></td>
-                                    <td class="text-left"><span class="text-muted">Yes</span></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="javascript:void(0)" class="text-black">Internet Access</a></td>
-                                    <td class="text-left"><span class="text-muted">Yes</span></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="javascript:void(0)" class="text-black">Audio/Visual Availability</a>
-                                    </td>
-                                    <td class="text-left"><span class="text-muted">Yes</span></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="javascript:void(0)" class="text-black">Private, no tenants allowed</a>
-                                    </td>
-                                    <td class="text-left"><span class="text-muted"></span></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2"><strong>Notes</strong></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                        - 24 hour cancellation notice required.<br> - Catering available with a $150
-                                        cleaning deposit.<br> - Weekend availability by management office approval only.
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class="text-black">Capacity</a></td>
+                                        <td class="text-left"><span class="text-muted">50</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class="text-black">Days Available</a></td>
+                                        <td class="text-left"><span class="text-muted">Mon - Sat</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class="text-black">Hours Available</a></td>
+                                        <td class="text-left"><span class="text-muted">7am - 6:30pm</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class="text-black">Hourly Rate</a></td>
+                                        <td class="text-left"><span class="text-muted">$25</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class="text-black">Conference Call Availability</a>
+                                        </td>
+                                        <td class="text-left"><span class="text-muted">Yes</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class="text-black">Phone Number</a></td>
+                                        <td class="text-left"><span class="text-muted">415 768 9988</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class="text-black">Network Access</a></td>
+                                        <td class="text-left"><span class="text-muted">Yes</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class="text-black">Internet Access</a></td>
+                                        <td class="text-left"><span class="text-muted">Yes</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class="text-black">Audio/Visual Availability</a>
+                                        </td>
+                                        <td class="text-left"><span class="text-muted">Yes</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="javascript:void(0)" class="text-black">Private, no tenants allowed</a>
+                                        </td>
+                                        <td class="text-left"><span class="text-muted"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"><strong>Notes</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            - 24 hour cancellation notice required.<br> - Catering available with a $150
+                                            cleaning deposit.<br> - Weekend availability by management office approval only.
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -942,13 +915,11 @@
 <!-- END LEFT TABS WITH BUILDINGS -->
 <!--</div>-->
 
-<ewo-building-information *ngIf="editedBuilding" id="modalEditBuildingInfo" [editBuildingInfo]="editedBuilding"
-                          (update)="updateInfo($event)"
-                          class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></ewo-building-information>
+<ewo-building-information *ngIf="editedBuilding" id="modalEditBuildingInfo" [editBuildingInfo]="editedBuilding" (update)="updateInfo($event)"
+    class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></ewo-building-information>
 
-<ewo-remit-information *ngIf="editedBuilding" id="modalEditRemitInfo" [editRemitInfo]="editedBuilding"
-                       (update)="updateInfo($event)"
-                       class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></ewo-remit-information>
+<ewo-remit-information *ngIf="editedBuilding" id="modalEditRemitInfo" [editRemitInfo]="editedBuilding" (update)="updateInfo($event)"
+    class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></ewo-remit-information>
 
 <!-- Edit Contact Information -->
 <div id="modalEditContactInfo" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
@@ -960,25 +931,38 @@
             </div>
             <!-- this is a new comment  -->
             <div class="modal-body">
-                <form *ngIf="buildingForm" [formGroup]="buildingForm" (ngSubmit)="buildingForm.valid && onSubmit()"
-                      class="form-horizontal form-bordered">
+                <form *ngIf="buildingForm" [formGroup]="buildingForm" (ngSubmit)="buildingForm.valid && onSubmit()" class="form-horizontal form-bordered">
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="primarycontact_id">Contact Person</label>
                         <div class="col-md-6">
-                            <ng-select id="primarycontact_id" [multiple]="false" [items]="employees"
-                                       placeholder="Select Contact Person" (selected)="selectedPrimaryContact($event)"
-                                       [active]="primarycontact_id"></ng-select>
+                            <ng-select id="primarycontact_id" [multiple]="false" [items]="employees" placeholder="Select Contact Person" (selected)="selectedPrimaryContact($event)"
+                                [active]="primarycontact_id"></ng-select>
                             <!--<span *ngIf="primarycontact_id.length == 0" class="validation-error">This field is Required</span>-->
                         </div>
                     </div>
                     <div class="form-group form-actions">
                         <div class="col-xs-12 text-right">
-                            <button type="submit" class="btn btn-effect-ripple btn-success"
-                                    style="overflow: hidden; position: relative;">Save
+                            <button type="submit" class="btn btn-effect-ripple btn-success" style="overflow: hidden; position: relative;">Save
                             </button>
                         </div>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Building Sla Policy -->
+<div id="modalBuildingSLAInfo" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title"><i class="fa fa-pencil"></i> <strong>Edit Building SLA Policies</strong></h3>
+            </div>
+            <!-- this is a new comment  -->
+            <div class="modal-body">
+                <ewo-building-sla-target *ngIf="buildingSlaPolicyTargets" [buildingSLATargets]="buildingSlaPolicyTargets" (update)="onUpdateSLAPolicy($event)"></ewo-building-sla-target>
             </div>
         </div>
     </div>

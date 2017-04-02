@@ -7,6 +7,7 @@ import { BuildingService } from "app/modules/admin/building/building.service";
 import { EmployeeService } from "app/modules/admin/employee/employee.service";
 import { Observable } from 'rxjs/Rx';
 import { DataService } from "app/services";
+import { SLAPolicyService } from "app/modules/admin/sla-policy/sla-policy.service";
 declare var $: any;
 
 @Component({
@@ -21,8 +22,9 @@ export class BuildingAdminDetailsComponent implements OnInit {
 
     editedBuilding: any;
     private _buildingId: any;
-    photoUrl:any;
+    photoUrl: any;
 
+    buildingSlaPolicyTargets: any;
     buildingForm = new FormGroup({
         id: new FormControl(),
         primarycontact_id: new FormControl(),
@@ -34,13 +36,15 @@ export class BuildingAdminDetailsComponent implements OnInit {
         private route: ActivatedRoute,
         private buildingService: BuildingService,
         private employeeService: EmployeeService,
-        private dataService: DataService
+        private dataService: DataService,
+        private slaPolicyService: SLAPolicyService
     )
     { }
 
     ngOnInit() {
         this._buildingId = this.route.snapshot.params['id'];
         this.getBuilding(this._buildingId);
+        this.getBuildingSLAPolicy(this._buildingId);
     }
 
     // getBuilding(id) {
@@ -70,7 +74,7 @@ export class BuildingAdminDetailsComponent implements OnInit {
                             primaryCompanyUnitNo: company.unit_no, primaryCompanyCity: company.city,
                             primaryCompanyState: company.state, primaryCompanyPostalCode: company.postal_code
                         });
-                        this.getPhotoUrl(this.editedBuilding.ContactPersonPhoto);
+                    this.getPhotoUrl(this.editedBuilding.ContactPersonPhoto);
                 })
             })
         });
@@ -86,6 +90,12 @@ export class BuildingAdminDetailsComponent implements OnInit {
                 this.employees = _employee;
             }
         );
+    }
+
+    getBuildingSLAPolicy(buildingId) {
+        this.slaPolicyService.getBuildingSLAPolicy(buildingId).map(data => data.results).subscribe(data => {
+            this.buildingSlaPolicyTargets = data;
+        });
     }
 
     onSubmit() {
@@ -127,5 +137,9 @@ export class BuildingAdminDetailsComponent implements OnInit {
         //     return employee.photo;
         // return 'assets/img/placeholders/avatars/avatar9.jpg';
         this.photoUrl = this.dataService.getPhotoUrl(employee);
+    }
+
+    onUpdateSLAPolicy(val) {
+        this.getBuildingSLAPolicy(this._buildingId);
     }
 }
