@@ -54,7 +54,7 @@
                         <tbody>
                             <tr>
                                 <td>Square Feet</td>
-                                <td class="text-left"><span class="text-muted">{{building.sqfootage}}</span></td>
+                                <td class="text-left"><span class="text-muted">{{building.sqfootage | number}}</span></td>
                             </tr>
                             <tr>
                                 <td>Building Contact</td>
@@ -187,11 +187,11 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="primarycontact_id">Contact Person</label>
+                            <label class="col-md-4 control-label" for="primarycontact_id">Contact Person <span class="required">*</span></label>
                             <div class="col-md-6">
                                 <ng-select id="primarycontact_id" [multiple]="false" [items]="employees" placeholder="Select Contact Person" (selected)="selectedPrimaryContact($event)"
                                     [active]="primarycontact_id"></ng-select>
-                                <!--<span *ngIf="primarycontact_id.length == 0" class="validation-error">This field is Required</span>-->
+                                <span *ngIf="_submitted && primarycontact_id.length == 0" class="validation-error">This field is Required</span>
                             </div>
                         </div>
                     </div>

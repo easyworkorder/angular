@@ -25,6 +25,7 @@ export class BuildingComponent implements OnInit {
   buildings: any[] = [];
   employees: any[] = [];
   primarycontact_id: any = [];
+  _submitted: boolean = false;
   tabs = new TabVisibility();
   currentCompanyId = 1;
   date_added = new Date().toJSON().slice(0, 10);
@@ -51,7 +52,7 @@ export class BuildingComponent implements OnInit {
     remit_city: new FormControl('', Validators.required),
     remit_state: new FormControl('', Validators.required),
     remit_postal_code: new FormControl('', Validators.required),
-    primarycontact_id: new FormControl(''),
+    primarycontact_id: new FormControl(null),
     billing_module: new FormControl('true'),
     url: new FormControl(),
     active: new FormControl(true)
@@ -110,11 +111,15 @@ export class BuildingComponent implements OnInit {
   }
 
   onSubmit() {
+    this._submitted = true;
+    this.validationCheck();
+    if (!this.buildingForm.valid) return;
     if(this.primarycontact_id.length) {
       this.buildingForm.get('primarycontact_id').setValue(this.primarycontact_id[0].id);
     }
-    this.validationCheck();
-    if (!this.buildingForm.valid) return;
+    else{
+      return;
+    }
 
     // if (this.buildingForm.value.id) {
     //   this.buildingService.update(this.buildingForm.value).subscribe((building: any) => {
@@ -146,6 +151,7 @@ export class BuildingComponent implements OnInit {
   }
 
   resetForm() {
+    this._submitted = false;
     this.buildingForm.reset({
       company: config.api.base + 'company/' + this.currentCompanyId + '/',
       billing_module: 'true',

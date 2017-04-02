@@ -11,8 +11,7 @@ declare var $: any;
 
 @Component({
     selector: 'ewo-building-admin',
-    templateUrl: './building-admin.component.html',
-    styleUrls: ['./building-admin.component.css']
+    templateUrl: './building-admin.component.html'
 })
 
 export class BuildingAdminComponent implements OnInit {
