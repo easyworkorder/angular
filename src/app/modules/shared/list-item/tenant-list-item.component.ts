@@ -15,7 +15,7 @@ export class TenantListItemComponent implements OnInit {
     ) { }
     /// A List of Contact objects to display
     @Input() tenant: any[];
-    @Input() isAdmin:boolean = false;
+    @Input() isAdmin: boolean = false;
     //@Input() isEditable: boolean = true;
     //@Output('update') change: EventEmitter<any> = new EventEmitter<any>();
 
@@ -42,8 +42,8 @@ export class TenantListItemComponent implements OnInit {
     }
 
     tenantDetailsLink(tenant) {
-        if(this.isAdmin){
-            this.router.navigate(['tenant-profile', tenant.contact_id]);
+        if (this.isAdmin) {
+            this.router.navigate(['admin', 'building-details', tenant.building_id, 'tenant-profile', tenant.contact_id]);
         }
         else {
             this.router.navigate(['/tenant-profile', tenant.contact_id]);
