@@ -6,8 +6,7 @@ import config from '../../../config';
 
 @Component({
     selector: 'ewo-sla-policy',
-    templateUrl: './sla-policy.component.html',
-    styleUrls: ['./sla-policy.component.css']
+    templateUrl: './sla-policy.component.html'
 })
 export class SLAPolicyComponent implements OnInit {
     currentCompanyId = 1;
