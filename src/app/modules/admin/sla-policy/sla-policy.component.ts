@@ -15,55 +15,12 @@ export class SLAPolicyComponent implements OnInit {
     slaPolicy: any;
 
     selectedRespondWithinUnit: any = [];
-    respondWithInUnit: any[] = [
-        {
-            id: 1,
-            text: 'Mins',
-        },
-        {
-            id: 2,
-            text: 'Hrs',
-        },
-        {
-            id: 3,
-            text: 'Days',
-        },
-        {
-            id: 4,
-            text: 'Mos',
-        }
-    ];
     selectedResolveWithinUnit: any = [];
-    resolveWithinUnit: any[] = [
-        {
-            id: 1,
-            text: 'Mins'
-        },
-        {
-            id: 2,
-            text: 'Hrs'
-        },
-        {
-            id: 3,
-            text: 'Days'
-        },
-        {
-            id: 4,
-            text: 'Mos'
-        }
-    ];
-
     selectedOperationHours: any = [];
-    OperationHours: any[] = [
-        {
-            id: 1,
-            text: 'Business Hours'
-        },
-        {
-            id: 2,
-            text: 'Calendar Hours'
-        }
-    ];
+
+    respondWithInUnit: any[] = config.slaPolicy.respondAndResolveWithInUnit;
+    resolveWithinUnit: any[] = config.slaPolicy.respondAndResolveWithInUnit;
+    OperationHours: any[] = config.slaPolicy.OperationHours;
 
     constructor(
         private fb: FormBuilder,
