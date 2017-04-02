@@ -41,15 +41,21 @@ export class ProblemTypeService extends DataService {
     return observable;
   }
 
-   update(data?: any): Observable<ProblemType> {
+   update(data?: any, isDeleted?:boolean): Observable<ProblemType> {
     data = Object.assign({}, data);
     // PUT '/problem type/id'
     // const observable = this.http.put('problemType/'+ data.id +'/', data);
     const observable = this.http.put(data.url, data);
 
     observable.subscribe(data => {
-      this.toaster.pop(config.messageType.SUCCESS, 'Problem Type', 'Problem type has been updated successfully');
-      console.log(data);
+        if(isDeleted){
+            this.toaster.pop(config.messageType.SUCCESS, 'Problem Type', 'Problem type has been deleted successfully');
+        }
+        else{
+            this.toaster.pop(config.messageType.SUCCESS, 'Problem Type', 'Problem type has been updated successfully');
+        }
+
+      //console.log(data);
     },
       error => {
         this.toaster.pop(config.messageType.ERROR, 'Problem Type', 'Problem type not updated due to API error!!!');

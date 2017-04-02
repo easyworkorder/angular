@@ -34,7 +34,8 @@
         </div>
 
         <!-- BEGIN SLA POLICIES FORM -->
-        <div class="form-group">
+        <span *ngIf="selectedRespondWithinUnit.length == 0 || selectedResolveWithinUnit.length == 0 || selectedOperationHours.length == 0">Loading Data....</span>
+        <div class="form-group" *ngIf="selectedRespondWithinUnit.length > 0 && selectedResolveWithinUnit.length > 0 && selectedOperationHours.length > 0">
             <table id="general-table" class="table table-vcenter">
                 <thead>
                     <tr>

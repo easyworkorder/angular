@@ -75,6 +75,36 @@ const config = {
     sortButtonColor: {
         WHITE: 'white',
         GRAY: 'gray'
+    },
+    slaPolicy: {
+        respondAndResolveWithInUnit: [
+            {
+                id: 1,
+                text: 'Mins',
+            },
+            {
+                id: 2,
+                text: 'Hrs',
+            },
+            {
+                id: 3,
+                text: 'Days',
+            },
+            {
+                id: 4,
+                text: 'Mos',
+            }
+        ],
+        OperationHours: [
+        {
+            id: 1,
+            text: 'Business'
+        },
+        {
+            id: 2,
+            text: 'Calendar'
+        }
+    ]
     }
 }
 

@@ -19,6 +19,7 @@ export class ProblemTypeComponent implements OnInit {
     problemTypesList1: any[] = [];
     problemTypesList2: any[] = [];
     currentCompanyId = 1;
+    isDeleted: boolean = false;
 
     problemTypeForm = new FormGroup({
         id: new FormControl(),
@@ -71,13 +72,14 @@ export class ProblemTypeComponent implements OnInit {
     }
 
     removeProblemType(problemType){
-
+        problemType.active = false;
+        this.problemTypeForm.setValue(problemType);
+        this.isDeleted = true;
     }
 
     onSubmit() {
-        // console.log(this.problemTypeForm.value);
         if (this.problemTypeForm.value.id) {
-            this.problemTypeService.update(this.problemTypeForm.value).subscribe((problemType: any) => {
+            this.problemTypeService.update(this.problemTypeForm.value, this.isDeleted).subscribe((problemType: any) => {
                 this.getAllProblemTypes(this.currentCompanyId);
                 this.closeModal();
             });
@@ -92,7 +94,9 @@ export class ProblemTypeComponent implements OnInit {
 
     closeModal() {
         this.resetForm();
+        this.isDeleted = false;
         $('#modal-add-problem-type').modal('hide');
+        $('#modal-remove-problem-type').modal('hide');
     }
 
     resetForm() {
