@@ -55,7 +55,7 @@ export class VendorProfileComponent implements OnInit {
                 }
 
                 let tempContact = this.vendor.vendor_contacts.filter(data => {
-                    return !data.isprimary_contact;
+                    return !data.active;
                 });
 
                 this.vendor.contacts = tempContact;

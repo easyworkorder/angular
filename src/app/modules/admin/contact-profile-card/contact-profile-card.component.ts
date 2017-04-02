@@ -6,8 +6,7 @@ import { Contact } from "app/modules/admin/contact-profile-card/contact";
 
 @Component({
     selector: 'ewo-contact-profile-card',
-    templateUrl: './contact-profile-card.component.html',
-    styleUrls: ['./contact-profile-card.component.css']
+    templateUrl: './contact-profile-card.component.html'
 })
 export class ContactProfileCardComponent implements OnInit {
     @Input() contactInfo: Contact;

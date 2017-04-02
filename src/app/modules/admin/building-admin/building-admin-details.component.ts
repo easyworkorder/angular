@@ -63,7 +63,8 @@ export class BuildingAdminDetailsComponent implements OnInit {
                         {
                             contactPerson: emp.last_name + ' ' + emp.first_name,
                             ContactPersonPhoto: emp.photo,
-                            ContactPersonWorkPhone: emp.work_phone
+                            ContactPersonWorkPhone: emp.work_phone,
+                            ContactPersonEmail: emp.email
                         },
                         {
                             primaryCompany: company.name, primaryCompanyAddress: company.address,

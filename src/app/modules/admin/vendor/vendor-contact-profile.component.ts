@@ -54,11 +54,11 @@ export class VendorContactProfileComponent implements OnInit {
                     postal_code: this.vendor.postal_code,
                 }
 
-                let tempContact = this.vendor.vendor_contacts.filter(data => {
+                /*let tempContact = this.vendor.vendor_contacts.filter(data => {
                     return !data.isprimary_contact;
-                });
+                });*/
 
-                this.vendor.contacts = tempContact;
+                this.vendor.contacts = this.vendor.vendor_contacts;
                 this.getInsurances(this.vendor.id);
             })
     }

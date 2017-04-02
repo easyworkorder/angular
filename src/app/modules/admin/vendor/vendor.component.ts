@@ -191,6 +191,7 @@ export class VendorComponent implements OnInit {
         }
         else{
             this.exp_date_not_valid = true;
+            this.switchTab(1);
             return;
         }
 

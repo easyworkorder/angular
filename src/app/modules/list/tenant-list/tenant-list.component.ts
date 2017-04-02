@@ -16,7 +16,7 @@ export class TenantListComponent implements OnInit {
   buildings: any[] = [];
   tenants: any[] = [];
 
-  tenantSearchControl = new FormControl('');
+  searchControl: FormControl = new FormControl('');
 
   constructor(
     private tenantService: TenantService,
@@ -61,22 +61,9 @@ export class TenantListComponent implements OnInit {
 
   buildAddressHtml(tenant: any) {
    return this.dataService.buildAddressHtml(tenant, tenant.tenant_company_name);
-    // var html = '<strong>' + tenant.tenant_company_name + '</strong><br />';
-    // if (tenant.unitNo != null && tenant.unitNo.length > 0)
-    //   html += tenant.unitNo + '<br />';
-    // if (tenant.title != null && tenant.title.length > 0)
-    //   html += tenant.title + '<br />';
-    // var extension = (tenant.extension != null && tenant.extension.length > 0) ? '(' + tenant.extension + ')' : '';
-    // if (tenant.phone != null && tenant.phone.length > 0)
-    //   html += 'P: ' + extension + tenant.phone;
-
-    // return html;
   }
 
   getPhotoUrl(tenant) {
-    // if (tenant.photo != null && tenant.photo.length > 0)
-    //   return tenant.photo;
-    // return 'assets/img/placeholders/avatars/avatar9.jpg';
     return this.dataService.getPhotoUrl(tenant.photo);
   }
 

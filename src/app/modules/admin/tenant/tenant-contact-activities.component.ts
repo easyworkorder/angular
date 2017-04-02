@@ -20,6 +20,7 @@ export class TabVisibility {
 export class TenantContactActivitiesComponent implements OnInit {
     @Input() tenant: any;
     @Input() insurances: any;
+    @Input() isAdmin: boolean = false;
     @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
 
     // updatePeopleInfo: any;

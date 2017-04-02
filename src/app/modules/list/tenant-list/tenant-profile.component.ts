@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { TenantService } from './tenant.service';
+import { TenantService } from './../../admin/tenant/tenant.service';
 import { DataService } from './../../../services/data.service';
 import { Contact } from "app/modules/admin/contact-profile-card/contact";
 import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
 
 
 @Component({
-    selector: 'ewo-tenant-contact-profile',
-    templateUrl: './tenant-contact-profile.component.html',
+    selector: 'ewo-tenant-profile',
+    templateUrl: './tenant-profile.component.html',
 })
-export class TenantContactProfileComponent implements OnInit {
+export class TenantProfileComponent implements OnInit {
     tenant: any;
     insurances: any;
     primaryContact: any;
@@ -50,11 +50,11 @@ export class TenantContactProfileComponent implements OnInit {
                     extension: this.tenant.extension
                 }
 
-                /*let tempContact = this.tenant.tenant_contacts.filter(data => {
-                    return !data.isprimary_contact;
-                });*/
+                let tempContact = this.tenant.tenant_contacts.filter(data => {
+                    return !data.active;
+                 });
 
-                this.tenant.contacts = this.tenant.tenant_contacts;
+                this.tenant.contacts = tempContact;
                 this.getInsurances(this.tenant.id);
             })
     }
@@ -72,7 +72,7 @@ export class TenantContactProfileComponent implements OnInit {
     }
 
     /**
-     * Get Insurance list by vendor
+     * Get Insurance list by tenant
      */
     getInsurances(tenant_id){
         this.tenantService.getInsurances(tenant_id).subscribe(

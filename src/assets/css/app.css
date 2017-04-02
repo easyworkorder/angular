@@ -4,6 +4,16 @@
 .list-block-item{
     min-height: 380px;
 }
+.list-block-item.building{
+    min-height: 390px;
+}
+.list-block-item.building .widget-content-mini{
+    min-height: 150px;
+}
+.list-block-item.tenant{
+    min-height: 360px;
+}
+
 a {
     cursor:pointer;
 }

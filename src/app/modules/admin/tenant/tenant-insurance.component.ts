@@ -69,6 +69,7 @@ export class TenantInsuranceComponent implements OnInit {
         }
         else{
             this.exp_date_not_valid = true;
+            return;
         }
 
         //Update People

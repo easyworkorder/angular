@@ -4,37 +4,8 @@
     <ewo-alphabetical-sort [searchControl]="searchControl"></ewo-alphabetical-sort>
 </div>
 <!-- END CONTACTS ALPHABET FILTER -->
-<div *ngFor="let tenant of tenants  | filterWithStartLetter: { last_name: searchControl.value }" class="col-sm-6 col-md-4 col-lg-3">
-    <!--<a [routerLink]="['/contact-profile', tenant.contact_id ]" class="widget">-->
-    <a [routerLink]="['tenant-profile', tenant.contact_id]" class="widget">
-        <div class="widget-content text-center">
-            <img [src]="getPhotoUrl(tenant)" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
-            <h2 class="widget-heading h3 text-muted">{{ buildName(tenant.first_name, tenant.last_name)}}</h2>
-        </div>
-        <div class="widget-content themed-background-muted text-dark text-center">
-            <!--<address class="m-t-md">
-                <strong>{{tenant.tenant_company_name}}</strong><br *ngIf="tenant.unitNo"> {{tenant.unitNo}}<br *ngIf="tenant.title">{{tenant.title}}<br>
-                <abbr title="Phone">P:</abbr> <span *ngIf="tenant.extension">({{tenant.extension}}) &nbsp;</span> {{tenant.phone}}
-            </address>-->
-            <address class="m-t-md" [innerHTML]="buildAddressHtml(tenant)"></address>
-        </div>
-        <div class="widget-content">
-            <div class="row text-center">
-                <div class="col-xs-6">
-                    <a href="tel:{{tenant.phone}}" (click)="stopPropagation($event)">
-                        <h3 class="widget-heading"><i class="gi gi-earphone text-info"></i> <br>
-                            <small>Call</small></h3>
-                    </a>
-                </div>
-                <div class="col-xs-6">
-                    <a href="mailto:{{ tenant.email }}" (click)="stopPropagation($event)">
-                        <h3 class="widget-heading"><i class="gi gi-envelope text-danger"></i> <br>
-                            <small>Email</small></h3>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </a>
+<div *ngFor="let tenant of tenants  | filterWithStartLetter: { first_name: searchControl.value }" class="col-sm-6 col-md-4 col-lg-3">
+    <ewo-tenant-list-item [isAdmin]="true" [tenant]="tenant"></ewo-tenant-list-item>
 </div>
 
 <!-- Add Tenant Modal -->
@@ -83,7 +54,7 @@
                             <!--<div class="col-xs-1">%</div>-->
                         </div>
                         <div class="form-group">
-                            <label class="col-md-3 control-label" for="unitno">Unit Number</label>
+                            <label class="col-md-3 control-label" for="unitno">Unit Number <span class="required">*</span></label>
                             <div class="col-xs-9">
                                 <input [formControlValidator]="tenantForm.controls.unitno" formControlName="unitno" type="text" id="unitno" name="unitno"
                                     class="form-control" placeholder="Unit Number">
@@ -91,10 +62,10 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-3 control-label" for="inscertdate">Ins Cert exp date</label>
+                            <label class="col-md-3 control-label" for="inscertdate">Ins Cert exp date <span class="required">*</span></label>
                             <div class="col-xs-9">
-                                <!--<input formControlName="inscertdate" type="text" id="inscertdate" name="inscertdate" class="form-control" placeholder="Ins Cert exp date">-->
                                 <ewo-calendar formControlName="inscertdate" dateFormat="yy-mm-dd" [icon]="fa-calendar" [showIcon]="true" inputStyleClass="form-control"></ewo-calendar>
+                                <span *ngIf="exp_date_not_valid" class="validation-error">This field is required.</span>
                             </div>
                         </div>
 
@@ -117,6 +88,15 @@
                         <!-- END Step Info -->
                         <div *ngFor="let contact of tenantForm.get('tenant_contacts').controls; let i=index" [formGroup]="contact">
                             <div class="form-group">
+                                <label class="col-xs-3 control-label text-muted">NO AVATAR</label>
+                                <div class="col-xs-9">
+                                    <i class="fa fa-fw fa-upload"></i> <a href="javascript:void(0)">Upload New
+                                    Avatar</a><br>
+                                    <i class="fa fa-fw fa-picture-o"></i> <a href="javascript:void(0)">Choose from
+                                    Library</a>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-xs-3 control-label" for="fname">First Name <span class="required">*</span></label>
                                 <div class="col-xs-9">
                                     <input [formControlValidator]="contact.controls.first_name" formControlName="first_name" type="text" id="fname" class="form-control"
@@ -130,21 +110,6 @@
                                     <input [formControlValidator]="contact.controls.last_name" formControlName="last_name" type="text" id="lname" class="form-control"
                                         placeholder="Last Name" />
                                     <span class="validation-error">{{contact.controls.last_name.error}}</span>
-                                </div>
-                            </div>
-                            <!--<div class="form-group">
-                                <label class="col-md-3 control-label" for="photo">Photo</label>
-                                <div class="col-xs-9">
-                                    <input type="file" id="photo" name="photo" class="form-control">
-                                </div>
-                            </div>-->
-                            <div class="form-group">
-                                <label class="col-xs-3 control-label text-muted">NO AVATAR</label>
-                                <div class="col-xs-9">
-                                    <i class="fa fa-fw fa-upload"></i> <a href="javascript:void(0)">Upload New
-                                Avatar</a><br>
-                                    <i class="fa fa-fw fa-picture-o"></i> <a href="javascript:void(0)">Choose from
-                                Library</a>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -191,14 +156,9 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-xs-3 control-label view-invoice-label-text" for="viewinvoices">View Invoices</label>
-                                <div class="col-xs-9">
-                                    <span *ngFor="let option of viewInvoicesList">
-                                        <label class="switch switch-success">
-                                        <input formControlName="viewinvoices" type="radio" name="viewinvoices" [value]="option.value"><span></span>
-                                    <label class="view-invoice-display-label"> {{option.display}}</label>
-                                    </label>
-                                    </span>
-                                </div>
+                                <label class="col-xs-9 switch switch-success">
+                                    <input formControlName="viewinvoices" type="checkbox" id="viewinvoices" name="viewinvoices" class=""><span></span>
+                                </label>
                             </div>
                             <div class="form-group">
                                 <label class="col-xs-3 control-label" for="notes">Notes</label>

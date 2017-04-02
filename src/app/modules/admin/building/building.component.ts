@@ -13,7 +13,6 @@ declare var $: any;
 export class TabVisibility {
   isBuildingTabVisible = true;
   isContactTabVisible = false;
-  isSLATabVisible = false;
   selectedTabNo = 1;
 }
 
@@ -99,11 +98,10 @@ export class BuildingComponent implements OnInit {
   switchTab(tabId: number) {
     if (tabId < 1) // First tabs back button click
       tabId = 1;
-    else if (tabId > 3) //This is the last tab's next button click
-      tabId = 3;
+    else if (tabId > 2) //This is the last tab's next button click
+      tabId = 2;
     this.tabs.isBuildingTabVisible = tabId == 1 ? true : false;
     this.tabs.isContactTabVisible = tabId == 2 ? true : false;
-    this.tabs.isSLATabVisible = tabId == 3 ? true : false;
     this.tabs.selectedTabNo = tabId;
   }
 
@@ -112,7 +110,9 @@ export class BuildingComponent implements OnInit {
   }
 
   onSubmit() {
-    this.buildingForm.get('primarycontact_id').setValue(this.primarycontact_id[0].id);
+    if(this.primarycontact_id.length) {
+      this.buildingForm.get('primarycontact_id').setValue(this.primarycontact_id[0].id);
+    }
     this.validationCheck();
     if (!this.buildingForm.valid) return;
 

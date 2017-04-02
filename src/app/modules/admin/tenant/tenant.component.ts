@@ -22,6 +22,7 @@ export class TabVisibility {
 export class TenantComponent implements OnInit {
     currentCompanyId = 1;
     isSuccess: boolean = false;
+    exp_date_not_valid: boolean = false;
     viewInvoicesList = [
         { value: true, display: 'Yes, they are authorized (default)' },
         { value: false, display: 'No, they are not authorized' }
@@ -64,7 +65,7 @@ export class TenantComponent implements OnInit {
         inscertdate: new FormControl(null),
         mgtfeepercent: new FormControl('', [Validators.required]),
         gl_notify: new FormControl(true),
-        unitno: new FormControl(''),
+        unitno: new FormControl('', Validators.required),
         isactive: new FormControl(true),
         tenant_contacts: this.formBuilder.array(
             [this.buildBlankContact('', '', '', true, '', '', '', '', '', '', true, null, '')],
@@ -79,7 +80,7 @@ export class TenantComponent implements OnInit {
         return new FormGroup({
             title: new FormControl(title),
             notes: new FormControl(notes),
-            viewinvoices: new FormControl(viewinvoices),
+            viewinvoices: new FormControl(true),
             first_name: new FormControl(firstName, Validators.required),
             last_name: new FormControl(lastName, Validators.required),
             phone: new FormControl(phone),
@@ -123,14 +124,28 @@ export class TenantComponent implements OnInit {
             this.switchTab(2);
         }
 
+        if (!this.tenantForm.valid) { return; }
+
+        /**
+         * Expire Date validation
+         */
         if (this.tenantForm.get('inscertdate').value) {
             let date: Date = this.tenantForm.get('inscertdate').value;
-            // console.log(date.toISOString());
-            let dateAndTime = date.toISOString().split('T');
-            this.tenantForm.get('inscertdate').setValue(dateAndTime[0]);
+            if(date.toString().indexOf('T') > -1) {
+                let dateAndTime = date.toISOString().split('T');
+                this.tenantForm.get('inscertdate').setValue(dateAndTime[0]);
+            }
+            else {
+                this.tenantForm.get('inscertdate').setValue(date);
+            }
+
+        }
+        else{
+            this.exp_date_not_valid = true;
+            this.switchTab(1);
+            return;
         }
 
-        if (!this.tenantForm.valid) { return; }
 
         this.tenantForm.get('building').setValue(`${config.api.base}building/${this.buildingId}/`);
         let val = this.tenantForm.value;

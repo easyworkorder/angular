@@ -35,7 +35,7 @@
     <div class="row">
         <!-- BEGIN LIST OF CONFERENCE ROOMS -->
         <div class="col-sm-6 col-md-4 col-lg-4" *ngFor="let building of buildings">
-            <div class="widget">
+            <div class="widget list-block-item building">
                 <div class="widget-content widget-content-mini themed-background-default">
                     <div class="block-options pull-right">
                         <a (click)="editBuilding(building)" class="btn btn-effect-ripple btn-xs btn-success" data-toggle="tooltip"
@@ -109,8 +109,6 @@
                 <h2 class="modal-title"><i class="fa fa-plus"></i> {{buildingForm.get('id').value == null ? 'Add New ' : 'Edit' }} Building</h2>
             </div>
             <div class="modal-body">
-                <!-- Clickable Wizard Content -->
-                <!--<form [formGroup]="buildingForm" (ngSubmit)="buildingForm.valid && onSubmit()" class="form-horizontal form-bordered">-->
                 <form [formGroup]="buildingForm" (ngSubmit)="onSubmit()" class="form-horizontal form-bordered">
                     <!-- First Step -->
                     <div *ngIf="tabs.isBuildingTabVisible" id="clickable-first" class="step">
@@ -122,8 +120,6 @@
                                     </li>
                                     <li><a (click)="switchTab(2)"><i class="fa fa-pencil-square-o"></i>
                                         <strong>Remit Information</strong></a></li>
-                                    <li><a (click)="switchTab(3)"><i class="fa fa-check"></i> <strong>SLA
-                                        Policy</strong></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -190,13 +186,6 @@
                                 <span class="validation-error">{{buildingForm.controls.mgt_fee_percent.error}}</span>
                             </div>
                         </div>
-                        <!--<div class="form-group">
-                            <div class="col-md-4"></div>
-                            <div class="col-md-6">
-
-
-                            </div>
-                        </div>-->
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="primarycontact_id">Contact Person</label>
                             <div class="col-md-6">
@@ -219,8 +208,6 @@
                                     </a></li>
                                     <li class="active"><a (click)="switchTab(2)"><i class="fa fa-pencil-square-o"></i>
                                         <strong>Remit Information</strong></a></li>
-                                    <li><a (click)="switchTab(3)"><i class="fa fa-check"></i> <strong>SLA
-                                        Policy</strong></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -268,237 +255,6 @@
                     </div>
                     <!-- END Second Step -->
 
-                    <!-- Third Step -->
-                    <div *ngIf="tabs.isSLATabVisible" id="clickable-third" class="step">
-                        <!-- Step Info -->
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <ul class="nav nav-pills nav-justified clickable-steps">
-                                    <li><a (click)="switchTab(1)"><i class="fa fa-user"></i>
-                                        <del><strong>Building</strong></del>
-                                    </a></li>
-                                    <li><a (click)="switchTab(2)"><i class="fa fa-pencil-square-o"></i>
-                                        <del><strong>Remit Information</strong></del>
-                                    </a></li>
-                                    <li class="active"><a (click)="switchTab(3)"><i class="fa fa-check"></i> <strong>SLA
-                                        Policy</strong></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- END Step Info -->
-                        <div class="form-group">
-                            <table id="general-table" class="table table-vcenter">
-                                <thead>
-                                    <tr>
-                                        <th>Priority</th>
-                                        <th>Respond Within</th>
-                                        <th>Resolve Within</th>
-                                        <th>Operational Hours</th>
-                                        <th>Escalation Email</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Urgent</td>
-                                        <td>
-                                            <div class="input-group">
-                                                <input type="text" id="example-input2-group3" name="example-input2-group3" class="form-control">
-                                                <div class="input-group-btn">
-                                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="javascript:void(0)">Mins</a></li>
-                                                        <li><a href="javascript:void(0)">Hrs</a></li>
-                                                        <li><a href="javascript:void(0)">Days</a></li>
-                                                        <li><a href="javascript:void(0)">Mos</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="input-group">
-                                                <input type="text" id="example-input2-group3" name="example-input2-group3" class="form-control">
-                                                <div class="input-group-btn">
-                                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="javascript:void(0)">Mins</a></li>
-                                                        <li><a href="javascript:void(0)">Hrs</a></li>
-                                                        <li><a href="javascript:void(0)">Days</a></li>
-                                                        <li><a href="javascript:void(0)">Mos</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="input-group">
-                                                <select id="example-chosen" name="example-chosen" class="select-chosen" data-placeholder="Select" style="width: 250px;">
-                                                <option></option>
-                                                <!-- Required for data-placeholder attribute to work with Chosen plugin -->
-                                                <option value="United States">Business Hours</option>
-                                                <option value="United Kingdom">Calendar Hours</option>
-                                            </select>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <label class="switch switch-primary" for="example-clickable-terms">
-                                            <input type="checkbox" id="example-clickable-terms"
-                                                   name="example-clickable-terms" value="1">
-                                            <span data-toggle="tooltip" title="Escolate"></span>
-                                        </label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>High</td>
-                                        <td>
-                                            <div class="input-group">
-                                                <input type="text" id="example-input2-group3" name="example-input2-group3" class="form-control">
-                                                <div class="input-group-btn">
-                                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="javascript:void(0)">Mins</a></li>
-                                                        <li><a href="javascript:void(0)">Hrs</a></li>
-                                                        <li><a href="javascript:void(0)">Days</a></li>
-                                                        <li><a href="javascript:void(0)">Mos</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="input-group">
-                                                <input type="text" id="example-input2-group3" name="example-input2-group3" class="form-control">
-                                                <div class="input-group-btn">
-                                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="javascript:void(0)">Mins</a></li>
-                                                        <li><a href="javascript:void(0)">Hrs</a></li>
-                                                        <li><a href="javascript:void(0)">Days</a></li>
-                                                        <li><a href="javascript:void(0)">Mos</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="input-group">
-                                                <select id="example-chosen" name="example-chosen" class="select-chosen" data-placeholder="Select" style="width: 250px;">
-                                                <option></option>
-                                                <!-- Required for data-placeholder attribute to work with Chosen plugin -->
-                                                <option value="United States">Business Hours</option>
-                                                <option value="United Kingdom">Calendar Hours</option>
-                                            </select>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <label class="switch switch-primary" for="example-clickable-terms">
-                                            <input type="checkbox" id="example-clickable-terms"
-                                                   name="example-clickable-terms" value="1">
-                                            <span data-toggle="tooltip" title="Escolate"></span>
-                                        </label>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Medium</td>
-                                        <td>
-                                            <div class="input-group">
-                                                <input type="text" id="example-input2-group3" name="example-input2-group3" class="form-control">
-                                                <div class="input-group-btn">
-                                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="javascript:void(0)">Mins</a></li>
-                                                        <li><a href="javascript:void(0)">Hrs</a></li>
-                                                        <li><a href="javascript:void(0)">Days</a></li>
-                                                        <li><a href="javascript:void(0)">Mos</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="input-group">
-                                                <input type="text" id="example-input2-group3" name="example-input2-group3" class="form-control">
-                                                <div class="input-group-btn">
-                                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="javascript:void(0)">Mins</a></li>
-                                                        <li><a href="javascript:void(0)">Hrs</a></li>
-                                                        <li><a href="javascript:void(0)">Days</a></li>
-                                                        <li><a href="javascript:void(0)">Mos</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="input-group">
-                                                <select id="example-chosen" name="example-chosen" class="select-chosen" data-placeholder="Select" style="width: 250px;">
-                                                <option></option>
-                                                <!-- Required for data-placeholder attribute to work with Chosen plugin -->
-                                                <option value="United States">Business Hours</option>
-                                                <option value="United Kingdom">Calendar Hours</option>
-                                            </select>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <label class="switch switch-primary" for="example-clickable-terms">
-                                            <input type="checkbox" id="example-clickable-terms"
-                                                   name="example-clickable-terms" value="1">
-                                            <span data-toggle="tooltip" title="Escolate"></span>
-                                        </label>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Low</td>
-                                        <td>
-                                            <div class="input-group">
-                                                <input type="text" id="example-input2-group3" name="example-input2-group3" class="form-control">
-                                                <div class="input-group-btn">
-                                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="javascript:void(0)">Mins</a></li>
-                                                        <li><a href="javascript:void(0)">Hrs</a></li>
-                                                        <li><a href="javascript:void(0)">Days</a></li>
-                                                        <li><a href="javascript:void(0)">Mos</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="input-group">
-                                                <input type="text" id="example-input2-group3" name="example-input2-group3" class="form-control">
-                                                <div class="input-group-btn">
-                                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="javascript:void(0)">Mins</a></li>
-                                                        <li><a href="javascript:void(0)">Hrs</a></li>
-                                                        <li><a href="javascript:void(0)">Days</a></li>
-                                                        <li><a href="javascript:void(0)">Mos</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="input-group">
-                                                <select id="example-chosen" name="example-chosen" class="select-chosen" data-placeholder="Select" style="width: 250px;">
-                                                <option></option>
-                                                <!-- Required for data-placeholder attribute to work with Chosen plugin -->
-                                                <option value="United States">Business Hours</option>
-                                                <option value="United Kingdom">Calendar Hours</option>
-                                            </select>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <label class="switch switch-primary" for="example-clickable-terms">
-                                            <input type="checkbox" id="example-clickable-terms"
-                                                   name="example-clickable-terms" value="1">
-                                            <span data-toggle="tooltip" title="Escolate"></span>
-                                        </label>
-                                        </td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <!-- END Third Step -->
-
                     <!-- Form Buttons -->
                     <div class="form-group form-actions">
                         <div class="col-xs-12 text-right">
@@ -516,57 +272,3 @@
     </div>
 </div>
 <!-- END Add Building Modal -->
-
-<!--
-<div class="building-form-container">
-  <form [formGroup]="buildingCreateForm" (ngSubmit)="buildingCreateForm.valid && onSubmit()" class="form-horizontal"  novalidate>
-    <div class="form-group">
-      <label for="name" class="col-sm-4 control-label">Name</label>
-      <div class="col-sm-8">
-        <input formControlName="name" type="text" class="form-control" id="name" placeholder="" required>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="propertymanager" class="col-sm-4 control-label">Property Manager</label>
-      <div class="col-sm-8">
-        <input formControlName="propertymanager" type="text" class="form-control" id="propertymanager" placeholder="">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="sqfootage" class="col-sm-4 control-label">Square footage</label>
-      <div class="col-sm-8">
-        <input formControlName="sqfootage" type="text" class="form-control" id="sqfootage" placeholder="">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="floors" class="col-sm-4 control-label">Floors</label>
-      <div class="col-sm-8">
-        <input formControlName="floors" type="text" class="form-control" id="floors" placeholder="">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="contactfname" class="col-sm-4 control-label">Contact First Name</label>
-      <div class="col-sm-8">
-        <input formControlName="contactfname" type="text" class="form-control" id="contactfname" placeholder="">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="contactlname" class="col-sm-4 control-label">Contact Last Name</label>
-      <div class="col-sm-8">
-        <input formControlName="contactlname" type="text" class="form-control" id="contactlname" placeholder="">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="contactphone" class="col-sm-4 control-label">Contact Last Name</label>
-      <div class="col-sm-8">
-        <input formControlName="contactphone" type="text" class="form-control" id="contactphone" placeholder="">
-      </div>
-    </div>
-
-    <div class="form-group">
-      <div class="col-sm-offset-4 col-sm-8">
-        <button type="submit" class="btn btn-default">Save</button>
-      </div>
-    </div>
-  </form>
-</div>-->

@@ -7,7 +7,6 @@ import { TicketComponent } from './modules/ticket/ticket.component';
 import { TicketDetailsComponent } from './modules/ticket/ticket_details.component';
 import { AddressComponent } from './modules/address/address.component';
 import { TenantComponent } from './modules/admin/tenant/tenant.component';
-import { TenantListComponent } from './modules/list/tenant-list/tenant-list.component';
 import { TenantContactProfileComponent } from './modules/admin/tenant/tenant-contact-profile.component';
 import { ProblemTypeComponent } from './modules/admin/problem_type/problem_type.component';
 import { EmployeeComponent } from './modules/admin/employee/employee.component';
@@ -31,6 +30,12 @@ import { VendorContactProfileComponent } from './modules/admin/vendor/vendor-con
  */
 import {VendorListComponent} from "./modules/list/vendor-list/vendor-list.component";
 import {VendorProfileComponent} from "./modules/list/vendor-list/vendor-profile.component";
+
+/**
+ * Tenant Dashboard List
+ */
+import { TenantListComponent } from './modules/list/tenant-list/tenant-list.component';
+import { TenantProfileComponent } from "./modules/list/tenant-list/tenant-profile.component";
 
 import { SLAPolicyComponent } from "app/modules/admin/sla-policy/sla-policy.component";
 
@@ -62,10 +67,7 @@ export const appRoutes: Routes = [
             { path: 'employee', component: EmployeeListComponent, pathMatch: 'full' },
             { path: 'tenant', component: TenantListComponent, pathMatch: 'full' },
             {
-                path: 'tenant-profile/:id', component: TenantContactProfileComponent,
-                resolve: {
-                    admin: AdminDashBoardResolver
-                },
+                path: 'tenant-profile/:id', component: TenantProfileComponent,
                 data: {
                     breadcrumb: "Tenant Profile"
                 },

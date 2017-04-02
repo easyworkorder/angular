@@ -77,6 +77,21 @@ import { UpdateVendorInsuranceService } from 'app/modules/admin/vendor/vendor-in
 import { VendorListComponent } from './modules/list/vendor-list/vendor-list.component';
 import { VendorProfileComponent } from './modules/list/vendor-list/vendor-profile.component';
 
+/**
+ * Tenant Admin
+ */
+import { TenantContactActivitiesComponent } from './modules/admin/tenant/tenant-contact-activities.component';
+import { TenantContactPeopleComponent } from './modules/admin/tenant/tenant-contact-people.component';
+import { TenantInsuranceComponent } from './modules/admin/tenant/tenant-insurance.component';
+import { UpdateTenantInsuranceService } from 'app/modules/admin/tenant/tenant-insurance.service';
+import { UpdatePeopleService } from "app/modules/admin/tenant/people.service";
+
+/**
+ * Tenant Dashboard
+ */
+import { ContactListComponent } from "app/modules/shared/contact-list/contact-list.component";
+import { TenantProfileComponent } from './modules/list/tenant-list/tenant-profile.component';
+
 import { ValidationService } from './services/validation.service'
 import { AuthGuard } from "app/services/auth-guard.service";
 import { EmployeeStartWithPipe, EmployeeMultipleStartWithPipe } from './modules/admin/employee/employee.pipe';
@@ -93,13 +108,8 @@ import { ContactActivitiesComponent } from './modules/admin/contact-activities/c
 import { BreadcrumbComponent } from './modules/shared/breadcrumb/breadcrumb.component';
 import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
 import { AlphabeticalSortComponent } from './modules/shared/alphabetical-sort/alphabetical-sort.component';
-import { ContactListComponent } from "app/modules/shared/contact-list/contact-list.component";
 import { InsuranceListComponent } from "app/modules/shared/insurance-list/insurance-list.component";
-import { TenantContactActivitiesComponent } from './modules/admin/tenant/tenant-contact-activities.component';
-import { TenantContactPeopleComponent } from './modules/admin/tenant/tenant-contact-people.component';
-import { TenantInsuranceComponent } from './modules/admin/tenant/tenant-insurance.component';
-import { UpdateTenantInsuranceService } from 'app/modules/admin/tenant/tenant-insurance.service';
-import { UpdatePeopleService } from "app/modules/admin/tenant/people.service";
+
 import { CalendarModule } from "app/modules/shared/calendar/calendar.component";
 import { SLAPolicyComponent } from './modules/admin/sla-policy/sla-policy.component';
 import { SLAPolicyService } from "app/modules/admin/sla-policy/sla-policy.service";
@@ -108,6 +118,7 @@ import { SLAPolicyService } from "app/modules/admin/sla-policy/sla-policy.servic
  * Import list components
  */
 import { VendorListItemComponent } from './modules/shared/list-item/vendor-list-item.component';
+import { TenantListItemComponent } from './modules/shared/list-item/tenant-list-item.component';
 
 
 export function translateStaticLoaderFactory(Backend, defaultOptions, storage, notificationService) {
@@ -140,7 +151,6 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         BuildingComponent,
         AddressComponent,
         TenantComponent,
-        TenantListComponent,
         TenantContactProfileComponent,
         TenantInsuranceComponent,
         ProblemTypeComponent,
@@ -164,6 +174,12 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
          */
         VendorListComponent,
         VendorProfileComponent,
+
+        /**
+         * Tenant dashboard list component
+         */
+        TenantListComponent,
+        TenantProfileComponent,
 
         AdminSetupComponent,
 
@@ -192,7 +208,8 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         SLAPolicyComponent,
 
         // List Item components
-        VendorListItemComponent
+        VendorListItemComponent,
+        TenantListItemComponent
     ],
     imports: [
         BrowserModule,
