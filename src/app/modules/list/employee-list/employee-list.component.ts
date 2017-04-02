@@ -17,7 +17,7 @@ export class EmployeeListComponent implements OnInit {
   currentCompanyId = 1;
 
 
-  employeeSearchControl = new FormControl('');
+  searchControl = new FormControl('');
 
   constructor(private employeeService: EmployeeService,
     private authService: AuthenticationService,
@@ -37,6 +37,12 @@ export class EmployeeListComponent implements OnInit {
         this.employees = data.results;
       }
     );
+  }
+
+  getPhotoUrl(employee) {
+    if (employee.photo != null && employee.photo.length > 0)
+      return employee.photo;
+    return 'assets/img/placeholders/avatars/avatar9.jpg';
   }
 
   onSubmit() {

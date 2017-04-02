@@ -1,11 +1,11 @@
-<a class="widget widget-cursor-default">
+<a class="widget widget-cursor-default list-block-item employee">
     <div class="widget-content text-center">
         <div class="col-sm-2 text-center" style="position: absolute; right: 0;">
-            <a *ngIf="isEditable" (click)="editEmployee(employee)" data-toggle="modal" title="" href="#modal-add-employee" class="btn btn-effect-ripple btn-xs btn-success"
+            <a *ngIf="isEditable" (click)="employeeComponent.editEmployee(employee)" data-toggle="modal" title="" href="#modal-add-employee" class="btn btn-effect-ripple btn-xs btn-success"
                style="overflow: hidden; position: relative;" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
         </div>
-        <img [src]="employee.photo" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
-        <h2 class="widget-heading h3 text-muted">{{employee.last_name}} {{employee.first_name}}</h2>
+        <img [src]="getPhotoUrl(employee)" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
+        <h2 class="widget-heading h3 text-muted">{{employee.first_name}} {{employee.last_name}}</h2>
     </div>
 
     <div class="widget-content themed-background-muted text-dark text-center">

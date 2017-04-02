@@ -59,7 +59,7 @@ export class EmployeeComponent implements OnInit {
         url: new FormControl()
     });
 
-    employeeSearchControl = new FormControl('');
+    searchControl = new FormControl('');
 
     constructor(private employeeService: EmployeeService,
         private buildingService: BuildingService,
@@ -287,6 +287,12 @@ export class EmployeeComponent implements OnInit {
             .map((item: any) => {
                 return item.id;
             }).join(',');
+    }
+
+    getPhotoUrl(employee) {
+        if (employee.photo != null && employee.photo.length > 0)
+            return employee.photo;
+        return 'assets/img/placeholders/avatars/avatar9.jpg';
     }
 
     closeModal() {

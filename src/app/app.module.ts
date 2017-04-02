@@ -119,6 +119,7 @@ import { SLAPolicyService } from "app/modules/admin/sla-policy/sla-policy.servic
  */
 import { VendorListItemComponent } from './modules/shared/list-item/vendor-list-item.component';
 import { TenantListItemComponent } from './modules/shared/list-item/tenant-list-item.component';
+import { EmployeeListItemComponent } from './modules/shared/list-item/employee-list-item.component';
 
 
 export function translateStaticLoaderFactory(Backend, defaultOptions, storage, notificationService) {
@@ -209,7 +210,8 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
 
         // List Item components
         VendorListItemComponent,
-        TenantListItemComponent
+        TenantListItemComponent,
+        EmployeeListItemComponent
     ],
     imports: [
         BrowserModule,

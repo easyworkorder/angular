@@ -51,7 +51,7 @@ export class TenantProfileComponent implements OnInit {
                 }
 
                 let tempContact = this.tenant.tenant_contacts.filter(data => {
-                    return !data.active;
+                    return data.active;
                  });
 
                 this.tenant.contacts = tempContact;

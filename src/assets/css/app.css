@@ -13,6 +13,9 @@
 .list-block-item.tenant{
     min-height: 360px;
 }
+.list-block-item.employee{
+    min-height: 340px;
+}
 
 a {
     cursor:pointer;

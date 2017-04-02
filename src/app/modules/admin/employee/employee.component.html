@@ -2,23 +2,21 @@
 <div class="content-header">
     <div class="text-center border-top push-inner-top-bottom">
         <a href="#modal-add-employee" class="btn btn-sm btn-success" data-toggle="modal"><i class="fa fa-plus"></i></a>
-        <ewo-alphabetical-sort [isWhiteBackground]="false" [searchControl]="searchControl" [isNumericSearch]="true"></ewo-alphabetical-sort>
+        <ewo-alphabetical-sort [isWhiteBackground]="false" [searchControl]="searchControl" [isNumericSearch]="false"></ewo-alphabetical-sort>
     </div>
 </div>
 <!-- END Contacts Header -->
 
 <div class="row">
     <div class="col-sm-3" *ngFor="let employee of employees | filterWithStartLetter: { first_name: searchControl.value }">
-        <a class="widget widget-cursor-default">
+        <a class="widget widget-cursor-default list-block-item employee">
             <div class="widget-content text-center">
                 <div class="col-sm-2 text-center" style="position: absolute; right: 0;">
                     <a (click)="editEmployee(employee)" data-toggle="modal" title="" href="#modal-add-employee" class="btn btn-effect-ripple btn-xs btn-success"
-                        style="overflow: hidden; position: relative;" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
-                    <!--<a data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;" data-original-title="Delete"><i class="fa fa-times"></i></a>-->
+                       style="overflow: hidden; position: relative;" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
                 </div>
-                <!--<img src="assets/img/placeholders/avatars/avatar9.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">-->
-                <img [src]="employee.photo" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
-                <h2 class="widget-heading h3 text-muted">{{employee.last_name}} {{employee.first_name}}</h2>
+                <img [src]="getPhotoUrl(employee)" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
+                <h2 class="widget-heading h3 text-muted">{{employee.first_name}} {{employee.last_name}}</h2>
             </div>
 
             <div class="widget-content themed-background-muted text-dark text-center">
