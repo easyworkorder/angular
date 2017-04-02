@@ -29,7 +29,7 @@ export class ProblemTypeComponent implements OnInit {
         url: new FormControl()
     });
 
-    problemTypeSearchControl = new FormControl('');
+    searchControl = new FormControl('');
 
     constructor(
         private problemTypeService: ProblemTypeService,
@@ -48,7 +48,7 @@ export class ProblemTypeComponent implements OnInit {
     }
 
     getAllProblemTypes(company_id): void {
-        this.problemTypeService.getAllProblemTypes(company_id).subscribe(
+        this.problemTypeService.getAllActiveProblemTypes(company_id).subscribe(
             data => {
                 // this.problemTypes = data.results;
 
@@ -68,6 +68,10 @@ export class ProblemTypeComponent implements OnInit {
 
     editProblemType(problemType) {
         this.problemTypeForm.setValue(problemType);
+    }
+
+    removeProblemType(problemType){
+
     }
 
     onSubmit() {

@@ -16,34 +16,7 @@
         </div>
     </div>-->
     <div class="text-center border-top push-inner-top-bottom">
-        <!--<a href="#modal-add-problem-type" class="btn btn-sm btn-success" data-toggle="modal"><i class="fa fa-plus"></i></a>-->
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('')">ALL</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('A')">A</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('B')">B</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('C')">C</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('D')">D</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('E')">E</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('F')">F</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('G')">G</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('H')">H</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('I')">I</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('J')">J</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('K')">K</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('L')">L</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('M')">M</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('N')">N</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('O')">O</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('P')">P</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('Q')">Q</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('R')">R</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('S')">S</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('T')">T</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('U')">U</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('V')">V</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('W')">W</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('X')">X</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('Y')">Y</a>
-        <a href="javascript:void(0)" class="btn btn-sm btn-default" (click)="problemTypeSearchControl.setValue('Z')">Z</a>
+        <ewo-alphabetical-sort [isWhiteBackground]="false" [searchControl]="searchControl" [isNumericSearch]="false"></ewo-alphabetical-sort>
     </div>
 </div>
 <!-- END Contacts Header -->
@@ -80,13 +53,13 @@
         <div class="col-sm-6">
             <table class="table table-striped table-borderless table-hover table-vcenter">
                 <tbody>
-                    <tr *ngFor="let problemType of problemTypesList1 | filterWithStartLetter: { problem_name: problemTypeSearchControl.value };" class="animation-fadeInQuickInv">
+                    <tr *ngFor="let problemType of problemTypesList1 | filterWithStartLetter: { problem_name: searchControl.value };" class="animation-fadeInQuickInv">
                         <td class="hidden-xs">{{problemType.problem_name}}</td>
                         <td class="text-center" style="width: 100px;">
                             <a href="#modal-add-problem-type" (click)="editProblemType(problemType)" data-toggle="modal" title="" class="btn btn-effect-ripple btn-xs btn-success" style="overflow: hidden; position: relative;"
                                 data-original-title="Edit"><span class="btn-ripple animate" style="height: 22px; width: 22px; top: -2.60001px; left: -10.9875px;"></span><i class="fa fa-pencil"></i></a>
-                            <!--<a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;"
-                                data-original-title="Delete"><i class="fa fa-times"></i></a>-->
+                            <a href="javascript:void(0)" (click)="removeProblemType(problemType)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;"
+                                data-original-title="Delete"><i class="fa fa-times"></i></a>
                         </td>
                     </tr>
                 </tbody>
@@ -95,13 +68,13 @@
         <div class="col-sm-6">
             <table class="table table-striped table-borderless table-hover table-vcenter">
                 <tbody>
-                     <tr *ngFor="let problemType of problemTypesList2 | filterWithStartLetter: { problem_name: problemTypeSearchControl.value };" class="animation-fadeInQuickInv">
+                     <tr *ngFor="let problemType of problemTypesList2 | filterWithStartLetter: { problem_name: searchControl.value };" class="animation-fadeInQuickInv">
                         <td class="hidden-xs">{{problemType.problem_name}}</td>
                         <td class="text-center" style="width: 100px;">
                             <a href="#modal-add-problem-type" (click)="editProblemType(problemType)" data-toggle="modal" title="" class="btn btn-effect-ripple btn-xs btn-success" style="overflow: hidden; position: relative;"
                                 data-original-title="Edit"><span class="btn-ripple animate" style="height: 22px; width: 22px; top: -2.60001px; left: -10.9875px;"></span><i class="fa fa-pencil"></i></a>
-                            <!--<a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;"
-                                data-original-title="Delete"><i class="fa fa-times"></i></a>-->
+                            <a href="javascript:void(0)" (click)="removeProblemType(problemType)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;"
+                                data-original-title="Delete"><i class="fa fa-times"></i></a>
                         </td>
                     </tr>
                 </tbody>
@@ -138,15 +111,15 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-xs-5 control-label">Check if you want to allow tennats to view thsi work type?</label>
+                        <label class="col-xs-5 control-label">Check if you want to allow tennats to view this work type?</label>
                         <label class="col-xs-7 switch switch-success"><input formControlName="tenant_view" type="checkbox" id="tenant_view" name="tenant_view" class=""> <span></span></label>
                     </div>
-                    <div *ngIf="problemTypeForm.get('id').value" class="form-group">
+                    <!--div *ngIf="problemTypeForm.get('id').value" class="form-group">
                         <label class="col-xs-5">Active</label>
                         <label class="col-xs-7 switch switch-success">
                             <input formControlName="active" type="checkbox" id="active" name="active" class=""><span></span>
                         </label>
-                    </div>
+                    </div-->
                     <div class="form-group form-actions">
                         <div class="col-xs-12 text-right">
                             <button type="submit" class="btn btn-effect-ripple btn-success" style="overflow: hidden; position: relative;">Save</button>
