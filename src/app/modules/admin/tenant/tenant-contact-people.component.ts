@@ -67,7 +67,7 @@ export class TenantContactPeopleComponent implements OnInit {
         isprimary_contact: new FormControl(false),
         tenant: new FormControl(''),
         active: new FormControl(true),
-        // photo: new FormControl(),
+        photo: new FormControl(),
         user_id: new FormControl()
     });
 
