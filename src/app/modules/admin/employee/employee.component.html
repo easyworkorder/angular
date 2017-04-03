@@ -8,7 +8,7 @@
 <!-- END Contacts Header -->
 
 <div class="row">
-    <div class="col-sm-3" *ngFor="let employee of employees | filterWithStartLetter: { last_name: searchControl.value }">
+    <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let employee of employees | filterWithStartLetter: { last_name: searchControl.value }">
         <a class="widget widget-cursor-default list-block-item employee">
             <div class="widget-content text-center">
                 <div class="col-sm-2 text-center" style="position: absolute; right: 0;">
