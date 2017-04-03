@@ -75,7 +75,10 @@ export class TenantContactPeopleComponent implements OnInit {
 
         //Update People
         if (this.tenantContactPeopleForm.value.id) {
-            this.tenantService.updateTenantContact(this.tenantContactPeopleForm.value).subscribe((people: any) => {
+            // FIXME: May need to fix this control, may be we need to do necessary adjustments
+            // for photo upload or without photo upload.
+            // do this before sending if no photo this.tenantContactPeopleForm.removeControl('photo') 
+            this.tenantService.saveTenantContact(this.tenantContactPeopleForm.value).subscribe((people: any) => {    
                 this.change.emit(true);
                 this.closeModal();
             });
@@ -87,7 +90,13 @@ export class TenantContactPeopleComponent implements OnInit {
         let val = this.tenantContactPeopleForm.value;
         console.log(this.tenantContactPeopleForm.value);
         this.tenantContactPeopleForm.removeControl('id');
-        this.tenantService.createTenantContact(this.tenantContactPeopleForm.value).subscribe((people: any) => {
+        // FIXME: Need to consider photo upload
+        let form = this.tenantContactPeopleForm;
+        if(!form.value.id && form.contains('user_id'))
+            form.removeControl('user_id');
+        if(form.contains('photo'))
+            form.removeControl('photo');
+        this.tenantService.saveTenantContact(form.value).subscribe((people: any) => {
             // console.log('Tenant created', tenant);
             // this.getAllTenantsByBuilding(this.buildingId);
             // this.isSuccess = true;
@@ -95,7 +104,7 @@ export class TenantContactPeopleComponent implements OnInit {
             this.change.emit(true);
             this.closeModal();
         });
-        this.tenantContactPeopleForm.addControl('id', new FormControl());
+        // this.tenantContactPeopleForm.addControl('id', new FormControl());
     }
 
     closeModal() {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { TenantService } from './tenant.service';
 import { BuildingService } from './../building/building.service';
 import { ValidationService } from './../../../services/validation.service';
@@ -32,6 +32,8 @@ export class TenantComponent implements OnInit {
     selectedBuilding: any;
     buildingId: any;
     searchControl: FormControl = new FormControl('');
+    photoFile: File
+    selectedPhotoFile:string = '';
 
     tabs = new TabVisibility();
 
@@ -91,7 +93,8 @@ export class TenantComponent implements OnInit {
             email: new FormControl(email, [Validators.required, ValidationService.emailValidator]),
             isprimary_contact: new FormControl(isPrimaryContact),
             tenant: new FormControl(tenantID),
-            active: new FormControl(true)
+            active: new FormControl(true),
+            user_id: new FormControl()
         });
     }
 
@@ -116,14 +119,20 @@ export class TenantComponent implements OnInit {
         );
     }
 
-    onSubmit() {
+    photoSelectionChange(event) {
+        let fileList: FileList = event.target.files;
+        if(fileList.length > 0) {
+            this.photoFile = fileList[0];
+            this.selectedPhotoFile = this.photoFile.name;
+        }
+    }
 
+    onSubmit() {
         if (!this.validateBasicInfo()) {
             this.switchTab(1);
         } else if (!this.validateContactInfo()) {
             this.switchTab(2);
         }
-
         if (!this.tenantForm.valid) { return; }
 
         /**
@@ -138,23 +147,68 @@ export class TenantComponent implements OnInit {
             else {
                 this.tenantForm.get('inscertdate').setValue(date);
             }
-
         }
-        else{
+        else {
             this.exp_date_not_valid = true;
             this.switchTab(1);
             return;
         }
-
-
         this.tenantForm.get('building').setValue(`${config.api.base}building/${this.buildingId}/`);
-        let val = this.tenantForm.value;
-        this.tenantService.create(this.tenantForm.value).subscribe((tenant: any) => {
-            console.log('Tenant created', tenant);
-            this.getAllTenantsByBuilding(this.buildingId);
-            this.isSuccess = true;
-            this.closeModal();
+        // let val = this.tenantForm.value;
+        // this.tenantService.create(this.tenantForm.value).subscribe((tenant: any) => {
+        //     console.log('Tenant created', tenant);
+        //     this.getAllTenantsByBuilding(this.buildingId);
+        //     this.isSuccess = true;
+        //     this.closeModal();
+        // });
+
+        // Save operation with/without photo begins from here
+        let contactFormArray = this.tenantForm.get('tenant_contacts') as FormArray;
+        let contactForm = contactFormArray.at(0) as FormGroup;
+
+        this.tenantForm.removeControl('tenant_contacts');
+        this.tenantService.saveTenant(this.tenantForm.value).subscribe((tenant:any) => {
+            // Tenant Saved lets go for saving contact with/without file
+            console.log('Tenant Saved');
+            let [url, id, operation] = contactForm.value.id ? [contactForm.value.url, contactForm.value.id, 'Updated'] : ['tenantcontact/', null, 'Created'];
+            if(this.photoFile) {
+                console.log('Inside Photo File Submit');
+                if(!contactForm.value.id && contactForm.contains('user_id'))
+                    contactForm.removeControl('user_id');
+
+                // let user_id = contactForm.contains('user_id') ? contactForm.get('user_id').value : null;
+                this.relateWithTenant(contactForm, tenant);
+                let formData:FormData = this.dataService.mapToFormData(contactForm, ['photo']);
+                formData.append('photo', this.photoFile, this.photoFile.name);
+                this.tenantService.saveContactWithFile(url, id, formData).subscribe((contact: any) => {
+                    this.refreshEditor('TenantContact '+ operation +' with photo', contact);
+                    // console.log(contact);
+                });
+            } else {
+                if(contactForm.contains('photo'))
+                    contactForm.removeControl('photo');
+
+                this.relateWithTenant(contactForm, tenant);
+                
+                this.tenantService.saveTenantContact(contactForm.value).subscribe((contact:any) => {
+                    this.refreshEditor('TenantContact '+ operation +' without any photo', contact);
+                    // console.log(contact);
+                });
+            }
         });
+    }
+
+    private relateWithTenant(contactForm: FormGroup, tenant:any){
+        if(! contactForm.contains('tenant'))
+            contactForm.addControl('tenant', new FormControl(tenant.url));
+        else if (! contactForm.get('tenant').value)
+            contactForm.get('tenant').setValue(tenant.url);
+    }
+    
+    private refreshEditor(logMsg:string, obj: any) {
+        console.log(logMsg, obj);
+        this.getAllTenantsByBuilding(this.buildingId);
+        this.closeModal();
     }
 
     validateBasicInfo() {
