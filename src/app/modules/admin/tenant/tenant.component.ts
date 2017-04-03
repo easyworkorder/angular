@@ -80,6 +80,8 @@ export class TenantComponent implements OnInit {
         phone: string, extension: string, mobile: string, emergencyPhone: string, fax: string,
         email: string, isPrimaryContact: boolean, tenantID: number, notes: string) {
         return new FormGroup({
+            id: new FormControl(),
+            url: new FormControl(''),
             title: new FormControl(title),
             notes: new FormControl(notes),
             viewinvoices: new FormControl(true),
@@ -94,6 +96,7 @@ export class TenantComponent implements OnInit {
             isprimary_contact: new FormControl(isPrimaryContact),
             tenant: new FormControl(tenantID),
             active: new FormControl(true),
+            photo: new FormControl(),
             user_id: new FormControl()
         });
     }
@@ -154,23 +157,20 @@ export class TenantComponent implements OnInit {
             return;
         }
         this.tenantForm.get('building').setValue(`${config.api.base}building/${this.buildingId}/`);
-        // let val = this.tenantForm.value;
-        // this.tenantService.create(this.tenantForm.value).subscribe((tenant: any) => {
-        //     console.log('Tenant created', tenant);
-        //     this.getAllTenantsByBuilding(this.buildingId);
-        //     this.isSuccess = true;
-        //     this.closeModal();
-        // });
-
         // Save operation with/without photo begins from here
         let contactFormArray = this.tenantForm.get('tenant_contacts') as FormArray;
         let contactForm = contactFormArray.at(0) as FormGroup;
 
-        this.tenantForm.removeControl('tenant_contacts');
-        this.tenantService.saveTenant(this.tenantForm.value).subscribe((tenant:any) => {
+        // this.tenantForm.removeControl('tenant_contacts');
+        let tenantData = this.tenantForm.value;
+        if(tenantData.tenant_contacts) { delete tenantData.tenant_contacts; }
+        this.tenantService.saveTenant(tenantData).subscribe((tenant:any) => {
             // Tenant Saved lets go for saving contact with/without file
             console.log('Tenant Saved');
-            this.tenantService.saveContact(this.photoFile, contactForm, tenant, this.refreshEditor);
+            // this.tenantService.saveContact(this.photoFile, contactForm, tenant, this.refreshEditor);
+            this.tenantService.saveContact(this.photoFile, contactForm, tenant, this.refreshEditor).subscribe( (contact: any) => {
+                this.refreshEditor('Tenant & Tenant Contact Saved successfully.', contact);
+            });
         });
     }
     

@@ -82,43 +82,11 @@ export class TenantContactPeopleComponent implements OnInit {
     onSubmit() {
 
         if (!this.tenantContactPeopleForm.valid) { return; }
-
-        //Update People
-        // if (this.tenantContactPeopleForm.value.id) {
-        //     // FIXME: May need to fix this control, may be we need to do necessary adjustments
-        //     // for photo upload or without photo upload.
-        //     // do this before sending if no photo this.tenantContactPeopleForm.removeControl('photo') 
-        //     this.tenantService.saveTenantContact(this.tenantContactPeopleForm.value).subscribe((people: any) => {    
-        //         this.change.emit(true);
-        //         this.closeModal();
-        //     });
-        //     return;
-        // }
-
-
-
-        //Add people
-        // this.tenantContactPeopleForm.get('tenant').setValue(`${config.api.base}tenant/${this.tenant.id}/`);
-        // let val = this.tenantContactPeopleForm.value;
-        // console.log(this.tenantContactPeopleForm.value);
-        // this.tenantContactPeopleForm.removeControl('id');
-        // // FIXME: Need to consider photo upload
-        // let form = this.tenantContactPeopleForm;
-        // if(!form.value.id && form.contains('user_id'))
-        //     form.removeControl('user_id');
-        // if(form.contains('photo'))
-        //     form.removeControl('photo');
-        // this.tenantService.saveTenantContact(form.value).subscribe((people: any) => {
-        //     // console.log('Tenant created', tenant);
-        //     // this.getAllTenantsByBuilding(this.buildingId);
-        //     // this.isSuccess = true;
-
-        //     this.change.emit(true);
-        //     this.closeModal();
-        // });
-        // this.tenantContactPeopleForm.addControl('id', new FormControl());
         
-        this.tenantService.saveContact(this.photoFile, this.tenantContactPeopleForm, this.tenant, this.contactSaveCallback);
+        // this.tenantService.saveContact(this.photoFile, this.tenantContactPeopleForm, this.tenant, this.contactSaveCallback);
+        this.tenantService.saveContact(this.photoFile, this.tenantContactPeopleForm, this.tenant, this.contactSaveCallback).subscribe( (contact: any) => {
+            this.contactSaveCallback('Tenant Contact Saved successfully.', contact);
+        });
     }
 
     public contactSaveCallback(logMsg:string, obj:any) {
@@ -134,6 +102,7 @@ export class TenantContactPeopleComponent implements OnInit {
 
     resetForm() {
         this.tenantContactPeopleForm.reset({
+            title:'',
             isprimary_contact: false,
             active: true,
             viewinvoices: true

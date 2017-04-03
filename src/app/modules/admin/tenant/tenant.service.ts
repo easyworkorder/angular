@@ -70,42 +70,6 @@ export class TenantService extends DataService {
         return observable;
     }
 
-    // createTenantContact(data?: any): Observable<any> {
-    //     data = Object.assign({}, data);
-
-    //     // POST '/tenant'
-    //     const observable = this.http.post('tenantcontact/', data);
-
-    //     observable.subscribe(data => {
-    //         // console.log(data);
-    //         this.toasterService.pop('success', 'ADD', 'Contact has been saved successfully');
-    //     },
-    //         error => {
-    //             this.toasterService.pop('error', 'ADD', 'Contact not Saved due to API error!!!');
-    //         });
-
-    //     return observable;
-    // }
-
-    // updateTenantContact(data?: any): Observable<any> {
-    //     data = Object.assign({}, data);
-
-    //     // PUT '/employee'
-    //     // const observable = this.http.put(data.url, data);
-    //     const observable = this.http.patch(data.url, data);
-
-    //     observable.subscribe(data => {
-    //         this.toasterService.pop('success', 'UPDATE', 'Contact has been updated successfully');
-    //         console.log(data);
-    //     },
-    //         error => {
-    //             this.toasterService.pop('error', 'UPDATE', 'Contact not updated due to API error!!!');
-    //             console.log(error);
-    //         });
-
-    //     return observable;
-    // }
-
     getTenant(url) {
         const observable = this.http.getByFullUrl(url);
         observable.subscribe(data => {
@@ -201,24 +165,12 @@ export class TenantService extends DataService {
 
         return observable;
     }
-
-    // updateTenant(data?: any): Observable<any> {
-    //     data = Object.assign({}, data);
-
-    //     const observable = this.http.patch(data.url, data);
-
-    //     observable.subscribe(data => {
-    //         // this.toasterService.pop('success', 'UPDATE', 'Tenant insurance has been updated successfully');
-    //         console.log('Updated Tenant');
-    //     },
-    //     error => {
-    //         // this.toasterService.pop('error', 'UPDATE', 'Tenant insurance not updated due to API error!!!');
-    //         console.log(error);
-    //     });
-
-    //     return observable;
-    // }
-
+    /**
+     * Creates/Updates a tenant contact with a file in the request
+     * @param url To update the entity
+     * @param id Id of the contact object
+     * @param formData flat object of FormData which will be embeded in header as multipart/form
+     */
     saveContactWithFile(url, id, formData: FormData): Observable<any> {
         let observable:any;
         if(id)
@@ -232,41 +184,38 @@ export class TenantService extends DataService {
         return observable;
     }
 
-    
-    public saveContact(photoFile: File, contactForm: FormGroup, tenant:any, refreshCallback:(logMsg:string, obj:any) => any) {
+    /**
+     * Processes a contact form to save with/without file.
+     * Removes unnecessary attributes which API backend does not like
+     * @param photoFile Object of the user selected photo file
+     * @param contactForm 
+     * @param tenant Tenant object to be related with
+     * @param refreshCallback This callback is depricated for the time being
+     */
+    public saveContact(photoFile: File, contactForm: FormGroup, tenant:any, refreshCallback:(logMsg:string, obj:any) => any):Observable<any> {
         let [url, id, operation] = contactForm.value.id ? [contactForm.value.url, contactForm.value.id, 'Updated'] : ['tenantcontact/', null, 'Created'];
-        if(! contactForm.value.id) { 
-            if(contactForm.contains('user_id'))
-                contactForm.removeControl('user_id');
-            if(contactForm.contains('id'))
-                contactForm.removeControl('id');
-        }
+        let observable:Observable<any>;
         if(photoFile) {
             console.log('Inside Photo File Submit');
-
-            // let user_id = contactForm.contains('user_id') ? contactForm.get('user_id').value : null;
             this.relateWithTenant(contactForm, tenant);
-            let formData:FormData = this.dataService.mapToFormData(contactForm, ['photo']);
+            let excludeKeys = contactForm.value.id ?  ['photo'] : ['photo', 'id', 'user_id'];
+            let formData:FormData = this.dataService.mapToFormData(contactForm, excludeKeys);
             formData.append('photo', photoFile, photoFile.name);
-            // this.tenantService.saveContactWithFile(url, id, formData).subscribe((contact: any) => {
-            this.saveContactWithFile(url, id, formData).subscribe((contact: any) => {
-                // this.refreshEditor('TenantContact '+ operation +' with photo', contact);
-                // console.log(contact);
-                refreshCallback('TenantContact '+ operation +' with photo', contact);
-            });
+            observable = this.saveContactWithFile(url, id, formData);
         } else {
-            if(contactForm.contains('photo'))
-                contactForm.removeControl('photo');
-
             this.relateWithTenant(contactForm, tenant);
-            
-            // this.tenantService.saveTenantContact(contactForm.value).subscribe((contact:any) => {
-            this.saveTenantContact(contactForm.value).subscribe((contact:any) => {
-                // this.refreshEditor('TenantContact '+ operation +' without any photo', contact);
-                // console.log(contact);
-                refreshCallback('TenantContact '+ operation +' without any photo', contact);
-            });
+            let contactData = contactForm.value;
+            if(! contactData.id) { 
+                if(contactForm.contains('user_id'))
+                    delete contactData.user_id;
+                delete contactData.id;
+            }
+            if(contactForm.contains('photo'))
+                delete contactData.photo;
+
+            observable = this.saveTenantContact(contactData);
         }
+        return observable;
     }
 
     private relateWithTenant(contactForm: FormGroup, tenant:any){
