@@ -1,3 +1,5 @@
+
+import { FormGroup, FormControl } from '@angular/forms';
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 // import { NotificationService } from '../../services/notification.service';
@@ -20,7 +22,8 @@ export class TenantService extends DataService {
         protected http: AppHttp,
         protected events: EventService,
         private notifications: NotificationService,
-        private toasterService: ToasterService
+        private toasterService: ToasterService,
+        private dataService: DataService
     ) {
         super(events);
     }
@@ -228,11 +231,48 @@ export class TenantService extends DataService {
         });
         return observable;
     }
-    // updateContactWithFile(url, formData: FormData): Observable<any> {
-    //     const observable = this.http.putWithFile(url, formData);
-    //     observable.subscribe(data => {
-    //         console.log('Updated Employee Info: ' + data);
-    //     });
-    //     return observable;
-    // }
+
+    
+    public saveContact(photoFile: File, contactForm: FormGroup, tenant:any, refreshCallback:(logMsg:string, obj:any) => any) {
+        let [url, id, operation] = contactForm.value.id ? [contactForm.value.url, contactForm.value.id, 'Updated'] : ['tenantcontact/', null, 'Created'];
+        if(! contactForm.value.id) { 
+            if(contactForm.contains('user_id'))
+                contactForm.removeControl('user_id');
+            if(contactForm.contains('id'))
+                contactForm.removeControl('id');
+        }
+        if(photoFile) {
+            console.log('Inside Photo File Submit');
+
+            // let user_id = contactForm.contains('user_id') ? contactForm.get('user_id').value : null;
+            this.relateWithTenant(contactForm, tenant);
+            let formData:FormData = this.dataService.mapToFormData(contactForm, ['photo']);
+            formData.append('photo', photoFile, photoFile.name);
+            // this.tenantService.saveContactWithFile(url, id, formData).subscribe((contact: any) => {
+            this.saveContactWithFile(url, id, formData).subscribe((contact: any) => {
+                // this.refreshEditor('TenantContact '+ operation +' with photo', contact);
+                // console.log(contact);
+                refreshCallback('TenantContact '+ operation +' with photo', contact);
+            });
+        } else {
+            if(contactForm.contains('photo'))
+                contactForm.removeControl('photo');
+
+            this.relateWithTenant(contactForm, tenant);
+            
+            // this.tenantService.saveTenantContact(contactForm.value).subscribe((contact:any) => {
+            this.saveTenantContact(contactForm.value).subscribe((contact:any) => {
+                // this.refreshEditor('TenantContact '+ operation +' without any photo', contact);
+                // console.log(contact);
+                refreshCallback('TenantContact '+ operation +' without any photo', contact);
+            });
+        }
+    }
+
+    private relateWithTenant(contactForm: FormGroup, tenant:any){
+        if(! contactForm.contains('tenant'))
+            contactForm.addControl('tenant', new FormControl(tenant.url));
+        else if (! contactForm.get('tenant').value)
+            contactForm.get('tenant').setValue(tenant.url);
+    }
 }

@@ -170,39 +170,8 @@ export class TenantComponent implements OnInit {
         this.tenantService.saveTenant(this.tenantForm.value).subscribe((tenant:any) => {
             // Tenant Saved lets go for saving contact with/without file
             console.log('Tenant Saved');
-            let [url, id, operation] = contactForm.value.id ? [contactForm.value.url, contactForm.value.id, 'Updated'] : ['tenantcontact/', null, 'Created'];
-            if(this.photoFile) {
-                console.log('Inside Photo File Submit');
-                if(!contactForm.value.id && contactForm.contains('user_id'))
-                    contactForm.removeControl('user_id');
-
-                // let user_id = contactForm.contains('user_id') ? contactForm.get('user_id').value : null;
-                this.relateWithTenant(contactForm, tenant);
-                let formData:FormData = this.dataService.mapToFormData(contactForm, ['photo']);
-                formData.append('photo', this.photoFile, this.photoFile.name);
-                this.tenantService.saveContactWithFile(url, id, formData).subscribe((contact: any) => {
-                    this.refreshEditor('TenantContact '+ operation +' with photo', contact);
-                    // console.log(contact);
-                });
-            } else {
-                if(contactForm.contains('photo'))
-                    contactForm.removeControl('photo');
-
-                this.relateWithTenant(contactForm, tenant);
-                
-                this.tenantService.saveTenantContact(contactForm.value).subscribe((contact:any) => {
-                    this.refreshEditor('TenantContact '+ operation +' without any photo', contact);
-                    // console.log(contact);
-                });
-            }
+            this.tenantService.saveContact(this.photoFile, contactForm, tenant, this.refreshEditor);
         });
-    }
-
-    private relateWithTenant(contactForm: FormGroup, tenant:any){
-        if(! contactForm.contains('tenant'))
-            contactForm.addControl('tenant', new FormControl(tenant.url));
-        else if (! contactForm.get('tenant').value)
-            contactForm.get('tenant').setValue(tenant.url);
     }
     
     private refreshEditor(logMsg:string, obj: any) {
