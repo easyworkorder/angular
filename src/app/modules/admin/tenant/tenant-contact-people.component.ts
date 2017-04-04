@@ -101,6 +101,8 @@ export class TenantContactPeopleComponent implements OnInit {
     }
 
     resetForm() {
+        this.photoFile = null;
+        this.selectedPhotoFile = '';
         this.tenantContactPeopleForm.reset({
             title:'',
             isprimary_contact: false,

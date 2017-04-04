@@ -19,6 +19,9 @@ export class VendorContactPeopleComponent implements OnInit {
     @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
     // @Output('updatePeople') changePeople: EventEmitter<any> = new EventEmitter<any>();
 
+    photoFile: File
+    selectedPhotoFile:string = '';
+
     constructor(
         private vendorService: VendorService,
         private formBuilder: FormBuilder,
@@ -60,33 +63,50 @@ export class VendorContactPeopleComponent implements OnInit {
         user_id: new FormControl()
     });
 
+    photoSelectionChange(event) {
+        let fileList: FileList = event.target.files;
+        if(fileList.length > 0) {
+            this.photoFile = fileList[0];
+            this.selectedPhotoFile = this.photoFile.name;
+        }
+    }
 
     onSubmit() {
 
         if (!this.vendorContactPeopleForm.valid) { return; }
 
-        //Update People
-        if (this.vendorContactPeopleForm.value.id) {
-            this.vendorService.updateVendorContact(this.vendorContactPeopleForm.value).subscribe((people: any) => {
-                this.change.emit(true);
-                this.closeModal();
-            });
-            return;
-        }
+        // //Update People
+        // if (this.vendorContactPeopleForm.value.id) {
+        //     this.vendorService.updateVendorContact(this.vendorContactPeopleForm.value).subscribe((people: any) => {
+        //         this.change.emit(true);
+        //         this.closeModal();
+        //     });
+        //     return;
+        // }
 
-        //Add people
-        this.vendorContactPeopleForm.get('vendor').setValue(`${config.api.base}vendor/${this.vendor.id}/`);
-        let val = this.vendorContactPeopleForm.value;
-        this.vendorContactPeopleForm.removeControl('id');
-        this.vendorService.createVendorContact(this.vendorContactPeopleForm.value).subscribe((people: any) => {
-            // console.log('Tenant created', tenant);
-            // this.getAllTenantsByBuilding(this.buildingId);
-            // this.isSuccess = true;
+        // //Add people
+        // this.vendorContactPeopleForm.get('vendor').setValue(`${config.api.base}vendor/${this.vendor.id}/`);
+        // let val = this.vendorContactPeopleForm.value;
+        // this.vendorContactPeopleForm.removeControl('id');
+        // this.vendorService.createVendorContact(this.vendorContactPeopleForm.value).subscribe((people: any) => {
+        //     // console.log('Tenant created', tenant);
+        //     // this.getAllTenantsByBuilding(this.buildingId);
+        //     // this.isSuccess = true;
 
-            this.change.emit(true);
-            this.closeModal();
+        //     this.change.emit(true);
+        //     this.closeModal();
+        // });
+        // this.vendorContactPeopleForm.addControl('id', new FormControl());
+
+        this.vendorService.saveContact(this.photoFile, this.vendorContactPeopleForm, this.vendor, this.contactSaveCallback).subscribe( (contact: any) => {
+            this.contactSaveCallback('Vendor Contact Saved successfully.', contact);
         });
-        this.vendorContactPeopleForm.addControl('id', new FormControl());
+    }
+
+    public contactSaveCallback(logMsg:string, obj:any) {
+        console.log(logMsg, obj);
+        this.change.emit(true);
+        this.closeModal();
     }
 
     closeModal() {
@@ -95,6 +115,8 @@ export class VendorContactPeopleComponent implements OnInit {
     }
 
     resetForm() {
+        this.photoFile = null;
+        this.selectedPhotoFile = '';
         this.vendorContactPeopleForm.reset({
             isprimary_contact: false,
             active: true

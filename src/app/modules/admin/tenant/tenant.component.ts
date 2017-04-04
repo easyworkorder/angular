@@ -232,6 +232,8 @@ export class TenantComponent implements OnInit {
     }
 
     resetForm() {
+        this.photoFile = null;
+        this.selectedPhotoFile = '';
         this.tenantForm.reset({
             building: new FormControl(config.api.base + 'building/' + this.buildingId + '/'),
             gl_notify: true,

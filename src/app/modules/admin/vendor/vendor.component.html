@@ -129,10 +129,11 @@
                         <div class="form-group">
                             <label class="col-xs-3 control-label text-muted">NO AVATAR</label>
                             <div class="col-xs-9">
-                                <i class="fa fa-fw fa-upload"></i> <a href="javascript:void(0)">Upload New
-                                Avatar</a><br>
-                                <i class="fa fa-fw fa-picture-o"></i> <a href="javascript:void(0)">Choose from
-                                Library</a>
+                                <input type="file" id="contact_photo" name="contact_photo" (change)="photoSelectionChange($event)" class="hidden"  />
+                                <i class="fa fa-fw fa-upload"></i> <a href="javascript:void(0)" onclick="$('#contact_photo').click();">Upload New Avatar</a>
+                                <span>{{ selectedPhotoFile }}</span>
+                                <br/>
+                                <i class="fa fa-fw fa-picture-o"></i> <a href="javascript:void(0)">Choose from Library</a>
                             </div>
                         </div>
                         <div *ngFor="let contact of vendorForm.get('vendor_contacts').controls; let i=index"
