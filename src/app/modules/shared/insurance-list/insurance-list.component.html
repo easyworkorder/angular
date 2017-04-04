@@ -9,7 +9,7 @@
     </thead>
     <tbody>
         <tr *ngFor="let insurance of insuranceList">
-            <td><strong>{{insurance.type}}</strong></td>
+            <td><strong>{{insurance.type.type}}</strong></td>
             <td class="hidden-xs"><span *ngIf="insurance.exp_date">{{insurance.exp_date}}</span></td>
             <td class="hidden-sm hidden-xs"><span *ngIf="insurance.per_occur">{{insurance.per_occur | currency:'USD':true}}</span></td>
             <td><span *ngIf="insurance.aggregate">{{insurance.aggregate | currency:'USD':true}}</span></td>

@@ -306,6 +306,8 @@ export class EmployeeComponent implements OnInit {
     }
 
     resetForm() {
+        this.photoFile = null;
+        this.selectedPhoto = '';
         this.employeeForm.reset({
             company: config.api.base + 'company/' + this.currentCompanyId + '/',
             receive_email: true,
