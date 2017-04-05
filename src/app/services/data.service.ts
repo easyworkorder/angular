@@ -201,14 +201,23 @@ export class DataService {
     }
 
     buildAddressHtml(tenantContact: any, companyName: string) {
-        var html = '<strong>' + this.buildName(tenantContact.first_name, tenantContact.last_name) + '</strong><br />';
-        if (tenantContact.unitNo != null && tenantContact.unitNo.length > 0)
+        let html = '<strong>' + this.buildName(tenantContact.first_name, tenantContact.last_name) + '</strong><br />';
+        if (tenantContact.unitNo != null && tenantContact.unitNo.length > 0) {
             html += tenantContact.unitNo + '<br />';
-        if (tenantContact.title != null && tenantContact.title.length > 0)
+        }
+        if (tenantContact.title != null && tenantContact.title.length > 0) {
             html += tenantContact.title + '<br />';
-        var extension = (tenantContact.extension != null && tenantContact.extension.length > 0) ? (' ext. ' + tenantContact.phone_extension) : '';
-        if (tenantContact.phone != null && tenantContact.phone.length > 0)
+        }
+        let extension = (tenantContact.extension != null && tenantContact.extension.length > 0) ? (' ext. ' + tenantContact.phone_extension) : '';
+        if (tenantContact.phone != null && tenantContact.phone.length > 0) {
             html += 'P: ' + tenantContact.phone + extension;
+        }
+        if (tenantContact.mobile != null && tenantContact.mobile) {
+            html += '<br/>M: ' + tenantContact.mobile;
+        }
+        if (tenantContact.fax != null && tenantContact.fax) {
+            html += '<br/>F: ' + tenantContact.fax;
+        }
 
         return html;
     }
