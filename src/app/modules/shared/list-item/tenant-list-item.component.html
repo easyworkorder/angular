@@ -3,7 +3,7 @@
 <a (click)="tenantDetailsLink(tenant)" class="widget list-block-item tenant">
     <div class="widget-content text-center">
         <img [src]="getPhotoUrl(tenant)" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
-        <h2 class="widget-heading h3 text-muted">{{ buildName(tenant.first_name, tenant.last_name)}}</h2>
+        <h2 class="widget-heading h3 text-muted">11 {{ tenant.tenant_company_name }}</h2>
     </div>
     <div class="widget-content themed-background-muted text-dark text-center">
         <address class="m-t-md" [innerHTML]="buildAddressHtml(tenant)"></address>

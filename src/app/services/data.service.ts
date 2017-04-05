@@ -201,7 +201,7 @@ export class DataService {
     }
 
     buildAddressHtml(tenantContact: any, companyName: string) {
-        var html = '<strong>' + companyName + '</strong><br />';
+        var html = '<strong>' + this.buildName(tenantContact.first_name, tenantContact.last_name) + '</strong><br />';
         if (tenantContact.unitNo != null && tenantContact.unitNo.length > 0)
             html += tenantContact.unitNo + '<br />';
         if (tenantContact.title != null && tenantContact.title.length > 0)
@@ -214,12 +214,19 @@ export class DataService {
     }
 
     buildVendorAddressHtml(contact: any, companyName: string) {
-        var html = '<strong>' + this.buildName(contact.first_name, contact.last_name) + '</strong><br />';
+        let html = '<strong>' + this.buildName(contact.first_name, contact.last_name) + '</strong><br />';
             html += contact.address + '<br />';
-            html += contact.city + ', '+ contact.state + ' '+ contact.postal_code+'<br />';
-        var extension = (contact.phone_extension != null && contact.phone_extension.length > 0) ? (' ext. ' + contact.phone_extension) : '';
-        if (contact.phone != null && contact.phone.length > 0)
+            html += contact.city + ', '+ contact.state + ' ' + contact.postal_code + '<br/>';
+        let extension = (contact.phone_extension != null && contact.phone_extension.length > 0) ? (' ext. ' + contact.phone_extension) : '';
+        if (contact.phone != null && contact.phone.length > 0) {
             html += 'P: ' + contact.phone + extension;
+        }
+        if (contact.mobile != null && contact.mobile) {
+            html += '<br/>M: ' + contact.mobile;
+        }
+        if (contact.fax != null && contact.fax) {
+            html += '<br/>F: ' + contact.fax;
+        }
 
         return html;
     }
