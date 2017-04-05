@@ -289,6 +289,10 @@ export class EmployeeComponent implements OnInit {
             }).join(',');
     }
 
+    buildAddressHtml(employee: any) {
+        return this.dataService.buildEmployeedAddressHtml(employee);
+    }
+
     getPhotoUrl(employee) {
         if (employee.photo != null && employee.photo.length > 0)
             return employee.photo;

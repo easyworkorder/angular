@@ -4,6 +4,7 @@ import { FormControl} from '@angular/forms';
 import { EmployeeService } from './../../admin/employee/employee.service';
 import { AuthenticationService } from "app/modules/authentication";
 import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
+import { DataService } from "app/services";
 declare var $: any;
 
 @Component({
@@ -21,7 +22,8 @@ export class EmployeeListComponent implements OnInit {
 
   constructor(private employeeService: EmployeeService,
     private authService: AuthenticationService,
-    private breadcrumbHeaderService: BreadcrumbHeaderService) {
+    private breadcrumbHeaderService: BreadcrumbHeaderService,
+    private dataService: DataService) {
     this.authService.verifyToken().take(1).subscribe(data => {
       this.getAllActiveEmployees();
     });
@@ -37,6 +39,10 @@ export class EmployeeListComponent implements OnInit {
         this.employees = data.results;
       }
     );
+  }
+
+  buildAddressHtml(employee: any) {
+    return this.dataService.buildEmployeedAddressHtml(employee);
   }
 
   getPhotoUrl(employee) {

@@ -30,10 +30,7 @@
             </div>
 
             <div class="widget-content themed-background-muted text-dark text-center">
-                <address class="m-t-md">
-                    <strong>{{employee.title}}</strong><br/>
-                    <abbr title="Phone">P:</abbr> {{employee.work_phone}}
-                </address>
+                <address class="m-t-md" [innerHTML]="buildAddressHtml(employee)"></address>
             </div>
             <div class="widget-content">
                 <div class="row text-center">

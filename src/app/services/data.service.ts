@@ -240,6 +240,28 @@ export class DataService {
         return html;
     }
 
+    buildEmployeedAddressHtml(contact: any) {
+        let html = '<strong>' + contact.title + '</strong><br />';
+        let extension = (contact.work_phone_ext != null && contact.work_phone_ext.length > 0) ? (' ext. ' + contact.work_phone_ext) : '';
+        if (contact.work_phone != null && contact.work_phone.length > 0) {
+            html += 'P: ' + contact.work_phone + extension;
+        }
+        if (contact.mobile_phone != null && contact.mobile_phone) {
+            html += '<br/>M: ' + contact.mobile_phone;
+        }
+        if (contact.emergency_phone != null && contact.emergency_phone) {
+            html += '<br/>F: ' + contact.emergency_phone;
+        }
+        if (contact.fax != null && contact.fax) {
+            html += '<br/>F: ' + contact.fax;
+        }
+        if (contact.wireless_email != null && contact.wireless_email) {
+            html += '<br/> Wireless: ' + contact.wireless_email;
+        }
+
+        return html;
+    }
+
     getPhotoUrl(photo: string) {
         if (photo != null && photo.length > 0)
             return photo;
