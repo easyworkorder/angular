@@ -23,7 +23,7 @@
 <div class="row">
     <div class="col-sm-12 col-md-12 col-lg-12">
         <!-- LEFT TABS WITH BUILDINGS -->
-        <div *ngFor="let vendor of vendors  | filterWithStartLetter: { last_name: searchControl.value }" class="col-sm-6 col-md-4 col-lg-3 list-block-item">
+        <div *ngFor="let vendor of vendors  | filterWithStartLetter: { company_name: searchControl.value }" class="col-sm-6 col-md-4 col-lg-3 list-block-item">
             <ewo-vendor-list-item [vendor]="vendor" [isAdmin]="false"></ewo-vendor-list-item>
         </div>
     </div>
