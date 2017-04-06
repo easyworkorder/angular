@@ -98,7 +98,12 @@ export class VendorInsuranceComponent implements OnInit {
     }
 
     resetForm() {
-        this.vendorInsuranceForm.reset();
+        this.vendorInsuranceForm.reset({
+            type:{ type: ''},
+            exp_date:'',
+            per_occur:'',
+            aggregate:''
+        });
         this.exp_date_not_valid = false;
     }
 }

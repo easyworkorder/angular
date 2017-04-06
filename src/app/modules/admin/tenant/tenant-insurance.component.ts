@@ -98,6 +98,11 @@ export class TenantInsuranceComponent implements OnInit {
     }
 
     resetForm() {
-        this.tenantInsuranceForm.reset();
+        this.tenantInsuranceForm.reset({
+            type:{ type: ''},
+            exp_date:'',
+            per_occur:'',
+            aggregate:''
+        });
     }
 }
