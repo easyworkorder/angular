@@ -112,6 +112,7 @@
     <!-- People -->
     <div class="tab-pane" id="profile-people">
       <div class="block-content-full">
+        <loading-spinner-wave *ngIf="!vendor"></loading-spinner-wave>
         <ewo-contact-list [contactList]="vendor" [isEditable]="isAdmin" (update)="updateContactInfo($event)"></ewo-contact-list>
       </div>
     </div>

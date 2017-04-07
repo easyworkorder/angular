@@ -8,6 +8,7 @@
 <!-- END Contacts Header -->
 
 <div class="row">
+    <loading-spinner-wave *ngIf="isShowingLoadingSpinner"></loading-spinner-wave>
     <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let employee of employees | filterWithStartLetter: { last_name: searchControl.value }">
         <a class="widget widget-cursor-default list-block-item employee">
             <div class="widget-content text-center">
@@ -116,13 +117,13 @@
                         <div class="form-group">
                             <label class="col-xs-3 control-label" for="fax">Fax</label>
                             <div class="col-xs-9">
-                                <input onlyNumber formControlName="fax" type="text" id="fax" name="fax" class="form-control" placeholder="Fax">
+                                <input phoneNumber formControlName="fax" type="text" id="fax" name="fax" class="form-control" placeholder="Fax">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-xs-3 control-label" for="mobile_phone">Mobile Phone</label>
                             <div class="col-xs-9">
-                                <input onlyNumber formControlName="mobile_phone" type="text" id="mobile_phone" name="mobile_phone" class="form-control" placeholder="Mobile Phone" maxlength="10">
+                                <input phoneNumber formControlName="mobile_phone" type="text" id="mobile_phone" name="mobile_phone" class="form-control" placeholder="Mobile Phone" maxlength="10">
                             </div>
                         </div>
                         <div class="form-group">

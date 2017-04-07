@@ -19,6 +19,7 @@ export class TabVisibility {
     templateUrl: './vendor.component.html',
 })
 export class VendorComponent implements OnInit {
+    isShowingLoadingSpinner: boolean = true;
     config = config;
     currentCompanyId = 1;
     isSuccess: boolean = false;
@@ -29,7 +30,7 @@ export class VendorComponent implements OnInit {
     _submitted: boolean = false;
     exp_date_not_valid: boolean = false;
     photoFile: File
-    selectedPhotoFile:string = '';
+    selectedPhotoFile: string = '';
 
     tabs = new TabVisibility();
 
@@ -98,9 +99,11 @@ export class VendorComponent implements OnInit {
     }
 
     getAllVendors(): void {
+        this.isShowingLoadingSpinner = true;
         this.vendorService.getAllVendors(this.currentCompanyId).subscribe(
             data => {
                 this.vendors = data;
+                this.isShowingLoadingSpinner = false;
             }
         );
     }
@@ -166,7 +169,7 @@ export class VendorComponent implements OnInit {
 
     photoSelectionChange(event) {
         let fileList: FileList = event.target.files;
-        if(fileList.length > 0) {
+        if (fileList.length > 0) {
             this.photoFile = fileList[0];
             this.selectedPhotoFile = this.photoFile.name;
         }
@@ -190,7 +193,7 @@ export class VendorComponent implements OnInit {
         /**
          * Problem type validation
          */
-        if(this.selectedProblemTypes.length == 0){
+        if (this.selectedProblemTypes.length == 0) {
             this.switchTab(1);
             return;
         }
@@ -199,7 +202,7 @@ export class VendorComponent implements OnInit {
          */
         if (this.vendorForm.get('gl_expire_date').value) {
             let date: Date = this.vendorForm.get('gl_expire_date').value;
-            if(date.toString().indexOf('T') > -1) {
+            if (date.toString().indexOf('T') > -1) {
                 let dateAndTime = date.toISOString().split('T');
                 this.vendorForm.get('gl_expire_date').setValue(dateAndTime[0]);
             }
@@ -208,7 +211,7 @@ export class VendorComponent implements OnInit {
             }
 
         }
-        else{
+        else {
             this.exp_date_not_valid = true;
             this.switchTab(1);
             return;
@@ -227,17 +230,17 @@ export class VendorComponent implements OnInit {
 
         // this.vendorForm.removeControl('vendor_contacts');
         let vendorData = this.vendorForm.value;
-        if(vendorData.vendor_contacts) { delete vendorData.vendor_contacts; }
-        this.vendorService.saveVendor(vendorData).subscribe((vendor:any) => {
+        if (vendorData.vendor_contacts) { delete vendorData.vendor_contacts; }
+        this.vendorService.saveVendor(vendorData).subscribe((vendor: any) => {
             // Vendor Saved lets go for saving contact with/without file
             console.log('Vendor Saved');
-            this.vendorService.saveContact(this.photoFile, contactForm, vendor, this.refreshEditor).subscribe( (contact: any) => {
+            this.vendorService.saveContact(this.photoFile, contactForm, vendor, this.refreshEditor).subscribe((contact: any) => {
                 this.refreshEditor('Vendor & Vendor Contact Saved successfully.', contact);
             });
         });
     }
 
-    private refreshEditor(logMsg:string, obj: any) {
+    private refreshEditor(logMsg: string, obj: any) {
         console.log(logMsg, obj);
         this.isSuccess = true;
         this.closeModal();
@@ -246,7 +249,7 @@ export class VendorComponent implements OnInit {
 
     validateBasicInfo() {
         return this.vendorForm.get('company_name').valid;
-            //&& this.vendorForm.get('mgtfeepercent').valid;
+        //&& this.vendorForm.get('mgtfeepercent').valid;
     }
 
     validateContactInfo() {
@@ -273,10 +276,10 @@ export class VendorComponent implements OnInit {
         this.photoFile = null;
         this.selectedPhotoFile = '';
         this.vendorForm.reset({
-            company: new FormControl(config.api.base + 'company/' + this.currentCompanyId+ '/'),
+            company: new FormControl(config.api.base + 'company/' + this.currentCompanyId + '/'),
             company_name: '',
             vendor_contacts: [{
-                title:'',
+                title: '',
                 isprimary_contact: true,
                 active: true
             }]

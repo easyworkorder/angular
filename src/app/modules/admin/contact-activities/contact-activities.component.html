@@ -211,6 +211,7 @@
             </tr>
           </tbody>
         </table>-->
+        <loading-spinner-wave *ngIf="!tenant"></loading-spinner-wave>
         <ewo-contact-list [contactList]="tenant" [isEditable]="isEditable"></ewo-contact-list>
       </div>
     </div>

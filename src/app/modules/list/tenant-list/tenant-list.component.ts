@@ -10,7 +10,7 @@ import { DataService } from "app/services";
   templateUrl: './tenant-list.component.html',
 })
 export class TenantListComponent implements OnInit {
-
+  isShowingLoadingSpinner: boolean = true;
   currentBuildingId = 0;
   currentCompanyId = 1;
   buildings: any[] = [];
@@ -31,9 +31,12 @@ export class TenantListComponent implements OnInit {
   }
 
   getAllActiveBuildings(): void {
+    this.isShowingLoadingSpinner = true;
     this.buildingService.getAllActiveBuildings(this.currentCompanyId).subscribe(
       data => {
         this.buildings = data.results;
+        this.isShowingLoadingSpinner = false;
+
         if (this.buildings.length > 0) {
           this.getAllTenantsByBuilding(this.buildings[0].id);
         }
@@ -42,11 +45,13 @@ export class TenantListComponent implements OnInit {
   }
 
   getAllTenantsByBuilding(building_id): void {
+    this.isShowingLoadingSpinner = true;
     this.currentBuildingId = building_id;
     // this.selectedBuilding =
     this.tenantService.getAllTenantsByBuilding(building_id).subscribe(
       data => {
-        this.tenants = data.length > 0 && data.filter(d => d.contact_id !== null)  || [];
+        this.tenants = data.length > 0 && data.filter(d => d.contact_id !== null) || [];
+        this.isShowingLoadingSpinner = false;
       }
     );
   }
@@ -60,7 +65,7 @@ export class TenantListComponent implements OnInit {
   }
 
   buildAddressHtml(tenant: any) {
-   return this.dataService.buildAddressHtml(tenant, tenant.tenant_company_name);
+    return this.dataService.buildAddressHtml(tenant, tenant.tenant_company_name);
   }
 
   getPhotoUrl(tenant) {

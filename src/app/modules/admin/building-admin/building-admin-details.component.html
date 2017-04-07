@@ -12,7 +12,7 @@
                 <li><a href="#bldg1-loaddocks" data-toggle="tab">Loading Docks</a></li>
             </ul>
         </div>
-
+        <loading-spinner-wave *ngIf="!editedBuilding"></loading-spinner-wave>
         <div *ngIf="editedBuilding" class="tab-content">
             <div class="tab-pane active" id="bldg1-overview">
                 <!-- Tickets Content -->
@@ -122,10 +122,9 @@
                                     <address class="m-t-md">
                                         <strong>{{editedBuilding.primaryCompany}}</strong><br> {{editedBuilding.primaryCompanyAddress}}
                                         <span *ngIf="editedBuilding.primaryCompanyUnitNo">, </span>{{editedBuilding.primaryCompanyUnitNo}}
-                                        <br
-                                            *ngIf="editedBuilding.primaryCompanyAddress"> <span *ngIf="editedBuilding.primaryCompanyCity">{{editedBuilding.primaryCompanyCity}},</span>                                            {{editedBuilding.primaryCompanyState}} {{editedBuilding.primaryCompanyPostalCode}}
-                                            <br *ngIf="(editedBuilding.primaryCompanyState || editedBuilding.primaryCompanyPostalCode)">
-                                            <abbr title="Phone">P:</abbr> {{editedBuilding.ContactPersonWorkPhone}}
+                                        <br *ngIf="editedBuilding.primaryCompanyAddress"> <span *ngIf="editedBuilding.primaryCompanyCity">{{editedBuilding.primaryCompanyCity}},</span>                                        {{editedBuilding.primaryCompanyState}} {{editedBuilding.primaryCompanyPostalCode}}
+                                        <br *ngIf="(editedBuilding.primaryCompanyState || editedBuilding.primaryCompanyPostalCode)">
+                                        <abbr title="Phone">P:</abbr> {{editedBuilding.ContactPersonWorkPhone}}
                                     </address>
                                 </div>
                                 <div class="widget-content">

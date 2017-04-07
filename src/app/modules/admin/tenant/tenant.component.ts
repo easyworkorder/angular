@@ -20,6 +20,7 @@ export class TabVisibility {
     templateUrl: './tenant.component.html',
 })
 export class TenantComponent implements OnInit {
+    isShowingLoadingSpinner:boolean = true;
     currentCompanyId = 1;
     isSuccess: boolean = false;
     exp_date_not_valid: boolean = false;
@@ -115,9 +116,11 @@ export class TenantComponent implements OnInit {
     }
 
     getAllTenantsByBuilding(building_id): void {
+        this.isShowingLoadingSpinner = true;
         this.tenantService.getAllTenantsByBuilding(building_id).subscribe(
             data => {
                 this.tenants = data.length > 0 && data.filter(d => d.contact_id !== null) || [];
+                this.isShowingLoadingSpinner = false;
             }
         );
     }
@@ -173,7 +176,7 @@ export class TenantComponent implements OnInit {
             });
         });
     }
-    
+
     private refreshEditor(logMsg:string, obj: any) {
         console.log(logMsg, obj);
         this.getAllTenantsByBuilding(this.buildingId);

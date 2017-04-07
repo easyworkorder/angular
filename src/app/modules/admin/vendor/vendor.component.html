@@ -5,6 +5,7 @@
 </div>
 <!-- END CONTACTS ALPHABET FILTER -->
 <div class="row">
+    <loading-spinner-wave *ngIf="isShowingLoadingSpinner"></loading-spinner-wave>
     <div *ngFor="let vendor of vendors  | filterWithStartLetter: { company_name: searchControl.value }" class="col-sm-6 col-md-4 col-lg-3">
         <ewo-vendor-list-item [vendor]="vendor" [isAdmin]="true"></ewo-vendor-list-item>
     </div>

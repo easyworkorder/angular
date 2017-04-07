@@ -21,6 +21,7 @@
 </div>
 <!-- END Contacts Header -->
 <div class="row">
+    <loading-spinner-wave *ngIf="isShowingLoadingSpinner"></loading-spinner-wave>
     <div class="col-sm-12 col-md-12 col-lg-12">
         <!-- LEFT TABS WITH BUILDINGS -->
         <div *ngFor="let vendor of vendors  | filterWithStartLetter: { company_name: searchControl.value }" class="col-sm-6 col-md-4 col-lg-3 list-block-item">
@@ -28,4 +29,3 @@
         </div>
     </div>
 </div>
-

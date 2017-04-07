@@ -22,6 +22,7 @@ export class TabVisibility {
   styleUrls: ['./building.component.css']
 })
 export class BuildingComponent implements OnInit {
+  isShowingLoadingSpinner:boolean = true;
   buildings: any[] = [];
   employees: any[] = [];
   primarycontact_id: any = [];
@@ -71,9 +72,11 @@ export class BuildingComponent implements OnInit {
   }
 
   getAllBuildings(): void {
+    this.isShowingLoadingSpinner = true;
     this.buildingService.getAllBuildings(this.currentCompanyId).subscribe(
       data => {
         this.buildings = data;
+        this.isShowingLoadingSpinner = false;
       }
     );
   }

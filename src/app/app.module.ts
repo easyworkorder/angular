@@ -45,7 +45,8 @@ import {
     PluralizePipe,
     TruncatePipe,
     SafePipe,
-    FilterWithStartLetterPipe
+    FilterWithStartLetterPipe,
+    PhonePipe,
 } from './pipes';
 import { BuildingComponent } from './modules/admin/building/building.component';
 import { AddressComponent } from './modules/address/address.component';
@@ -124,6 +125,7 @@ import { EmployeeListItemComponent } from './modules/shared/list-item/employee-l
 import { BuildingSlaTargetComponent } from './modules/admin/sla-policy/building-sla-target.component';
 
 import { InputValueRestrictionModule } from "app/directives/input-value-restriction.directive";
+import { LoadingSpinnerModule } from "app/modules/shared/loading-spinner/loading-spinner.module";
 
 export function translateStaticLoaderFactory(Backend, defaultOptions, storage, notificationService) {
     return new AppHttp(Backend, defaultOptions, storage, notificationService);
@@ -149,6 +151,7 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         PluralizePipe,
         TruncatePipe,
         FilterWithStartLetterPipe,
+        PhonePipe,
         // Directives
         FormControlValidator,
         ActiveDirective,
@@ -216,7 +219,8 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         TenantListItemComponent,
         EmployeeListItemComponent,
         BuildingSlaTargetComponent,
-        ModalDialogDirective
+        ModalDialogDirective,
+
     ],
     imports: [
         BrowserModule,
@@ -228,7 +232,8 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         SelectModule,
         CalendarModule,
         // TextMaskModule,
-        InputValueRestrictionModule
+        InputValueRestrictionModule,
+        LoadingSpinnerModule
     ],
     providers: [
         AuthGuard,

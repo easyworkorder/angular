@@ -9,6 +9,7 @@ import config from '../../../config';
     templateUrl: './sla-policy.component.html'
 })
 export class SLAPolicyComponent implements OnInit {
+    isShowingLoadingSpinner: boolean = true;
     currentCompanyId = 1;
     slaPolicyForm: FormGroup;
     slaPolicy: any;
@@ -42,6 +43,7 @@ export class SLAPolicyComponent implements OnInit {
     }
 
     getSLAPolicy() {
+        this.isShowingLoadingSpinner = true;
         const company = this.currentCompanyId;
         this.slaPolicyService.getCompanySLAPolicy(company).map(data => data.results).subscribe(data => {
             this.slaPolicy = data[0];
@@ -76,6 +78,7 @@ export class SLAPolicyComponent implements OnInit {
                     }
                 });
             });
+            this.isShowingLoadingSpinner = false;
         });
     }
 
@@ -91,7 +94,7 @@ export class SLAPolicyComponent implements OnInit {
             priority: priority,
             respond_within: [priorespond_withinrity, [Validators.required]],
             respond_within_unit: respond_within_unit,
-            resolve_within: resolve_within,
+            resolve_within: [resolve_within, Validators.required],
             resolve_within_unit: resolve_within_unit,
             operational_hours: operational_hours,
             escalation_email: escalation_email
@@ -99,7 +102,7 @@ export class SLAPolicyComponent implements OnInit {
     }
     onSubmit() {
         console.log('Valid?', this.slaPolicyForm.get('company_sla_policy_targets').valid);
-        if(!this.slaPolicyForm.valid) return;
+        if (!this.slaPolicyForm.valid) return;
 
         // this.slaPolicyForm.get('company_sla_policy_targets').valid
 

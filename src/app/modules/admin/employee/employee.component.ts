@@ -35,6 +35,7 @@ export class EmployeeComponent implements OnInit {
     selectedProblemTypes: any[] = [{ id: -1, text: 'All' }];
     photoFile: File;
     selectedPhoto: string = '';
+    isShowingLoadingSpinner:boolean = true;
 
     employeeForm = new FormGroup({
         id: new FormControl(),
@@ -74,7 +75,6 @@ export class EmployeeComponent implements OnInit {
             this.getAllBuildings(this.currentCompanyId);
             this.getAllProblemTypes(this.currentCompanyId);
         });
-        this.mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
     }
 
     ngOnInit() {
@@ -100,9 +100,11 @@ export class EmployeeComponent implements OnInit {
     }
 
     getAllEmployees(company_id): void {
+        this.isShowingLoadingSpinner = true;
         this.employeeService.getAllEmployees(company_id).subscribe(
             data => {
                 this.employees = data.results;
+                this.isShowingLoadingSpinner = false;
             }
         );
     }

@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
-@Pipe({name: 'truncate'})
+@Pipe({ name: 'truncate' })
 export class TruncatePipe implements PipeTransform {
 
   /**
@@ -23,7 +23,7 @@ export class TruncatePipe implements PipeTransform {
   }
 }
 
-@Pipe({name: 'pluralize'})
+@Pipe({ name: 'pluralize' })
 export class PluralizePipe implements PipeTransform {
   /**
    *
@@ -47,11 +47,11 @@ export class PluralizePipe implements PipeTransform {
     }
 
     // TODO: is it normal that we use plural for 0 count?
-    return value == 1 ? <string>label : ( plural ? plural : <string>label + 's');
+    return value == 1 ? <string>label : (plural ? plural : <string>label + 's');
   }
 }
 
-@Pipe({name: 'safe'})
+@Pipe({ name: 'safe' })
 export class SafePipe implements PipeTransform {
   constructor(private sanitizer: DomSanitizer) {
     this.sanitizer = sanitizer;
@@ -75,6 +75,39 @@ export class FilterWithStartLetterPipe implements PipeTransform {
           (memo && new RegExp('^' + filter[keyName], 'i').test(item[keyName])) || filter[keyName] === "", true));
     } else {
       return items;
+    }
+  }
+}
+
+@Pipe({
+  name: 'phone'
+})
+export class PhonePipe implements PipeTransform {
+  transform(val) {
+    let viewVal = val.trim().replace(/^\+/, '');
+    viewVal = viewVal.replace(/[^0-9]/g, '').slice(0, 10);
+    let area, number;
+
+    switch (viewVal.length) {
+      case 1:
+      case 2:
+      case 3:
+        area = viewVal;
+        break;
+      default:
+        area = viewVal.slice(0, 3);
+        number = viewVal.slice(3);
+    }
+
+    if (number) {
+      if (number.length > 3) {
+        number = number.slice(0, 3) + '-' + number.slice(3, 7);
+      } else {
+        number = number;
+      }
+      return ('(' + area + ') ' + number).trim().slice(0, 13);
+    } else {
+      return '(' + area + ')';
     }
   }
 }

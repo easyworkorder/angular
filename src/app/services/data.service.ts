@@ -210,13 +210,13 @@ export class DataService {
         }
         let extension = (tenantContact.extension != null && tenantContact.extension.length > 0) ? (' ext. ' + tenantContact.phone_extension) : '';
         if (tenantContact.phone != null && tenantContact.phone.length > 0) {
-            html += 'P: ' + tenantContact.phone + extension;
+            html += 'P: ' + this.phoneNumberFormat(tenantContact.phone) + extension;
         }
         if (tenantContact.mobile != null && tenantContact.mobile) {
-            html += '<br/>M: ' + tenantContact.mobile;
+            html += '<br/>M: ' + this.phoneNumberFormat(tenantContact.mobile);
         }
         if (tenantContact.fax != null && tenantContact.fax) {
-            html += '<br/>F: ' + tenantContact.fax;
+            html += '<br/>F: ' + this.phoneNumberFormat(tenantContact.fax);
         }
 
         return html;
@@ -228,13 +228,13 @@ export class DataService {
         html += contact.city + ', ' + contact.state + ' ' + contact.postal_code + '<br/>';
         let extension = (contact.phone_extension != null && contact.phone_extension.length > 0) ? (' ext. ' + contact.phone_extension) : '';
         if (contact.phone != null && contact.phone.length > 0) {
-            html += 'P: ' + contact.phone + extension;
+            html += 'P: ' + this.phoneNumberFormat(contact.phone) + extension;
         }
         if (contact.mobile != null && contact.mobile) {
-            html += '<br/>M: ' + contact.mobile;
+            html += '<br/>M: ' + this.phoneNumberFormat(contact.mobile);
         }
         if (contact.fax != null && contact.fax) {
-            html += '<br/>F: ' + contact.fax;
+            html += '<br/>F: ' + this.phoneNumberFormat(contact.fax);
         }
 
         return html;
@@ -244,16 +244,16 @@ export class DataService {
         let html = '<strong>' + contact.title + '</strong><br />';
         let extension = (contact.work_phone_ext != null && contact.work_phone_ext.length > 0) ? (' ext. ' + contact.work_phone_ext) : '';
         if (contact.work_phone != null && contact.work_phone.length > 0) {
-            html += 'P: ' + contact.work_phone + extension;
+            html += 'P: ' + this.phoneNumberFormat(contact.work_phone) + extension;
         }
         if (contact.mobile_phone != null && contact.mobile_phone) {
-            html += '<br/>M: ' + contact.mobile_phone;
+            html += '<br/>M: ' + this.phoneNumberFormat(contact.mobile_phone);
         }
         if (contact.emergency_phone != null && contact.emergency_phone) {
-            html += '<br/>F: ' + contact.emergency_phone;
+            html += '<br/>EMR. P: ' + this.phoneNumberFormat(contact.emergency_phone);
         }
         if (contact.fax != null && contact.fax) {
-            html += '<br/>F: ' + contact.fax;
+            html += '<br/>F: ' + this.phoneNumberFormat(contact.fax);
         }
         if (contact.wireless_email != null && contact.wireless_email) {
             html += '<br/> Wireless: ' + contact.wireless_email;
@@ -269,7 +269,7 @@ export class DataService {
     }
 
     stopPropagation(event) {
-        event.stopPropagation()
+        event.stopPropagation();
     }
 
     mapToFormData(form: FormGroup, fileFieldKeys: string[]): FormData {
@@ -286,5 +286,33 @@ export class DataService {
     convertMaskToNormalText(val) {
         const inputVal: string = val.toString();
         return inputVal.replace(/[\(\||,-\s\)]/g, '');
+    }
+
+    phoneNumberFormat(val) {
+        let viewVal = val.trim().replace(/^\+/, '');
+        viewVal = viewVal.replace(/[^0-9]/g, '').slice(0, 10);
+        let area, number;
+
+        switch (viewVal.length) {
+            case 1:
+            case 2:
+            case 3:
+                area = viewVal;
+                break;
+            default:
+                area = viewVal.slice(0, 3);
+                number = viewVal.slice(3);
+        }
+
+        if (number) {
+            if (number.length > 3) {
+                number = number.slice(0, 3) + '-' + number.slice(3, 7);
+            } else {
+                number = number;
+            }
+            return ('(' + area + ') ' + number).trim().slice(0, 13);
+        } else {
+            return '(' + area + ')';
+        }
     }
 }

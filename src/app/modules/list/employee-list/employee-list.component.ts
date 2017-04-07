@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl} from '@angular/forms';
+import { FormControl } from '@angular/forms';
 
 import { EmployeeService } from './../../admin/employee/employee.service';
 import { AuthenticationService } from "app/modules/authentication";
@@ -13,7 +13,7 @@ declare var $: any;
 })
 
 export class EmployeeListComponent implements OnInit {
-
+  isShowingLoadingSpinner: boolean = true;
   employees: any[] = [];
   currentCompanyId = 1;
 
@@ -34,9 +34,11 @@ export class EmployeeListComponent implements OnInit {
   }
 
   getAllActiveEmployees(): void {
+    this.isShowingLoadingSpinner = true;
     this.employeeService.getAllActiveEmployees(this.currentCompanyId).subscribe(
       data => {
         this.employees = data.results;
+        this.isShowingLoadingSpinner = false;
       }
     );
   }

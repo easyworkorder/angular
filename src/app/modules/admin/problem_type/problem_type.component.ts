@@ -14,7 +14,7 @@ declare var $: any;
 })
 
 export class ProblemTypeComponent implements OnInit {
-
+    isShowingLoadingSpinner: boolean = true;
     // problemTypes: any[] = [];
     problemTypesList1: any[] = [];
     problemTypesList2: any[] = [];
@@ -49,6 +49,7 @@ export class ProblemTypeComponent implements OnInit {
     }
 
     getAllProblemTypes(company_id): void {
+        this.isShowingLoadingSpinner = true;
         this.problemTypeService.getAllActiveProblemTypes(company_id).subscribe(
             data => {
                 // this.problemTypes = data.results;
@@ -63,6 +64,8 @@ export class ProblemTypeComponent implements OnInit {
                 var half_length = Math.ceil(temp.length / 2);
                 this.problemTypesList1 = temp.slice(0, half_length);
                 this.problemTypesList2 = temp.slice(half_length);
+
+                this.isShowingLoadingSpinner = false;
             }
         );
     }
@@ -71,7 +74,7 @@ export class ProblemTypeComponent implements OnInit {
         this.problemTypeForm.setValue(problemType);
     }
 
-    removeProblemType(problemType){
+    removeProblemType(problemType) {
         problemType.active = false;
         this.problemTypeForm.setValue(problemType);
         this.isDeleted = true;

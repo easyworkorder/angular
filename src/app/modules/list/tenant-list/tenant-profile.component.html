@@ -1,10 +1,11 @@
 <!-- Contact Profile Row -->
 <div class="row">
     <div class="col-md-5 col-lg-4">
-       <ewo-contact-profile-card [contactInfo]="contactInfo"></ewo-contact-profile-card>
+        <ewo-contact-profile-card [contactInfo]="contactInfo"></ewo-contact-profile-card>
     </div>
     <div class="col-md-7 col-lg-8">
-      <ewo-tenant-contact-activities *ngIf="tenant" [tenant]="tenant" [insurances]="insurances" [isAdmin]="false" (update)="updateInActivity($event)"></ewo-tenant-contact-activities>
+        <loading-spinner-wave *ngIf="!tenant"></loading-spinner-wave>
+        <ewo-tenant-contact-activities *ngIf="tenant" [tenant]="tenant" [insurances]="insurances" [isAdmin]="false" (update)="updateInActivity($event)"></ewo-tenant-contact-activities>
     </div>
 </div>
 <!-- END Contact Profile Row -->

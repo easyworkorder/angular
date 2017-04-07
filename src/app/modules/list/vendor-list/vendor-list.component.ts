@@ -9,7 +9,7 @@ import { DataService } from "app/services";
   templateUrl: './vendor-list.component.html',
 })
 export class VendorListComponent implements OnInit {
-
+  isShowingLoadingSpinner: boolean = true
   currentCompanyId = 1;
   vendors: any[] = [];
 
@@ -26,10 +26,11 @@ export class VendorListComponent implements OnInit {
   }
 
   getAllActiveVendors(): void {
-    // this.selectedBuilding =
+    this.isShowingLoadingSpinner = true;
     this.vendorService.getAllActiveVendors(this.currentCompanyId).subscribe(
       data => {
-        this.vendors = data.length > 0 && data.filter(d => d.contact_id !== null)  || [];
+        this.vendors = data.length > 0 && data.filter(d => d.contact_id !== null) || [];
+        this.isShowingLoadingSpinner = false;
       }
     );
   }
@@ -43,11 +44,11 @@ export class VendorListComponent implements OnInit {
   }
 
   buildName(firstName: string, lastName: string) {
-        return this.dataService.buildName(firstName, lastName);
+    return this.dataService.buildName(firstName, lastName);
   }
 
   buildAddressHtml(vendor: any) {
-   return this.dataService.buildVendorAddressHtml(vendor, vendor.company_name);
+    return this.dataService.buildVendorAddressHtml(vendor, vendor.company_name);
   }
 
   getPhotoUrl(tenant) {

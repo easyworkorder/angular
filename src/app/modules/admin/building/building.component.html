@@ -36,6 +36,7 @@
 
     <!-- Problem Types -->
     <div class="row">
+        <loading-spinner-wave *ngIf="isShowingLoadingSpinner"></loading-spinner-wave>
         <!-- BEGIN LIST OF CONFERENCE ROOMS -->
         <div class="col-sm-6 col-md-4 col-lg-4" *ngFor="let building of buildings">
             <div class="widget list-block-item building">
@@ -64,8 +65,8 @@
                                 <td>Building Contact</td>
                                 <td class="text-left"><span class="text-muted">
                                                             {{building.last_name}} {{building.first_name}}<br>
-                                                           <span *ngIf="building.work_phone">{{building.work_phone}}, Direct<br></span>
-                                    <span *ngIf="building.mobile_phone">{{building.mobile_phone}}, Mobile<br></span>
+                                                           <span *ngIf="building.work_phone">{{building.work_phone | phone}}, Direct<br></span>
+                                    <span *ngIf="building.mobile_phone">{{building.mobile_phone | phone}}, Mobile<br></span>
                                     <a href="mailto:{{building.email}}">{{building.email}}</a>
                                     </span>
                                 </td>
@@ -88,8 +89,8 @@
             </div>
         </div>
 
-        <!-- END LIST OF CONFERENCE ROOMS --
-        <div class="text-center">
+        <!-- END LIST OF CONFERENCE ROOMS -->
+        <!--<div class="text-center">
             <ul class="pagination">
                 <li class="disabled"><a href="javascript:void(0)">Prev</a></li>
                 <li class="active"><a href="javascript:void(0)">1</a></li>
@@ -97,7 +98,7 @@
                 <li><a href="javascript:void(0)">3</a></li>
                 <li><a href="javascript:void(0)">Next</a></li>
             </ul>
-        </div>
+        </div>-->
         <!-- END Problem Types -->
     </div>
     <!-- END Get Started Block -->
