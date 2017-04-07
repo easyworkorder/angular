@@ -12,12 +12,12 @@
 
                 <div class="form-group">
                     <label class="col-xs-3 control-label">Type</label>
-                    <label class="col-xs-9" style="padding-top: 7px">{{tenantInsuranceForm.get('type').value.type}}</label>
+                    <label class="col-xs-9" style="padding-top: 7px">{{tenantInsuranceForm.get('type').value?.type}}</label>
                 </div>
                 <div class="form-group">
                     <label class="col-xs-3 control-label">Expire Date <span class="required">*</span></label>
                     <div class="col-xs-9">
-                        <ewo-calendar formControlName="exp_date"  dateFormat="yy-mm-dd" [icon]="fa-calendar" [showIcon]="true" inputStyleClass="form-control"></ewo-calendar>
+                        <ewo-calendar [readonlyInput]="true" [showOnFocus]="false" formControlName="exp_date"  [icon]="fa-calendar" [showIcon]="true" inputStyleClass="form-control"></ewo-calendar>
                         <span *ngIf="exp_date_not_valid" class="validation-error">This field is required.</span>
                     </div>
                 </div>

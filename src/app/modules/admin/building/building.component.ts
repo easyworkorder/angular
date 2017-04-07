@@ -114,10 +114,10 @@ export class BuildingComponent implements OnInit {
     this._submitted = true;
     this.validationCheck();
     if (!this.buildingForm.valid) return;
-    if(this.primarycontact_id.length) {
+    if (this.primarycontact_id.length) {
       this.buildingForm.get('primarycontact_id').setValue(this.primarycontact_id[0].id);
     }
-    else{
+    else {
       return;
     }
 
@@ -152,6 +152,7 @@ export class BuildingComponent implements OnInit {
 
   resetForm() {
     this._submitted = false;
+
     this.buildingForm.reset({
       company: config.api.base + 'company/' + this.currentCompanyId + '/',
       billing_module: 'true',
@@ -161,7 +162,7 @@ export class BuildingComponent implements OnInit {
   }
 
   validationCheck() {
-    if (!this.buildingInfoValidationCheck()) {
+     if (!this.buildingInfoValidationCheck()) {
       this.switchTab(1);
     } else if (!this.remitInfoValidationCheck()) {
       this.switchTab(2);

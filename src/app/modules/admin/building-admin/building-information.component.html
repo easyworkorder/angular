@@ -20,7 +20,7 @@
           <label class="col-md-4 control-label" for="sqfootage">Square Feet <span class="required">*</span></label>
           <div class="col-md-6">
             <div class="input-group">
-              <input [formControlValidator]="buildingForm.controls.sqfootage" formControlName="sqfootage" type="text" id="sqfootage" name="sqfootage"
+              <input decimalNumber [formControlValidator]="buildingForm.controls.sqfootage" formControlName="sqfootage" type="text" id="sqfootage" name="sqfootage"
                 class="form-control" placeholder="Square Feet">
               <div class="input-group-addon help-text help-text--custom-size">(Do not enter commas)</div>
             </div>
@@ -54,7 +54,7 @@
         <div class="form-group">
           <label class="col-md-4 control-label" for="postal_code">Postal Code <span class="required">*</span></label>
           <div class="col-md-6">
-            <input [formControlValidator]="buildingForm.controls.postal_code" formControlName="postal_code" type="text" id="postal_code"
+            <input postalCode [formControlValidator]="buildingForm.controls.postal_code" formControlName="postal_code" type="text" id="postal_code"
               name="postal_code" class="form-control" placeholder="Postal Code">
             <span class="validation-error">{{buildingForm.controls.postal_code.error}}</span>
           </div>
@@ -63,7 +63,7 @@
           <label class="col-md-4 control-label" for="mgt_fee_percent">Management Fee <span class="required">*</span></label>
           <div class="col-md-6">
             <div class="input-group">
-              <input [formControlValidator]="buildingForm.controls.mgt_fee_percent" formControlName="mgt_fee_percent" type="text" id="mgt_fee_percent"
+              <input percentage [formControlValidator]="buildingForm.controls.mgt_fee_percent" formControlName="mgt_fee_percent" type="text" id="mgt_fee_percent"
                 name="mgt_fee_percent" class="form-control input-sm" placeholder="Management Fee">
               <div class="input-group-addon help-text help-text--custom-size">% (Do not enter a decimal point)</div>
             </div>

@@ -19,6 +19,7 @@ export class TabVisibility {
     templateUrl: './vendor.component.html',
 })
 export class VendorComponent implements OnInit {
+    config = config;
     currentCompanyId = 1;
     isSuccess: boolean = false;
     problemTypes: any[] = [];
@@ -180,6 +181,11 @@ export class VendorComponent implements OnInit {
         }
 
         if (!this.vendorForm.valid) { return; }
+
+        // let phone = this.vendorForm.get('phone').value;
+        // let emergency_phone = this.vendorForm.get('emergency_phone').value;
+        // this.vendorForm.get('phone').setValue(phone.toNormalText());
+        // this.vendorForm.get('emergency_phone').setValue(emergency_phone.toNormalText());
 
         /**
          * Problem type validation

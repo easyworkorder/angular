@@ -43,7 +43,7 @@
         <div class="form-group">
           <label class="col-md-4 control-label" for="remit_postal_code">Zip/Postal Code <span class="required">*</span></label>
           <div class="col-md-6">
-            <input [formControlValidator]="buildingForm.controls.remit_postal_code" formControlName="remit_postal_code" type="text" id="remit_postal_code"
+            <input postalCode [formControlValidator]="buildingForm.controls.remit_postal_code" formControlName="remit_postal_code" type="text" id="remit_postal_code"
               name="remit_postal_code" class="form-control" placeholder="Postal Code">
             <span class="validation-error">{{buildingForm.controls.remit_postal_code.error}}</span>
           </div>

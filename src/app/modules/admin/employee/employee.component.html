@@ -1,8 +1,8 @@
 <!-- Contacts Header -->
 <div class="content-header">
     <div class="text-center border-top push-inner-top-bottom">
-        <a href="#modal-add-employee" class="btn btn-sm btn-success" data-toggle="modal"><i class="fa fa-plus"></i></a>
-        <ewo-alphabetical-sort [isWhiteBackground]="false" [searchControl]="searchControl" [isNumericSearch]="false"></ewo-alphabetical-sort>
+        <a modal-dialog-open="modal-add-employee" class="btn btn-sm btn-success" data-toggle="modal"><i class="fa fa-plus"></i></a>
+        <ewo-alphabetical-sort [isWhiteBackground]="true" [searchControl]="searchControl" [isNumericSearch]="false"></ewo-alphabetical-sort>
     </div>
 </div>
 <!-- END Contacts Header -->
@@ -12,7 +12,7 @@
         <a class="widget widget-cursor-default list-block-item employee">
             <div class="widget-content text-center">
                 <div class="col-sm-2 text-center" style="position: absolute; right: 0;">
-                    <a (click)="editEmployee(employee)" data-toggle="modal" title="" href="#modal-add-employee" class="btn btn-effect-ripple btn-xs btn-success"
+                    <a modal-dialog-open="modal-add-employee" (click)="editEmployee(employee)" data-toggle="modal" title="" class="btn btn-effect-ripple btn-xs btn-success"
                        style="overflow: hidden; position: relative;" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
                 </div>
                 <img [src]="getPhotoUrl(employee)" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
@@ -101,38 +101,41 @@
                         <div class="form-group">
                             <label class="col-xs-3 control-label" for="work_phone">Work Phone <span class="required">*</span></label>
                             <div class="col-xs-5">
-                                <input [formControlValidator]="employeeForm.controls.work_phone" formControlName="work_phone" type="text" id="work_phone"
-                                    name="work_phone" class="form-control" placeholder="Work Phone">
+                                <!--<input onlyNumber  [textMask]="{mask: mask}" [formControlValidator]="employeeForm.controls.work_phone" formControlName="work_phone" type="text" id="work_phone"
+                                    name="work_phone" class="form-control" placeholder="(000) 000-0000" >-->
+                                <input phoneNumber [formControlValidator]="employeeForm.controls.work_phone" formControlName="work_phone" type="text" id="work_phone"
+                                    name="work_phone" class="form-control" placeholder="Work Phone" >
                                 <span class="validation-error">{{employeeForm.controls.work_phone.error}}</span>
                             </div>
 
                             <label class="col-xs-2 control-label" for="work_phone_ext">Extention</label>
                             <div class="col-xs-2">
-                                <input formControlName="work_phone_ext" type="text" id="work_phone_ext" name="work_phone_ext" class="form-control">
+                                <input onlyNumber formControlName="work_phone_ext" type="text" id="work_phone_ext" name="work_phone_ext" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-xs-3 control-label" for="fax">Fax</label>
                             <div class="col-xs-9">
-                                <input formControlName="fax" type="text" id="fax" name="fax" class="form-control" placeholder="Fax">
+                                <input onlyNumber formControlName="fax" type="text" id="fax" name="fax" class="form-control" placeholder="Fax">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-xs-3 control-label" for="mobile_phone">Mobile Phone</label>
                             <div class="col-xs-9">
-                                <input formControlName="mobile_phone" type="text" id="mobile_phone" name="mobile_phone" class="form-control" placeholder="Mobile Phone">
+                                <input onlyNumber formControlName="mobile_phone" type="text" id="mobile_phone" name="mobile_phone" class="form-control" placeholder="Mobile Phone" maxlength="10">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-xs-3 control-label" for="pager">Pager</label>
                             <div class="col-xs-9">
-                                <input formControlName="pager" type="text" id="pager" name="pager" class="form-control" placeholder="Pager">
+                                <input onlyNumber formControlName="pager" type="text" id="pager" name="pager" class="form-control" placeholder="Pager">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-xs-3 control-label" for="emergency_phone">Emergency Phone</label>
                             <div class="col-xs-9">
-                                <input formControlName="emergency_phone" type="text" id="emergency_phone" name="emergency_phone" class="form-control" placeholder="Emergency Phone">
+                                <!--<input onlyNumber  [textMask]="{mask: mask}" formControlName="emergency_phone" type="text" id="emergency_phone" name="emergency_phone" class="form-control" placeholder="(000) 000-0000">-->
+                                <input phoneNumber formControlName="emergency_phone" type="text" id="emergency_phone" name="emergency_phone" class="form-control" placeholder="Emergency Phone">
                             </div>
                         </div>
                         <div class="form-group">

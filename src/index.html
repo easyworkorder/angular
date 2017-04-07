@@ -70,6 +70,20 @@
             <!-- END Preloader -->
         </app-root>
     </div>
+    <!--IE Polyfill -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Object.assign,Element.prototype.closest,URL,Intl.~locale.en"></script>
+
+    <!-- IE Specifice polyfills -->
+    <script>
+        (function () {
+
+            if (typeof NodeList.prototype.forEach === 'function') {
+                return false;
+            }
+
+            NodeList.prototype.forEach = Array.prototype.forEach;
+        })();
+    </script>
 </body>
 
 </html>

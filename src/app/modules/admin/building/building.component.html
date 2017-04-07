@@ -23,7 +23,10 @@
     <!-- Get Started Title -->
     <div class="block-title">
         <div class="block-options pull-right">
-            <a href="#modal-add-building" class="btn btn-effect-ripple btn-success" data-toggle="modal" title="" style="overflow: hidden; position: relative;"
+            <!--<a href="#modal-add-building" class="btn btn-effect-ripple btn-success" data-toggle="modal" title="" style="overflow: hidden; position: relative;"
+                data-original-title="Add Building"><i
+                class="fa fa-plus"></i></a>-->
+            <a modal-dialog-open class="btn btn-effect-ripple btn-success" data-toggle="modal" title="" style="overflow: hidden; position: relative;"
                 data-original-title="Add Building"><i
                 class="fa fa-plus"></i></a>
         </div>
@@ -38,14 +41,15 @@
             <div class="widget list-block-item building">
                 <div class="widget-content widget-content-mini themed-background-default">
                     <div class="block-options pull-right">
-                        <a (click)="editBuilding(building)" class="btn btn-effect-ripple btn-xs btn-success" data-toggle="tooltip"
-                            title="Edit Building" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                        <a (click)="editBuilding(building)" class="btn btn-effect-ripple btn-xs btn-success" data-toggle="tooltip" title="Edit Building"
+                            data-original-title="Edit"><i class="fa fa-pencil"></i></a>
                     </div>
 
                     <div class="widget-content themed-background-default clearfix">
                         <h2 class="widget-heading text-light"><strong>{{building.name}}</strong></h2>
                         <address class="widget-heading text-light">
-                            {{building.address}}<br/> <span *ngIf="building.city">{{building.city}},</span> {{building.state}} {{building.postal_code}}
+                            {{building.address}}<br/> <span *ngIf="building.city">{{building.city}},</span> {{building.state}}
+                            {{building.postal_code}}
                         </address>
                     </div>
                 </div>
@@ -61,9 +65,10 @@
                                 <td class="text-left"><span class="text-muted">
                                                             {{building.last_name}} {{building.first_name}}<br>
                                                            <span *ngIf="building.work_phone">{{building.work_phone}}, Direct<br></span>
-                                                            <span *ngIf="building.mobile_phone">{{building.mobile_phone}}, Mobile<br></span>
-                                                            <a href="mailto:{{building.email}}">{{building.email}}</a>
-                                                        </span></td>
+                                    <span *ngIf="building.mobile_phone">{{building.mobile_phone}}, Mobile<br></span>
+                                    <a href="mailto:{{building.email}}">{{building.email}}</a>
+                                    </span>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Tenants</td>
@@ -136,8 +141,10 @@
                             <label class="col-md-4 control-label" for="sqfootage">Square Feet <span class="required">*</span></label>
                             <div class="col-md-6">
                                 <div class="input-group">
-                                    <input [formControlValidator]="buildingForm.controls.sqfootage" formControlName="sqfootage" type="text" id="sqfootage" name="sqfootage"
-                                        class="form-control" placeholder="Square Feet">
+                                    <!--<input [formControlValidator]="buildingForm.controls.sqfootage" formControlName="sqfootage" type="text" id="sqfootage" name="sqfootage"
+                                        class="form-control" placeholder="Square Feet">-->
+                                    <input decimalNumber [formControlValidator]="buildingForm.controls.sqfootage" formControlName="sqfootage" type="text" id="sqfootage"
+                                        name="sqfootage" class="form-control" placeholder="Square Feet">
                                     <div class="input-group-addon help-text help-text--custom-size">(Do not enter commas)</div>
                                 </div>
                                 <span class="validation-error">{{buildingForm.controls.sqfootage.error}}</span>
@@ -170,7 +177,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="postal_code">Postal Code <span class="required">*</span></label>
                             <div class="col-md-6">
-                                <input [formControlValidator]="buildingForm.controls.postal_code" formControlName="postal_code" type="text" id="postal_code"
+                                <input postalCode [formControlValidator]="buildingForm.controls.postal_code" formControlName="postal_code" type="text" id="postal_code"
                                     name="postal_code" class="form-control" placeholder="Postal Code">
                                 <span class="validation-error">{{buildingForm.controls.postal_code.error}}</span>
                             </div>
@@ -179,8 +186,9 @@
                             <label class="col-md-4 control-label" for="mgt_fee_percent">Management Fee <span class="required">*</span></label>
                             <div class="col-md-6">
                                 <div class="input-group">
-                                    <input [formControlValidator]="buildingForm.controls.mgt_fee_percent" formControlName="mgt_fee_percent" type="text" id="mgt_fee_percent"
-                                        name="mgt_fee_percent" class="form-control input-sm" placeholder="Management Fee">
+                                    <input percentage [formControlValidator]="buildingForm.controls.mgt_fee_percent" formControlName="mgt_fee_percent" type="text"
+                                        id="mgt_fee_percent" name="mgt_fee_percent" class="form-control input-sm" placeholder="Management Fee"
+                                        contenteditable="true">
                                     <div class="input-group-addon help-text help-text--custom-size">% (Do not enter a decimal point)</div>
                                 </div>
                                 <span class="validation-error">{{buildingForm.controls.mgt_fee_percent.error}}</span>
@@ -205,9 +213,12 @@
                                 <ul class="nav nav-pills nav-justified clickable-steps">
                                     <li><a (click)="switchTab(1)"><i class="fa fa-user"></i>
                                         <del><strong>Building</strong></del>
-                                    </a></li>
+                                    </a>
+                                    </li>
                                     <li class="active"><a (click)="switchTab(2)"><i class="fa fa-pencil-square-o"></i>
-                                        <strong>Remit Information</strong></a></li>
+                                        <strong>Remit Information</strong>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -215,40 +226,40 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="remit_company">Company Name <span class="required">*</span></label>
                             <div class="col-md-6">
-                                <input [formControlValidator]="buildingForm.controls.remit_company" formControlName="remit_company" type="text" id="remit_company" name="remit_company" class="form-control"
-                                    placeholder="Company Name">
+                                <input [formControlValidator]="buildingForm.controls.remit_company" formControlName="remit_company" type="text" id="remit_company"
+                                    name="remit_company" class="form-control" placeholder="Company Name">
                                 <span class="validation-error">{{buildingForm.controls.remit_company.error}}</span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="remit_addr">Address <span class="required">*</span></label>
                             <div class="col-md-6">
-                                <input [formControlValidator]="buildingForm.controls.remit_addr" formControlName="remit_addr" type="text" id="remit_addr" name="remit_addr"
-                                    class="form-control" placeholder="Address">
+                                <input [formControlValidator]="buildingForm.controls.remit_addr" formControlName="remit_addr" type="text" id="remit_addr"
+                                    name="remit_addr" class="form-control" placeholder="Address">
                                 <span class="validation-error">{{buildingForm.controls.remit_addr.error}}</span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="remit_city">City <span class="required">*</span></label>
                             <div class="col-md-6">
-                                <input [formControlValidator]="buildingForm.controls.remit_city" formControlName="remit_city" type="text" id="remit_city" name="remit_city" class="form-control"
-                                    placeholder="City">
+                                <input [formControlValidator]="buildingForm.controls.remit_city" formControlName="remit_city" type="text" id="remit_city"
+                                    name="remit_city" class="form-control" placeholder="City">
                                 <span class="validation-error">{{buildingForm.controls.remit_city.error}}</span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="remit_state">State <span class="required">*</span></label>
                             <div class="col-md-6">
-                                <input [formControlValidator]="buildingForm.controls.remit_state" formControlName="remit_state" type="text" id="remit_state" name="remit_state" class="form-control"
-                                    placeholder="State">
+                                <input [formControlValidator]="buildingForm.controls.remit_state" formControlName="remit_state" type="text" id="remit_state"
+                                    name="remit_state" class="form-control" placeholder="State">
                                 <span class="validation-error">{{buildingForm.controls.remit_state.error}}</span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="remit_postal_code">Zip/Postal Code <span class="required">*</span></label>
                             <div class="col-md-6">
-                                <input [formControlValidator]="buildingForm.controls.remit_postal_code" formControlName="remit_postal_code" type="text" id="remit_postal_code"
-                                    name="remit_postal_code" class="form-control" placeholder="Postal Code">
+                                <input postalCode [formControlValidator]="buildingForm.controls.remit_postal_code" formControlName="remit_postal_code" type="text"
+                                    id="remit_postal_code" name="remit_postal_code" class="form-control" placeholder="Postal Code">
                                 <span class="validation-error">{{buildingForm.controls.remit_postal_code.error}}</span>
                             </div>
                         </div>

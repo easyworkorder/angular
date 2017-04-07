@@ -224,8 +224,8 @@ export class DataService {
 
     buildVendorAddressHtml(contact: any, companyName: string) {
         let html = '<strong>' + this.buildName(contact.first_name, contact.last_name) + '</strong><br />';
-            html += contact.address + '<br />';
-            html += contact.city + ', '+ contact.state + ' ' + contact.postal_code + '<br/>';
+        html += contact.address + '<br />';
+        html += contact.city + ', ' + contact.state + ' ' + contact.postal_code + '<br/>';
         let extension = (contact.phone_extension != null && contact.phone_extension.length > 0) ? (' ext. ' + contact.phone_extension) : '';
         if (contact.phone != null && contact.phone.length > 0) {
             html += 'P: ' + contact.phone + extension;
@@ -272,15 +272,19 @@ export class DataService {
         event.stopPropagation()
     }
 
-    mapToFormData(form:FormGroup, fileFieldKeys: string[]): FormData {
-        let formData:FormData = new FormData();
+    mapToFormData(form: FormGroup, fileFieldKeys: string[]): FormData {
+        let formData: FormData = new FormData();
         Object.keys(form.controls);
         for (let key of Object.keys(form.controls)) {
-            if(fileFieldKeys.indexOf(key) < 0 ) {
+            if (fileFieldKeys.indexOf(key) < 0) {
                 formData.append(key, form.get(key).value);
             }
         }
         return formData;
     }
 
+    convertMaskToNormalText(val) {
+        const inputVal: string = val.toString();
+        return inputVal.replace(/[\(\||,-\s\)]/g, '');
+    }
 }

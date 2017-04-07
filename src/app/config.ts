@@ -96,15 +96,21 @@ const config = {
             }
         ],
         OperationHours: [
-        {
-            id: 1,
-            text: 'Business'
-        },
-        {
-            id: 2,
-            text: 'Calendar'
-        }
-    ]
+            {
+                id: 1,
+                text: 'Business'
+            },
+            {
+                id: 2,
+                text: 'Calendar'
+            }
+        ]
+    },
+    Mask: {
+        phone: ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
+        phoneWithCountryCode: ['+', '1', ' ', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
+        date:[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/],
+        zipCode: [/[1-9]/, /\d/, /\d/, /\d/, /\d/],
     }
 }
 

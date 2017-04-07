@@ -24,6 +24,7 @@ export class TabVisibility {
 })
 
 export class EmployeeComponent implements OnInit {
+    public mask: Array<string | RegExp>;
 
     employees: any[] = [];
     buildings: any[] = [];
@@ -32,8 +33,8 @@ export class EmployeeComponent implements OnInit {
     currentCompanyId = 1;
     selectedBuildings: any[] = [{ id: -1, text: 'All' }];
     selectedProblemTypes: any[] = [{ id: -1, text: 'All' }];
-    photoFile:File;
-    selectedPhoto:string = '';
+    photoFile: File;
+    selectedPhoto: string = '';
 
     employeeForm = new FormGroup({
         id: new FormControl(),
@@ -67,12 +68,13 @@ export class EmployeeComponent implements OnInit {
         private authService: AuthenticationService,
         private breadcrumbHeaderService: BreadcrumbHeaderService,
         private dataService: DataService
-        ) {
+    ) {
         this.authService.verifyToken().take(1).subscribe(data => {
             this.getAllEmployees(this.currentCompanyId);
             this.getAllBuildings(this.currentCompanyId);
             this.getAllProblemTypes(this.currentCompanyId);
         });
+        this.mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
     }
 
     ngOnInit() {
@@ -155,11 +157,17 @@ export class EmployeeComponent implements OnInit {
         this.setProblemTypeLsit();
 
         // let val = this.employeeForm.value;
-        
-        if(this.photoFile) {
+        // let work_phone = this.employeeForm.get('work_phone').value;
+        // let emergency_phone = this.employeeForm.get('emergency_phone').value;
+        // this.employeeForm.get('work_phone').setValue(work_phone.toNormalText());
+        // this.employeeForm.get('emergency_phone').setValue(emergency_phone.toNormalText());
+
+        if(!this.employeeForm.valid) return;
+
+        if (this.photoFile) {
             console.log('Inside On Submit');
             let user_id = this.employeeForm.get('user_id').value;
-            let formData:FormData = this.dataService.mapToFormData(this.employeeForm, ['user_id']);
+            let formData: FormData = this.dataService.mapToFormData(this.employeeForm, ['user_id']);
             formData.append('photo', this.photoFile, this.photoFile.name);
             if (this.employeeForm.value.id) {
                 formData.append('user_id', user_id);
@@ -173,9 +181,9 @@ export class EmployeeComponent implements OnInit {
                 });
             }
         } else {
-            // Simple Object Posting should go here, and the photo field needs to be removed 
+            // Simple Object Posting should go here, and the photo field needs to be removed
             // It is obvious that the user hasn't selected any file
-            if(this.employeeForm.contains('photo'))
+            if (this.employeeForm.contains('photo'))
                 this.employeeForm.removeControl('photo');
 
             if (this.employeeForm.value.id) {
@@ -183,7 +191,7 @@ export class EmployeeComponent implements OnInit {
                     this.refreshEditor('Employee Updated.', employee);
                 });
             } else {
-                if(this.employeeForm.contains('user_id'))
+                if (this.employeeForm.contains('user_id'))
                     this.employeeForm.removeControl('user_id');
                 this.employeeService.create(this.employeeForm.value).subscribe((employee: any) => {
                     this.refreshEditor('Employee created', employee);
@@ -192,7 +200,7 @@ export class EmployeeComponent implements OnInit {
         }
         // this.http.post('http://localhost:8080/api/tenant/', item);
     }
-    private refreshEditor(logMsg:string, obj: any) {
+    private refreshEditor(logMsg: string, obj: any) {
         console.log(logMsg, obj);
         this.getAllEmployees(this.currentCompanyId);
         this.closeModal();
@@ -200,7 +208,7 @@ export class EmployeeComponent implements OnInit {
 
     photoSelectionChange(event) {
         let fileList: FileList = event.target.files;
-        if(fileList.length > 0) {
+        if (fileList.length > 0) {
             this.photoFile = fileList[0];
             this.selectedPhoto = this.photoFile.name;
         }

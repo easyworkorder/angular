@@ -48,7 +48,7 @@ export class ValidationService {
         if(control.value == ''){
             return null;
         }
-        else if (control.value && control.value.match(/^[0-9]*$/)) {
+        else if (control.value && control.value.toString().match(/^[0-9]*$/)) {
             return null;
         } else {
             return { 'invalidnumber': true };

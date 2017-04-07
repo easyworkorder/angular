@@ -53,35 +53,35 @@
         <div class="form-group">
           <label class="col-xs-3 control-label" for="phone">Phone</label>
           <div class="col-xs-3">
-            <input formControlName="phone" type="text" id="phone" class="form-control" placeholder="(000) 000-0000" />
+            <input phoneNumber formControlName="phone" type="text" id="phone" class="form-control" placeholder="Phone" />
           </div>
           <label class="col-xs-3 control-label" for="phone_extension">Extention</label>
           <div class="col-xs-3">
-            <input formControlName="phone_extension" id="phone_extension" type="text" class="form-control" />
+            <input onlyNumber formControlName="phone_extension" id="phone_extension" type="text" class="form-control" placeholder="Extention"/>
           </div>
         </div>
         <div class="form-group">
           <label class="col-xs-3 control-label" for="fax">Fax</label>
           <div class="col-xs-9">
-            <input formControlName="fax" type="text" id="fax" name="fax" class="form-control">
+            <input onlyNumber formControlName="fax" type="text" id="fax" name="fax" class="form-control" placeholder="Fax">
           </div>
         </div>
         <div class="form-group">
           <label class="col-xs-3 control-label" for="mobile">Mobile Phone</label>
           <div class="col-xs-9">
-            <input formControlName="mobile" type="text" id="mobile" class="form-control" />
+            <input onlyNumber formControlName="mobile" type="text" id="mobile" class="form-control" placeholder="Mobile Phone" />
           </div>
         </div>
         <div class="form-group">
           <label class="col-xs-3 control-label" for="emergencyphone">Emergency Phone</label>
           <div class="col-xs-9">
-            <input formControlName="emergency_phone" type="text" id="emergencyphone" class="form-control" />
+            <input phoneNumber formControlName="emergency_phone" type="text" id="emergencyphone" class="form-control" placeholder="Emergency Phone"/>
           </div>
         </div>
         <div class="form-group">
           <label class="col-xs-3 control-label" for="notes">Notes</label>
           <div class="col-xs-9">
-            <textarea formControlName="notes" id="notes" class="form-control"></textarea>
+            <textarea formControlName="notes" id="notes" class="form-control" placeholder="Notes"></textarea>
           </div>
         </div>
         <div *ngIf="vendorContactPeopleForm.get('id').value" class="form-group">

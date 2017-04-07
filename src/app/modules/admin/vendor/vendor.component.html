@@ -1,14 +1,11 @@
 <!-- START CONTACTS ALPHABET FILTER -->
 <div class="text-center border-top push-inner-top-bottom">
-    <a href="#modal-add-vendor" class="btn btn-sm btn-success" data-toggle="modal"
-       style="overflow: hidden; position: relative;"><i class="fa fa-plus"></i></a>
-    <ewo-alphabetical-sort [isWhiteBackground]="false" [searchControl]="searchControl"
-                           [isNumericSearch]="true"></ewo-alphabetical-sort>
+    <a modal-dialog-open class="btn btn-sm btn-success" data-toggle="modal" style="overflow: hidden; position: relative;"><i class="fa fa-plus"></i></a>
+    <ewo-alphabetical-sort [isWhiteBackground]="false" [searchControl]="searchControl" [isNumericSearch]="true"></ewo-alphabetical-sort>
 </div>
 <!-- END CONTACTS ALPHABET FILTER -->
 <div class="row">
-    <div *ngFor="let vendor of vendors  | filterWithStartLetter: { company_name: searchControl.value }"
-         class="col-sm-6 col-md-4 col-lg-3">
+    <div *ngFor="let vendor of vendors  | filterWithStartLetter: { company_name: searchControl.value }" class="col-sm-6 col-md-4 col-lg-3">
         <ewo-vendor-list-item [vendor]="vendor" [isAdmin]="true"></ewo-vendor-list-item>
     </div>
 </div>
@@ -21,11 +18,9 @@
                 <h3 class="modal-title"><i class="fa fa-plus"></i> <strong>New Vendor</strong></h3>
             </div>
             <div class="modal-body">
-                <form [formGroup]="vendorForm" (ngSubmit)="onSubmit()" id="clickable-wizard"
-                      class="form-horizontal form-bordered" novalidate>
+                <form [formGroup]="vendorForm" (ngSubmit)="onSubmit()" id="clickable-wizard" class="form-horizontal form-bordered" novalidate>
                     <!--<input formControlName="building_id" type="hidden" value="{{currentBuildingId}}">-->
-                    <div *ngIf="tabs.isBasicTabVisible" id="clickable-first" class="step ui-formwizard-content"
-                         style="display: block;">
+                    <div *ngIf="tabs.isBasicTabVisible" id="clickable-first" class="step ui-formwizard-content" style="display: block;">
                         <div class="form-group">
                             <div class="col-xs-12">
                                 <ul class="nav nav-pills nav-justified clickable-steps">
@@ -40,31 +35,24 @@
                             <label class="col-xs-3 control-label" for="company_name">Company Name <span
                                     class="required">*</span></label>
                             <div class="col-xs-9">
-                                <input #tcn formControlName="company_name" type="text" id="company_name"
-                                       name="company_name" class="form-control"
-                                       placeholder="Company Name">
+                                <input #tcn formControlName="company_name" type="text" id="company_name" name="company_name" class="form-control" placeholder="Company Name">
                                 <!-- Validation Way 1 -->
-                                <validation-messages [el]="tcn"
-                                                     [control]="vendorForm.controls.company_name"></validation-messages>
+                                <validation-messages [el]="tcn" [control]="vendorForm.controls.company_name"></validation-messages>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-xs-3 control-label">Problem Types <span class="required">*</span></label>
                             <div class="col-xs-9">
-                                <ng-select [multiple]="true" [items]="problemTypes"
-                                           (selected)="selectedProblemType($event)"
-                                           (removed)="removedProblemType($event)"
-                                           placeholder="Select Problem types"
-                                           [active]="selectedProblemTypes"></ng-select>
+                                <ng-select [multiple]="true" [items]="problemTypes" (selected)="selectedProblemType($event)" (removed)="removedProblemType($event)"
+                                    placeholder="Select Problem types" [active]="selectedProblemTypes"></ng-select>
                                 <span *ngIf="_submitted && (selectedProblemTypes.length == 0)" class="validation-error">This field is Required</span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-xs-3 control-label" for="address">Address <span class="required">*</span></label>
                             <div class="col-xs-9">
-                                <input [formControlValidator]="vendorForm.controls.address" formControlName="address"
-                                       type="text" id="address" name="address"
-                                       class="form-control" placeholder="Address">
+                                <input [formControlValidator]="vendorForm.controls.address" formControlName="address" type="text" id="address" name="address"
+                                    class="form-control" placeholder="Address">
                                 <span class="validation-error">{{vendorForm.controls.address.error}}</span>
                             </div>
                         </div>
@@ -72,9 +60,8 @@
                             <label class="col-xs-3 control-label" for="city">City <span
                                     class="required">*</span></label>
                             <div class="col-xs-9">
-                                <input [formControlValidator]="vendorForm.controls.city" formControlName="city"
-                                       type="text" id="city" name="city" class="form-control"
-                                       placeholder="City">
+                                <input [formControlValidator]="vendorForm.controls.city" formControlName="city" type="text" id="city" name="city" class="form-control"
+                                    placeholder="City">
                                 <span class="validation-error">{{vendorForm.controls.city.error}}</span>
                             </div>
                         </div>
@@ -82,9 +69,8 @@
                             <label class="col-xs-3 control-label" for="state">State <span
                                     class="required">*</span></label>
                             <div class="col-xs-9">
-                                <input [formControlValidator]="vendorForm.controls.state" formControlName="state"
-                                       type="text" id="state" name="state" class="form-control"
-                                       placeholder="State">
+                                <input [formControlValidator]="vendorForm.controls.state" formControlName="state" type="text" id="state" name="state" class="form-control"
+                                    placeholder="State">
                                 <span class="validation-error">{{vendorForm.controls.state.error}}</span>
                             </div>
                         </div>
@@ -92,9 +78,8 @@
                             <label class="col-xs-3 control-label" for="postal_code">Postal Code <span
                                     class="required">*</span></label>
                             <div class="col-xs-9">
-                                <input [formControlValidator]="vendorForm.controls.postal_code"
-                                       formControlName="postal_code" type="text" id="postal_code"
-                                       name="postal_code" class="form-control" placeholder="Postal Code">
+                                <input postalCode [formControlValidator]="vendorForm.controls.postal_code" formControlName="postal_code" type="text" id="postal_code"
+                                    name="postal_code" class="form-control" placeholder="Postal Code">
                                 <span class="validation-error">{{vendorForm.controls.postal_code.error}}</span>
                             </div>
                         </div>
@@ -102,16 +87,13 @@
                             <label class="col-xs-3 control-label">General liability expiration date <span
                                     class="required">*</span></label>
                             <div class="col-xs-9">
-                                <ewo-calendar formControlName="gl_expire_date" dateFormat="yy-mm-dd"
-                                              [icon]="fa-calendar" [showIcon]="true"
-                                              inputStyleClass="form-control"></ewo-calendar>
+                                <ewo-calendar [readonlyInput]="true" [showOnFocus]="false" formControlName="gl_expire_date" [icon]="fa-calendar" [showIcon]="true" inputStyleClass="form-control"></ewo-calendar>
                                 <span *ngIf="exp_date_not_valid" class="validation-error">This field is required.</span>
                             </div>
                         </div>
                     </div>
 
-                    <div *ngIf="tabs.isContactTabVisible" id="clickable-second" class="step ui-formwizard-content"
-                         style="display: block;">
+                    <div *ngIf="tabs.isContactTabVisible" id="clickable-second" class="step ui-formwizard-content" style="display: block;">
                         <!-- Step Info -->
                         <div class="form-group">
                             <div class="col-xs-12">
@@ -129,22 +111,20 @@
                         <div class="form-group">
                             <label class="col-xs-3 control-label text-muted">NO AVATAR</label>
                             <div class="col-xs-9">
-                                <input type="file" id="contact_photo" name="contact_photo" (change)="photoSelectionChange($event)" class="hidden"  />
+                                <input type="file" id="contact_photo" name="contact_photo" (change)="photoSelectionChange($event)" class="hidden" />
                                 <i class="fa fa-fw fa-upload"></i> <a href="javascript:void(0)" onclick="$('#contact_photo').click();">Upload New Avatar</a>
                                 <span>{{ selectedPhotoFile }}</span>
                                 <br/>
                                 <i class="fa fa-fw fa-picture-o"></i> <a href="javascript:void(0)">Choose from Library</a>
                             </div>
                         </div>
-                        <div *ngFor="let contact of vendorForm.get('vendor_contacts').controls; let i=index"
-                             [formGroup]="contact">
+                        <div *ngFor="let contact of vendorForm.get('vendor_contacts').controls; let i=index" [formGroup]="contact">
                             <div class="form-group">
                                 <label class="col-xs-3 control-label" for="fname">First Name <span
                                         class="required">*</span></label>
                                 <div class="col-xs-9">
-                                    <input [formControlValidator]="contact.controls.first_name"
-                                           formControlName="first_name" type="text" id="fname" class="form-control"
-                                           placeholder="First Name">
+                                    <input [formControlValidator]="contact.controls.first_name" formControlName="first_name" type="text" id="fname" class="form-control"
+                                        placeholder="First Name">
                                     <span class="validation-error">{{contact.controls.first_name.error}}</span>
                                 </div>
                             </div>
@@ -152,63 +132,57 @@
                                 <label class="col-xs-3 control-label" for="lname">Last Name <span
                                         class="required">*</span></label>
                                 <div class="col-xs-9">
-                                    <input [formControlValidator]="contact.controls.last_name"
-                                           formControlName="last_name" type="text" id="lname" class="form-control"
-                                           placeholder="Last Name"/>
+                                    <input [formControlValidator]="contact.controls.last_name" formControlName="last_name" type="text" id="lname" class="form-control"
+                                        placeholder="Last Name" />
                                     <span class="validation-error">{{contact.controls.last_name.error}}</span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-xs-3 control-label" for="title">Title</label>
                                 <div class="col-xs-9">
-                                    <input formControlName="title" type="text" id="title" class="form-control"
-                                           placeholder="Title"/>
+                                    <input formControlName="title" type="text" id="title" class="form-control" placeholder="Title" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-xs-3 control-label" for="email">Email <span class="required">*</span></label>
                                 <div class="col-xs-9">
-                                    <input [formControlValidator]="contact.controls.email" formControlName="email"
-                                           type="text" id="email" class="form-control"
-                                           placeholder="Email"/>
+                                    <input [formControlValidator]="contact.controls.email" formControlName="email" type="text" id="email" class="form-control"
+                                        placeholder="Email" />
                                     <span class="validation-error">{{contact.controls.email.error}}</span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-xs-3 control-label" for="phone">Phone</label>
                                 <div class="col-xs-3">
-                                    <input formControlName="phone" type="text" id="phone" class="form-control"
-                                           placeholder="(000) 000-0000"/>
+                                    <input phoneNumber formControlName="phone" type="text" id="phone" class="form-control" placeholder="Phone"/>
                                 </div>
                                 <label class="col-xs-3 control-label" for="phone_extension">Extention</label>
                                 <div class="col-xs-3">
-                                    <input formControlName="phone_extension" id="phone_extension" type="text"
-                                           class="form-control"/>
+                                    <input onlyNumber formControlName="phone_extension" id="phone_extension" type="text" class="form-control" placeholder="Extention"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-xs-3 control-label" for="fax">Fax</label>
                                 <div class="col-xs-9">
-                                    <input formControlName="fax" type="text" id="fax" name="fax" class="form-control">
+                                    <input formControlName="fax" type="text" id="fax" name="fax" class="form-control" placeholder="Fax">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-xs-3 control-label" for="mobile">Mobile Phone</label>
                                 <div class="col-xs-9">
-                                    <input formControlName="mobile" type="text" id="mobile" class="form-control"/>
+                                    <input onlyNumber formControlName="mobile" type="text" id="mobile" class="form-control" placeholder="Mobile Phone"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-xs-3 control-label" for="emergencyphone">Emergency Phone</label>
                                 <div class="col-xs-9">
-                                    <input formControlName="emergency_phone" type="text" id="emergencyphone"
-                                           class="form-control"/>
+                                    <input phoneNumber formControlName="emergency_phone" type="text" id="emergencyphone" class="form-control"  placeholder="Emergency Phone"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-xs-3 control-label" for="notes">Notes</label>
                                 <div class="col-xs-9">
-                                    <textarea formControlName="notes" id="notes" class="form-control"></textarea>
+                                    <textarea formControlName="notes" id="notes" class="form-control" placeholder="Notes"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -216,10 +190,8 @@
 
                     <div class="form-group form-actions">
                         <div class="col-md-8 col-md-offset-4">
-                            <button type="submit"
-                                    class="btn btn-effect-ripple btn-primary ui-wizard-content ui-formwizard-button"
-                                    id="next1" style="overflow: hidden; position: relative;"
-                                    value="Submit">Submit
+                            <button type="submit" class="btn btn-effect-ripple btn-primary ui-wizard-content ui-formwizard-button" id="next1" style="overflow: hidden; position: relative;"
+                                value="Submit">Submit
                             </button>
                         </div>
                     </div>

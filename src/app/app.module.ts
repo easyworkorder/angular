@@ -1,6 +1,6 @@
 import { APP_BASE_HREF } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, BaseRequestOptions, XHRBackend, XSRFStrategy, CookieXSRFStrategy } from '@angular/http';
 import { ToasterModule, ToasterService } from 'angular2-toaster';
@@ -38,6 +38,7 @@ import {APP_RESOLVER_PROVIDERS} from "./app.route-resolvers";
 import {
     FormControlValidator,
     ActiveDirective,
+    ModalDialogDirective
 } from './directives';
 
 import {
@@ -122,6 +123,7 @@ import { TenantListItemComponent } from './modules/shared/list-item/tenant-list-
 import { EmployeeListItemComponent } from './modules/shared/list-item/employee-list-item.component';
 import { BuildingSlaTargetComponent } from './modules/admin/sla-policy/building-sla-target.component';
 
+import { InputValueRestrictionModule } from "app/directives/input-value-restriction.directive";
 
 export function translateStaticLoaderFactory(Backend, defaultOptions, storage, notificationService) {
     return new AppHttp(Backend, defaultOptions, storage, notificationService);
@@ -213,7 +215,8 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         VendorListItemComponent,
         TenantListItemComponent,
         EmployeeListItemComponent,
-        BuildingSlaTargetComponent
+        BuildingSlaTargetComponent,
+        ModalDialogDirective
     ],
     imports: [
         BrowserModule,
@@ -224,6 +227,8 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         ToasterModule,
         SelectModule,
         CalendarModule,
+        // TextMaskModule,
+        InputValueRestrictionModule
     ],
     providers: [
         AuthGuard,
@@ -263,6 +268,7 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         // { provide: XSRFStrategy, useValue: new      CookieXSRFStrategy('token', 'x-csrftoken')
         // },
     ],
+    schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

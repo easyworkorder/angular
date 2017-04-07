@@ -2,7 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output, Injectable } from '@ang
 import { Subject } from "rxjs/Subject";
 import { UpdatePeopleService } from "app/modules/admin/tenant/people.service";
 import { UpdateTenantInsuranceService } from "./tenant-insurance.service";
-declare var $:any;
+declare var $: any;
 
 export class TabVisibility {
     isTicketTabVisible = true;
@@ -28,7 +28,7 @@ export class TenantContactActivitiesComponent implements OnInit {
 
     tabs = new TabVisibility();
     constructor(private updatePeopleService: UpdatePeopleService,
-                private updateTenantInsuranceService: UpdateTenantInsuranceService) { }
+        private updateTenantInsuranceService: UpdateTenantInsuranceService) { }
 
     ngOnInit() {
 
@@ -50,7 +50,10 @@ export class TenantContactActivitiesComponent implements OnInit {
     updateContactInfo(data) {
         // this.updatePeopleInfo = data;
         this.updatePeopleService.setUpdatePeople(data);
-         $('#add-tenant-cotact-people').modal('show');
+        $('#add-tenant-cotact-people').modal({
+            show: true,
+            backdrop: 'static'
+        });
     }
 
     updateInsurance(event) {
@@ -60,6 +63,9 @@ export class TenantContactActivitiesComponent implements OnInit {
     updateInsuranceInfo(data) {
         // this.updatePeopleInfo = data;
         this.updateTenantInsuranceService.setUpdateInsurance(data);
-        $('#add-tenant-insurance').modal('show');
+        $('#add-tenant-insurance').modal({
+            show: true,
+            backdrop: 'static'
+        });
     }
 }
