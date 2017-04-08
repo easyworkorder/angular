@@ -79,9 +79,19 @@ no-content {
 }
 
 .no-tentent-file {
-    /*height: calc(100vh - 15em);
-    display: flex;
-    align-items: center;
-    justify-content: center;*/
     text-align: center;
+    /*position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;*/
+}
+
+/*Toster message show in top*/
+.toast-top-center {
+    top: -0.355em !important;
 }

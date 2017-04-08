@@ -85,7 +85,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-xs-3 control-label">General liability expiration date <span
+                            <label class="col-xs-3 control-label">GENERAL LIABILITY EXPIRATION DATE<span
                                     class="required">*</span></label>
                             <div class="col-xs-9">
                                 <ewo-calendar [readonlyInput]="true" [showOnFocus]="false" formControlName="gl_expire_date" [icon]="fa-calendar" [showIcon]="true" inputStyleClass="form-control"></ewo-calendar>
@@ -165,13 +165,13 @@
                             <div class="form-group">
                                 <label class="col-xs-3 control-label" for="fax">Fax</label>
                                 <div class="col-xs-9">
-                                    <input formControlName="fax" type="text" id="fax" name="fax" class="form-control" placeholder="Fax">
+                                    <input phoneNumber formControlName="fax" type="text" id="fax" name="fax" class="form-control" placeholder="Fax">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-xs-3 control-label" for="mobile">Mobile Phone</label>
                                 <div class="col-xs-9">
-                                    <input onlyNumber formControlName="mobile" type="text" id="mobile" class="form-control" placeholder="Mobile Phone"/>
+                                    <input phoneNumber formControlName="mobile" type="text" id="mobile" class="form-control" placeholder="Mobile Phone"/>
                                 </div>
                             </div>
                             <div class="form-group">

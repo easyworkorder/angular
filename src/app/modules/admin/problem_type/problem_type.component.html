@@ -108,20 +108,20 @@
                 <h3 class="modal-title"><i class="fa fa-plus"></i> <strong>{{problemTypeForm.get('id').value == null ?
                     'New' : 'Edit' }} Problem Type</strong></h3>
             </div>
-            <div class="modal-body">
+            <div class="modal-body problem-type-form-wrapper">
                 <form [formGroup]="problemTypeForm" (ngSubmit)="problemTypeForm.valid && onSubmit()" class="form-horizontal form-bordered">
                     <div class="form-group">
-                        <label class="col-xs-3 control-label" for="problem_name">Name<span class="required">*</span></label>
-                        <div class="col-xs-9">
+                        <label class="col-xs-5 control-label" for="problem_name">Name<span class="required">*</span></label>
+                        <div class="col-xs-7">
                             <input [formControlValidator]="problemTypeForm.controls.problem_name" formControlName="problem_name" type="text" id="problem_name" name="problem_name" class="form-control" placeholder="Problem Name">
                             <!--<validation-messages [control]="problemTypeForm.controls.problem_name"></validation-messages>-->
                             <span class="validation-error">{{problemTypeForm.controls.problem_name.error}}</span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-xs-5 control-label">Check if you want to allow tennats to view this work
-                            type?</label>
-                        <label class="col-xs-7 switch switch-success"><input formControlName="tenant_view"
+                        <label class="col-xs-5 control-label" for="tenant_view">Check if you want to allow tennats to view this work
+                            type</label>
+                        <label class="col-xs-1 switch switch-success"><input formControlName="tenant_view"
                                                                              type="checkbox" id="tenant_view"
                                                                              name="tenant_view" class=""> <span></span></label>
                     </div>

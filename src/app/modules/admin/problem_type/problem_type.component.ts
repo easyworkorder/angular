@@ -11,6 +11,11 @@ declare var $: any;
 @Component({
     selector: 'ewo-problem-type-list',
     templateUrl: 'problem_type.component.html',
+    styles: [`
+        .problem-type-form-wrapper .control-label {
+            text-align: left !important;
+        }
+    `]
 })
 
 export class ProblemTypeComponent implements OnInit {

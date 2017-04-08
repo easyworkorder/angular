@@ -14,5 +14,8 @@ export class AppComponent {
     // this.authService.verifyToken();
   }
   toasterconfig: ToasterConfig =
-  new ToasterConfig({ timeout: 3000 });
+  new ToasterConfig({
+    timeout: 3000,
+    positionClass: 'toast-top-center',
+  });
 }

@@ -3,7 +3,7 @@ import { Subject } from "rxjs/Subject";
 import { VendorService } from './vendor.service';
 import { UpdateVendorPeopleService } from "./vendor-people.service";
 import { UpdateVendorInsuranceService } from "./vendor-insurance.service";
-declare var $:any;
+declare var $: any;
 
 export class TabVisibility {
     isTicketTabVisible = true;
@@ -22,7 +22,7 @@ export class VendorContactActivitiesComponent implements OnInit {
 
     @Input() vendor: any;
     @Input() insurances: any;
-    @Input() isAdmin:boolean = false;
+    @Input() isAdmin: boolean = false;
     @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
 
     // updatePeopleInfo: any;
@@ -30,9 +30,9 @@ export class VendorContactActivitiesComponent implements OnInit {
 
     tabs = new TabVisibility();
     constructor(
-                private vendorService: VendorService,
-                private updateVendorPeopleService: UpdateVendorPeopleService,
-                private updateVendorInsuranceService: UpdateVendorInsuranceService) {}
+        private vendorService: VendorService,
+        private updateVendorPeopleService: UpdateVendorPeopleService,
+        private updateVendorInsuranceService: UpdateVendorInsuranceService) { }
 
     ngOnInit() {
 
@@ -54,7 +54,10 @@ export class VendorContactActivitiesComponent implements OnInit {
     updateContactInfo(data) {
         // this.updatePeopleInfo = data;
         this.updateVendorPeopleService.setUpdatePeople(data);
-         $('#add-vendor-cotact-people').modal('show');
+        $('#add-vendor-cotact-people').modal({
+            backdrop: 'static',
+            show: true
+        });
     }
 
     updateInsurance(event) {
@@ -64,6 +67,9 @@ export class VendorContactActivitiesComponent implements OnInit {
     updateInsuranceInfo(data) {
         // this.updatePeopleInfo = data;
         this.updateVendorInsuranceService.setUpdateInsurance(data);
-        $('#add-vendor-insurance').modal('show');
+        $('#add-vendor-insurance').modal({
+            backdrop: 'static',
+            show: true
+        });
     }
 }

@@ -1,7 +1,7 @@
 <div class="tabs clearfix">
     <div class="block-full">
         <div class="block-title">
-            <ul class="nav nav-tabs" style="height: 60px;">
+            <ul class="nav nav-tabs" style="height: 60px;" data-toggle="tabs">
                 <li class="active"><a href="#bldg1-overview" data-toggle="tab" aria-expanded="true">Overview</a></li>
                 <li class=""><a href="#bldg1-tenants" data-toggle="tab" aria-expanded="false">Tenants</a></li>
                 <li class=""><a href="#bldg1-notifications" data-toggle="tab" aria-expanded="false">Notifications</a>
@@ -124,7 +124,7 @@
                                         <span *ngIf="editedBuilding.primaryCompanyUnitNo">, </span>{{editedBuilding.primaryCompanyUnitNo}}
                                         <br *ngIf="editedBuilding.primaryCompanyAddress"> <span *ngIf="editedBuilding.primaryCompanyCity">{{editedBuilding.primaryCompanyCity}},</span>                                        {{editedBuilding.primaryCompanyState}} {{editedBuilding.primaryCompanyPostalCode}}
                                         <br *ngIf="(editedBuilding.primaryCompanyState || editedBuilding.primaryCompanyPostalCode)">
-                                        <abbr title="Phone">P:</abbr> {{editedBuilding.ContactPersonWorkPhone}}
+                                        <abbr title="Phone">P:</abbr> {{editedBuilding.ContactPersonWorkPhone | phone}}
                                     </address>
                                 </div>
                                 <div class="widget-content">

@@ -75,7 +75,7 @@
   <div id="sidebar">
     <!-- Sidebar Brand -->
     <div id="sidebar-brand" class="themed-background">
-      <a href="index.html" class="sidebar-title">
+      <a [routerLink]="['/']" class="sidebar-title">
         <i class="fa fa-cube"></i> <span class="sidebar-nav-mini-hide logo">easy(<strong>workorder</strong>)</span>
       </a>
     </div>
@@ -97,13 +97,13 @@
             <a href="#" class="sidebar-nav-menu"><i class="fa fa-chevron-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="fa fa-rocket sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Contacts</span></a>
             <ul>
               <li>
-                <a [routerLink]="['/', 'tenant']">Tenants</a>
+                <a [routerLink]="['/', 'tenant']" onclick="App.sidebar('toggle-sidebar');">Tenants</a>
               </li>
               <li>
-                <a [routerLink]="['/', 'employee']">Employees</a>
+                <a [routerLink]="['/', 'employee']" onclick="App.sidebar('toggle-sidebar');">Employees</a>
               </li>
               <li>
-                <a [routerLink]="['/', 'vendor']">Vendors</a>
+                <a [routerLink]="['/', 'vendor']" onclick="App.sidebar('toggle-sidebar');">Vendors</a>
               </li>
             </ul>
           </li>
