@@ -8,6 +8,7 @@ import { EmployeeService } from "app/modules/admin/employee/employee.service";
 import { Observable } from 'rxjs/Rx';
 import { DataService } from "app/services";
 import { SLAPolicyService } from "app/modules/admin/sla-policy/sla-policy.service";
+import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
 declare var $: any;
 
 @Component({
@@ -37,11 +38,13 @@ export class BuildingAdminDetailsComponent implements OnInit {
         private buildingService: BuildingService,
         private employeeService: EmployeeService,
         private dataService: DataService,
-        private slaPolicyService: SLAPolicyService
+        private slaPolicyService: SLAPolicyService,
+        private breadcrumbHeaderService: BreadcrumbHeaderService
     )
     { }
 
     ngOnInit() {
+        this.breadcrumbHeaderService.setBreadcrumbTitle('Building Admin');
         this._buildingId = this.route.snapshot.params['id'];
         this.getBuilding(this._buildingId);
         this.getBuildingSLAPolicy(this._buildingId);

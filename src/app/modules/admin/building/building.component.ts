@@ -110,7 +110,7 @@ export class BuildingComponent implements OnInit {
   }
 
   editBuilding(building) {
-    this.router.navigate(['/admin', 'building-details', building.id]);
+    this.router.navigate(['/admin', 'building', building.id]);
   }
 
   onSubmit() {

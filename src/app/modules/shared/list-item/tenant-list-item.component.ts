@@ -43,7 +43,8 @@ export class TenantListItemComponent implements OnInit {
 
     tenantDetailsLink(tenant) {
         if (this.isAdmin) {
-            this.router.navigate(['admin', 'building-details', tenant.building_id, 'tenant-profile', tenant.contact_id]);
+            // this.router.navigate(['admin', 'building-details', tenant.building_id, 'tenant-profile', tenant.contact_id]);
+            this.router.navigate(['admin', 'building', tenant.building_id, 'tenant-profile', tenant.contact_id]);
         }
         else {
             this.router.navigate(['/tenant-profile', tenant.contact_id]);

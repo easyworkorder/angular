@@ -30,17 +30,16 @@ export class BuildingAdminComponent implements OnInit {
 
 
     constructor(
-        private route: ActivatedRoute,
-        private buildingService: BuildingService,
-        private employeeService: EmployeeService,
-        private breadcrumbHeaderService: BreadcrumbHeaderService,
-
-    ) { }
+        // private route: ActivatedRoute,
+        // private buildingService: BuildingService,
+        // private employeeService: EmployeeService,
+    ) {
+    }
 
     ngOnInit() {
         // this._buildingId = this.route.snapshot.params['id'];
         // this.getBuilding(this._buildingId);
-        this.breadcrumbHeaderService.setBreadcrumbTitle('Building Admin');
+        // this.breadcrumbHeaderService.setBreadcrumbTitle('Building Admin');
     }
 
     // getBuilding(id) {

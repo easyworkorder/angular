@@ -33,7 +33,7 @@ import { VendorService } from './modules/admin/vendor/vendor.service';
 import { TicketService } from './modules/ticket/ticket.service';
 
 // import { NotFoundComponent } from './components/not-found/not-found.component';
-import {APP_RESOLVER_PROVIDERS} from "./app.route-resolvers";
+import { APP_RESOLVER_PROVIDERS } from "./app.route-resolvers";
 
 import {
     FormControlValidator,
@@ -52,7 +52,7 @@ import { BuildingComponent } from './modules/admin/building/building.component';
 import { AddressComponent } from './modules/address/address.component';
 import { TenantComponent } from './modules/admin/tenant/tenant.component';
 import { TenantListComponent } from './modules/list/tenant-list/tenant-list.component';
-import { TenantContactProfileComponent} from './modules/admin/tenant/tenant-contact-profile.component';
+import { TenantContactProfileComponent } from './modules/admin/tenant/tenant-contact-profile.component';
 import { ProblemTypeComponent } from './modules/admin/problem_type/problem_type.component';
 import { EmployeeComponent } from './modules/admin/employee/employee.component';
 import { EmployeeListComponent } from './modules/list/employee-list/employee-list.component';
@@ -107,7 +107,6 @@ import { BuildingAdminDetailsComponent } from './modules/admin/building-admin/bu
 import { UserDashboardComponent } from './modules/dashboard/user-dashboard.component';
 import { ContactProfileCardComponent } from './modules/admin/contact-profile-card/contact-profile-card.component';
 import { ContactActivitiesComponent } from './modules/admin/contact-activities/contact-activities.component';
-import { BreadcrumbComponent } from './modules/shared/breadcrumb/breadcrumb.component';
 import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
 import { AlphabeticalSortComponent } from './modules/shared/alphabetical-sort/alphabetical-sort.component';
 import { InsuranceListComponent } from "app/modules/shared/insurance-list/insurance-list.component";
@@ -126,11 +125,11 @@ import { BuildingSlaTargetComponent } from './modules/admin/sla-policy/building-
 
 import { InputValueRestrictionModule } from "app/directives/input-value-restriction.directive";
 import { LoadingSpinnerModule } from "app/modules/shared/loading-spinner/loading-spinner.module";
+import { BreadcrumbComponent, BreadcrumbService } from "app/modules/shared/breadcrumb";
 
 export function translateStaticLoaderFactory(Backend, defaultOptions, storage, notificationService) {
     return new AppHttp(Backend, defaultOptions, storage, notificationService);
 };
-
 
 @NgModule({
     declarations: [
@@ -206,7 +205,6 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         UserDashboardComponent,
         ContactProfileCardComponent,
         ContactActivitiesComponent,
-        BreadcrumbComponent,
         AlphabeticalSortComponent,
         ContactListComponent,
         InsuranceListComponent,
@@ -220,7 +218,7 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         EmployeeListItemComponent,
         BuildingSlaTargetComponent,
         ModalDialogDirective,
-
+        BreadcrumbComponent
     ],
     imports: [
         BrowserModule,
@@ -233,7 +231,7 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         CalendarModule,
         // TextMaskModule,
         InputValueRestrictionModule,
-        LoadingSpinnerModule
+        LoadingSpinnerModule,
     ],
     providers: [
         AuthGuard,
@@ -268,12 +266,13 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         UpdateVendorPeopleService,
         UpdateVendorInsuranceService,
         UpdateTenantInsuranceService,
-        SLAPolicyService
+        SLAPolicyService,
+        BreadcrumbService
 
         // { provide: XSRFStrategy, useValue: new      CookieXSRFStrategy('token', 'x-csrftoken')
         // },
     ],
-    schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

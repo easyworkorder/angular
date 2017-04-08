@@ -23,13 +23,13 @@ import { UserDashboardComponent } from "app/modules/dashboard/user-dashboard.com
 /**
  * Vendor Admin
  */
-import {VendorComponent} from "./modules/admin/vendor/vendor.component";
+import { VendorComponent } from "./modules/admin/vendor/vendor.component";
 import { VendorContactProfileComponent } from './modules/admin/vendor/vendor-contact-profile.component';
 /**
  * Vendor Dashboard List
  */
-import {VendorListComponent} from "./modules/list/vendor-list/vendor-list.component";
-import {VendorProfileComponent} from "./modules/list/vendor-list/vendor-profile.component";
+import { VendorListComponent } from "./modules/list/vendor-list/vendor-list.component";
+import { VendorProfileComponent } from "./modules/list/vendor-list/vendor-profile.component";
 
 /**
  * Tenant Dashboard List
@@ -103,7 +103,7 @@ export const appRoutes: Routes = [
                         },
                     },
                     {
-                        path: 'building-details/:id', component: BuildingAdminComponent, resolve: {
+                        path: 'building/:id', component: BuildingAdminComponent, resolve: {
                             admin: AdminDashBoardResolver
                         },
                         data: {
@@ -122,11 +122,6 @@ export const appRoutes: Routes = [
                             }
                         ]
                     },
-                    // {
-                    //   path: 'building-details/:id/tenant-profile/:id', component: TenantContactComponent, resolve: {
-                    //     admin: AdminDashBoardResolver
-                    //   },
-                    // },
                     {
                         path: 'employee', component: EmployeeComponent, resolve: {
                             admin: AdminDashBoardResolver
@@ -141,7 +136,7 @@ export const appRoutes: Routes = [
                         },
                     },
                     {
-                        path: 'vendor-profile/:id', component: VendorContactProfileComponent, resolve: {
+                        path: 'vendor/:id', component: VendorContactProfileComponent, resolve: {
                             admin: AdminDashBoardResolver
                         },
                         data: {
