@@ -32,7 +32,7 @@ export class TicketActivityComponent implements OnInit {
         private tenantService: TenantService,
         ) {
 
-        this.getActiveTenantsByBuilding(this.ticket.building_id);
+        // this.getActiveTenantsByBuilding(this.ticket.building_id);
 
     }
 
