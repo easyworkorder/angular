@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 import config from '../../config';
 import {EmployeeService} from './../admin/employee/employee.service';
@@ -12,7 +13,7 @@ import {AuthenticationService} from "app/modules/authentication";
 declare var $: any;
 
 @Component({
-    selector: 'ewo-ticket',
+    selector: 'ewo-ticket-details',
     templateUrl: './ticket_details.component.html'
 })
 export class TicketDetailsComponent implements OnInit {
@@ -30,10 +31,10 @@ export class TicketDetailsComponent implements OnInit {
     tenants: any[] = [];
     problem_types: any[] = [];
     priorities = [{ id: 'Low', text: 'Low' },
-                    { id: 'Medium', text: 'Medium' },
-                    { id: 'High', text: 'High' },
-                    { id: 'Urgent', text: 'Urgent' },
-                    { id: 'Safety', text: 'Safety' }];
+        { id: 'Medium', text: 'Medium' },
+        { id: 'High', text: 'High' },
+        { id: 'Urgent', text: 'Urgent' },
+        { id: 'Safety', text: 'Safety' }];
     employees: any[] = [];
     groups = [{ id: 'Property Manager', text: 'Property Manager' },
         { id: 'Engineering', text: 'Engineering' },
@@ -64,30 +65,23 @@ export class TicketDetailsComponent implements OnInit {
                 private tenantService: TenantService,
                 private problemTypeService: ProblemTypeService,
                 private ticketService: TicketService,
-                private authService: AuthenticationService) {
+                private authService: AuthenticationService,
+                private route: ActivatedRoute) {
         this.authService.verifyToken().take(1).subscribe(data => {
-            this.getAllActiveBuildings();
-            this.getAllActiveEmployees();
-            this.getAllActiveProblemTypes();
-            this.getAllTickets();
+
         });
     }
 
     ngOnInit() {
-
+        const ticketId = this.route.snapshot.params['id'];
+        this.getTicketDetails(ticketId);
     }
 
     onSubmit() {
-        this._submitted = true;
-//console.log(this.ticketForm.value);
-        this.ticketService.create(this.ticketForm.value).subscribe((tikcet: any) => {
-            //this.getAllBuildings();
-            this.closeModal();
-        });
     }
 
-    getAllTickets(): void {
-        this.ticketService.getAllTickets().subscribe(
+    getTicketDetails(ticketId): void {
+        this.ticketService.getAllTickets(this.currentCompanyId).subscribe(
             data => {
                 this.tickets = data.results;
             }

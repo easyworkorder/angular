@@ -180,7 +180,7 @@
             <!-- Tickets Title -->
             <div class="block-title">
                 <div class="block-options pull-right">
-                    <a href="#modal-add-request" class="btn btn-sm btn-success" data-toggle="modal">
+                    <a modal-dialog-open="modal-add-ticket" class="btn btn-sm btn-success" data-toggle="modal">
                         <i class="fa fa-plus"></i>
                     </a>
                     <!-- <a href="javascript:void(0)" class="btn btn-effect-ripple btn-success" data-toggle="tooltip" title="New Work Order"><i class="fa fa-plus-square"></i></a> -->
@@ -193,238 +193,7 @@
             <div class="tab-content">
                 <!-- Tickets List -->
                 <div class="tab-pane active" id="tickets-list">
-                    <div class="block-content">
-                        <form action="page_forms_components.html" method="post" onsubmit="return false;">
-                            <div class="form-group form-actions">
-                                <button type="submit" class="btn btn-sm btn-default">Accept</button>
-                                <button type="button" class="btn btn-sm btn-default">Assign</button>
-                                <button type="button" class="btn btn-sm btn-default">Close</button>
-                                <button type="button" class="btn btn-sm btn-default">Merge</button>
-                                <button type="button" class="btn btn-sm btn-default">Delete</button>
-                            </div>
-
-                            <div class="table-responsive remove-margin-bottom">
-                                <table class="table table-striped table-vcenter remove-margin-bottom">
-                                    <thead>
-                                    <tr>
-                                        <th style="width: 80px;" class="text-center"><label
-                                                class="csscheckbox csscheckbox-primary"><input
-                                                type="checkbox"><span></span></label></th>
-                                        <th class="text-center">ID</th>
-                                        <th>Type</th>
-                                        <!-- th>Source</th -->
-                                        <th>Title</th>
-                                        <th class="text-center">Sender</th>
-                                        <th class="text-center"><i class="fa fa-comments"></i></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td class="text-center"><label class="csscheckbox csscheckbox-primary"><input
-                                                type="checkbox"><span></span></label></td>
-                                        <td class="text-center"><a href="workorder.html">#TCK420</a></td>
-                                        <td><span class="label label-danger">PLUMBING</span></td>
-                                        <!-- td>Forum</td -->
-                                        <td>
-                                            <a href="javascript:void(0)"><strong>How can I create tasks using the
-                                                advanced guide?</strong></a><br>
-                                            <span class="text-muted">1 hour ago by <strong>Carolyn Murray</strong></span>
-                                        </td>
-                                        <td class="text-center"><img src="assets/img/placeholders/avatars/avatar12.jpg"
-                                                                     alt="Avatar" class="img-circle"></td>
-                                        <td class="text-center"><span class="badge">3</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center"><label class="csscheckbox csscheckbox-primary"><input
-                                                type="checkbox"><span></span></label></td>
-                                        <td class="text-center"><a href="workorder.html">#TCK419</a></td>
-                                        <td><span class="label label-danger">DOORS/LOCKS/KEYS</span></td>
-                                        <!-- td>Email</td -->
-                                        <td>
-                                            <a href="javascript:void(0)"><strong>I get an error message</strong></a><br>
-                                            <span class="text-muted">3 hours ago by <strong>Alexander Martinez</strong></span>
-                                        </td>
-                                        <td class="text-center"><img src="assets/img/placeholders/avatars/avatar11.jpg"
-                                                                     alt="Avatar" class="img-circle"></td>
-                                        <td class="text-center"><span class="badge">7</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center"><label class="csscheckbox csscheckbox-primary"><input
-                                                type="checkbox"><span></span></label></td>
-                                        <td class="text-center"><a href="workorder.html">#TCK418</a></td>
-                                        <td><span class="label label-success">HVAC</span></td>
-                                        <!-- td>Email</td -->
-                                        <td>
-                                            <a href="javascript:void(0)"><strong>I would like to learn more about the
-                                                VIP plan</strong></a><br>
-                                            <span class="text-muted">1 day ago by <strong>Matthew Stanley</strong></span>
-                                        </td>
-                                        <td class="text-center"><img src="assets/img/placeholders/avatars/avatar1.jpg"
-                                                                     alt="Avatar" class="img-circle"></td>
-                                        <td class="text-center"><span class="badge">1</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center"><label class="csscheckbox csscheckbox-primary"><input
-                                                type="checkbox"><span></span></label></td>
-                                        <td class="text-center"><a href="workorder.html">#TCK417</a></td>
-                                        <td><span class="label label-success">JANITORIAL</span></td>
-                                        <!-- td>Forum</td -->
-                                        <td>
-                                            <a href="javascript:void(0)"><strong>Can you help me with the
-                                                installation?</strong></a><br>
-                                            <span class="text-muted">2 days ago by <strong>Eugene Griffin</strong></span>
-                                        </td>
-                                        <td class="text-center"><img src="assets/img/placeholders/avatars/avatar2.jpg"
-                                                                     alt="Avatar" class="img-circle"></td>
-                                        <td class="text-center"><span class="badge">2</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center"><label class="csscheckbox csscheckbox-primary"><input
-                                                type="checkbox"><span></span></label></td>
-                                        <td class="text-center"><a href="workorder.html">#TCK416</a></td>
-                                        <td><span class="label label-default">ELECTRICAL</span></td>
-                                        <!-- td>Contact Form</td -->
-                                        <td>
-                                            <a href="javascript:void(0)"><strong>Thank you for a great service!</strong></a><br>
-                                            <span class="text-muted">2 days ago by <strong>Howard Smith</strong></span>
-                                        </td>
-                                        <td class="text-center"><img src="assets/img/placeholders/avatars/avatar3.jpg"
-                                                                     alt="Avatar" class="img-circle"></td>
-                                        <td class="text-center"><span class="badge">3</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center"><label class="csscheckbox csscheckbox-primary"><input
-                                                type="checkbox"><span></span></label></td>
-                                        <td class="text-center"><a href="workorder.html">#TCK415</a></td>
-                                        <td><span class="label label-success">JANITORIAL</span></td>
-                                        <!-- td>Email</td -->
-                                        <td>
-                                            <a href="javascript:void(0)"><strong>Payment issue</strong></a><br>
-                                            <span class="text-muted">1 week ago by <strong>Richard Armstrong</strong></span>
-                                        </td>
-                                        <td class="text-center"><img src="assets/img/placeholders/avatars/avatar4.jpg"
-                                                                     alt="Avatar" class="img-circle"></td>
-                                        <td class="text-center"><span class="badge">2</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center"><label class="csscheckbox csscheckbox-primary"><input
-                                                type="checkbox"><span></span></label></td>
-                                        <td class="text-center"><a href="workorder.html">#TCK414</a></td>
-                                        <td><span class="label label-default">HVAC</span></td>
-                                        <!-- td>Forum</td -->
-                                        <td>
-                                            <a href="javascript:void(0)"><strong>What is the best way to back
-                                                up?</strong></a><br>
-                                            <span class="text-muted">1 week ago by <strong>Timothy Wheeler</strong></span>
-                                        </td>
-                                        <td class="text-center"><img src="assets/img/placeholders/avatars/avatar5.jpg"
-                                                                     alt="Avatar" class="img-circle"></td>
-                                        <td class="text-center"><span class="badge">5</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center"><label class="csscheckbox csscheckbox-primary"><input
-                                                type="checkbox"><span></span></label></td>
-                                        <td class="text-center"><a href="workorder.html">#TCK413</a></td>
-                                        <td><span class="label label-warning">DOORS/LOCKS/KEYPS</span></td>
-                                        <!-- td>Forum</td -->
-                                        <td>
-                                            <a href="javascript:void(0)"><strong>How to create a new
-                                                account?</strong></a><br>
-                                            <span class="text-muted">2 weeks ago by <strong>Emma Weaver</strong></span>
-                                        </td>
-                                        <td class="text-center"><img src="assets/img/placeholders/avatars/avatar6.jpg"
-                                                                     alt="Avatar" class="img-circle"></td>
-                                        <td class="text-center"><span class="badge">0</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center"><label class="csscheckbox csscheckbox-primary"><input
-                                                type="checkbox"><span></span></label></td>
-                                        <td class="text-center"><a href="workorder.html">#TCK412</a></td>
-                                        <td><span class="label label-danger">PLUMBING</span></td>
-                                        <!-- td>Contact Form</td -->
-                                        <td>
-                                            <a href="javascript:void(0)"><strong>Pre sale question</strong></a><br>
-                                            <span class="text-muted">1 month ago by <strong>Edward Harvey</strong></span>
-                                        </td>
-                                        <td class="text-center"><img src="assets/img/placeholders/avatars/avatar7.jpg"
-                                                                     alt="Avatar" class="img-circle"></td>
-                                        <td class="text-center"><span class="badge">0</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center"><label class="csscheckbox csscheckbox-primary"><input
-                                                type="checkbox"><span></span></label></td>
-                                        <td class="text-center"><a href="workorder.html">#TCK411</a></td>
-                                        <td><span class="label label-success">HVAC</span></td>
-                                        <!-- td>Email</td -->
-                                        <td>
-                                            <a href="javascript:void(0)"><strong>Can you help me with a plugin?</strong></a><br>
-                                            <span class="text-muted">1 month ago by <strong>Tyler Rivera</strong></span>
-                                        </td>
-                                        <td class="text-center"><img src="assets/img/placeholders/avatars/avatar8.jpg"
-                                                                     alt="Avatar" class="img-circle"></td>
-                                        <td class="text-center"><span class="badge">2</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center"><label class="csscheckbox csscheckbox-primary"><input
-                                                type="checkbox"><span></span></label></td>
-                                        <td class="text-center"><a href="workorder.html">#TCK410</a></td>
-                                        <td><span class="label label-success">JANITORIAL</span></td>
-                                        <!-- td>Forum</td -->
-                                        <td>
-                                            <a href="javascript:void(0)"><strong>Are you available for contract
-                                                work?</strong></a><br>
-                                            <span class="text-muted">2 months ago by <strong>Aaron Gibson</strong></span>
-                                        </td>
-                                        <td class="text-center"><img src="assets/img/placeholders/avatars/avatar9.jpg"
-                                                                     alt="Avatar" class="img-circle"></td>
-                                        <td class="text-center"><span class="badge">0</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center"><label class="csscheckbox csscheckbox-primary"><input
-                                                type="checkbox"><span></span></label></td>
-                                        <td class="text-center"><a href="workorder.html">#TCK409</a></td>
-                                        <td><span class="label label-default">CONSTRUCTION</span></td>
-                                        <!-- td>Email</td -->
-                                        <td>
-                                            <a href="javascript:void(0)"><strong>I would like some assistance with the
-                                                available plans</strong></a><br>
-                                            <span class="text-muted">1 year ago by <strong>Kathy Austin</strong></span>
-                                        </td>
-                                        <td class="text-center"><img src="assets/img/placeholders/avatars/avatar10.jpg"
-                                                                     alt="Avatar" class="img-circle"></td>
-                                        <td class="text-center"><span class="badge">4</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center"><label class="csscheckbox csscheckbox-primary"><input
-                                                type="checkbox"><span></span></label></td>
-                                        <td class="text-center"><a href="workorder.html">#TCK408</a></td>
-                                        <td><span class="label label-default">CONSTRUCTION</span></td>
-                                        <!-- td>Email</td -->
-                                        <td>
-                                            <a href="javascript:void(0)"><strong>How can I use the advanced
-                                                features?</strong></a><br>
-                                            <span class="text-muted">1 year ago by <strong>John Doe</strong></span>
-                                        </td>
-                                        <td class="text-center"><img src="assets/img/placeholders/avatars/avatar16.jpg"
-                                                                     alt="Avatar" class="img-circle"></td>
-                                        <td class="text-center"><span class="badge">4</span></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </form>
-
-                        <div class="text-center">
-                            <ul class="pagination">
-                                <li class="disabled"><a href="javascript:void(0)"><i class="fa fa-chevron-left"></i></a>
-                                </li>
-                                <li class="active"><a href="javascript:void(0)">1</a></li>
-                                <li><a href="javascript:void(0)">2</a></li>
-                                <li><a href="javascript:void(0)">3</a></li>
-                                <li><a href="javascript:void(0)"><i class="fa fa-chevron-right"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
+                    <ewo-ticket-list [tickets]="tickets" [isAdmin]="true"></ewo-ticket-list>
                 </div>
                 <!-- END Tickets List -->
 
@@ -439,7 +208,7 @@
 </div>
 <!-- END Tickets Content -->
 
-<div id="modal-add-request" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+<div id="modal-add-ticket" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -498,6 +267,14 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-xs-3 control-label" for="subject">Subject <span class="required">*</span> </label>
+                        <div class="col-xs-9">
+                            <input [formControlValidator]="ticketForm.controls.subject" formControlName="subject" type="text" id="subject" name="subject" class="form-control"
+                                   placeholder="Subject">
+                            <span class="validation-error">{{ticketForm.controls.subject.error}}</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-xs-3 control-label" for="description">Description <span class="required">*</span></label>
                         <div class="col-xs-9">
                             <textarea [formControlValidator]="ticketForm.controls.description"  formControlName="description" id="description" class="form-control"></textarea>
@@ -526,13 +303,13 @@
                                 <input type="checkbox" formControlName="is_billable" id="is_billable" name="is_billable"><span></span></label>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <!--div class="form-group">
                         <label class="col-xs-3 control-label">Safety Issue</label>
                         <div class="col-xs-9">
                             <label class="switch switch-danger">
                                 <input type="checkbox" formControlName="is_safety_issue" id="is_safety_issue" name="is_safety_issue"><span></span></label>
                         </div>
-                    </div>
+                    </div-->
                     <div class="form-group form-actions">
                         <div class="col-xs-12 text-right">
                             <button type="submit" class="btn btn-effect-ripple btn-success" style="overflow: hidden; position: relative;">Submit</button>

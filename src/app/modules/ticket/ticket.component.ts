@@ -13,8 +13,7 @@ declare var $: any;
 
 @Component({
     selector: 'ewo-ticket',
-    templateUrl: './ticket.component.html',
-    styleUrls: ['./ticket.component.css']
+    templateUrl: './ticket.component.html'
 })
 export class TicketComponent implements OnInit {
 
@@ -51,12 +50,14 @@ export class TicketComponent implements OnInit {
         priority: new FormControl(''),
         employee: new FormControl(''),
         group: new FormControl(''),
-        title: new FormControl('', Validators.required),
+        subject: new FormControl('', Validators.required),
         description: new FormControl('', Validators.required),
         is_private: new FormControl(false),
         estimated_amount: new FormControl(0, ValidationService.numericValidator),
         is_billable: new FormControl(false),
         is_safety_issue: new FormControl(false),
+        notify_tenant: new FormControl(false),
+        tenant_notify_flag: new FormControl(false),
         status: new FormControl('Open')
     });
 
@@ -67,10 +68,10 @@ export class TicketComponent implements OnInit {
                 private ticketService: TicketService,
                 private authService: AuthenticationService) {
         this.authService.verifyToken().take(1).subscribe(data => {
+            this.getAllTickets();
             this.getAllActiveBuildings();
             this.getAllActiveEmployees();
             this.getAllActiveProblemTypes();
-            this.getAllTickets();
         });
     }
 
@@ -80,17 +81,17 @@ export class TicketComponent implements OnInit {
 
     onSubmit() {
         this._submitted = true;
-//console.log(this.ticketForm.value);
+        // console.log(this.ticketForm.value);
         this.ticketService.create(this.ticketForm.value).subscribe((tikcet: any) => {
-            //this.getAllBuildings();
+            this.getAllTickets();
             this.closeModal();
         });
     }
 
     getAllTickets(): void {
-        this.ticketService.getAllTickets().subscribe(
+        this.ticketService.getAllTickets(this.currentCompanyId).subscribe(
             data => {
-                this.tickets = data.results;
+                this.tickets = data;
             }
         );
     }
@@ -101,7 +102,6 @@ export class TicketComponent implements OnInit {
                 let _building: any[] = data.results.map(item => {
                     return { id: item.id, text: (item.name) };
                 })
-                //  _employee.splice(0, 0, { id: -1, text: 'Pleae select' });
                 this.buildings = _building;
             }
         );
@@ -113,7 +113,6 @@ export class TicketComponent implements OnInit {
                 let _employee: any[] = data.results.map(item => {
                     return { id: item.id, text: (item.last_name + ' ' + item.first_name) };
                 })
-                //  _employee.splice(0, 0, { id: -1, text: 'Pleae select' });
                 this.employees = _employee;
             }
         );
@@ -175,12 +174,12 @@ export class TicketComponent implements OnInit {
     closeModal() {
         this.resetForm();
         this.building = [];
-        this.tenant= [];
-        this.problem_type= [];
+        this.tenant = [];
+        this.problem_type = [];
         this.priority = [];
         this.employee = [];
         this.group = [];
-        $('#modal-add-request').modal('hide');
+        $('#modal-add-ticket').modal('hide');
     }
 
     resetForm() {

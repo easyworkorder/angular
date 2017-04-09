@@ -56,8 +56,13 @@ import { TenantContactProfileComponent } from './modules/admin/tenant/tenant-con
 import { ProblemTypeComponent } from './modules/admin/problem_type/problem_type.component';
 import { EmployeeComponent } from './modules/admin/employee/employee.component';
 import { EmployeeListComponent } from './modules/list/employee-list/employee-list.component';
+/**
+ * Ticket
+ */
 import { TicketComponent } from './modules/ticket/ticket.component';
 import { TicketDetailsComponent } from './modules/ticket/ticket_details.component';
+import { TicketListComponent } from './modules/shared/ticket-list/ticket-list.component';
+
 import { AdminSetupComponent } from './modules/admin_setup/admin_setup.component';
 import { ValidationMessagesComponent } from './validation_messages.component';
 
@@ -162,8 +167,12 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         ProblemTypeComponent,
         EmployeeComponent,
         EmployeeListComponent,
+        /**
+         * Ticket
+         */
         TicketComponent,
         TicketDetailsComponent,
+        TicketListComponent,
 
         /**
          * Vendor Admin component

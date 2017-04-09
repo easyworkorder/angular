@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-sm-6">
             <div class="header-section">
-                <h1>Tickets</h1>
+                <h1>TKT{{ticket.id}}</h1>
             </div>
         </div>
         <div class="col-sm-6 hidden-xs">
@@ -20,526 +20,404 @@
 
 <!-- Tickets Content -->
 <div class="row">
-    <div class="col-md-4 col-lg-3">
-        <!-- Menu Block -->
-        <div class="block full">
-            <!-- Menu Title -->
-            <div class="block-title clearfix">
-
-                <h2>Manage Requests</h2>
-            </div>
-            <!-- END Menu Title -->
-
-            <!-- Menu Content -->
-            <ul class="nav nav-pills nav-stacked">
-                <li class="active">
-                    <a href="index.html">
-                        <span class="badge pull-right">10</span>
-                        <i class="fa fa-fw fa-ticket icon-push"></i> <strong>New</strong>
-                    </a>
-                </li>
-                <li>
-                    <a href="wo_replies.html">
-                        <span class="badge pull-right">5</span>
-                        <i class="fa fa-fw fa-exclamation-triangle icon-push"></i> <strong>Replies</strong>
-                    </a>
-                </li>
-                <li>
-                    <a href="wo_duetoday.html">
-                        <span class="badge pull-right">20</span>
-                        <i class="fa fa-fw fa-folder-open-o icon-push"></i> <strong>Due Today</strong>
-                    </a>
-                </li>
-                <li>
-                    <a href="wo_overdue.html">
-                        <span class="badge pull-right">20</span>
-                        <i class="fa fa-fw fa-folder-open-o icon-push"></i> <strong>Overdue</strong>
-                    </a>
-                </li>
-                <li>
-                    <a href="wo_pending.html">
-                        <span class="badge pull-right">20</span>
-                        <i class="fa fa-fw fa-folder-open-o icon-push"></i> <strong>Pending</strong>
-                    </a>
-                </li>
-                <li>
-                    <a href="wo_closed.html">
-                        <span class="badge pull-right">500</span>
-                        <i class="fa fa-fw fa-folder-o icon-push"></i> <strong>Closed</strong>
-                    </a>
-                </li>
-            </ul>
-            <!-- END Menu Content -->
-        </div>
-        <!-- END Menu Block -->
-
-        <!-- Quick Month Stats Block -->
-        <div class="block">
-            <!-- Quick Month Stats Title -->
-            <div class="block-title">
-                <h2>Quick Stats</h2>
-            </div>
-            <!-- END Quick Month Stats Title -->
-
-            <!-- Quick Month Stats Content -->
-            <table class="table table-striped table-borderless table-vcenter">
-                <tbody>
-                <tr>
-                    <td style="width: 60%;">
-                        <strong>Total Requests</strong>
-                    </td>
-                    <td>1500</td>
-                </tr>
-                <tr>
-                    <td>
-                        <strong>Total Responses</strong>
-                    </td>
-                    <td>2590</td>
-                </tr>
-                <tr>
-                    <td>
-                        <strong>Tenant Requests</strong>
-                    </td>
-                    <td>320</td>
-                </tr>
-                <tr>
-                    <td>
-                        <strong>Employee Requests</strong>
-                    </td>
-                    <td>200</td>
-                </tr>
-                <tr>
-                    <td>
-                        <strong>Vendor Requests</strong>
-                    </td>
-                    <td>70</td>
-                </tr>
-                <tr>
-                    <td>
-                        <strong>Avg Response Time</strong>
-                    </td>
-                    <td>2 hrs</td>
-                </tr>
-                </tbody>
-            </table>
-            <!-- END Quick Month Stats Content -->
-        </div>
-        <!-- END Quick Month Stats Block -->
-
-        <!-- To Do List Block -->
-        <div class="block">
-            <!-- Quick Month Stats Title -->
-            <div class="block-title">
-                <h2>To Do</h2>
-            </div>
-            <!-- END Quick Month Stats Title -->
-
-            <form id="add-task-form" class="push">
-                <input type="text" id="add-task" name="add-task" class="form-control input-lg"
-                       placeholder="Enter a task">
-            </form>
-            <ul class="task-list">
-                <li>
-                    <a href="javascript:void(0)" class="task-close text-danger"><i class="fa fa-times"></i></a>
-                    <label class="checkbox-inline">
-                        <input type="checkbox"> Update plugins
-                    </label>
-                </li>
-                <li class="task-done">
-                    <a href="javascript:void(0)" class="task-close text-danger"><i class="fa fa-times"></i></a>
-                    <label class="checkbox-inline">
-                        <input type="checkbox"> To do list page
-                    </label>
-                </li>
-                <li>
-                    <a href="javascript:void(0)" class="task-close text-danger"><i class="fa fa-times"></i></a>
-                    <label class="checkbox-inline">
-                        <input type="checkbox"> PSDs Freebies
-                    </label>
-                </li>
-                <li class="in-2x">
-                    <a href="javascript:void(0)" class="task-close text-danger"><i class="fa fa-times"></i></a>
-                    <label class="checkbox-inline">
-                        <input type="checkbox"> Icon pack
-                    </label>
-                </li>
-                <li class="in-2x">
-                    <a href="javascript:void(0)" class="task-close text-danger"><i class="fa fa-times"></i></a>
-                    <label class="checkbox-inline">
-                        <input type="checkbox"> Widget Pack
-                    </label>
-                </li>
-            </ul>
-        </div>
-        <!-- END To Do List Block -->
-
-    </div>
-    <div class="col-md-8 col-lg-9">
+    <div class="col-md-8 col-lg-8">
         <!-- Tickets Block -->
         <div class="block">
             <!-- Tickets Title -->
             <div class="block-title">
-                <div class="block-options pull-right">
-                    <a href="#modal-add-request" class="btn btn-sm btn-success" data-toggle="modal">
-                        <i class="fa fa-plus"></i>
-                    </a>
-                    <!-- <a href="javascript:void(0)" class="btn btn-effect-ripple btn-success" data-toggle="tooltip" title="New Work Order"><i class="fa fa-plus-square"></i></a> -->
-                </div>
-                <h2>Request List</h2>
+                <ul class="nav nav-tabs" data-toggle="tabs">
+                    <li class=""><a href="#activity">Activity</a></li>
+                    <li class=""><a href="#labor">Labor <span class="badge">$637.50</span></a> </li>
+                    <li class="active"><a href="#materials">Materials <span class="badge">$86.85</span></a></li>
+                    <li><a href="#files">Files <span class="badge">2</span></a></li>
+                </ul>
             </div>
             <!-- END Tickets Title -->
 
             <!-- Tabs Content -->
             <div class="tab-content">
                 <!-- Tickets List -->
-                <div class="tab-pane active" id="tickets-list">
-                    <div class="block-content">
-                        <form action="page_forms_components.html" method="post" onsubmit="return false;">
-                            <div class="form-group form-actions">
-                                <button type="submit" class="btn btn-sm btn-default">Accept</button>
-                                <button type="button" class="btn btn-sm btn-default">Assign</button>
-                                <button type="button" class="btn btn-sm btn-default">Close</button>
-                                <button type="button" class="btn btn-sm btn-default">Merge</button>
-                                <button type="button" class="btn btn-sm btn-default">Delete</button>
-                            </div>
+                <div class="tab-pane" id="activity">
 
-                            <div class="table-responsive remove-margin-bottom">
-                                <table class="table table-striped table-vcenter remove-margin-bottom">
-                                    <thead>
-                                    <tr>
-                                        <th style="width: 80px;" class="text-center"><label
-                                                class="csscheckbox csscheckbox-primary"><input
-                                                type="checkbox"><span></span></label></th>
-                                        <th class="text-center">ID</th>
-                                        <th>Type</th>
-                                        <!-- th>Source</th -->
-                                        <th>Title</th>
-                                        <th class="text-center">Sender</th>
-                                        <th class="text-center"><i class="fa fa-comments"></i></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td class="text-center"><label class="csscheckbox csscheckbox-primary"><input
-                                                type="checkbox"><span></span></label></td>
-                                        <td class="text-center"><a href="workorder.html">#TCK420</a></td>
-                                        <td><span class="label label-danger">PLUMBING</span></td>
-                                        <!-- td>Forum</td -->
-                                        <td>
-                                            <a href="javascript:void(0)"><strong>How can I create tasks using the
-                                                advanced guide?</strong></a><br>
-                                            <span class="text-muted">1 hour ago by <strong>Carolyn Murray</strong></span>
-                                        </td>
-                                        <td class="text-center"><img src="assets/img/placeholders/avatars/avatar12.jpg"
-                                                                     alt="Avatar" class="img-circle"></td>
-                                        <td class="text-center"><span class="badge">3</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center"><label class="csscheckbox csscheckbox-primary"><input
-                                                type="checkbox"><span></span></label></td>
-                                        <td class="text-center"><a href="workorder.html">#TCK419</a></td>
-                                        <td><span class="label label-danger">DOORS/LOCKS/KEYS</span></td>
-                                        <!-- td>Email</td -->
-                                        <td>
-                                            <a href="javascript:void(0)"><strong>I get an error message</strong></a><br>
-                                            <span class="text-muted">3 hours ago by <strong>Alexander Martinez</strong></span>
-                                        </td>
-                                        <td class="text-center"><img src="assets/img/placeholders/avatars/avatar11.jpg"
-                                                                     alt="Avatar" class="img-circle"></td>
-                                        <td class="text-center"><span class="badge">7</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center"><label class="csscheckbox csscheckbox-primary"><input
-                                                type="checkbox"><span></span></label></td>
-                                        <td class="text-center"><a href="workorder.html">#TCK418</a></td>
-                                        <td><span class="label label-success">HVAC</span></td>
-                                        <!-- td>Email</td -->
-                                        <td>
-                                            <a href="javascript:void(0)"><strong>I would like to learn more about the
-                                                VIP plan</strong></a><br>
-                                            <span class="text-muted">1 day ago by <strong>Matthew Stanley</strong></span>
-                                        </td>
-                                        <td class="text-center"><img src="assets/img/placeholders/avatars/avatar1.jpg"
-                                                                     alt="Avatar" class="img-circle"></td>
-                                        <td class="text-center"><span class="badge">1</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center"><label class="csscheckbox csscheckbox-primary"><input
-                                                type="checkbox"><span></span></label></td>
-                                        <td class="text-center"><a href="workorder.html">#TCK417</a></td>
-                                        <td><span class="label label-success">JANITORIAL</span></td>
-                                        <!-- td>Forum</td -->
-                                        <td>
-                                            <a href="javascript:void(0)"><strong>Can you help me with the
-                                                installation?</strong></a><br>
-                                            <span class="text-muted">2 days ago by <strong>Eugene Griffin</strong></span>
-                                        </td>
-                                        <td class="text-center"><img src="assets/img/placeholders/avatars/avatar2.jpg"
-                                                                     alt="Avatar" class="img-circle"></td>
-                                        <td class="text-center"><span class="badge">2</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center"><label class="csscheckbox csscheckbox-primary"><input
-                                                type="checkbox"><span></span></label></td>
-                                        <td class="text-center"><a href="workorder.html">#TCK416</a></td>
-                                        <td><span class="label label-default">ELECTRICAL</span></td>
-                                        <!-- td>Contact Form</td -->
-                                        <td>
-                                            <a href="javascript:void(0)"><strong>Thank you for a great service!</strong></a><br>
-                                            <span class="text-muted">2 days ago by <strong>Howard Smith</strong></span>
-                                        </td>
-                                        <td class="text-center"><img src="assets/img/placeholders/avatars/avatar3.jpg"
-                                                                     alt="Avatar" class="img-circle"></td>
-                                        <td class="text-center"><span class="badge">3</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center"><label class="csscheckbox csscheckbox-primary"><input
-                                                type="checkbox"><span></span></label></td>
-                                        <td class="text-center"><a href="workorder.html">#TCK415</a></td>
-                                        <td><span class="label label-success">JANITORIAL</span></td>
-                                        <!-- td>Email</td -->
-                                        <td>
-                                            <a href="javascript:void(0)"><strong>Payment issue</strong></a><br>
-                                            <span class="text-muted">1 week ago by <strong>Richard Armstrong</strong></span>
-                                        </td>
-                                        <td class="text-center"><img src="assets/img/placeholders/avatars/avatar4.jpg"
-                                                                     alt="Avatar" class="img-circle"></td>
-                                        <td class="text-center"><span class="badge">2</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center"><label class="csscheckbox csscheckbox-primary"><input
-                                                type="checkbox"><span></span></label></td>
-                                        <td class="text-center"><a href="workorder.html">#TCK414</a></td>
-                                        <td><span class="label label-default">HVAC</span></td>
-                                        <!-- td>Forum</td -->
-                                        <td>
-                                            <a href="javascript:void(0)"><strong>What is the best way to back
-                                                up?</strong></a><br>
-                                            <span class="text-muted">1 week ago by <strong>Timothy Wheeler</strong></span>
-                                        </td>
-                                        <td class="text-center"><img src="assets/img/placeholders/avatars/avatar5.jpg"
-                                                                     alt="Avatar" class="img-circle"></td>
-                                        <td class="text-center"><span class="badge">5</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center"><label class="csscheckbox csscheckbox-primary"><input
-                                                type="checkbox"><span></span></label></td>
-                                        <td class="text-center"><a href="workorder.html">#TCK413</a></td>
-                                        <td><span class="label label-warning">DOORS/LOCKS/KEYPS</span></td>
-                                        <!-- td>Forum</td -->
-                                        <td>
-                                            <a href="javascript:void(0)"><strong>How to create a new
-                                                account?</strong></a><br>
-                                            <span class="text-muted">2 weeks ago by <strong>Emma Weaver</strong></span>
-                                        </td>
-                                        <td class="text-center"><img src="assets/img/placeholders/avatars/avatar6.jpg"
-                                                                     alt="Avatar" class="img-circle"></td>
-                                        <td class="text-center"><span class="badge">0</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center"><label class="csscheckbox csscheckbox-primary"><input
-                                                type="checkbox"><span></span></label></td>
-                                        <td class="text-center"><a href="workorder.html">#TCK412</a></td>
-                                        <td><span class="label label-danger">PLUMBING</span></td>
-                                        <!-- td>Contact Form</td -->
-                                        <td>
-                                            <a href="javascript:void(0)"><strong>Pre sale question</strong></a><br>
-                                            <span class="text-muted">1 month ago by <strong>Edward Harvey</strong></span>
-                                        </td>
-                                        <td class="text-center"><img src="assets/img/placeholders/avatars/avatar7.jpg"
-                                                                     alt="Avatar" class="img-circle"></td>
-                                        <td class="text-center"><span class="badge">0</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center"><label class="csscheckbox csscheckbox-primary"><input
-                                                type="checkbox"><span></span></label></td>
-                                        <td class="text-center"><a href="workorder.html">#TCK411</a></td>
-                                        <td><span class="label label-success">HVAC</span></td>
-                                        <!-- td>Email</td -->
-                                        <td>
-                                            <a href="javascript:void(0)"><strong>Can you help me with a plugin?</strong></a><br>
-                                            <span class="text-muted">1 month ago by <strong>Tyler Rivera</strong></span>
-                                        </td>
-                                        <td class="text-center"><img src="assets/img/placeholders/avatars/avatar8.jpg"
-                                                                     alt="Avatar" class="img-circle"></td>
-                                        <td class="text-center"><span class="badge">2</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center"><label class="csscheckbox csscheckbox-primary"><input
-                                                type="checkbox"><span></span></label></td>
-                                        <td class="text-center"><a href="workorder.html">#TCK410</a></td>
-                                        <td><span class="label label-success">JANITORIAL</span></td>
-                                        <!-- td>Forum</td -->
-                                        <td>
-                                            <a href="javascript:void(0)"><strong>Are you available for contract
-                                                work?</strong></a><br>
-                                            <span class="text-muted">2 months ago by <strong>Aaron Gibson</strong></span>
-                                        </td>
-                                        <td class="text-center"><img src="assets/img/placeholders/avatars/avatar9.jpg"
-                                                                     alt="Avatar" class="img-circle"></td>
-                                        <td class="text-center"><span class="badge">0</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center"><label class="csscheckbox csscheckbox-primary"><input
-                                                type="checkbox"><span></span></label></td>
-                                        <td class="text-center"><a href="workorder.html">#TCK409</a></td>
-                                        <td><span class="label label-default">CONSTRUCTION</span></td>
-                                        <!-- td>Email</td -->
-                                        <td>
-                                            <a href="javascript:void(0)"><strong>I would like some assistance with the
-                                                available plans</strong></a><br>
-                                            <span class="text-muted">1 year ago by <strong>Kathy Austin</strong></span>
-                                        </td>
-                                        <td class="text-center"><img src="assets/img/placeholders/avatars/avatar10.jpg"
-                                                                     alt="Avatar" class="img-circle"></td>
-                                        <td class="text-center"><span class="badge">4</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center"><label class="csscheckbox csscheckbox-primary"><input
-                                                type="checkbox"><span></span></label></td>
-                                        <td class="text-center"><a href="workorder.html">#TCK408</a></td>
-                                        <td><span class="label label-default">CONSTRUCTION</span></td>
-                                        <!-- td>Email</td -->
-                                        <td>
-                                            <a href="javascript:void(0)"><strong>How can I use the advanced
-                                                features?</strong></a><br>
-                                            <span class="text-muted">1 year ago by <strong>John Doe</strong></span>
-                                        </td>
-                                        <td class="text-center"><img src="assets/img/placeholders/avatars/avatar16.jpg"
-                                                                     alt="Avatar" class="img-circle"></td>
-                                        <td class="text-center"><span class="badge">4</span></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </form>
+                    <a href="javascript:void(0)" class="btn btn-sm btn-danger"><i class="fa fa-life-ring"></i> Saftey Issue</a>
+                    <a href="#modal-add-public" class="btn btn-sm btn-default" data-toggle="modal"><i class="fa fa-reply"></i> Reply</a>
+                    <a href="#modal-add-private" class="btn btn-sm btn-default" data-toggle="modal"><i class="fa fa-sticky-note"></i> Add Note</a>
+                    <!-- <a href="#modal-reassign-wo" class="btn btn-sm btn-default" data-toggle="modal"><i class="fa fa-send"></i> Reassign</a> -->
+                    <a href="#modal-merge-wo" class="btn btn-sm btn-default" data-toggle="modal"><i class="fa fa-sort-amount-desc"></i> Merge</a>
+                    <a href="#modal-send-vendor" class="btn btn-sm btn-default" data-toggle="modal"><i class="fa fa-external-link"></i> Send Vendor</a>
+                    <a href="#modal-close-wo" class="btn btn-sm btn-default" data-toggle="modal"><i class="fa fa-check"></i> Close</a>
 
-                        <div class="text-center">
-                            <ul class="pagination">
-                                <li class="disabled"><a href="javascript:void(0)"><i class="fa fa-chevron-left"></i></a>
-                                </li>
-                                <li class="active"><a href="javascript:void(0)">1</a></li>
-                                <li><a href="javascript:void(0)">2</a></li>
-                                <li><a href="javascript:void(0)">3</a></li>
-                                <li><a href="javascript:void(0)"><i class="fa fa-chevron-right"></i></a></li>
-                            </ul>
-                        </div>
+                    <div class="pull-right">
+                        <a href="javascript:void(0)" class="btn btn-sm btn-primary"><i class="fa fa-arrow-left"></i> Prev</a>
+                        <a href="javascript:void(0)" class="btn btn-sm btn-primary">Next <i class="fa fa-arrow-right"></i></a>
                     </div>
+                    <!-- <span class="pull-right">
+                        <button class="btn btn-primary" data-toggle="tooltip" title="Previous"><i class="fa fa-chevron-left fa-fw"></i></button>
+                        <button class="btn btn-primary" data-toggle="tooltip" title="Next"><i class="fa fa-chevron-right fa-fw"></i></button>
+                    </span> -->
+                    <hr>
+                    <ul class="media-list media-feed push">
+                        <!-- Ticket -->
+                        <li class="media">
+                            <a href="page_ready_user_profile.html" class="pull-left">
+                                <img src="img/placeholders/avatars/ji-albino.jpg" alt="Avatar" class="img-circle">
+                            </a>
+                            <div class="media-body">
+                                <p class="push-bit">
+                                                            <span class="text-muted pull-right">
+                                                                <small>2 hours ago</small>
+                                                            </span>
+                                    <small><a href="page_ready_user_profile.html">Howard Smith</a> through <a href="javascript:void(0)">Email</a></small>
+                                </p>
+                                <h4><strong>Can you help me with the installation?</strong></h4>
+                                <p>Hi, I'm having a problem with the installation of the theme, can you help me out? I get the following error message and I don't know what to do:</p>
+                                <div class="alert alert-warning">
+                                    <p><i class="fa fa-angle-right"></i> <strong>Error Establishing Database Connection</strong></p>
+                                    <p>...</p>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- END Ticket -->
+
+                        <!-- Replies -->
+                        <li class="media">
+                            <a href="page_ready_user_profile.html" class="pull-left">
+                                <img src="img/placeholders/avatars/alfred.jpg" alt="Avatar" class="img-circle chatui-talk-msg-avatar">
+                            </a>
+                            <div class="media-body">
+                                <p class="push-bit">
+                                                            <span class="text-muted pull-right">
+                                                                <small>1 hour ago</small>
+                                                            </span>
+                                    <small><a href="page_ready_user_profile.html">Support</a></small>
+                                </p>
+                                <p>Hi Howard and thank you very much for your purchase! There are many reasons this can happen. One is the incorrect information in wp-config.html file. Please open up wp-config.html and ensure that the following are correct:</p>
+                                <ul class="fa-ul push">
+                                    <li><i class="fa fa-li fa-check text-success"></i> Database name</li>
+                                    <li><i class="fa fa-li fa-check text-success"></i> Database username</li>
+                                    <li><i class="fa fa-li fa-check text-success"></i> Database password</li>
+                                    <li><i class="fa fa-li fa-check text-success"></i> Database host</li>
+                                </ul>
+                                <p>Learn more about <a href="javascript:void(0)">editing the wp-config.html</a></p>
+                            </div>
+                        </li>
+                        <li class="media">
+                            <a href="page_ready_user_profile.html" class="pull-left">
+                                <img src="img/placeholders/avatars/ji-albino.jpg" alt="Avatar" class="img-circle">
+                            </a>
+                            <div class="media-body">
+                                <p class="push-bit">
+                                                            <span class="text-muted pull-right">
+                                                                <small>30 min ago</small>
+                                                            </span>
+                                    <small><a href="page_ready_user_profile.html">Howard Smith</a></small>
+                                </p>
+                                <p>I'm going to check it out and let you know!</p>
+                                <p>Thanks a lot!</p>
+                            </div>
+                        </li>
+                        <!-- END Replies -->
+                    </ul>
                 </div>
                 <!-- END Tickets List -->
 
-                <!-- Ticket View -->
+                <!-- LABOR TAB -->
+                <div class="tab-pane" id="labor">
+                    <!-- Partial Responsive Block -->
+                    <div class="block">
+                        <div class="block-title clearfix">
+                            <div class="block-options pull-right">
+                                <a href="#modal-add-labor" class="btn btn-effect-ripple btn-success" data-toggle="modal" title="Edit" style="overflow: hidden; position: relative;"><span class="btn-ripple animate" style="height: 34px; width: 34px; top: 10px; left: 0.34375px;"></span><i class="fa fa-plus"></i></a>
+                            </div>
+                            <h2>LABOR</h2><span class="badge">$637.50</span>
+                        </div>
+                        <!-- END Partial Responsive Title -->
 
-                <!-- END Ticket View -->
+                        <!-- Partial Responsive Content -->
+                        <table class="table table-striped table-borderless table-vcenter">
+                            <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th class="hidden-xs">Description</th>
+                                <th class="hidden-sm hidden-xs">Hrs</th>
+                                <th class="hidden-sm hidden-xs">Rate</th>
+                                <th style="width: 80px;" class="text-center"><i class="fa fa-flash"></i></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><strong>2/1/2017</strong></td>
+                                <td class="hidden-xs">Cleaned carpets</td>
+                                <td class="hidden-xs">2.5</td>
+                                <td class="hidden-sm hidden-xs">$85</td>
+                                <td class="text-center">
+                                    <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-success" style="overflow: hidden; position: relative;" data-original-title="Edit User"><i class="fa fa-pencil"></i></a>
+                                    <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;" data-original-title="Delete User"><i class="fa fa-times"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>2/1/2017</strong></td>
+                                <td class="hidden-xs">Cleaned carpets</td>
+                                <td class="hidden-xs">2.5</td>
+                                <td class="hidden-sm hidden-xs">$85</td>
+                                <td class="text-center">
+                                    <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-success" style="overflow: hidden; position: relative;" data-original-title="Edit User"><i class="fa fa-pencil"></i></a>
+                                    <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;" data-original-title="Delete User"><i class="fa fa-times"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>2/1/2017</strong></td>
+                                <td class="hidden-xs">Cleaned carpets</td>
+                                <td class="hidden-xs">2.5</td>
+                                <td class="hidden-sm hidden-xs">$85</td>
+                                <td class="text-center">
+                                    <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-success" style="overflow: hidden; position: relative;" data-original-title="Edit User"><i class="fa fa-pencil"></i></a>
+                                    <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;" data-original-title="Delete User"><i class="fa fa-times"></i></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- END Partial Responsive Content -->
+                </div>
+                <!-- END LABOR TAB -->
+
+                <!-- MATERIALS TAB -->
+                <div class="tab-pane active" id="materials">
+                    <!-- Partial Responsive Block -->
+                    <div class="block">
+                        <div class="block-title clearfix">
+                            <div class="block-options pull-right">
+                                <a href="#modal-add-materials" class="btn btn-effect-ripple btn-success" data-toggle="modal" title="Edit" style="overflow: hidden; position: relative;"><span class="btn-ripple animate" style="height: 34px; width: 34px; top: -6px; left: -4.65625px;"></span><i class="fa fa-plus"></i></a>
+                            </div>
+                            <h2>MATERIALS</h2><span class="badge">$86.85</span>
+                        </div>
+                        <!-- END Partial Responsive Title -->
+
+                        <!-- Partial Responsive Content -->
+                        <table class="table table-striped table-borderless table-vcenter">
+                            <thead>
+                            <tr>
+                                <th class="hidden-xs">Date</th>
+                                <th class="hidden-xs">Description</th>
+                                <th class="hidden-sm hidden-xs">Cost Ea</th>
+                                <th class="hidden-sm hidden-xs">Qty</th>
+                                <th>Sub-tot</th>
+                                <th style="width: 80px;" class="text-center"><i class="fa fa-flash"></i></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><strong>2/1/2017</strong></td>
+                                <td class="hidden-xs">Cleaned carpets</td>
+                                <td class="hidden-xs">$5.79</td>
+                                <td class="hidden-sm hidden-xs">5</td>
+                                <td class="hidden-sm hidden-xs">$28.95</td>
+                                <td class="text-center">
+                                    <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-success" style="overflow: hidden; position: relative;" data-original-title="Edit User"><i class="fa fa-pencil"></i></a>
+                                    <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;" data-original-title="Delete User"><i class="fa fa-times"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>2/1/2017</strong></td>
+                                <td class="hidden-xs">Cleaned carpets</td>
+                                <td class="hidden-xs">$5.79</td>
+                                <td class="hidden-sm hidden-xs">5</td>
+                                <td class="hidden-sm hidden-xs">$28.95</td>
+                                <td class="text-center">
+                                    <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-success" style="overflow: hidden; position: relative;" data-original-title="Edit User"><i class="fa fa-pencil"></i></a>
+                                    <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;" data-original-title="Delete User"><i class="fa fa-times"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>2/1/2017</strong></td>
+                                <td class="hidden-xs">Cleaned carpets</td>
+                                <td class="hidden-xs">$5.79</td>
+                                <td class="hidden-sm hidden-xs">5</td>
+                                <td class="hidden-sm hidden-xs">$28.95</td>
+                                <td class="text-center">
+                                    <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-success" style="overflow: hidden; position: relative;" data-original-title="Edit User"><i class="fa fa-pencil"></i></a>
+                                    <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;" data-original-title="Delete User"><i class="fa fa-times"></i></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- END Partial Responsive Content -->
+                </div>
+                <!-- END MATERIALS TAB -->
+
+                <!-- FILES TAB -->
+                <div class="tab-pane" id="files">
+                    <!-- Dropzone Block -->
+                    <div class="block full">
+                        <!-- Dropzone Title -->
+                        <div class="block-title">
+                            <h2>FILES</h2>
+                        </div>
+                        <!-- END Dropzone Title -->
+
+                        <!-- Dropzone Content -->
+                        <!-- Dropzone.js, You can check out https://github.com/enyo/dropzone/wiki for usage examples -->
+                        <form action="page_forms_components.html" class="dropzone dz-clickable"><div class="dz-default dz-message"><span>Drop files here to upload</span></div></form>
+                        <!-- END Dropzone Content -->
+                    </div>
+                    <!-- END Dropzone Block -->
+                </div>
+                <!-- END LABOR TAB -->
             </div>
             <!-- END Tabs Content -->
         </div>
         <!-- END Tickets Block -->
     </div>
-</div>
-<!-- END Tickets Content -->
+    <div class="col-md-4 col-lg-4">
+        <!-- Description Block -->
 
-<div id="modal-add-request" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 class="modal-title"><i class="fa fa-plus"></i> <strong>New Request</strong></h3>
+        <!-- END Description Block -->
+
+        <!-- Due Block -->
+        <div class="block">
+            <!-- Quick Month Stats Title -->
+            <div class="block-title">
+                <div class="block-options pull-right">
+                    <a href="javascript:void(0)" class="btn btn-effect-ripple btn-success" data-toggle="tooltip" title="" style="overflow: hidden; position: relative;" data-original-title="Change"><i class="fa fa-pencil"></i></a>
+                </div>
+                <h2>Open</h2><span class="badge">Billable - $40</span>
             </div>
-            <!-- this is a new comment  -->
-            <div class="modal-body">
-                <form [formGroup]="ticketForm" (ngSubmit)="onSubmit()" class="form-horizontal form-bordered">
-                    <div class="form-group">
-                        <label class="col-xs-3 control-label" for="building">Building <span class="required">*</span> </label>
-                        <div class="col-xs-9">
-                            <ng-select id="building" [multiple]="false" [items]="buildings" placeholder="Select Building" (selected)="selectedBuilding($event)"
-                                       [active]="building"></ng-select>
-                            <span *ngIf="(_submitted && building.length == 0)" class="validation-error">This field is Required</span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-xs-3 control-label" for="tenant">Tenant <span class="required">*</span> </label>
-                        <div class="col-xs-9">
-                            <ng-select id="tenant" [multiple]="false" [items]="tenants" placeholder="Select Tenant" (selected)="selectedTenant($event)"
-                                       [active]="tenant"></ng-select>
-                            <span *ngIf="(_submitted && tenant.length == 0)" class="validation-error">This field is Required</span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-xs-3 control-label" for="problem_type">Type <span class="required">*</span> </label>
-                        <div class="col-xs-9">
-                            <ng-select id="problem_type" [multiple]="false" [items]="problem_types" placeholder="Select Type" (selected)="selectedProblemType($event)"
-                                       [active]="problemtype"></ng-select>
-                            <span *ngIf="(_submitted && problem_type.length == 0)" class="validation-error">This field is Required</span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-xs-3 control-label" for="priority">Priority <span class="required">*</span> </label>
-                        <div class="col-xs-9">
-                            <ng-select id="priority" [multiple]="false" [items]="priorities" placeholder="Select Priority" (selected)="selectedPriority($event)"
-                                       [active]="priority"></ng-select>
-                            <span *ngIf="(_submitted && priority.length == 0)" class="validation-error">This field is Required</span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-xs-3 control-label" for="employee">Assigned to <span class="required">*</span> </label>
-                        <div class="col-xs-9">
-                            <ng-select id="employee" [multiple]="false" [items]="employees" placeholder="Select Employee" (selected)="selectedEmployee($event)"
-                                       [active]="employee"></ng-select>
-                            <span *ngIf="(_submitted && employee.length == 0)" class="validation-error">This field is Required</span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-xs-3 control-label" for="group">Group <span class="required">*</span> </label>
-                        <div class="col-xs-9">
-                            <ng-select id="group" [multiple]="false" [items]="groups" placeholder="Select Group" (selected)="selectedGroup($event)"
-                                       [active]="group"></ng-select>,
-                            <span *ngIf="(_submitted && group.length == 0)" class="validation-error">This field is Required</span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-xs-3 control-label" for="description">Description <span class="required">*</span></label>
-                        <div class="col-xs-9">
-                            <textarea [formControlValidator]="ticketForm.controls.description"  formControlName="description" id="description" class="form-control"></textarea>
-                            <span class="validation-error">{{ticketForm.controls.description.error}}</span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-xs-3 control-label">Private Note</label>
-                        <div class="col-xs-9">
-                            <label class="switch switch-success">
-                                <input type="checkbox" formControlName="is_private" id="is_private" name="is_private"><span></span></label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-xs-3 control-label" for="estimated_amount">Estimated Amount</label>
-                        <div class="col-xs-9">
-                            <input [formControlValidator]="ticketForm.controls.estimated_amount" formControlName="estimated_amount" type="text" id="estimated_amount" name="estimated_amount" class="form-control"
-                                   placeholder="Estimated Amount">
-                            <span class="validation-error">{{ticketForm.controls.estimated_amount.error}}</span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-xs-3 control-label">Billable</label>
-                        <div class="col-xs-9">
-                            <label class="switch switch-success">
-                                <input type="checkbox" formControlName="is_billable" id="is_billable" name="is_billable"><span></span></label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-xs-3 control-label">Safety Issue</label>
-                        <div class="col-xs-9">
-                            <label class="switch switch-danger">
-                                <input type="checkbox" formControlName="is_safety_issue" id="is_safety_issue" name="is_safety_issue"><span></span></label>
-                        </div>
-                    </div>
-                    <div class="form-group form-actions">
-                        <div class="col-xs-12 text-right">
-                            <button type="submit" class="btn btn-effect-ripple btn-success" style="overflow: hidden; position: relative;">Submit</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+            <!-- END Due Block -->
+
+            <!-- Due Date Information -->
+            Due in 6 days on Tues, 21 Feb at 9:40am
+            <!-- END Due date Information -->
         </div>
+        <!-- END Organization Block -->
+
+        <!-- Requestor Block -->
+        <div class="block">
+            <!-- Quick Month Stats Title -->
+            <div class="block-title">
+                <div class="block-options pull-right">
+                    <a href="javascript:void(0)" class="btn btn-effect-ripple btn-success" data-toggle="tooltip" title="" style="overflow: hidden; position: relative;" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                </div>
+                <h2>Requestor</h2>
+            </div>
+            <!-- END Quick Month Stats Title -->
+
+            <!-- Tenant Information -->
+            <address class="m-t-md">
+                <strong>Vicky Pink</strong><br>
+                <abbr title="Phone">P:</abbr> (123) 456-7890
+                <br>
+                <abbr title="Email">E:</abbr> vicky.pink@twitter.com<br>
+                <strong>Twitter, Inc.</strong><br>
+                795 Folsom Ave, Suite 600<br>
+                San Francisco, CA 94107<br>
+            </address>
+            <!-- END Tenant Information -->
+        </div>
+        <!-- END Requestor Block -->
+
+        <!-- Organization Block -->
+        <div class="block">
+            <!-- Quick Month Stats Title -->
+            <div class="block-title">
+                <div class="block-options pull-right">
+                    <div class="form-group form-actions">
+                        <button type="submit" class="btn btn-effect-ripple btn-primary" style="overflow: hidden; position: relative;">Update</button>
+                    </div>
+                </div>
+                <h2>Properties</h2>
+            </div>
+            <!-- END Quick Month Stats Title -->
+
+            <!-- Quick Month Stats Content -->
+            <form action="page_forms_components.html" method="post" class="form-bordered" onsubmit="return false;">
+                <!-- Type -->
+                <div class="form-group">
+                    <label for="example-nf-priority">Type<span class="text-danger">*</span></label>
+                    <select id="example-chosen-multiple" name="example-chosen-multiple" class="select-chosen" data-placeholder="Select Type" style="width: 250px; display: none;" multiple="">
+                        <option value="Low">Construction</option>
+                        <option value="Medium">Keys</option>
+                        <option value="High">HVAC</option>
+                        <option value="Urgent">Electrical</option>
+                        <option value="Safety">Plumbing</option>
+                    </select><div class="chosen-container chosen-container-multi" style="width: 100%;" title="" id="example_chosen_multiple_chosen"><ul class="chosen-choices"><li class="search-field"><input type="text" value="Select Type" class="default" autocomplete="off" style="width: 89px;"></li></ul><div class="chosen-drop"><ul class="chosen-results"></ul></div></div>
+                </div>
+
+                <!-- Priority -->
+                <div class="form-group">
+                    <label for="example-nf-priority">Priority<span class="text-danger">*</span></label>
+                    <select id="example-chosen-multiple" name="example-chosen-multiple" class="select-chosen" data-placeholder="Select Priority" style="width: 250px; display: none;" multiple="">
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                        <option value="Urgent">Urgent</option>
+                        <option value="Safety">Safety</option>
+                    </select><div class="chosen-container chosen-container-multi" style="width: 100%;" title="" id="example_chosen_multiple_chosen"><ul class="chosen-choices"><li class="search-field"><input type="text" value="Select Priority" class="default" autocomplete="off" style="width: 106px;"></li></ul><div class="chosen-drop"><ul class="chosen-results"></ul></div></div>
+                </div>
+
+                <!-- Assigned to -->
+                <div class="form-group">
+                    <label for="example-nf-priority">Assigned to<span class="text-danger">*</span></label>
+                    <select id="example-chosen-multiple" name="example-chosen-multiple" class="select-chosen" data-placeholder="Assign Ticket" style="width: 250px; display: none;" multiple="">
+                        <option value="Low">Joe Schmoe</option>
+                        <option value="Medium">Jane Doe</option>
+                        <option value="High">Cathy Chatty</option>
+                        <option value="Urgent">Ben Dover</option>
+                        <option value="Safety">Donald Dove</option>
+                    </select><div class="chosen-container chosen-container-multi" style="width: 100%;" title="" id="example_chosen_multiple_chosen"><ul class="chosen-choices"><li class="search-field"><input type="text" value="Assign Ticket" class="default" autocomplete="off" style="width: 100px;"></li></ul><div class="chosen-drop"><ul class="chosen-results"></ul></div></div>
+                </div>
+
+                <!-- Status -->
+                <div class="form-group">
+                    <label for="example-nf-priority">Status<span class="text-danger">*</span></label>
+                    <select id="example-chosen-multiple" name="example-chosen-multiple" class="select-chosen" data-placeholder="Select Status" style="width: 250px; display: none;" multiple="">
+                        <option value="Open">Open</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Resolved">Resolved</option>
+                        <option value="Closed">Closed</option>
+                        <option value="Customer">Waiting on Customer</option>
+                        <option value="thirdparty">Waiting on Third Party</option>
+                    </select><div class="chosen-container chosen-container-multi" style="width: 100%;" title="" id="example_chosen_multiple_chosen"><ul class="chosen-choices"><li class="search-field"><input type="text" value="Select Status" class="default" autocomplete="off" style="width: 98px;"></li></ul><div class="chosen-drop"><ul class="chosen-results"></ul></div></div>
+                </div>
+
+                <!-- Source -->
+                <div class="form-group">
+                    <label for="example-nf-priority">Source<span class="text-danger">*</span></label>
+                    <select id="example-chosen-multiple" name="example-chosen-multiple" class="select-chosen" data-placeholder="Select Source" style="width: 250px; display: none;" multiple="">
+                        <option value="Email">Email</option>
+                        <option value="Portal">Portal</option>
+                        <option value="Phone">Phone</option>
+                        <option value="Chat">Chat</option>
+                        <option value="Agent">Agent</option>
+                    </select><div class="chosen-container chosen-container-multi" style="width: 100%;" title="" id="example_chosen_multiple_chosen"><ul class="chosen-choices"><li class="search-field"><input type="text" value="Select Source" class="default" autocomplete="off" style="width: 102px;"></li></ul><div class="chosen-drop"><ul class="chosen-results"></ul></div></div>
+                </div>
+
+                <!-- Group -->
+                <div class="form-group">
+                    <label for="example-nf-priority">Group</label>
+                    <select id="example-chosen-multiple" name="example-chosen-multiple" class="select-chosen" data-placeholder="Select Group" style="width: 250px; display: none;" multiple="">
+                        <option value="pm">Property Management</option>
+                        <option value="engineering">Engineering</option>
+                        <option value="security">Security</option>
+                        <option value="janitorial">Janitorial</option>
+                        <option value="Safety">Safety</option>
+                    </select><div class="chosen-container chosen-container-multi" style="width: 100%;" title="" id="example_chosen_multiple_chosen"><ul class="chosen-choices"><li class="search-field"><input type="text" value="Select Group" class="default" autocomplete="off" style="width: 99px;"></li></ul><div class="chosen-drop"><ul class="chosen-results"></ul></div></div>
+                </div>
+
+                <!-- Estimated amount/Billable -->
+                <div class="form-group">
+                    <label for="example-nf-email">Estimated Amount</label>
+                    <input type="text" id="estimate" name="estimate" class="form-control" data-placeholder="Enter an amount">
+                </div>
+                <div class="form-group">
+                    <label for="example-nf-priority">Billable</label>
+                    <label class="switch switch-success"><input type="checkbox"><span></span></label>
+                </div>
+                <!-- END Quick Month Stats Content -->
+            </form>
+        </div>
+        <!-- END Organization Block -->
     </div>
 </div>
+<!-- END Tickets Content -->
