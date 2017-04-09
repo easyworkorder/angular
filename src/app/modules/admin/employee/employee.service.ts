@@ -115,6 +115,14 @@ export class EmployeeService extends DataService {
         return observable;
     }
 
+      getEmployeeByIdByUrl(url) {
+        const observable = this.http.get(url);
+        observable.subscribe(data => {
+            console.log('Employee Data: ', data);
+        });
+        return observable;
+    }
+
     /**
      * Get Employee company by Company Id
      * @returns {Observable<any>}

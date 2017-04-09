@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-sm-6">
             <div class="header-section">
-                <h1>TKT{{ticket.id}}</h1>
+                <h1>TKT{{ticket?.id}}</h1>
             </div>
         </div>
         <div class="col-sm-6 hidden-xs">
@@ -35,10 +35,10 @@
             <!-- END Tickets Title -->
 
             <!-- Tabs Content -->
-            <div class="tab-content">
+            <div class="tab-content active">
                 <!-- Tickets List -->
                 <div class="tab-pane" id="ticket-activity">
-                    <ewo-ticket-activity [ticket]="ticket" [notes]="notes" [isAdmin]="true"></ewo-ticket-activity>
+                    <ewo-ticket-activity *ngIf="ticket" [ticket]="ticket" [notes]="notes" [isAdmin]="true"></ewo-ticket-activity>
                 </div>
                 <!-- END Tickets List -->
 
@@ -104,7 +104,7 @@
                 <!-- END LABOR TAB -->
 
                 <!-- MATERIALS TAB -->
-                <div class="tab-pane active" id="ticket-materials">
+                <div class="tab-pane" id="ticket-materials">
                     <!-- Partial Responsive Block -->
                     <div class="block">
                         <div class="block-title clearfix">
@@ -240,7 +240,7 @@
 
         <!-- Organization Block -->
         <div class="block">
-            <ewo-ticket-edit [ticket]="ticket"></ewo-ticket-edit>
+            <ewo-ticket-edit *ngIf="ticket" [ticket]="ticket"></ewo-ticket-edit>
         </div>
         <!-- END Organization Block -->
     </div>

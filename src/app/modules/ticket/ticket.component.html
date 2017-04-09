@@ -238,7 +238,7 @@
                         <label class="col-xs-3 control-label" for="problem_type">Type <span class="required">*</span> </label>
                         <div class="col-xs-9">
                             <ng-select id="problem_type" [multiple]="false" [items]="problem_types" placeholder="Select Type" (selected)="selectedProblemType($event)"
-                                       [active]="problemtype"></ng-select>
+                                       [active]="problem_type"></ng-select>
                             <span *ngIf="(_submitted && problem_type.length == 0)" class="validation-error">This field is Required</span>
                         </div>
                     </div>
@@ -262,7 +262,7 @@
                         <label class="col-xs-3 control-label" for="group">Group <span class="required">*</span> </label>
                         <div class="col-xs-9">
                             <ng-select id="group" [multiple]="false" [items]="groups" placeholder="Select Group" (selected)="selectedGroup($event)"
-                                       [active]="group"></ng-select>,
+                                       [active]="group"></ng-select>
                             <span *ngIf="(_submitted && group.length == 0)" class="validation-error">This field is Required</span>
                         </div>
                     </div>

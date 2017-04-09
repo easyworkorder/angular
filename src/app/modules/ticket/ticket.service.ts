@@ -69,22 +69,22 @@ export class TicketService extends DataService {
     return observable;
   }
 
-  /*update(data?: any): Observable<ITicket> {
+  update(data?: any): Observable<ITicket> {
     data = Object.assign({}, data);
 
     // PUT '/employee'
-    const observable = this.http.put(data.url, data);
+    const observable = this.http.patch(data.url, data);
 
     observable.subscribe(data => {
-      this.toasterService.pop('success', 'UPDATE', 'Employee has been updated successfully');
+      this.toasterService.pop('success', 'UPDATE', 'Ticket has been updated successfully');
       console.log(data);
     },
       error => {
-        this.toasterService.pop('error', 'UPDATE', 'Employee not updated!!!');
+        this.toasterService.pop('error', 'UPDATE', 'Ticket not updated!!!');
         console.log(error);
       });
 
     return observable;
-  }*/
+  }
 
 }

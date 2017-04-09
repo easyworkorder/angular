@@ -73,6 +73,14 @@ export class ProblemTypeService extends DataService {
     return observable;
   }
 
+   getProblemTypeByUrl(url) {
+    const observable = this.http.get(url);
+    observable.subscribe(data => {
+      //console.log(data);
+    });
+    return observable;
+  }
+
   /**
    * Get All employee by Company Id
    * @returns {Observable<any>}

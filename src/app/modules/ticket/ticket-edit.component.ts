@@ -18,15 +18,15 @@ declare var $: any;
 
 export class TicketEditComponent implements OnInit {
 
-    @Input() ticket: any[];
+    @Input() ticket: any;
 
     _submitted = false;
     building: any[] = [];
     tenant: any[] = [];
-    problem_type: any[] = [];
-    priority: any[] = [];
-    employee: any[] = [];
-    group: any[] = [];
+    selectedProblem_type: any = [];
+    selectPriority: any = [];
+    selectEmployee: any = [];
+    selectGroup: any = [];
 
     tickets: any[] = [];
     buildings: any[] = [];
@@ -61,7 +61,8 @@ export class TicketEditComponent implements OnInit {
         is_safety_issue: new FormControl(false),
         notify_tenant: new FormControl(false),
         tenant_notify_flag: new FormControl(false),
-        status: new FormControl('Open')
+        status: new FormControl('Open'),
+        url: new FormControl()
     });
 
     constructor(private buildingService: BuildingService,
@@ -81,13 +82,39 @@ export class TicketEditComponent implements OnInit {
     }
 
     ngOnInit() {
+        const ticket = this.ticket;
+        this.selectPriority.push({id: ticket.priority, text: ticket.priority})
+        this.selectGroup.push({id: ticket.group, text: ticket.group})
 
+        // this.problemTypeService.getProblemTypeByUrl(ticket.problemtype).subscribe(data => {
+        //     this.selectedProblem_type.push({id: data.id, text: (data.problem_name)});
+        // });
+
+        // this.employeeService.getEmployeeByIdByUrl(ticket.employee).subscribe(data => {
+        //     this.selectedProblem_type.push({id: data.id, text: (data.first_name + ' ' + data.last_name) });
+        // });
+        this.getSelectProblemType();
+        this.getSelectEmployee();
+    }
+
+    getSelectProblemType() {
+         this.problemTypeService.getProblemTypeByUrl(this.ticket.problemtype).subscribe(data => {
+            // this.selectedProblem_type.push({id: data.id, text: (data.problem_name)});
+            this.selectedProblem_type = [{id: data.id, text: (data.problem_name)}];
+        });
+    }
+
+    getSelectEmployee() {
+        this.employeeService.getEmployeeByIdByUrl(this.ticket.employee).subscribe(data => {
+            // this.selectEmployee.push({id: data.id, text: (data.first_name + ' ' + data.last_name) });
+            this.selectEmployee = [{id: data.id, text: (data.first_name + ' ' + data.last_name) }];
+        });
     }
 
     onSubmit() {
         this._submitted = true;
         // console.log(this.ticketForm.value);
-        this.ticketService.create(this.ticketForm.value).subscribe((tikcet: any) => {
+        this.ticketService.update(this.ticketForm.value).subscribe((tikcet: any) => {
             // this.getAllTickets();
             // this.closeModal();
         });
@@ -116,9 +143,10 @@ export class TicketEditComponent implements OnInit {
         this.employeeService.getAllActiveEmployees(this.currentCompanyId).subscribe(
             data => {
                 let _employee: any[] = data.results.map(item => {
-                    return { id: item.id, text: (item.last_name + ' ' + item.first_name) };
+                    return { id: item.id, text: (item.first_name + ' ' + item.last_name) };
                 })
                 this.employees = _employee;
+                // this.getSelectEmployee();
             }
         );
     }
@@ -130,6 +158,7 @@ export class TicketEditComponent implements OnInit {
                     return { id: item.id, text: (item.problem_name) };
                 })
                 this.problem_types = _problem_type;
+                // this.getSelectProblemType();
             }
         );
     }
@@ -157,22 +186,22 @@ export class TicketEditComponent implements OnInit {
     }
 
     public selectedProblemType(value: any): void {
-        this.problem_type = [value];
-        this.ticketForm.get('problemtype').setValue(config.api.base + 'problemType/' + this.problem_type[0].id + '/');
+        this.selectedProblem_type = [value];
+        this.ticketForm.get('problemtype').setValue(config.api.base + 'problemType/' + this.selectedProblem_type[0].id + '/');
     }
 
     public selectedPriority(value: any): void {
-        this.priority = [value];
-        this.ticketForm.get('priority').setValue(this.priority[0].id);
+        this.selectPriority = [value];
+        this.ticketForm.get('priority').setValue(this.selectPriority[0].id);
     }
 
     public selectedEmployee(value: any): void {
-        this.employee = [value];
-        this.ticketForm.get('employee').setValue(config.api.base + 'employee/' + this.employee[0].id + '/');
+        this.selectEmployee = [value];
+        this.ticketForm.get('employee').setValue(config.api.base + 'employee/' + this.selectEmployee[0].id + '/');
     }
 
     public selectedGroup(value: any): void {
-        this.group = [value];
-        this.ticketForm.get('group').setValue(this.group[0].id);
+        this.selectGroup = [value];
+        this.ticketForm.get('group').setValue(this.selectGroup[0].id);
     }
 }

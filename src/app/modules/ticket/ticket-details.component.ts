@@ -26,7 +26,8 @@ export class TabVisibility {
 })
 export class TicketDetailsComponent implements OnInit {
 
-    ticket: any[] = [];
+    // ticket: any[] = [];
+    ticket: any[];
     notes: any[] = [];
 
 
@@ -90,11 +91,11 @@ export class TicketDetailsComponent implements OnInit {
 
     ngOnInit() {
         const ticketId = this.route.snapshot.params['id'];
-        this.getAllNotes(ticketId);
+        this.getAllNotes(ticketId);//
         this.ticketService.getTicketDetails(ticketId).subscribe(
             data => {
                 this.ticket = data;
-                // this.ticketForm.patchValue(data);
+                this.ticketForm.patchValue(data);//
             }
         );
     }
