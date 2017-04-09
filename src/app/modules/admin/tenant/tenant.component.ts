@@ -145,21 +145,30 @@ export class TenantComponent implements OnInit {
          * Expire Date validation
          */
         // FIXME: Failing with error Unexpected literal at position 2 while calling this.tenantForm.get('inscertdate').setValue(dateAndTime[0]);
-        if (this.tenantForm.get('inscertdate').value) {
-            let date: Date = this.tenantForm.get('inscertdate').value;
-            if(date.toString().indexOf('T') > -1) {
-                let dateAndTime = date.toISOString().split('T');
-                this.tenantForm.get('inscertdate').setValue(dateAndTime[0]);
-            }
-            else {
-                this.tenantForm.get('inscertdate').setValue(date);
-            }
-        }
-        else {
-            this.exp_date_not_valid = true;
-            this.switchTab(1);
-            return;
-        }
+        // if (this.tenantForm.get('inscertdate').value) {
+        //     let date: Date = this.tenantForm.get('inscertdate').value;
+        //     if(date.toString().indexOf('T') > -1) {
+        //         let dateAndTime = date.toISOString().split('T');
+        //         this.tenantForm.get('inscertdate').setValue(dateAndTime[0]);
+        //     }
+        //     else {
+        //         this.tenantForm.get('inscertdate').setValue(date);
+        //     }
+        // }
+        // else {
+        //     this.exp_date_not_valid = true;
+        //     this.switchTab(1);
+        //     return;
+        // }
+        let inscertDate = this.tenantForm.get('inscertdate').value;
+        let inscertDateString = null;
+        if(inscertDate) {
+            console.log('The Given Date Is: ' + inscertDate);
+            inscertDate = new Date(inscertDate);
+            inscertDateString = inscertDate.toISOString();
+            console.log('The UTC/ISO Representation: ' + inscertDateString);
+            // this.tenantForm.get('inscertdate').setValue(inscertDateString);
+        } 
         this.tenantForm.get('building').setValue(`${config.api.base}building/${this.buildingId}/`);
         // Save operation with/without photo begins from here
         let contactFormArray = this.tenantForm.get('tenant_contacts') as FormArray;
@@ -168,6 +177,8 @@ export class TenantComponent implements OnInit {
         // this.tenantForm.removeControl('tenant_contacts');
         let tenantData = this.tenantForm.value;
         if(tenantData.tenant_contacts) { delete tenantData.tenant_contacts; }
+        if(inscertDateString)
+            tenantData.inscertdate = inscertDateString;
         this.tenantService.saveTenant(tenantData).subscribe((tenant:any) => {
             // Tenant Saved lets go for saving contact with/without file
             console.log('Tenant Saved');

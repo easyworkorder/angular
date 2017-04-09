@@ -331,6 +331,7 @@ export class VendorService extends DataService {
             console.log('Should be accessible through: ' + url);
             vendorContact.photo = url;
             observable = this.saveVendorContact(vendorContact);
+            // return this.saveVendorContact(vendorContact);
         })
         return observable;
     }
