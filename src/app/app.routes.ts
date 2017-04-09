@@ -4,7 +4,7 @@ import { SigninComponent } from './modules/authentication/signin.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { BuildingComponent } from './modules/admin/building/building.component';
 import { TicketComponent } from './modules/ticket/ticket.component';
-import { TicketDetailsComponent } from './modules/ticket/ticket_details.component';
+import { TicketDetailsComponent } from './modules/ticket/ticket-details.component';
 import { AddressComponent } from './modules/address/address.component';
 import { TenantComponent } from './modules/admin/tenant/tenant.component';
 import { TenantContactProfileComponent } from './modules/admin/tenant/tenant-contact-profile.component';

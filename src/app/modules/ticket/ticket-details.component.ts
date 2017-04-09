@@ -14,9 +14,13 @@ declare var $: any;
 
 @Component({
     selector: 'ewo-ticket-details',
-    templateUrl: './ticket_details.component.html'
+    templateUrl: './ticket-details.component.html'
 })
 export class TicketDetailsComponent implements OnInit {
+
+    ticket: any[] = [];
+
+
 
     _submitted = false;
     building: any[] = [];
@@ -25,6 +29,7 @@ export class TicketDetailsComponent implements OnInit {
     priority: any[] = [];
     employee: any[] = [];
     group: any[] = [];
+
 
     tickets: any[] = [];
     buildings: any[] = [];
@@ -81,9 +86,9 @@ export class TicketDetailsComponent implements OnInit {
     }
 
     getTicketDetails(ticketId): void {
-        this.ticketService.getAllTickets(this.currentCompanyId).subscribe(
+        this.ticketService.getTicketDetails(ticketId).subscribe(
             data => {
-                this.tickets = data.results;
+                this.ticket = data;
             }
         );
     }

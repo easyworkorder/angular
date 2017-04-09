@@ -2,7 +2,7 @@
  * Created by root on 3/18/17.
  */
 
-export interface ITicket{
+export interface ITicket {
     building: string;
     tenant: string;
     problemtype: string;
@@ -10,10 +10,10 @@ export interface ITicket{
     employee: string;
     group: string;
     title: string;
-    description:string;
-    is_private:boolean;
-    estimated_amount:number;
+    description: string;
+    is_private: boolean;
+    estimated_amount: number;
     is_billable: boolean;
     is_safety_issue: boolean;
     status: string;
-}
+ }
