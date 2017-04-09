@@ -1,0 +1,75 @@
+
+<form [formGroup]="ticketForm" (ngSubmit)="onSubmit()" class="form-horizontal">
+    <div class="block-title">
+        <div class="block-options pull-right" style="width: 55px">
+            <div class="form-group form-actions">
+                <button type="submit" class="btn btn-effect-ripple btn-primary"
+                        style="overflow: hidden; position: relative;">Update
+                </button>
+            </div>
+        </div>
+        <h2>Properties</h2>
+    </div>
+    <div class="form-group">
+        <label class="col-xs-3 control-label" for="problem_type">Type <span class="required">*</span> </label>
+        <div class="col-xs-9">
+            <ng-select id="problem_type" [multiple]="false" [items]="problem_types" placeholder="Select Type"
+                       (selected)="selectedProblemType($event)"
+                       [active]="problemtype"></ng-select>
+            <span *ngIf="(_submitted && problem_type.length == 0)"
+                  class="validation-error">This field is Required</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-xs-3 control-label" for="priority">Priority <span class="required">*</span> </label>
+        <div class="col-xs-9">
+            <ng-select id="priority" [multiple]="false" [items]="priorities" placeholder="Select Priority"
+                       (selected)="selectedPriority($event)"
+                       [active]="priority"></ng-select>
+            <span *ngIf="(_submitted && priority.length == 0)" class="validation-error">This field is Required</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-xs-3 control-label" for="employee">Assigned to <span class="required">*</span> </label>
+        <div class="col-xs-9">
+            <ng-select id="employee" [multiple]="false" [items]="employees" placeholder="Select Employee"
+                       (selected)="selectedEmployee($event)"
+                       [active]="employee"></ng-select>
+            <span *ngIf="(_submitted && employee.length == 0)" class="validation-error">This field is Required</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-xs-3 control-label" for="group">Group <span class="required">*</span> </label>
+        <div class="col-xs-9">
+            <ng-select id="group" [multiple]="false" [items]="groups" placeholder="Select Group"
+                       (selected)="selectedGroup($event)"
+                       [active]="group"></ng-select>
+            ,
+            <span *ngIf="(_submitted && group.length == 0)" class="validation-error">This field is Required</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-xs-3 control-label" for="estimated_amount">Estimated Amount</label>
+        <div class="col-xs-9">
+            <input [formControlValidator]="ticketForm.controls.estimated_amount" formControlName="estimated_amount"
+                   type="text" id="estimated_amount" name="estimated_amount" class="form-control"
+                   placeholder="Estimated Amount">
+            <span class="validation-error">{{ticketForm.controls.estimated_amount.error}}</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-xs-3 control-label">Billable</label>
+        <div class="col-xs-9">
+            <label class="switch switch-success">
+                <input type="checkbox" formControlName="is_billable" id="is_billable"
+                       name="is_billable"><span></span></label>
+        </div>
+    </div>
+    <div class="form-group form-actions">
+        <div class="col-xs-12 text-right">
+            <button type="submit" class="btn btn-effect-ripple btn-success"
+                    style="overflow: hidden; position: relative;">Submit
+            </button>
+        </div>
+    </div>
+</form>
