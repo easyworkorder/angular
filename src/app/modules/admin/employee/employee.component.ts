@@ -223,7 +223,7 @@ export class EmployeeComponent implements OnInit {
     }
     private uploadtFile(logMsg: string, employee: any) {
         if(this.photoFile) {
-            let url = 'getemployeephotouploadsignature/?name=' + this.photoFile.name + '&type=' + this.photoFile.type + '&company=' + this.currentCompanyId;
+            let url = 's3filesignature/?name=' + this.photoFile.name + '&type=' + this.photoFile.type + '&etype=emp&rid=' + this.currentCompanyId;
             this.employeeService.get(url).subscribe(s3Data => {
                 this.uploadToAws(this.photoFile, s3Data.data, s3Data.url, employee);
             });

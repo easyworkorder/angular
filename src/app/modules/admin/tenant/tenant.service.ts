@@ -193,28 +193,75 @@ export class TenantService extends DataService {
      * @param refreshCallback This callback is depricated for the time being
      */
     public saveContact(photoFile: File, contactForm: FormGroup, tenant:any, refreshCallback:(logMsg:string, obj:any) => any):Observable<any> {
-        let [url, id, operation] = contactForm.value.id ? [contactForm.value.url, contactForm.value.id, 'Updated'] : ['tenantcontact/', null, 'Created'];
+        // let [url, id, operation] = contactForm.value.id ? [contactForm.value.url, contactForm.value.id, 'Updated'] : ['tenantcontact/', null, 'Created'];
+        // let observable:Observable<any>;
+        // if(photoFile) {
+        //     console.log('Inside Photo File Submit');
+        //     this.relateWithTenant(contactForm, tenant);
+        //     let excludeKeys = contactForm.value.id ?  ['photo'] : ['photo', 'id', 'user_id'];
+        //     let formData:FormData = this.dataService.mapToFormData(contactForm, excludeKeys);
+        //     formData.append('photo', photoFile, photoFile.name);
+        //     observable = this.saveContactWithFile(url, id, formData);
+        // } else {
+        //     this.relateWithTenant(contactForm, tenant);
+        //     let contactData = contactForm.value;
+        //     if(! contactData.id) { 
+        //         if(contactForm.contains('user_id'))
+        //             delete contactData.user_id;
+        //         delete contactData.id;
+        //     }
+        //     if(contactForm.contains('photo'))
+        //         delete contactData.photo;
+
+        //     observable = this.saveTenantContact(contactData);
+        // }
+        // return observable;
+
+        this.relateWithTenant(contactForm, tenant);
+        let contactData = contactForm.value;
+        if(! contactData.id) { 
+            if(contactData.user_id)
+                delete contactData.user_id;
+            delete contactData.id;
+        }
+        // if(contactForm.contains('photo'))
+        //     delete contactData.photo;
+        let observable:Observable<any>;
+        observable = this.saveTenantContact(contactData);
+        if(photoFile){
+            observable.subscribe(contact => {
+                observable = this.uploadFile(photoFile, contact, tenant.id);
+            });
+        }
+        return observable;
+    }
+
+
+    private uploadFile(photoFile: File, tenantContact: any, tenant_id:number): Observable<any> {
         let observable:Observable<any>;
         if(photoFile) {
-            console.log('Inside Photo File Submit');
-            this.relateWithTenant(contactForm, tenant);
-            let excludeKeys = contactForm.value.id ?  ['photo'] : ['photo', 'id', 'user_id'];
-            let formData:FormData = this.dataService.mapToFormData(contactForm, excludeKeys);
-            formData.append('photo', photoFile, photoFile.name);
-            observable = this.saveContactWithFile(url, id, formData);
-        } else {
-            this.relateWithTenant(contactForm, tenant);
-            let contactData = contactForm.value;
-            if(! contactData.id) { 
-                if(contactForm.contains('user_id'))
-                    delete contactData.user_id;
-                delete contactData.id;
-            }
-            if(contactForm.contains('photo'))
-                delete contactData.photo;
-
-            observable = this.saveTenantContact(contactData);
+            let url = 's3filesignature/?name=' + photoFile.name + '&type=' + photoFile.type + '&etype=tc&rid=' + tenant_id;
+            this.http.get(url).subscribe(s3Data => {
+                observable = this.uploadToAws(photoFile, s3Data.data, s3Data.url, tenantContact);
+            });
         }
+        return observable;
+    }
+
+    private uploadToAws(file: File, s3Data:any, url:string, tenantContact:any): Observable<any> {
+        let observable:Observable<any>;
+        var postData = new FormData();
+        for(let key in s3Data.fields){
+            postData.append(key, s3Data.fields[key]);
+        }
+        postData.append('file', file);
+        observable = this.http.postToS3(s3Data.url, postData);
+        observable.subscribe(data => {
+            console.log(data);
+            console.log('Should be accessible through: ' + url);
+            tenantContact.photo = url;
+            observable = this.saveTenantContact(tenantContact);
+        })
         return observable;
     }
 

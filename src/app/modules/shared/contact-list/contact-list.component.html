@@ -2,7 +2,8 @@
     <tbody>
         <tr class="animation-fadeInQuick2" *ngFor="let contact of contactList?.contacts">
             <td class="text-center" style="width: 100px;">
-                <img [src]="getPhotoUrl(contact)" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
+                <!--<img [src]="getPhotoUrl(contact)" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">-->
+                <img src="{{ contact.photo }}" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
             </td>
             <td>
                 <h4><strong>{{contact.first_name}} {{ contact.last_name }}</strong></h4>

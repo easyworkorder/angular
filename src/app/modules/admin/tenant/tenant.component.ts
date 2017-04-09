@@ -144,6 +144,7 @@ export class TenantComponent implements OnInit {
         /**
          * Expire Date validation
          */
+        // FIXME: Failing with error Unexpected literal at position 2 while calling this.tenantForm.get('inscertdate').setValue(dateAndTime[0]);
         if (this.tenantForm.get('inscertdate').value) {
             let date: Date = this.tenantForm.get('inscertdate').value;
             if(date.toString().indexOf('T') > -1) {
