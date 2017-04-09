@@ -26,10 +26,10 @@
             <!-- Tickets Title -->
             <div class="block-title">
                 <ul class="nav nav-tabs" data-toggle="tabs">
-                    <li class=""><a href="#activity">Activity</a></li>
-                    <li class=""><a href="#labor">Labor <span class="badge">$637.50</span></a> </li>
-                    <li class="active"><a href="#materials">Materials <span class="badge">$86.85</span></a></li>
-                    <li><a href="#files">Files <span class="badge">2</span></a></li>
+                    <li class="active"><a (click)="switchTab(1)" href="#ticket-activity" data-toggle="tab">Activity</a></li>
+                    <li class=""><a (click)="switchTab(2)" href="#ticket-labor" data-toggle="tab">Labor <span class="badge">$637.50</span></a></li>
+                    <li class=""><a (click)="switchTab(3)" href="#ticket-materials" data-toggle="tab">Materials <span class="badge">$637.50</span></a></li>
+                    <li class=""><a (click)="switchTab(4)" href="#ticket-files" data-toggle="tab">Files <span class="badge">3</span></a></li>
                 </ul>
             </div>
             <!-- END Tickets Title -->
@@ -37,92 +37,13 @@
             <!-- Tabs Content -->
             <div class="tab-content">
                 <!-- Tickets List -->
-                <div class="tab-pane" id="activity">
-
-                    <a href="javascript:void(0)" class="btn btn-sm btn-danger"><i class="fa fa-life-ring"></i> Saftey Issue</a>
-                    <a href="#modal-add-public" class="btn btn-sm btn-default" data-toggle="modal"><i class="fa fa-reply"></i> Reply</a>
-                    <a href="#modal-add-private" class="btn btn-sm btn-default" data-toggle="modal"><i class="fa fa-sticky-note"></i> Add Note</a>
-                    <!-- <a href="#modal-reassign-wo" class="btn btn-sm btn-default" data-toggle="modal"><i class="fa fa-send"></i> Reassign</a> -->
-                    <a href="#modal-merge-wo" class="btn btn-sm btn-default" data-toggle="modal"><i class="fa fa-sort-amount-desc"></i> Merge</a>
-                    <a href="#modal-send-vendor" class="btn btn-sm btn-default" data-toggle="modal"><i class="fa fa-external-link"></i> Send Vendor</a>
-                    <a href="#modal-close-wo" class="btn btn-sm btn-default" data-toggle="modal"><i class="fa fa-check"></i> Close</a>
-
-                    <div class="pull-right">
-                        <a href="javascript:void(0)" class="btn btn-sm btn-primary"><i class="fa fa-arrow-left"></i> Prev</a>
-                        <a href="javascript:void(0)" class="btn btn-sm btn-primary">Next <i class="fa fa-arrow-right"></i></a>
-                    </div>
-                    <!-- <span class="pull-right">
-                        <button class="btn btn-primary" data-toggle="tooltip" title="Previous"><i class="fa fa-chevron-left fa-fw"></i></button>
-                        <button class="btn btn-primary" data-toggle="tooltip" title="Next"><i class="fa fa-chevron-right fa-fw"></i></button>
-                    </span> -->
-                    <hr>
-                    <ul class="media-list media-feed push">
-                        <!-- Ticket -->
-                        <li class="media">
-                            <a href="page_ready_user_profile.html" class="pull-left">
-                                <img src="img/placeholders/avatars/ji-albino.jpg" alt="Avatar" class="img-circle">
-                            </a>
-                            <div class="media-body">
-                                <p class="push-bit">
-                                                            <span class="text-muted pull-right">
-                                                                <small>2 hours ago</small>
-                                                            </span>
-                                    <small><a href="page_ready_user_profile.html">Howard Smith</a> through <a href="javascript:void(0)">Email</a></small>
-                                </p>
-                                <h4><strong>Can you help me with the installation?</strong></h4>
-                                <p>Hi, I'm having a problem with the installation of the theme, can you help me out? I get the following error message and I don't know what to do:</p>
-                                <div class="alert alert-warning">
-                                    <p><i class="fa fa-angle-right"></i> <strong>Error Establishing Database Connection</strong></p>
-                                    <p>...</p>
-                                </div>
-                            </div>
-                        </li>
-                        <!-- END Ticket -->
-
-                        <!-- Replies -->
-                        <li class="media">
-                            <a href="page_ready_user_profile.html" class="pull-left">
-                                <img src="img/placeholders/avatars/alfred.jpg" alt="Avatar" class="img-circle chatui-talk-msg-avatar">
-                            </a>
-                            <div class="media-body">
-                                <p class="push-bit">
-                                                            <span class="text-muted pull-right">
-                                                                <small>1 hour ago</small>
-                                                            </span>
-                                    <small><a href="page_ready_user_profile.html">Support</a></small>
-                                </p>
-                                <p>Hi Howard and thank you very much for your purchase! There are many reasons this can happen. One is the incorrect information in wp-config.html file. Please open up wp-config.html and ensure that the following are correct:</p>
-                                <ul class="fa-ul push">
-                                    <li><i class="fa fa-li fa-check text-success"></i> Database name</li>
-                                    <li><i class="fa fa-li fa-check text-success"></i> Database username</li>
-                                    <li><i class="fa fa-li fa-check text-success"></i> Database password</li>
-                                    <li><i class="fa fa-li fa-check text-success"></i> Database host</li>
-                                </ul>
-                                <p>Learn more about <a href="javascript:void(0)">editing the wp-config.html</a></p>
-                            </div>
-                        </li>
-                        <li class="media">
-                            <a href="page_ready_user_profile.html" class="pull-left">
-                                <img src="img/placeholders/avatars/ji-albino.jpg" alt="Avatar" class="img-circle">
-                            </a>
-                            <div class="media-body">
-                                <p class="push-bit">
-                                                            <span class="text-muted pull-right">
-                                                                <small>30 min ago</small>
-                                                            </span>
-                                    <small><a href="page_ready_user_profile.html">Howard Smith</a></small>
-                                </p>
-                                <p>I'm going to check it out and let you know!</p>
-                                <p>Thanks a lot!</p>
-                            </div>
-                        </li>
-                        <!-- END Replies -->
-                    </ul>
+                <div class="tab-pane" id="ticket-activity">
+                    <ewo-ticket-activity [ticket]="ticket" [notes]="notes" [isAdmin]="true"></ewo-ticket-activity>
                 </div>
                 <!-- END Tickets List -->
 
                 <!-- LABOR TAB -->
-                <div class="tab-pane" id="labor">
+                <div class="tab-pane" id="ticket-labor">
                     <!-- Partial Responsive Block -->
                     <div class="block">
                         <div class="block-title clearfix">
@@ -183,7 +104,7 @@
                 <!-- END LABOR TAB -->
 
                 <!-- MATERIALS TAB -->
-                <div class="tab-pane active" id="materials">
+                <div class="tab-pane active" id="ticket-materials">
                     <!-- Partial Responsive Block -->
                     <div class="block">
                         <div class="block-title clearfix">
@@ -248,7 +169,7 @@
                 <!-- END MATERIALS TAB -->
 
                 <!-- FILES TAB -->
-                <div class="tab-pane" id="files">
+                <div class="tab-pane" id="ticket-files">
                     <!-- Dropzone Block -->
                     <div class="block full">
                         <!-- Dropzone Title -->
@@ -319,9 +240,124 @@
 
         <!-- Organization Block -->
         <div class="block">
-            <ewo-ticket-edit ticket="ticket"></ewo-ticket-edit>
+            <!--ewo-ticket-edit [ticket]="ticket"></ewo-ticket-edit-->
+            <!--<form [formGroup]="ticketForm" (ngSubmit)="onSubmit()" class="form-horizontal">
+                <div class="block-title">
+                    <div class="block-options pull-right" style="width: 55px">
+                        <div class="form-group form-actions">
+                            <button type="submit" class="btn btn-effect-ripple btn-primary"
+                                    style="overflow: hidden; position: relative;">Update
+                            </button>
+                        </div>
+                    </div>
+                    <h2>Properties</h2>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-3 control-label" for="problem_type">Type <span class="required">*</span> </label>
+                    <div class="col-xs-9">
+                        <ng-select id="problem_type" [multiple]="false" [items]="problem_types" placeholder="Select Type"
+                                   (selected)="selectedProblemType($event)"
+                                   [active]="problemtype"></ng-select>
+                        <span *ngIf="(_submitted && problem_type.length == 0)"
+                              class="validation-error">This field is Required</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-3 control-label" for="priority">Priority <span class="required">*</span> </label>
+                    <div class="col-xs-9">
+                        <ng-select id="priority" [multiple]="false" [items]="priorities" placeholder="Select Priority"
+                                   (selected)="selectedPriority($event)"
+                                   [active]="priority"></ng-select>
+                        <span *ngIf="(_submitted && priority.length == 0)" class="validation-error">This field is Required</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-3 control-label" for="employee">Assigned to <span class="required">*</span> </label>
+                    <div class="col-xs-9">
+                        <ng-select id="employee" [multiple]="false" [items]="employees" placeholder="Select Employee"
+                                   (selected)="selectedEmployee($event)"
+                                   [active]="employee"></ng-select>
+                        <span *ngIf="(_submitted && employee.length == 0)" class="validation-error">This field is Required</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-3 control-label" for="group">Group <span class="required">*</span> </label>
+                    <div class="col-xs-9">
+                        <ng-select id="group" [multiple]="false" [items]="groups" placeholder="Select Group"
+                                   (selected)="selectedGroup($event)"
+                                   [active]="group"></ng-select>
+                        ,
+                        <span *ngIf="(_submitted && group.length == 0)" class="validation-error">This field is Required</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-3 control-label" for="estimated_amount">Estimated Amount</label>
+                    <div class="col-xs-9">
+                        <input [formControlValidator]="ticketForm.controls.estimated_amount" formControlName="estimated_amount"
+                               type="text" id="estimated_amount" name="estimated_amount" class="form-control"
+                               placeholder="Estimated Amount">
+                        <span class="validation-error">{{ticketForm.controls.estimated_amount.error}}</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-3 control-label">Billable</label>
+                    <div class="col-xs-9">
+                        <label class="switch switch-success">
+                            <input type="checkbox" formControlName="is_billable" id="is_billable"
+                                   name="is_billable"><span></span></label>
+                    </div>
+                </div>
+                <div class="form-group form-actions">
+                    <div class="col-xs-12 text-right">
+                        <button type="submit" class="btn btn-effect-ripple btn-success"
+                                style="overflow: hidden; position: relative;">Submit
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
         <!-- END Organization Block -->
     </div>
 </div>
 <!-- END Tickets Content -->
+
+<div id="modal-add-public" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 class="modal-title"><i class="fa fa-plus"></i> <strong>Reply</strong></h3>
+                </div>
+                <!-- this is a new comment  -->
+                <div class="modal-body">
+                    <form action="page_ready_contacts.html" method="post" class="form-horizontal form-bordered" onsubmit="return false;">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="example-select2">Tenant</label>
+                            <div class="col-md-5">
+                                <select id="example-chosen-multiple" name="example-chosen-multiple" class="select-chosen" data-placeholder="Choose Reciptient(s)" multiple="" style="display: none;">
+                                    <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
+                                    <option value="HTML">Elsa Mann</option>
+                                    <option value="HTML">Hugo Palmer</option>
+                                    <option value="HTML">Mathew Craig</option>
+                                    <option value="HTML">Elizabeth Lopez</option>
+                                </select><div class="chosen-container chosen-container-multi" style="width: 100%;" title="" id="example_chosen_multiple_chosen"><ul class="chosen-choices"><li class="search-field"><input type="text" value="Choose Reciptient(s)" class="default" autocomplete="off" style="width: 90px;"></li></ul><div class="chosen-drop"><ul class="chosen-results"></ul></div></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="example-textarea-input">Note</label>
+                            <div class="col-md-9">
+                                <textarea id="example-textarea-input" name="example-textarea-input" rows="7" class="form-control" placeholder="Note..."></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-actions">
+                            <div class="col-xs-12 text-right">
+                                <button type="submit" class="btn btn-effect-ripple btn-success" style="overflow: hidden; position: relative;">Send</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+</div>

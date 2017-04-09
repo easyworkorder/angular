@@ -71,6 +71,8 @@ export class TicketEditComponent implements OnInit {
                 private ticketService: TicketService,
                 private authService: AuthenticationService) {
         this.authService.verifyToken().take(1).subscribe(data => {
+            console.log('Ticket ---- ' + this.ticket);
+            this.ticketForm.patchValue(this.ticket);
             this.getAllTickets();
             this.getAllActiveBuildings();
             this.getAllActiveEmployees();

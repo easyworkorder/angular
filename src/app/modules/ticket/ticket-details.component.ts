@@ -12,6 +12,14 @@ import { ValidationService } from "./../../services/validation.service";
 import {AuthenticationService} from "app/modules/authentication";
 declare var $: any;
 
+export class TabVisibility {
+    isActivityTabVisible = true;
+    isLaborTabVisible = false;
+    isMaterialTabVisible = false;
+    isFilesTabVisible = false;
+    selectedTabNo = 1;
+}
+
 @Component({
     selector: 'ewo-ticket-details',
     templateUrl: './ticket-details.component.html'
@@ -19,6 +27,7 @@ declare var $: any;
 export class TicketDetailsComponent implements OnInit {
 
     ticket: any[] = [];
+    notes: any[] = [];
 
 
 
@@ -65,6 +74,8 @@ export class TicketDetailsComponent implements OnInit {
         status: new FormControl('Open')
     });
 
+    tabs = new TabVisibility();
+
     constructor(private buildingService: BuildingService,
                 private employeeService: EmployeeService,
                 private tenantService: TenantService,
@@ -79,19 +90,33 @@ export class TicketDetailsComponent implements OnInit {
 
     ngOnInit() {
         const ticketId = this.route.snapshot.params['id'];
-        this.getTicketDetails(ticketId);
+        this.getAllNotes(ticketId);
+        this.ticketService.getTicketDetails(ticketId).subscribe(
+            data => {
+                this.ticket = data;
+                // this.ticketForm.patchValue(data);
+            }
+        );
+    }
+
+    getAllNotes(ticketId) {
+        this.ticketService.getAllNotes(ticketId).subscribe(
+            data => {
+                this.notes = data;
+            });
+    }
+
+    switchTab(tabId: number) {
+        this.tabs.isActivityTabVisible = tabId === 1 ? true : false;
+        this.tabs.isLaborTabVisible = tabId === 2 ? true : false;
+        this.tabs.isMaterialTabVisible = tabId === 3 ? true : false;
+        this.tabs.isFilesTabVisible = tabId === 4 ? true : false;
+        this.tabs.selectedTabNo = tabId;
     }
 
     onSubmit() {
     }
 
-    getTicketDetails(ticketId): void {
-        this.ticketService.getTicketDetails(ticketId).subscribe(
-            data => {
-                this.ticket = data;
-            }
-        );
-    }
 
     getAllActiveBuildings(): void {
         this.buildingService.getAllActiveBuildings(this.currentCompanyId).subscribe(

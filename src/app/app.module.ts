@@ -62,6 +62,7 @@ import { EmployeeListComponent } from './modules/list/employee-list/employee-lis
 import { TicketComponent } from './modules/ticket/ticket.component';
 import { TicketDetailsComponent } from './modules/ticket/ticket-details.component';
 import { TicketEditComponent } from './modules/ticket/ticket-edit.component';
+import { TicketActivityComponent } from './modules/ticket/ticket-activity.component';
 import { TicketListComponent } from './modules/shared/ticket-list/ticket-list.component';
 
 import { AdminSetupComponent } from './modules/admin_setup/admin_setup.component';
@@ -174,6 +175,7 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         TicketComponent,
         TicketDetailsComponent,
         TicketEditComponent,
+        TicketActivityComponent,
         TicketListComponent,
 
         /**
