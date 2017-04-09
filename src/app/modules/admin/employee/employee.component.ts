@@ -155,57 +155,97 @@ export class EmployeeComponent implements OnInit {
     }
 
     onSubmit() {
+        console.log('On submit 1')
         this.setBuildingList();
         this.setProblemTypeLsit();
-
         // let val = this.employeeForm.value;
         // let work_phone = this.employeeForm.get('work_phone').value;
         // let emergency_phone = this.employeeForm.get('emergency_phone').value;
         // this.employeeForm.get('work_phone').setValue(work_phone.toNormalText());
         // this.employeeForm.get('emergency_phone').setValue(emergency_phone.toNormalText());
+        // FIXME: Should be enabled, but validation always fails.
+        // if(!this.employeeForm.valid) return;
+        // if (this.photoFile) {
+        //     console.log('Inside On Submit');
+        //     let user_id = this.employeeForm.get('user_id').value;
+        //     let formData: FormData = this.dataService.mapToFormData(this.employeeForm, ['user_id']);
+        //     formData.append('photo', this.photoFile, this.photoFile.name);
+        //     if (this.employeeForm.value.id) {
+        //         formData.append('user_id', user_id);
+        //         this.employeeService.updateWithFile(this.employeeForm.value.url, formData).subscribe((employee: any) => {
+        //             this.refreshEditor('Employee created with file', employee);
+        //         });
+        //     } else {
+        //         console.log('Creating employee')
+        //         this.employeeService.createWithFile(formData).subscribe((employee: any) => {
+        //             this.refreshEditor('Employee created with file', employee);
+        //         });
+        //     }
+        // } else {
+        //     // Simple Object Posting should go here, and the photo field needs to be removed
+        //     // It is obvious that the user hasn't selected any file
+        //     if (this.employeeForm.contains('photo'))
+        //         this.employeeForm.removeControl('photo');
 
-        if(!this.employeeForm.valid) return;
-
-        if (this.photoFile) {
-            console.log('Inside On Submit');
-            let user_id = this.employeeForm.get('user_id').value;
-            let formData: FormData = this.dataService.mapToFormData(this.employeeForm, ['user_id']);
-            formData.append('photo', this.photoFile, this.photoFile.name);
-            if (this.employeeForm.value.id) {
-                formData.append('user_id', user_id);
-                this.employeeService.updateWithFile(this.employeeForm.value.url, formData).subscribe((employee: any) => {
-                    this.refreshEditor('Employee created with file', employee);
-                });
-            } else {
-                console.log('Creating employee')
-                this.employeeService.createWithFile(formData).subscribe((employee: any) => {
-                    this.refreshEditor('Employee created with file', employee);
-                });
-            }
-        } else {
-            // Simple Object Posting should go here, and the photo field needs to be removed
-            // It is obvious that the user hasn't selected any file
-            if (this.employeeForm.contains('photo'))
-                this.employeeForm.removeControl('photo');
-
-            if (this.employeeForm.value.id) {
-                this.employeeService.update(this.employeeForm.value).subscribe((employee: any) => {
-                    this.refreshEditor('Employee Updated.', employee);
-                });
-            } else {
-                if (this.employeeForm.contains('user_id'))
-                    this.employeeForm.removeControl('user_id');
-                this.employeeService.create(this.employeeForm.value).subscribe((employee: any) => {
-                    this.refreshEditor('Employee created', employee);
-                });
-            }
-        }
+        //     if (this.employeeForm.value.id) {
+        //         this.employeeService.update(this.employeeForm.value).subscribe((employee: any) => {
+        //             this.refreshEditor('Employee Updated.', employee);
+        //         });
+        //     } else {
+        //         if (this.employeeForm.contains('user_id'))
+        //             this.employeeForm.removeControl('user_id');
+        //         this.employeeService.create(this.employeeForm.value).subscribe((employee: any) => {
+        //             this.refreshEditor('Employee created', employee);
+        //         });
+        //     }
+        // }
         // this.http.post('http://localhost:8080/api/tenant/', item);
+
+        // New Implementation with S3
+        let boundEmployee = this.employeeForm.value;
+        if (boundEmployee.id) {
+            this.employeeService.update(boundEmployee).subscribe((employee: any) => {
+                this.uploadtFile('Employee Updated.', employee);
+            });
+        } else {
+            if (boundEmployee.user_id)
+                delete boundEmployee.user_id
+            this.employeeService.create(boundEmployee).subscribe((employee: any) => {
+                this.uploadtFile('Employee created', employee);
+            });
+        }
     }
-    private refreshEditor(logMsg: string, obj: any) {
-        console.log(logMsg, obj);
+
+    private refreshEditor(logMsg, employee) {
+        console.log(logMsg, employee);
         this.getAllEmployees(this.currentCompanyId);
         this.closeModal();
+    }
+    private uploadtFile(logMsg: string, employee: any) {
+        if(this.photoFile) {
+            let url = 'getemployeephotouploadsignature/?name=' + this.photoFile.name + '&type=' + this.photoFile.type + '&company=' + this.currentCompanyId;
+            this.employeeService.get(url).subscribe(s3Data => {
+                this.uploadToAws(this.photoFile, s3Data.data, s3Data.url, employee);
+            });
+        } else {
+            this.refreshEditor(logMsg, employee);
+        }
+    }
+
+    uploadToAws(file: File, s3Data:any, url:string, employee) {
+        var postData = new FormData();
+        for(let key in s3Data.fields){
+            postData.append(key, s3Data.fields[key]);
+        }
+        postData.append('file', file);
+        this.employeeService.postToS3(s3Data.url, postData).subscribe(data => {
+            console.log(data);
+            console.log('Should be accessible through: ' + url);
+            employee.photo = url;
+            this.employeeService.update(employee).subscribe(data => {
+                this.refreshEditor('Saved emp to db', data);
+            });
+        })
     }
 
     photoSelectionChange(event) {
@@ -213,6 +253,7 @@ export class EmployeeComponent implements OnInit {
         if (fileList.length > 0) {
             this.photoFile = fileList[0];
             this.selectedPhoto = this.photoFile.name;
+            console.log('Selected file type is: ' + fileList[0].type);
         }
     }
 

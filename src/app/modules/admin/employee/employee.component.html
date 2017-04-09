@@ -52,7 +52,7 @@
                 <h3 class="modal-title"><i class="fa fa-plus"></i> <strong>{{employeeForm.get('id').value == null ? 'New' : 'Edit' }} Employee</strong></h3>
             </div>
             <div class="modal-body">
-                <form [formGroup]="employeeForm" (ngSubmit)="employeeForm.valid && onSubmit()" class="form-horizontal form-bordered" novalidate>
+                <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" class="form-horizontal form-bordered" novalidate>
                     <div *ngIf="tabs.isEmployeeTabVisible" id="clickable-first" class="step">
                         <!-- Step Info -->
                         <div class="form-group">

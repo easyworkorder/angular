@@ -126,4 +126,16 @@ export class EmployeeService extends DataService {
         });
         return observable;
     }
+
+    get(url:string) {
+        return this.http.get(url);
+    }
+
+    postToS3(url:string, postData:FormData): Observable<any> {
+        return this.http.postToS3(url, postData);
+    }
+
+    putToS3(url:string, postData:FormData): Observable<any> {
+        return this.http.putToS3(url, postData);
+    }
 }

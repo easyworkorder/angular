@@ -62,7 +62,8 @@ export class AddressComponent implements OnInit {
         //     this.addresses.push(address);
         //     this.isSuccess = true;
         // });
-        this.newOnSubmit();
+        // this.newOnSubmit();
+        this.AwsS3Submit();
     }
 
     fileChange(event) {
@@ -98,14 +99,25 @@ export class AddressComponent implements OnInit {
 
     }
 
-    // mapToFormData(form:FormGroup, excludeKeys: string[]): FormData {
-    //     let formData:FormData = new FormData();
-    //     Object.keys(form.controls);
-    //     for (let key of Object.keys(form.controls)) {
-    //         if(excludeKeys.indexOf(key) < 0 ) {
-    //             formData.append(key, form.get(key).value);
-    //         }
-    //     }
-    //     return formData;
-    // }
+    AwsS3Submit() {
+        this.http.get('sign-s3/?name=' + this.address2File.name + '&type=' + this.address2File.type).subscribe(s3Data => {
+            console.log(s3Data);
+            // Now we need to upload the file to S3
+            this.uploadToAws(this.address2File, s3Data.data, s3Data.url);
+
+        })
+        // this.myHttp.post();
+    }
+
+    uploadToAws(file: File, s3Data:any, url:string){
+        var postData = new FormData();
+        for(let key in s3Data.fields){
+            postData.append(key, s3Data.fields[key]);
+        }
+        postData.append('file', this.address2File);
+        this.myHttp.post(s3Data.url, postData).subscribe(data => {
+            console.log(data);
+            console.log('Should be accessible through: ' + url);
+        })
+    }
 }

@@ -320,4 +320,12 @@ export class AppHttp extends Http {
     return this._deserialize(res).share();
   }
 
+  postToS3(url:string, postData:FormData): Observable<any> {
+    return this._deserialize(super.post(url, postData));
+  }
+
+  putToS3(url:string, postData:FormData): Observable<any> {
+    return this._deserialize(super.put(url, postData));
+  }
+
 }
