@@ -227,6 +227,8 @@ export class TenantService extends DataService {
         // if(contactForm.contains('photo'))
         //     delete contactData.photo;
         let observable:Observable<any>;
+        if(contactData.photo)
+            delete contactData.photo;
         observable = this.saveTenantContact(contactData);
         if(photoFile){
             observable.subscribe(contact => {

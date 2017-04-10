@@ -227,9 +227,10 @@
                         <!-- END Step Info -->
                     </div>
                     <div class="form-group form-actions">
-                        <div class="col-xs-12 text-right">
-                            <button type="submit" class="btn btn-effect-ripple btn-success">Save</button>
+                        <div class="col-xs-6 text-right">
+                            <loading-spinner-wave *ngIf="showSaveSpinner"></loading-spinner-wave>
                         </div>
+                        <div class="col-xs-6 text-right"><button type="submit" class="btn btn-effect-ripple btn-success">Save</button></div>
                     </div>
                 </form>
             </div>

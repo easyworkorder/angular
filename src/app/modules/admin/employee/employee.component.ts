@@ -36,6 +36,7 @@ export class EmployeeComponent implements OnInit {
     photoFile: File;
     selectedPhoto: string = '';
     isShowingLoadingSpinner:boolean = true;
+    showSaveSpinner: boolean = false;
 
     employeeForm = new FormGroup({
         id: new FormControl(),
@@ -203,6 +204,7 @@ export class EmployeeComponent implements OnInit {
 
         // New Implementation with S3
         let boundEmployee = this.employeeForm.value;
+        this.showSaveSpinner = true;
         if (boundEmployee.id) {
             this.employeeService.update(boundEmployee).subscribe((employee: any) => {
                 this.uploadtFile('Employee Updated.', employee);
@@ -220,6 +222,7 @@ export class EmployeeComponent implements OnInit {
         console.log(logMsg, employee);
         this.getAllEmployees(this.currentCompanyId);
         this.closeModal();
+        this.showSaveSpinner = false;
     }
     private uploadtFile(logMsg: string, employee: any) {
         if(this.photoFile) {
