@@ -36,7 +36,7 @@ export class TicketLaborComponent implements OnInit {
         private updateTicketLaborService: UpdateTicketLaborService) {
         this.updateTicketLaborService.updateLaborInfo$.subscribe(data => {
             this.updateTicketLaborInfo = data;
-            this.ticketLaborForm.setValue(this.updateTicketLaborInfo);
+            this.ticketLaborForm.patchValue(this.updateTicketLaborInfo);
         });
     }
 
@@ -103,7 +103,7 @@ export class TicketLaborComponent implements OnInit {
 
     closeModal() {
         this.resetForm();
-        $('#add-ticket-labor').modal('hide');
+        $('#modal-add-labor').modal('hide');
     }
 
     resetForm() {
