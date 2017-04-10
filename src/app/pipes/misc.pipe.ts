@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { DatePipe } from "@angular/common";
 
 @Pipe({ name: 'truncate' })
 export class TruncatePipe implements PipeTransform {
@@ -109,5 +110,13 @@ export class PhonePipe implements PipeTransform {
     } else {
       return '(' + area + ')';
     }
+  }
+}
+
+@Pipe({ name: 'dateFormat' })
+export class DateFormatPipe implements PipeTransform {
+  datePipe = new DatePipe('en-US');
+  transform(value: any) {
+    return this.datePipe.transform(value, 'MM/dd/yyyy');
   }
 }

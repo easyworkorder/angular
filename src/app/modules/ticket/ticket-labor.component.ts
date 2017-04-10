@@ -7,6 +7,7 @@ import { FormBuilder, FormControl, Validators, FormGroup } from "@angular/forms"
 import { ValidationService } from 'app/services/validation.service';
 import config from '../../config';
 import { UpdateTicketLaborService } from './ticket-labor.service';
+import { EmployeeService } from "app/modules/admin/employee/employee.service";
 declare var $: any;
 
 @Component({
@@ -21,11 +22,12 @@ export class TicketLaborComponent implements OnInit {
     @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
     // @Output('updatePeople') changePeople: EventEmitter<any> = new EventEmitter<any>();
     _submitted = false;
-    employee: any[] = [];
+    selectedEmployee: any = [];
     ticketId: number;
 
     photoFile: File
-    selectedPhotoFile:string = '';
+    selectedPhotoFile: string = '';
+    work_date_not_valid = false;
 
     constructor(
         private ticketService: TicketService,
@@ -33,7 +35,8 @@ export class TicketLaborComponent implements OnInit {
         private authService: AuthenticationService,
         private route: ActivatedRoute,
         private dataService: DataService,
-        private updateTicketLaborService: UpdateTicketLaborService) {
+        private updateTicketLaborService: UpdateTicketLaborService,
+        private employeeService: EmployeeService) {
         this.updateTicketLaborService.updateLaborInfo$.subscribe(data => {
             this.updateTicketLaborInfo = data;
             this.ticketLaborForm.patchValue(this.updateTicketLaborInfo);
@@ -62,53 +65,66 @@ export class TicketLaborComponent implements OnInit {
 
     onSubmit() {
         this._submitted = true;
+        if (this.ticketLaborForm.get('work_date').errors) {
+            this.work_date_not_valid = true;
+        } else {
+            this.work_date_not_valid = false;
+        }
+
         if (!this.ticketLaborForm.valid) { return; }
 
         // Update Labor
-         if (this.ticketLaborForm.value.id) {
-             this.ticketService.updateLabor(this.ticketLaborForm.value).subscribe((labor: any) => {
-                 this.change.emit(true);
-                 this.closeModal();
-             });
-             return;
-         }
+        if (this.ticketLaborForm.value.id) {
+            this.ticketService.updateLabor(this.ticketLaborForm.value).subscribe((labor: any) => {
+                this.change.emit(true);
+                this.closeModal();
+            });
+            return;
+        }
 
         // Add Labor
-         this.ticketLaborForm.get('workorder').setValue(`${config.api.base}ticket/${this.ticket.id}/`);
-         // let val = this.ticketLaborForm.value;
-         this.ticketLaborForm.removeControl('id');
-         this.ticketService.createLabor(this.ticketLaborForm.value).subscribe((labor: any) => {
-             // console.log('Tenant created', tenant);
-        //     // this.getAllTenantsByBuilding(this.buildingId);
-        //     // this.isSuccess = true;
+        this.ticketLaborForm.get('workorder').setValue(`${config.api.base}ticket/${this.ticket.id}/`);
+        // let val = this.ticketLaborForm.value;
+        this.ticketLaborForm.removeControl('id');
+        this.ticketService.createLabor(this.ticketLaborForm.value).subscribe((labor: any) => {
+            // console.log('Tenant created', tenant);
+            //     // this.getAllTenantsByBuilding(this.buildingId);
+            //     // this.isSuccess = true;
 
-             this.change.emit(true);
-             this.closeModal();
-         });
-         this.ticketLaborForm.addControl('id', new FormControl());
+            this.change.emit(true);
+            this.closeModal();
+        });
+        this.ticketLaborForm.addControl('id', new FormControl());
 
     }
 
-    public selectedEmployee(value: any): void {
-        this.employee = [value];
-        this.ticketLaborForm.get('employee').setValue(config.api.base + 'employee/' + this.employee[0].id + '/');
+    public onSelectedEmployee(value: any): void {
+        this.selectedEmployee = [value];
+        this.ticketLaborForm.get('employee').setValue(config.api.base + 'employee/' + this.selectedEmployee[0].id + '/');
     }
 
 
     editLabor(labor) {
-        console.log(labor);
+        labor.work_date = labor.work_date.toDate();
+        this.setSelectedEmployee(labor.employee);
         this.ticketLaborForm.patchValue(labor);
-        console.log(this.ticketLaborForm.value);
     }
 
     closeModal() {
         this.resetForm();
         $('#modal-add-labor').modal('hide');
+        this.selectedEmployee = [];
     }
 
     resetForm() {
         this.ticketLaborForm.reset({
             is_billable: true
+        });
+    }
+
+    setSelectedEmployee(employeeUrl) {
+        this.employeeService.getEmployeeByIdByUrl(employeeUrl).subscribe(data => {
+            this.selectedEmployee = [{ id: data.id, text: (data.first_name + ' ' + data.last_name) }];
         });
     }
 }

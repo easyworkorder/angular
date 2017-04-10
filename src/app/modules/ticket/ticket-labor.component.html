@@ -23,7 +23,8 @@
         </thead>
         <tbody>
         <tr *ngFor="let labor of labors">
-            <td><strong>{{labor.work_date}}</strong></td>
+            <!--<td><strong>{{labor.work_date | date: 'MM/dd/yyyy'}}</strong></td>-->
+            <td><strong>{{labor.work_date | dateFormat}}</strong></td>
             <td class="hidden-xs">{{labor.work_description}}</td>
             <td class="hidden-xs">{{labor.billable_hours}}</td>
             <td class="hidden-sm hidden-xs">{{labor.billing_amount}}</td>
@@ -61,15 +62,15 @@
                                 class="required">*</span></label>
                         <div class="col-xs-9">
                             <ewo-calendar [readonlyInput]="true" [showOnFocus]="false" formControlName="work_date" [icon]="fa-calendar" [showIcon]="true" inputStyleClass="form-control"></ewo-calendar>
-                            <span *ngIf="work_date_not_valid" class="validation-error">This field is required.</span>
+                            <div><span *ngIf="work_date_not_valid" class="validation-error">This field is required.</span></div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-xs-3 control-label" for="employee">Employee<span class="required">*</span> </label>
                         <div class="col-xs-9">
-                            <ng-select id="employee" [multiple]="false" [items]="employees" placeholder="Select Employee" (selected)="selectedEmployee($event)"
-                                       [active]="employee"></ng-select>
-                            <span *ngIf="(_submitted && employee.length == 0)" class="validation-error">This field is Required</span>
+                            <ng-select id="employee" [multiple]="false" [items]="employees" placeholder="Select Employee" (selected)="onSelectedEmployee($event)"
+                                       [active]="selectedEmployee"></ng-select>
+                            <span *ngIf="(_submitted && selectedEmployee.length == 0)" class="validation-error">This field is Required</span>
                         </div>
                     </div>
                     <div class="form-group">

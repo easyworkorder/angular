@@ -35,9 +35,10 @@
             <!-- END Tickets Title -->
 
             <!-- Tabs Content -->
-            <div class="tab-content active">
+            <div class="tab-content">
                 <!-- Tickets List -->
-                <div class="tab-pane" id="ticket-activity">
+                <loading-spinner-wave *ngIf="!ticket"></loading-spinner-wave>
+                <div class="tab-pane active" id="ticket-activity">
                     <ewo-ticket-activity *ngIf="ticket" [ticket]="ticket" [notes]="notes" [isAdmin]="true"></ewo-ticket-activity>
                 </div>
                 <!-- END Tickets List -->
@@ -45,7 +46,7 @@
                 <!-- LABOR TAB -->
                 <div class="tab-pane" id="ticket-labor">
                     <!-- Partial Responsive Block -->
-                    <ewo-ticket-labor [ticket]="ticket" [labors]="labors" [employees]="employees" (update)="updateLaborInfo($event)" ></ewo-ticket-labor>
+                    <ewo-ticket-labor *ngIf="ticket" [ticket]="ticket" [labors]="labors" [employees]="employees" (update)="updateLaborInfo($event)" ></ewo-ticket-labor>
                     <!-- END Partial Responsive Content -->
                 </div>
                 <!-- END LABOR TAB -->

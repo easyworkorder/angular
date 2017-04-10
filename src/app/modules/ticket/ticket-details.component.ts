@@ -33,7 +33,7 @@ export class TabVisibility {
 })
 export class TicketDetailsComponent implements OnInit {
 
-    ticket: any[];
+    ticket: any;
     notes: any[];
     labors: any[];
     materials: any[];
@@ -85,6 +85,7 @@ export class TicketDetailsComponent implements OnInit {
     });
 
     tabs = new TabVisibility();
+    ticketId:any;
 
     constructor(
                 protected http: AppHttp,
@@ -104,16 +105,17 @@ export class TicketDetailsComponent implements OnInit {
     }
 
     ngOnInit() {
-        const ticketId = this.route.snapshot.params['id'];
-        this.getAllNotes(ticketId);
-        this.getAllLabors(ticketId);
-        this.getAllMaterials(ticketId);
-        this.ticketService.getTicketDetails(ticketId).subscribe(
+        this.ticketId = this.route.snapshot.params['id'];
+        this.getAllNotes(this.ticketId);
+        this.getAllLabors(this.ticketId);
+        this.getAllMaterials(this.ticketId);
+        this.ticketService.getTicketDetails(this.ticketId).subscribe(
             data => {
                 this.ticket = data;
                 this.ticketForm.patchValue(data);//
             }
         );
+        this.switchTab(1);
     }
 
     getAllNotes(ticketId) {
@@ -165,7 +167,7 @@ export class TicketDetailsComponent implements OnInit {
         this.employeeService.getAllActiveEmployees(this.currentCompanyId).subscribe(
             data => {
                 let _employee: any[] = data.results.map(item => {
-                    return { id: item.id, text: (item.last_name + ' ' + item.first_name) };
+                    return { id: item.id, text: (item.first_name + ' ' + item.last_name) };
                 })
                 //  _employee.splice(0, 0, { id: -1, text: 'Pleae select' });
                 this.employees = _employee;
@@ -248,11 +250,13 @@ export class TicketDetailsComponent implements OnInit {
 
     updateLaborInfo(data) {
         // this.updatePeopleInfo = data;
-        this.updateTicketLaborService.setUpdateLabor(data);
-        $('#modal-add-labor').modal({
-            backdrop: 'static',
-            show: true
-        });
+        // this.updateTicketLaborService.setUpdateLabor(data);
+        // $('#modal-add-labor').modal({
+        //     backdrop: 'static',
+        //     show: true
+        // });
+        // console.log(data);
+        this.ticketId && this.getAllLabors(this.ticketId);
     }
 
     updateMaterialInfo(data) {
