@@ -80,7 +80,8 @@ export class TicketDetailsComponent implements OnInit {
         estimated_amount: new FormControl(0, ValidationService.numericValidator),
         is_billable: new FormControl(false),
         is_safety_issue: new FormControl(false),
-        status: new FormControl('Open')
+        status: new FormControl('Open'),
+        url: new FormControl('')
     });
 
     tabs = new TabVisibility();
