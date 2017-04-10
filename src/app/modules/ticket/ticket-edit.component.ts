@@ -19,6 +19,7 @@ declare var $: any;
 export class TicketEditComponent implements OnInit {
 
     @Input() ticket: any;
+    @Input() employees: any;
 
     _submitted = false;
     building: any[] = [];
@@ -37,7 +38,6 @@ export class TicketEditComponent implements OnInit {
                     { id: 'High', text: 'High' },
                     { id: 'Urgent', text: 'Urgent' },
                     { id: 'Safety', text: 'Safety' }];
-    employees: any[] = [];
     groups = [{ id: 'Property Manager', text: 'Property Manager' },
         { id: 'Engineering', text: 'Engineering' },
         { id: 'Security', text: 'Security' },
@@ -76,7 +76,6 @@ export class TicketEditComponent implements OnInit {
             this.ticketForm.patchValue(this.ticket);
             this.getAllTickets();
             this.getAllActiveBuildings();
-            this.getAllActiveEmployees();
             this.getAllActiveProblemTypes();
         });
     }
@@ -135,18 +134,6 @@ export class TicketEditComponent implements OnInit {
                     return { id: item.id, text: (item.name) };
                 })
                 this.buildings = _building;
-            }
-        );
-    }
-
-    getAllActiveEmployees(): void {
-        this.employeeService.getAllActiveEmployees(this.currentCompanyId).subscribe(
-            data => {
-                let _employee: any[] = data.results.map(item => {
-                    return { id: item.id, text: (item.first_name + ' ' + item.last_name) };
-                })
-                this.employees = _employee;
-                // this.getSelectEmployee();
             }
         );
     }

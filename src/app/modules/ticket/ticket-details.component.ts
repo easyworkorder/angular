@@ -10,6 +10,12 @@ import {ProblemTypeService} from './../admin/problem_type/problem_type.service';
 import {TicketService} from './ticket.service';
 import { ValidationService } from "./../../services/validation.service";
 import {AuthenticationService} from "app/modules/authentication";
+import {UpdateTicketLaborService} from './ticket-labor.service';
+
+import {
+    AppHttp
+} from '../../services';
+
 declare var $: any;
 
 export class TabVisibility {
@@ -26,9 +32,9 @@ export class TabVisibility {
 })
 export class TicketDetailsComponent implements OnInit {
 
-    // ticket: any[] = [];
     ticket: any[];
-    notes: any[] = [];
+    notes: any[];
+    labors: any[];
 
 
 
@@ -77,21 +83,26 @@ export class TicketDetailsComponent implements OnInit {
 
     tabs = new TabVisibility();
 
-    constructor(private buildingService: BuildingService,
+    constructor(
+                protected http: AppHttp,
+                private buildingService: BuildingService,
                 private employeeService: EmployeeService,
                 private tenantService: TenantService,
                 private problemTypeService: ProblemTypeService,
                 private ticketService: TicketService,
                 private authService: AuthenticationService,
-                private route: ActivatedRoute) {
+                private route: ActivatedRoute,
+                private updateTicketLaborService: UpdateTicketLaborService) {
         this.authService.verifyToken().take(1).subscribe(data => {
+            this.getAllActiveEmployees();
 
         });
     }
 
     ngOnInit() {
         const ticketId = this.route.snapshot.params['id'];
-        this.getAllNotes(ticketId);//
+        this.getAllNotes(ticketId);
+        this.getAllLabors(ticketId);
         this.ticketService.getTicketDetails(ticketId).subscribe(
             data => {
                 this.ticket = data;
@@ -105,6 +116,13 @@ export class TicketDetailsComponent implements OnInit {
             data => {
                 this.notes = data;
             });
+    }
+
+    getAllLabors(ticketId) {
+        const observable = this.http.get('ticketlabor/?workorder_id=' + ticketId);
+        observable.subscribe(data => {
+            this.labors = data.results;
+        });
     }
 
     switchTab(tabId: number) {
@@ -213,6 +231,15 @@ export class TicketDetailsComponent implements OnInit {
             estimated_amount: 0,
             is_billable: false,
             is_safety_issue: false
+        });
+    }
+
+    updateLaborInfo(data) {
+        // this.updatePeopleInfo = data;
+        this.updateTicketLaborService.setUpdateLabor(data);
+        $('#modal-add-labor').modal({
+            backdrop: 'static',
+            show: true
         });
     }
 }

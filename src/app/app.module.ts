@@ -30,7 +30,6 @@ import { TenantService } from './modules/admin/tenant/tenant.service';
 import { ProblemTypeService } from './modules/admin/problem_type/problem_type.service';
 import { EmployeeService } from './modules/admin/employee/employee.service';
 import { VendorService } from './modules/admin/vendor/vendor.service';
-import { TicketService } from './modules/ticket/ticket.service';
 
 // import { NotFoundComponent } from './components/not-found/not-found.component';
 import { APP_RESOLVER_PROVIDERS } from "./app.route-resolvers";
@@ -63,7 +62,10 @@ import { TicketComponent } from './modules/ticket/ticket.component';
 import { TicketDetailsComponent } from './modules/ticket/ticket-details.component';
 import { TicketEditComponent } from './modules/ticket/ticket-edit.component';
 import { TicketActivityComponent } from './modules/ticket/ticket-activity.component';
+import { UpdateTicketLaborService } from './modules/ticket/ticket-labor.service';
+import { TicketLaborComponent } from './modules/ticket/ticket-labor.component';
 import { TicketListComponent } from './modules/shared/ticket-list/ticket-list.component';
+import { TicketService } from './modules/ticket/ticket.service';
 
 import { AdminSetupComponent } from './modules/admin_setup/admin_setup.component';
 import { ValidationMessagesComponent } from './validation_messages.component';
@@ -176,6 +178,7 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         TicketDetailsComponent,
         TicketEditComponent,
         TicketActivityComponent,
+        TicketLaborComponent,
         TicketListComponent,
 
         /**
@@ -256,6 +259,7 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         AddressService,
         TenantService,
         TicketService,
+        UpdateTicketLaborService,
         ProblemTypeService,
         EmployeeService,
         VendorService,

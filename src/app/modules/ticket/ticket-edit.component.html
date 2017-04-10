@@ -44,7 +44,6 @@
             <ng-select id="group" [multiple]="false" [items]="groups" placeholder="Select Group"
                        (selected)="selectedGroup($event)"
                        [active]="selectGroup"></ng-select>
-            ,
             <span *ngIf="(_submitted && selectGroup.length == 0)" class="validation-error">This field is Required</span>
         </div>
     </div>
