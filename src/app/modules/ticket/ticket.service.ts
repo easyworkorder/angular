@@ -90,7 +90,6 @@ export class TicketService extends DataService {
 
   createLabor(data?: any) {
     data = Object.assign({}, data);
-console.log(data);
     const observable = this.http.post('ticketlabor/', data);
 
     observable.subscribe(data => {
@@ -117,6 +116,40 @@ console.log(data);
         },
         error => {
           this.toasterService.pop('error', 'UPDATE', 'Labor not updated due to API error!!!');
+          console.log(error);
+        });
+
+    return observable;
+  }
+
+  createMaterial(data?: any) {
+    data = Object.assign({}, data);
+    const observable = this.http.post('ticketmaterial/', data);
+
+    observable.subscribe(data => {
+          this.toasterService.pop('success', 'ADD', 'Material has been posted successfully');
+          console.log(data);
+        },
+        error => {
+          this.toasterService.pop('error', 'ADD', 'Material not posted due to API error!!!');
+          console.log(error);
+        });
+
+    return observable;
+  }
+
+  updateMaterial(data?: any) {
+    data = Object.assign({}, data);
+
+    // PUT '/employee'
+    const observable = this.http.patch(data.url, data);
+
+    observable.subscribe(data => {
+          this.toasterService.pop('success', 'UPDATE', 'Material has been updated successfully');
+          console.log(data);
+        },
+        error => {
+          this.toasterService.pop('error', 'UPDATE', 'Material not updated due to API error!!!');
           console.log(error);
         });
 

@@ -64,6 +64,8 @@ import { TicketEditComponent } from './modules/ticket/ticket-edit.component';
 import { TicketActivityComponent } from './modules/ticket/ticket-activity.component';
 import { UpdateTicketLaborService } from './modules/ticket/ticket-labor.service';
 import { TicketLaborComponent } from './modules/ticket/ticket-labor.component';
+import { UpdateTicketMaterialService } from './modules/ticket/ticket-material.service';
+import { TicketMaterialComponent } from './modules/ticket/ticket-material.component';
 import { TicketListComponent } from './modules/shared/ticket-list/ticket-list.component';
 import { TicketService } from './modules/ticket/ticket.service';
 
@@ -179,6 +181,7 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         TicketEditComponent,
         TicketActivityComponent,
         TicketLaborComponent,
+        TicketMaterialComponent,
         TicketListComponent,
 
         /**
@@ -260,6 +263,7 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         TenantService,
         TicketService,
         UpdateTicketLaborService,
+        UpdateTicketMaterialService,
         ProblemTypeService,
         EmployeeService,
         VendorService,

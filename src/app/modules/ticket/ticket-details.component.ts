@@ -10,7 +10,8 @@ import {ProblemTypeService} from './../admin/problem_type/problem_type.service';
 import {TicketService} from './ticket.service';
 import { ValidationService } from "./../../services/validation.service";
 import {AuthenticationService} from "app/modules/authentication";
-import {UpdateTicketLaborService} from './ticket-labor.service';
+import { UpdateTicketLaborService } from './ticket-labor.service';
+import { UpdateTicketMaterialService } from './ticket-material.service';
 
 import {
     AppHttp
@@ -35,6 +36,7 @@ export class TicketDetailsComponent implements OnInit {
     ticket: any[];
     notes: any[];
     labors: any[];
+    materials: any[];
 
 
 
@@ -92,7 +94,8 @@ export class TicketDetailsComponent implements OnInit {
                 private ticketService: TicketService,
                 private authService: AuthenticationService,
                 private route: ActivatedRoute,
-                private updateTicketLaborService: UpdateTicketLaborService) {
+                private updateTicketLaborService: UpdateTicketLaborService,
+                private updateTicketMaterialService: UpdateTicketMaterialService) {
         this.authService.verifyToken().take(1).subscribe(data => {
             this.getAllActiveEmployees();
 
@@ -103,6 +106,7 @@ export class TicketDetailsComponent implements OnInit {
         const ticketId = this.route.snapshot.params['id'];
         this.getAllNotes(ticketId);
         this.getAllLabors(ticketId);
+        this.getAllMaterials(ticketId);
         this.ticketService.getTicketDetails(ticketId).subscribe(
             data => {
                 this.ticket = data;
@@ -122,6 +126,13 @@ export class TicketDetailsComponent implements OnInit {
         const observable = this.http.get('ticketlabor/?workorder_id=' + ticketId);
         observable.subscribe(data => {
             this.labors = data.results;
+        });
+    }
+
+    getAllMaterials(ticketId) {
+        const observable = this.http.get('ticketmaterial/?workorder_id=' + ticketId);
+        observable.subscribe(data => {
+            this.materials = data.results;
         });
     }
 
@@ -238,6 +249,14 @@ export class TicketDetailsComponent implements OnInit {
         // this.updatePeopleInfo = data;
         this.updateTicketLaborService.setUpdateLabor(data);
         $('#modal-add-labor').modal({
+            backdrop: 'static',
+            show: true
+        });
+    }
+
+    updateMaterialInfo(data) {
+        this.updateTicketMaterialService.setUpdateMaterial(data);
+        $('#modal-add-material').modal({
             backdrop: 'static',
             show: true
         });
