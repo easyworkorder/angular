@@ -1,4 +1,4 @@
-<a href="javascript:void(0)" class="btn btn-sm btn-danger"><i class="fa fa-life-ring"></i> Saftey Issue</a>
+<a *ngIf="ticket.is_safety_issue" href="javascript:void(0)" class="btn btn-sm btn-danger"><i class="fa fa-life-ring"></i> Saftey Issue</a>
 <a  modal-dialog-open="modal-add-public" class="btn btn-sm btn-default" data-toggle="modal"><i class="fa fa-reply"></i> Reply</a>
 <a *ngIf="isAdmin" modal-dialog-open="modal-add-private" class="btn btn-sm btn-default" data-toggle="modal"><i
         class="fa fa-sticky-note"></i> Add
@@ -21,7 +21,7 @@
 <ul class="media-list media-feed push">
     <!-- Ticket -->
     <li class="media" *ngIf="ticket">
-        <a href="#" class="pull-left">
+        <a href="javascript:void(0)" class="pull-left">
             <img [src]="getPhotoUrl(ticket)" alt="Avatar" class="img-circle">
         </a>
         <div class="media-body">
@@ -29,30 +29,25 @@
                 <span class="text-muted pull-right">
                     <small>2 hours ago</small>
                 </span>
-                <small><a href="#">Howard Smith</a> through <a href="javascript:void(0)">Email</a></small>
+                <small><a href="#">Howard Smith</a> <span *ngIf="ticket.source">through <a href="javascript:void(0)">{{ticket.source}}</a></span></small>
             </p>
-            <h4><strong>Can you help me with the installation?</strong></h4>
-            <p>Hi, I'm having a problem with the installation of the theme, can you help me out? I get the following
-                error message and I don't know what to do:</p>
-            <div class="alert alert-warning">
-                <p><i class="fa fa-angle-right"></i> <strong>Error Establishing Database Connection</strong></p>
-                <p>...</p>
-            </div>
+            <h4><strong>{{ticket.subject}}</strong></h4>
+            <p>{{ticket.description}}</p>
         </div>
     </li>
     <!-- END Ticket -->
 
     <!-- Replies -->
-    <li class="media">
-        <a href="page_ready_user_profile.html" class="pull-left">
-            <img src="img/placeholders/avatars/alfred.jpg" alt="Avatar" class="img-circle chatui-talk-msg-avatar">
+    <li class="media" *ngFor="let note of notes">
+        <a href="javascript:void(0)" class="pull-left">
+            <img [src]="getPhotoUrl(note)" alt="Avatar" class="img-circle chatui-talk-msg-avatar">
         </a>
         <div class="media-body">
             <p class="push-bit">
                                                             <span class="text-muted pull-right">
                                                                 <small>1 hour ago</small>
                                                             </span>
-                <small><a href="page_ready_user_profile.html">Support</a></small>
+                <small><a href="javascript:void(0)">Support</a></small>
             </p>
             <p>Hi Howard and thank you very much for your purchase! There are many reasons this can happen. One is the
                 incorrect information in wp-config.html file. Please open up wp-config.html and ensure that the
@@ -64,21 +59,6 @@
                 <li><i class="fa fa-li fa-check text-success"></i> Database host</li>
             </ul>
             <p>Learn more about <a href="javascript:void(0)">editing the wp-config.html</a></p>
-        </div>
-    </li>
-    <li class="media">
-        <a href="page_ready_user_profile.html" class="pull-left">
-            <img src="img/placeholders/avatars/ji-albino.jpg" alt="Avatar" class="img-circle">
-        </a>
-        <div class="media-body">
-            <p class="push-bit">
-                                                            <span class="text-muted pull-right">
-                                                                <small>30 min ago</small>
-                                                            </span>
-                <small><a href="page_ready_user_profile.html">Howard Smith</a></small>
-            </p>
-            <p>I'm going to check it out and let you know!</p>
-            <p>Thanks a lot!</p>
         </div>
     </li>
     <!-- END Replies -->
