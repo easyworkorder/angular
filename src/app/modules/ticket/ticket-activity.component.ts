@@ -55,4 +55,11 @@ export class TicketActivityComponent implements OnInit {
         // _tenant = [value];
         // this.ticketNoteForm.get('tenant').setValue(config.api.base + 'tenant/' + _tenant[0].id + '/');
     }
+
+    getPhotoUrl(ticket) {
+        if (ticket.photo != null && ticket.photo.length > 0) {
+            return ticket.photo;
+        }
+        return 'assets/img/placeholders/avatars/avatar9.jpg';
+    }
 }

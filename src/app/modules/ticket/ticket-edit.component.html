@@ -11,8 +11,8 @@
         <h2>Properties</h2>
     </div>
     <div class="form-group">
-        <label class="col-xs-3 control-label" for="problem_type">Type <span class="required">*</span> </label>
-        <div class="col-xs-9">
+        <label class="col-xs-12" for="problem_type">Type <span class="required">*</span> </label>
+        <div class="col-xs-12">
             <ng-select id="problem_type" [multiple]="false" [items]="problem_types" placeholder="Select Type"
                        (selected)="selectedProblemType($event)"
                        [active]="selectedProblem_type"></ng-select>
@@ -21,8 +21,8 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="col-xs-3 control-label" for="priority">Priority <span class="required">*</span> </label>
-        <div class="col-xs-9">
+        <label class="col-xs-12" for="priority">Priority <span class="required">*</span> </label>
+        <div class="col-xs-12">
             <ng-select id="priority" [multiple]="false" [items]="priorities" placeholder="Select Priority"
                        (selected)="selectedPriority($event)"
                        [active]="selectPriority"></ng-select>
@@ -30,8 +30,8 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="col-xs-3 control-label" for="employee">Assigned to <span class="required">*</span> </label>
-        <div class="col-xs-9">
+        <label class="col-xs-12" for="employee">Assigned to <span class="required">*</span> </label>
+        <div class="col-xs-12">
             <ng-select id="employee" [multiple]="false" [items]="employees" placeholder="Select Employee"
                        (selected)="selectedEmployee($event)"
                        [active]="selectEmployee"></ng-select>
@@ -39,8 +39,16 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="col-xs-3 control-label" for="group">Group <span class="required">*</span> </label>
-        <div class="col-xs-9">
+        <label class="col-xs-12" for="source">Source <span class="required">*</span> </label>
+        <div class="col-xs-12">
+            <ng-select id="source" [multiple]="false" [items]="sources" placeholder="Select Source" (selected)="selectedSource($event)"
+                       [active]="selectSource"></ng-select>
+            <span *ngIf="(_submitted && selectSource.length == 0)" class="validation-error">This field is Required</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-xs-12" for="group">Group <span class="required">*</span> </label>
+        <div class="col-xs-12">
             <ng-select id="group" [multiple]="false" [items]="groups" placeholder="Select Group"
                        (selected)="selectedGroup($event)"
                        [active]="selectGroup"></ng-select>
@@ -48,8 +56,8 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="col-xs-3 control-label" for="estimated_amount">Estimated Amount</label>
-        <div class="col-xs-9">
+        <label class="col-xs-12" for="estimated_amount">Estimated Amount</label>
+        <div class="col-xs-12">
             <input [formControlValidator]="ticketForm.controls.estimated_amount" formControlName="estimated_amount"
                    type="text" id="estimated_amount" name="estimated_amount" class="form-control"
                    placeholder="Estimated Amount">
@@ -57,18 +65,11 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="col-xs-3 control-label">Billable</label>
-        <div class="col-xs-9">
+        <label class="col-xs-2">Billable</label>
+        <div class="col-xs-10">
             <label class="switch switch-success">
                 <input type="checkbox" formControlName="is_billable" id="is_billable"
                        name="is_billable"><span></span></label>
         </div>
     </div>
-    <!--<div class="form-group form-actions">
-        <div class="col-xs-12 text-right">
-            <button type="submit" class="btn btn-effect-ripple btn-success"
-                    style="overflow: hidden; position: relative;">Submit
-            </button>
-        </div>
-    </div>-->
 </form>

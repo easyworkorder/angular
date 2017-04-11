@@ -28,6 +28,7 @@ export class TicketEditComponent implements OnInit {
     selectPriority: any = [];
     selectEmployee: any = [];
     selectGroup: any = [];
+    selectSource: any[] = [];
 
     tickets: any[] = [];
     buildings: any[] = [];
@@ -43,25 +44,22 @@ export class TicketEditComponent implements OnInit {
         { id: 'Security', text: 'Security' },
         { id: 'Janitorial', text: 'Janitorial' },
         { id: 'Safety', text: 'Safety' }];
+    sources = [{ id: 'Email', text: 'Email' },
+        { id: 'Portal', text: 'Portal' },
+        { id: 'Phone', text: 'Phone' },
+        { id: 'Chat', text: 'Chat' },
+        { id: 'Agent', text: 'Agent' }];
     currentCompanyId = 1;
 
     ticketForm = new FormGroup({
         id: new FormControl(),
-        building: new FormControl(''),
-        tenant: new FormControl(''),
         problemtype: new FormControl(''),
         priority: new FormControl(''),
         employee: new FormControl(''),
-        group: new FormControl(''),
-        subject: new FormControl('', Validators.required),
-        description: new FormControl('', Validators.required),
-        is_private: new FormControl(false),
+        source: new FormControl('', Validators.required),
+        group: new FormControl('', Validators.required),
         estimated_amount: new FormControl(0, ValidationService.numericValidator),
         is_billable: new FormControl(false),
-        is_safety_issue: new FormControl(false),
-        notify_tenant: new FormControl(false),
-        tenant_notify_flag: new FormControl(false),
-        status: new FormControl('Open'),
         url: new FormControl()
     });
 
@@ -72,7 +70,7 @@ export class TicketEditComponent implements OnInit {
                 private ticketService: TicketService,
                 private authService: AuthenticationService) {
         this.authService.verifyToken().take(1).subscribe(data => {
-            console.log('Ticket ---- ' + this.ticket);
+            // console.log('Ticket ---- ' + this.ticket);
             this.ticketForm.patchValue(this.ticket);
             this.getAllTickets();
             this.getAllActiveBuildings();
@@ -82,8 +80,9 @@ export class TicketEditComponent implements OnInit {
 
     ngOnInit() {
         const ticket = this.ticket;
-        this.selectPriority.push({id: ticket.priority, text: ticket.priority})
-        this.selectGroup.push({id: ticket.group, text: ticket.group})
+        this.selectPriority.push({id: ticket.priority, text: ticket.priority});
+        this.selectGroup.push({id: ticket.group, text: ticket.group});
+        this.selectSource.push({id: ticket.source, text: ticket.source});
 
         // this.problemTypeService.getProblemTypeByUrl(ticket.problemtype).subscribe(data => {
         //     this.selectedProblem_type.push({id: data.id, text: (data.problem_name)});
@@ -112,11 +111,8 @@ export class TicketEditComponent implements OnInit {
 
     onSubmit() {
         this._submitted = true;
-        // console.log(this.ticketForm.value);
-        this.ticketService.update(this.ticketForm.value).subscribe((tikcet: any) => {
-            // this.getAllTickets();
-            // this.closeModal();
-        });
+        if (!this.ticketForm.valid) { return; }
+        this.ticketService.update(this.ticketForm.value).subscribe((tikcet: any) => {});
     }
 
     getAllTickets(): void {
@@ -185,6 +181,11 @@ export class TicketEditComponent implements OnInit {
     public selectedEmployee(value: any): void {
         this.selectEmployee = [value];
         this.ticketForm.get('employee').setValue(config.api.base + 'employee/' + this.selectEmployee[0].id + '/');
+    }
+
+    public selectedSource(value: any): void {
+        this.selectSource = [value];
+        this.ticketForm.get('source').setValue(this.selectSource[0].id);
     }
 
     public selectedGroup(value: any): void {

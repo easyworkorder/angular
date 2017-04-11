@@ -259,6 +259,14 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-xs-3 control-label" for="source">Source <span class="required">*</span> </label>
+                        <div class="col-xs-9">
+                            <ng-select id="source" [multiple]="false" [items]="sources" placeholder="Select Source" (selected)="selectedSource($event)"
+                                       [active]="selectSource"></ng-select>
+                            <span *ngIf="(_submitted && selectSource.length == 0)" class="validation-error">This field is Required</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-xs-3 control-label" for="group">Group <span class="required">*</span> </label>
                         <div class="col-xs-9">
                             <ng-select id="group" [multiple]="false" [items]="groups" placeholder="Select Group" (selected)="selectedGroup($event)"
@@ -300,25 +308,24 @@
                         <label class="col-xs-3 control-label">Notify Employee(s)</label>
                         <div class="col-xs-9">
                             <label class="switch switch-success">
-                                <input type="checkbox" formControlName="notify_employee" id="notify_employee" name="notify_employee"><span></span></label>
+                                <input type="checkbox" (click)="emptyNoficationFields($event)" [checked]="sendNotification" (change)="sendNotification = !sendNotification" formControlName="notify_employee" id="notify_employee" name="notify_employee"><span></span></label>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="sendNotification">
                         <label class="col-xs-3 control-label" for="notified_list">Select Employee(s) </label>
                         <div class="col-xs-9">
                             <ng-select id="notified_list" [multiple]="true" [items]="employees" (selected)="selectedNotifiedList($event)" (removed)="removedNotifiedList($event)"
                                        placeholder="Select Employee (s)" [active]="selectedNotified"></ng-select>
-                            <span *ngIf="(_submitted && employee.length == 0)" class="validation-error">This field is Required</span>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="sendNotification">
                         <label class="col-xs-3 control-label" for="optional_notification_message">Enter Optional Message</label>
                         <div class="col-xs-9">
                             <textarea [formControlValidator]="ticketForm.controls.optional_notification_message"  formControlName="optional_notification_message" id="optional_notification_message" class="form-control"></textarea>
                             <span class="validation-error">{{ticketForm.controls.optional_notification_message.error}}</span>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="sendNotification">
                         <label class="col-xs-3 control-label">Save Notification as a Note </label>
                         <div class="col-xs-9">
                             <label class="switch switch-success">

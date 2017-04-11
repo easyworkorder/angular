@@ -16,24 +16,20 @@
     <a href="javascript:void(0)" class="btn btn-sm btn-primary"><i class="fa fa-arrow-left"></i> Prev</a>
     <a href="javascript:void(0)" class="btn btn-sm btn-primary">Next <i class="fa fa-arrow-right"></i></a>
 </div>
-<!-- <span class="pull-right">
-    <button class="btn btn-primary" data-toggle="tooltip" title="Previous"><i class="fa fa-chevron-left fa-fw"></i></button>
-    <button class="btn btn-primary" data-toggle="tooltip" title="Next"><i class="fa fa-chevron-right fa-fw"></i></button>
-</span> -->
 <hr>
 <div>
 <ul class="media-list media-feed push">
     <!-- Ticket -->
-    <li class="media">
-        <a href="page_ready_user_profile.html" class="pull-left">
-            <img src="img/placeholders/avatars/ji-albino.jpg" alt="Avatar" class="img-circle">
+    <li class="media" *ngIf="ticket">
+        <a href="#" class="pull-left">
+            <img [src]="getPhotoUrl(ticket)" alt="Avatar" class="img-circle">
         </a>
         <div class="media-body">
             <p class="push-bit">
                 <span class="text-muted pull-right">
                     <small>2 hours ago</small>
                 </span>
-                <small><a href="page_ready_user_profile.html">Howard Smith</a> through <a href="javascript:void(0)">Email</a></small>
+                <small><a href="#">Howard Smith</a> through <a href="javascript:void(0)">Email</a></small>
             </p>
             <h4><strong>Can you help me with the installation?</strong></h4>
             <p>Hi, I'm having a problem with the installation of the theme, can you help me out? I get the following
