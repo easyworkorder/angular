@@ -87,6 +87,22 @@ export class TicketService extends DataService {
     return observable;
   }
 
+  createNote(data?: any) {
+    console.log(data);
+    data = Object.assign({}, data);
+    const observable = this.http.post('ticketnote/', data);
+
+    observable.subscribe(data => {
+          this.toasterService.pop('success', 'ADD', 'Ticket Note has been posted successfully');
+          // console.log(data);
+        },
+        error => {
+          this.toasterService.pop('error', 'ADD', 'Ticket Note not posted due to API error!!!');
+          console.log(error);
+        });
+
+    return observable;
+  }
 
   createLabor(data?: any) {
     data = Object.assign({}, data);

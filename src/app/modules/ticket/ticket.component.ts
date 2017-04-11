@@ -7,7 +7,6 @@ import {BuildingService} from './../admin/building/building.service';
 import {TenantService} from './../admin/tenant/tenant.service';
 import {ProblemTypeService} from './../admin/problem_type/problem_type.service';
 import {TicketService} from './ticket.service';
-import { ValidationService } from "./../../services/validation.service";
 import {AuthenticationService} from "app/modules/authentication";
 declare var $: any;
 
@@ -62,7 +61,7 @@ export class TicketComponent implements OnInit {
         subject: new FormControl('', Validators.required),
         description: new FormControl('', Validators.required),
         is_private: new FormControl(false),
-        estimated_amount: new FormControl(0, ValidationService.numericValidator),
+        estimated_amount: new FormControl(0),
         is_billable: new FormControl(false),
         is_safety_issue: new FormControl(false),
         notify_tenant: new FormControl(false),
@@ -72,7 +71,8 @@ export class TicketComponent implements OnInit {
         notified_list: new FormControl(''),
         optional_notification_message: new FormControl(''),
         is_save_as_note: new FormControl(false),
-        notify_employee: new FormControl(false)
+        notify_employee: new FormControl(false),
+        submitted_by_type: new FormControl('E')
     });
 
     constructor(private buildingService: BuildingService,

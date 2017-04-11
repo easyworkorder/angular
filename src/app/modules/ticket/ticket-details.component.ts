@@ -123,6 +123,10 @@ export class TicketDetailsComponent implements OnInit {
         );
     }
 
+    updateNotes(data){
+        this.ticketId && this.getAllNotes(this.ticketId);
+    }
+
     updateLaborInfo(data) {
         // this.updatePeopleInfo = data;
         // this.updateTicketLaborService.setUpdateLabor(data);

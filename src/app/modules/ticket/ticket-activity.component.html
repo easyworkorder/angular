@@ -47,18 +47,9 @@
                                                             <span class="text-muted pull-right">
                                                                 <small>1 hour ago</small>
                                                             </span>
-                <small><a href="javascript:void(0)">Support</a></small>
+                <small><a *ngIf="note.updated_by_type == 'E'" href="javascript:void(0)">Support</a></small>
             </p>
-            <p>Hi Howard and thank you very much for your purchase! There are many reasons this can happen. One is the
-                incorrect information in wp-config.html file. Please open up wp-config.html and ensure that the
-                following are correct:</p>
-            <ul class="fa-ul push">
-                <li><i class="fa fa-li fa-check text-success"></i> Database name</li>
-                <li><i class="fa fa-li fa-check text-success"></i> Database username</li>
-                <li><i class="fa fa-li fa-check text-success"></i> Database password</li>
-                <li><i class="fa fa-li fa-check text-success"></i> Database host</li>
-            </ul>
-            <p>Learn more about <a href="javascript:void(0)">editing the wp-config.html</a></p>
+            <div [innerHTML]="note.details"></div>
         </div>
     </li>
     <!-- END Replies -->
@@ -74,30 +65,26 @@
             </div>
             <!-- this is a new comment  -->
             <div class="modal-body">
-                <form action="page_ready_contacts.html" method="post" class="form-horizontal form-bordered" onsubmit="return false;">
+                <form [formGroup]="ticketPublicForm" (ngSubmit)="ticketPublicForm.valid && onPublicSubmit()" class="form-horizontal">
                     <div class="form-group">
-                        <label class="col-md-3 control-label" for="example-select2">Tenant</label>
-                        <div class="col-md-5">
-                            <select id="example-chosen-multiple" name="example-chosen-multiple" class="select-chosen" data-placeholder="Choose Reciptient(s)" multiple="" style="display: none;">
-                                <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
-                                <option value="HTML">Elsa Mann</option>
-                                <option value="HTML">Hugo Palmer</option>
-                                <option value="HTML">Mathew Craig</option>
-                                <option value="HTML">Elizabeth Lopez</option>
-                            </select><div class="chosen-container chosen-container-multi" style="width: 100%;" title="" id="example_chosen_multiple_chosen"><ul class="chosen-choices"><li class="search-field"><input type="text" value="Choose Reciptient(s)" class="default" autocomplete="off" style="width: 90px;"></li></ul><div class="chosen-drop"><ul class="chosen-results"></ul></div></div>
+                        <label class="col-sm-6 col-md-4 col-lg-3 control-label" for="tenant_list">Tenant</label>
+                        <div class="col-sm-6 col-md-8 col-lg-9">
+                           <ng-select id="tenant_list" [multiple]="true" [items]="tenants" (selected)="selectedTenantList($event)" (removed)="removedTenantList($event)"
+                                               placeholder="Choose Reciptient(s)" [active]="selectedTenant"></ng-select>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-3 control-label" for="example-textarea-input">Note</label>
+                        <label class="col-md-3 control-label" for="details">Note <span class="required">*</span> </label>
                         <div class="col-md-9">
-                            <textarea id="example-textarea-input" name="example-textarea-input" rows="7" class="form-control" placeholder="Note..."></textarea>
+                            <textarea id="details" [formControlValidator]="ticketPublicForm.controls.details" formControlName="details" name="details" rows="7" class="form-control" placeholder="Note..."></textarea>
+                            <span class="validation-error">{{ticketPublicForm.controls.details.error}}</span>
                         </div>
                     </div>
 
                     <div class="form-group form-actions">
                         <div class="col-xs-12 text-right">
-                            <button type="submit" class="btn btn-effect-ripple btn-success" style="overflow: hidden; position: relative;">Send</button>
+                            <button type="submit" class="btn btn-effect-ripple btn-success" style="overflow: hidden; position: relative;">Submit</button>
                         </div>
                     </div>
                 </form>
@@ -116,36 +103,26 @@
             </div>
             <!-- this is a new comment  -->
             <div class="modal-body">
-                <form action="page_ready_contacts.html" method="post" class="form-horizontal form-bordered" onsubmit="return false;">
+                <form [formGroup]="ticketPrivateForm" (ngSubmit)="ticketPrivateForm.valid && onPrivateSubmit()" class="form-horizontal">
                     <div class="form-group">
-                        <label class="col-md-3 control-label" for="example-select2">Employee</label>
-                        <div class="col-md-5">
-                            <select id="example-chosen-multiple" name="example-chosen-multiple" class="select-chosen" data-placeholder="Choose Reciptient(s)" multiple="" style="display: none;">
-                                <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
-                                <option value="HTML">Elsa Mann</option>
-                                <option value="HTML">Hugo Palmer</option>
-                                <option value="HTML">Mathew Craig</option>
-                                <option value="HTML">Elizabeth Lopez</option>
-                                <option value="HTML">Kendra Hunter</option>
-                                <option value="HTML">Guadalupe Estrada</option>
-                                <option value="HTML">Brett Pearson</option>
-                                <option value="HTML">Owen Washington</option>
-                                <option value="HTML">Hazel Gordon</option>
-                                <option value="HTML">Roosevelz Delgado</option>
-                            </select><div class="chosen-container chosen-container-multi" style="width: 100%;" title="" id="example_chosen_multiple_chosen"><ul class="chosen-choices"><li class="search-choice"><span>Hugo Palmer</span><a class="search-choice-close" data-option-array-index="2"></a></li><li class="search-choice"><span>Kendra Hunter</span><a class="search-choice-close" data-option-array-index="5"></a></li><li class="search-field"><input type="text" value="Choose Reciptient(s)" class="" autocomplete="off" style="width: 25px;"></li></ul><div class="chosen-drop"><ul class="chosen-results"><li class="active-result" data-option-array-index="1">Elsa Mann</li><li class="result-selected" data-option-array-index="2">Hugo Palmer</li><li class="active-result" data-option-array-index="3">Mathew Craig</li><li class="active-result" data-option-array-index="4">Elizabeth Lopez</li><li class="result-selected" data-option-array-index="5">Kendra Hunter</li><li class="active-result" data-option-array-index="6">Guadalupe Estrada</li><li class="active-result" data-option-array-index="7">Brett Pearson</li><li class="active-result" data-option-array-index="8">Owen Washington</li><li class="active-result" data-option-array-index="9">Hazel Gordon</li><li class="active-result" data-option-array-index="10">Roosevelz Delgado</li></ul></div></div>
+                        <label class="col-sm-6 col-md-4 col-lg-3 control-label" for="employee_list">Employee</label>
+                        <div class="col-sm-6 col-md-8 col-lg-9">
+                            <ng-select id="employee_list" [multiple]="true" [items]="employees" (selected)="selectedEmployeeList($event)" (removed)="removedEmployeeList($event)"
+                                       placeholder="Choose Reciptient(s)" [active]="selectedEmployee"></ng-select>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-3 control-label" for="example-textarea-input">Note</label>
+                        <label class="col-md-3 control-label" for="private_details">Note <span class="required">*</span> </label>
                         <div class="col-md-9">
-                            <textarea id="example-textarea-input" name="example-textarea-input" rows="7" class="form-control" placeholder="Note..."></textarea>
+                            <textarea id="private_details" [formControlValidator]="ticketPrivateForm.controls.details" formControlName="details" name="details" rows="7" class="form-control" placeholder="Note..."></textarea>
+                            <span class="validation-error">{{ticketPrivateForm.controls.details.error}}</span>
                         </div>
                     </div>
 
                     <div class="form-group form-actions">
                         <div class="col-xs-12 text-right">
-                            <button type="submit" class="btn btn-effect-ripple btn-success" style="overflow: hidden; position: relative;">Send</button>
+                            <button type="submit" class="btn btn-effect-ripple btn-success" style="overflow: hidden; position: relative;">Submit</button>
                         </div>
                     </div>
                 </form>
