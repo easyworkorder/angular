@@ -64,7 +64,7 @@
                             <tr>
                                 <td>Building Contact</td>
                                 <td class="text-left"><span class="text-muted">
-                                                            {{building.last_name}} {{building.first_name}}<br>
+                                                            {{building.first_name}} {{building.last_name}}<br>
                                                            <span *ngIf="building.work_phone">{{building.work_phone | phone}}, Direct<br></span>
                                     <span *ngIf="building.mobile_phone">{{building.mobile_phone | phone}}, Mobile<br></span>
                                     <a href="mailto:{{building.email}}">{{building.email}}</a>

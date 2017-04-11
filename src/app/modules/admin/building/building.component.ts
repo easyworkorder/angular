@@ -85,7 +85,7 @@ export class BuildingComponent implements OnInit {
     this.employeeService.getAllEmployees(company_id).subscribe(
       data => {
         let _employee: any[] = data.results.map(item => {
-          return { id: item.id, text: (item.last_name + ' ' + item.first_name) };
+          return { id: item.id, text: (item.first_name + ' ' + item.last_name) };
         });
         this.employees = _employee;
       }
