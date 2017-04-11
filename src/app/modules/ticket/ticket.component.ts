@@ -24,6 +24,7 @@ export class TicketComponent implements OnInit {
     priority: any[] = [];
     employee: any[] = [];
     group: any[] = [];
+    selectedNotified: any[] = [];
 
     tickets: any[] = [];
     buildings: any[] = [];
@@ -57,8 +58,13 @@ export class TicketComponent implements OnInit {
         is_billable: new FormControl(false),
         is_safety_issue: new FormControl(false),
         notify_tenant: new FormControl(false),
-        tenant_notify_flag: new FormControl(false),
-        status: new FormControl('Open')
+        tenant_notify_flag: new FormControl(true),
+        status: new FormControl('Open'),
+        closed: new FormControl(false),
+        notified_list: new FormControl(''),
+        optional_notification_message: new FormControl(''),
+        is_save_as_note: new FormControl(false),
+        notify_employee: new FormControl(false)
     });
 
     constructor(private buildingService: BuildingService,
@@ -81,7 +87,6 @@ export class TicketComponent implements OnInit {
 
     onSubmit() {
         this._submitted = true;
-        // console.log(this.ticketForm.value);
         this.ticketService.create(this.ticketForm.value).subscribe((tikcet: any) => {
             this.getAllTickets();
             this.closeModal();
@@ -111,7 +116,7 @@ export class TicketComponent implements OnInit {
         this.employeeService.getAllActiveEmployees(this.currentCompanyId).subscribe(
             data => {
                 let _employee: any[] = data.results.map(item => {
-                    return { id: item.id, text: (item.last_name + ' ' + item.first_name) };
+                    return { id: item.id, text: (item.first_name + ' ' + item.last_name) };
                 })
                 this.employees = _employee;
             }
@@ -169,6 +174,43 @@ export class TicketComponent implements OnInit {
     public selectedGroup(value: any): void {
         this.group = [value];
         this.ticketForm.get('group').setValue(this.group[0].id);
+    }
+
+    public selectedNotifiedList(value: any): void {
+
+        if (this.selectedNotified.length >= 1 && value.id === -1) {
+            this.removedNotifiedList(value);
+            return;
+        }
+        if (this.selectedNotified.some(val => val.id === -1)) {
+            this.removedNotifiedList({ id: -1, text: 'All' });
+        }
+        this.selectedNotified.push(value);
+        this.setNotifiedList();
+    }
+
+    public removedNotifiedList(value: any): void {
+        let sel = [];
+        this.selectedNotified.forEach(item => {
+            if (item.id !== value.id) {
+                sel.push(item);
+            }
+        });
+        this.selectedNotified = sel;
+        this.setNotifiedList();
+    }
+
+    setNotifiedList() {
+        let notifiedList = this.itemsToString(this.selectedNotified);
+        notifiedList = notifiedList.split(',').join(',');
+        this.ticketForm.get('notified_list').setValue(notifiedList);
+    }
+
+    public itemsToString(value: Array<any> = []): string {
+        return value
+            .map((item: any) => {
+                return item.id;
+            }).join(',');
     }
 
     closeModal() {

@@ -31,7 +31,7 @@ export class ProblemTypeService extends DataService {
 
     observable.subscribe(data => {
       this.toaster.pop(config.messageType.SUCCESS, 'Problem Type', 'Problem type has been Saved Successfully');
-      console.log(data);
+      // console.log(data);
     },
       error => {
         this.toaster.pop(config.messageType.ERROR, 'Problem Type', 'Problem type not saved due to API error!!!');
@@ -55,7 +55,7 @@ export class ProblemTypeService extends DataService {
             this.toaster.pop(config.messageType.SUCCESS, 'Problem Type', 'Problem type has been updated successfully');
         }
 
-      //console.log(data);
+      // console.log(data);
     },
       error => {
         this.toaster.pop(config.messageType.ERROR, 'Problem Type', 'Problem type not updated due to API error!!!');
@@ -68,7 +68,7 @@ export class ProblemTypeService extends DataService {
   getProblemType(id) {
     const observable = this.http.get('problemType/' + id + '/');
     observable.subscribe(data => {
-      //console.log(data);
+      // console.log(data);
     });
     return observable;
   }
@@ -76,7 +76,7 @@ export class ProblemTypeService extends DataService {
    getProblemTypeByUrl(url) {
     const observable = this.http.get(url);
     observable.subscribe(data => {
-      //console.log(data);
+      // console.log(data);
     });
     return observable;
   }
@@ -88,7 +88,7 @@ export class ProblemTypeService extends DataService {
   getAllProblemTypes(company_id) {
     const observable = this.http.get('problemType/', { company_id: company_id, ordering: 'problem_name' });
     observable.subscribe(data => {
-      console.log(data);
+      // console.log(data);
     });
     return observable;
   }
@@ -100,7 +100,7 @@ export class ProblemTypeService extends DataService {
     getAllActiveProblemTypes(company_id) {
         const observable = this.http.get('problemType/', { company_id: company_id, active: true, ordering: 'problem_name'});
         observable.subscribe(data => {
-            console.log(data);
+            // console.log(data);
         });
         return observable;
     }

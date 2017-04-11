@@ -31,12 +31,12 @@ export class BuildingService extends DataService {
   create(data?: any): Observable<IBuilding> {
 
     data = Object.assign({}, data);
-    console.log(data);
+    // console.log(data);
     const observable = this.http.post('building/', data);
 
     observable.subscribe(data => {
       this.toasterService.pop('success', 'ADD', 'Building has been saved successfully');
-      console.log(data);
+      // console.log(data);
     },
       error => {
         this.toasterService.pop('error', 'ADD', 'Building not Saved due to API error!!!');
@@ -55,7 +55,7 @@ export class BuildingService extends DataService {
 
     observable.subscribe(data => {
       this.toasterService.pop('success', 'UPDATE', 'Building information has been updated successfully');
-      console.log(data);
+      // console.log(data);
     },
       error => {
         this.toasterService.pop('error', 'UPDATE', 'Building information not updated due to API error!!!');
@@ -66,19 +66,18 @@ export class BuildingService extends DataService {
   }
 
   getAllBuildings(company_id) {
-    //const observable = this.http.get('building/', { company: company_id });
+
     const observable = this.http.get('buildinglist/' + company_id + '/');
     observable.subscribe(data => {
-      console.log(data);
+      // console.log(data);
     });
     return observable;
   }
 
   getBuilding(id) {
-      console.log('building id' + id);
       const observable = this.http.get('building/' + id + '/');
       observable.subscribe(data => {
-          console.log('building data:' + data);
+          // console.log('building data:' + data);
       });
       return observable;
   }
@@ -86,7 +85,7 @@ export class BuildingService extends DataService {
   getAllActiveBuildings(company_id) {
     const observable = this.http.get('building/', { company: company_id, active: true, ordering: 'name' });
     observable.subscribe(data => {
-      console.log(data);
+      // console.log(data);
     });
     return observable;
   }

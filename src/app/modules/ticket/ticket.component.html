@@ -282,18 +282,47 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-xs-3 control-label">Private Note</label>
+                        <label class="col-xs-3 control-label">Notify Tenant</label>
                         <div class="col-xs-9">
                             <label class="switch switch-success">
-                                <input type="checkbox" formControlName="is_private" id="is_private" name="is_private"><span></span></label>
+                                <input type="checkbox" formControlName="notify_tenant" id="notify_tenant" name="notify_tenant"><span></span></label>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-xs-3 control-label" for="estimated_amount">Estimated Amount</label>
                         <div class="col-xs-9">
-                            <input [formControlValidator]="ticketForm.controls.estimated_amount" formControlName="estimated_amount" type="text" id="estimated_amount" name="estimated_amount" class="form-control"
+                            <input decimalNumber [formControlValidator]="ticketForm.controls.estimated_amount" formControlName="estimated_amount" type="text" id="estimated_amount" name="estimated_amount" class="form-control"
                                    placeholder="Estimated Amount">
                             <span class="validation-error">{{ticketForm.controls.estimated_amount.error}}</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">Notify Employee(s)</label>
+                        <div class="col-xs-9">
+                            <label class="switch switch-success">
+                                <input type="checkbox" formControlName="notify_employee" id="notify_employee" name="notify_employee"><span></span></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label" for="notified_list">Select Employee(s) </label>
+                        <div class="col-xs-9">
+                            <ng-select id="notified_list" [multiple]="true" [items]="employees" (selected)="selectedNotifiedList($event)" (removed)="removedNotifiedList($event)"
+                                       placeholder="Select Employee (s)" [active]="selectedNotified"></ng-select>
+                            <span *ngIf="(_submitted && employee.length == 0)" class="validation-error">This field is Required</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label" for="optional_notification_message">Enter Optional Message</label>
+                        <div class="col-xs-9">
+                            <textarea [formControlValidator]="ticketForm.controls.optional_notification_message"  formControlName="optional_notification_message" id="optional_notification_message" class="form-control"></textarea>
+                            <span class="validation-error">{{ticketForm.controls.optional_notification_message.error}}</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">Save Notification as a Note </label>
+                        <div class="col-xs-9">
+                            <label class="switch switch-success">
+                                <input type="checkbox" formControlName="is_save_as_note" id="is_save_as_note" name="is_save_as_note"><span></span></label>
                         </div>
                     </div>
                     <div class="form-group">
@@ -303,13 +332,6 @@
                                 <input type="checkbox" formControlName="is_billable" id="is_billable" name="is_billable"><span></span></label>
                         </div>
                     </div>
-                    <!--div class="form-group">
-                        <label class="col-xs-3 control-label">Safety Issue</label>
-                        <div class="col-xs-9">
-                            <label class="switch switch-danger">
-                                <input type="checkbox" formControlName="is_safety_issue" id="is_safety_issue" name="is_safety_issue"><span></span></label>
-                        </div>
-                    </div-->
                     <div class="form-group form-actions">
                         <div class="col-xs-12 text-right">
                             <button type="submit" class="btn btn-effect-ripple btn-success" style="overflow: hidden; position: relative;">Submit</button>

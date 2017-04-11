@@ -31,7 +31,7 @@ export class TicketService extends DataService {
   getAllTickets(company_id) {
     const observable = this.http.get('workordersbycompany/' + company_id + '/?status=Open');
     observable.subscribe(data => {
-      console.log(data);
+      // console.log(data);
     });
     return observable;
   }
@@ -39,7 +39,7 @@ export class TicketService extends DataService {
   getTicketDetails(ticket_id) {
     const observable = this.http.get('ticket/' + ticket_id + '/');
     observable.subscribe(data => {
-      console.log(data);
+      // console.log(data);
     });
     return observable;
   }
@@ -47,7 +47,7 @@ export class TicketService extends DataService {
   getAllNotes(ticket_id) {
     const observable = this.http.get('ticketnote/?workorder_id=' + ticket_id);
     observable.subscribe(data => {
-      console.log(data);
+      // console.log(data);
     });
     return observable;
   }
@@ -59,7 +59,7 @@ export class TicketService extends DataService {
 
     observable.subscribe(data => {
       this.toasterService.pop('success', 'ADD', 'Ticket has been posted successfully');
-      console.log(data);
+      // console.log(data);
     },
       error => {
         this.toasterService.pop('error', 'ADD', 'Ticket not posted due to API error!!!');
@@ -77,7 +77,7 @@ export class TicketService extends DataService {
 
     observable.subscribe(data => {
       this.toasterService.pop('success', 'UPDATE', 'Ticket has been updated successfully');
-      console.log(data);
+      // console.log(data);
     },
       error => {
         this.toasterService.pop('error', 'UPDATE', 'Ticket not updated!!!');
@@ -94,7 +94,7 @@ export class TicketService extends DataService {
 
     observable.subscribe(data => {
           this.toasterService.pop('success', 'ADD', 'Labor has been posted successfully');
-          console.log(data);
+          // console.log(data);
         },
         error => {
           this.toasterService.pop('error', 'ADD', 'Labor not posted due to API error!!!');
@@ -112,7 +112,7 @@ export class TicketService extends DataService {
 
     observable.subscribe(data => {
           this.toasterService.pop('success', 'UPDATE', 'Labor has been updated successfully');
-          console.log(data);
+          // console.log(data);
         },
         error => {
           this.toasterService.pop('error', 'UPDATE', 'Labor not updated due to API error!!!');
@@ -128,7 +128,7 @@ export class TicketService extends DataService {
 
     observable.subscribe(data => {
           this.toasterService.pop('success', 'ADD', 'Material has been posted successfully');
-          console.log(data);
+          // console.log(data);
         },
         error => {
           this.toasterService.pop('error', 'ADD', 'Material not posted due to API error!!!');
@@ -146,7 +146,7 @@ export class TicketService extends DataService {
 
     observable.subscribe(data => {
           this.toasterService.pop('success', 'UPDATE', 'Material has been updated successfully');
-          console.log(data);
+          // console.log(data);
         },
         error => {
           this.toasterService.pop('error', 'UPDATE', 'Material not updated due to API error!!!');
