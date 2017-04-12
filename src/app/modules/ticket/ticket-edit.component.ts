@@ -112,7 +112,7 @@ export class TicketEditComponent implements OnInit {
     onSubmit() {
         this._submitted = true;
         if (!this.ticketForm.valid) { return; }
-        this.ticketService.update(this.ticketForm.value).subscribe((tikcet: any) => {});
+        this.ticketService.update(this.ticketForm.value, true).subscribe((tikcet: any) => {});
     }
 
     getAllTickets(): void {

@@ -69,35 +69,60 @@ export class TicketService extends DataService {
     return observable;
   }
 
-  update(data?: any): Observable<ITicket> {
+  update(data?: any, showMessage?: any): Observable<ITicket> {
     data = Object.assign({}, data);
 
     // PUT '/employee'
     const observable = this.http.patch(data.url, data);
 
     observable.subscribe(data => {
-      this.toasterService.pop('success', 'UPDATE', 'Ticket has been updated successfully');
+      if (showMessage) {
+        this.toasterService.pop('success', 'UPDATE', 'Ticket has been updated successfully');
+      }
       // console.log(data);
     },
       error => {
-        this.toasterService.pop('error', 'UPDATE', 'Ticket not updated!!!');
+        if (showMessage) {
+          this.toasterService.pop('error', 'UPDATE', 'Ticket not updated!!!');
+        }
         console.log(error);
       });
 
     return observable;
   }
 
-  createNote(data?: any) {
-    console.log(data);
+  createNote(data?: any, showMessage?: any) {
+
     data = Object.assign({}, data);
     const observable = this.http.post('ticketnote/', data);
 
     observable.subscribe(data => {
-          this.toasterService.pop('success', 'ADD', 'Ticket Note has been posted successfully');
+          if (showMessage) {
+            this.toasterService.pop('success', 'ADD', 'Ticket Note has been posted successfully');
+          }
           // console.log(data);
         },
         error => {
-          this.toasterService.pop('error', 'ADD', 'Ticket Note not posted due to API error!!!');
+          if (showMessage) {
+            this.toasterService.pop('error', 'ADD', 'Ticket Note not posted due to API error!!!');
+          }
+          console.log(error);
+        });
+
+    return observable;
+  }
+
+  createWorkorderVendor(data?: any) {
+
+    data = Object.assign({}, data);
+    const observable = this.http.post('ticketvendor/', data);
+
+    observable.subscribe(data => {
+           this.toasterService.pop('success', 'Send Vendor', 'Ticket has been send to vendor successfully');
+          // console.log(data);
+        },
+        error => {
+          // this.toasterService.pop('error', 'ADD', 'Ticket Note not posted due to API error!!!');
           console.log(error);
         });
 
