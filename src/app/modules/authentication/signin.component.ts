@@ -36,12 +36,12 @@ export class SigninComponent {
         this.authentication.signin(this.signinForm.value).subscribe(() => {
             // Identify the user with the additional information
             this.authentication.getUserInfo().subscribe(userInfo => {
-                if(userInfo.group_name && userInfo.group_name == config.userGroup.CONTACT) {
-                    
-                }
+                this.router.navigate([config.routes.signinRedirect]);
+
+                // if (userInfo.group_name && userInfo.group_name == config.userGroup.CONTACT) {}
             });
             //  let redirect = this.authentication.redirectUrl ? this.authentication.redirectUrl : config.routes.signinRedirect;
-            this.router.navigate([config.routes.signinRedirect]);
+
         },
         (error) => {
              this.router.navigate([config.routes.signin]);

@@ -24,7 +24,7 @@ const config = {
     },
     routes: {
         signin: '/signin',
-        signinRedirect: '/ticketlist',
+        signinRedirect: '/',
         signoutRedirect: '/signin',
     },
 
