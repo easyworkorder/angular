@@ -200,21 +200,31 @@ export class VendorComponent implements OnInit {
         /**
          * Expire Date validation
          */
-        if (this.vendorForm.get('gl_expire_date').value) {
-            let date: Date = this.vendorForm.get('gl_expire_date').value;
-            if (date.toString().indexOf('T') > -1) {
-                let dateAndTime = date.toISOString().split('T');
-                this.vendorForm.get('gl_expire_date').setValue(dateAndTime[0]);
-            }
-            else {
-                this.vendorForm.get('gl_expire_date').setValue(date);
-            }
+        // if (this.vendorForm.get('gl_expire_date').value) {
+        //     let date: Date = this.vendorForm.get('gl_expire_date').value;
+        //     if (date.toString().indexOf('T') > -1) {
+        //         let dateAndTime = date.toISOString().split('T');
+        //         this.vendorForm.get('gl_expire_date').setValue(dateAndTime[0]);
+        //     }
+        //     else {
+        //         this.vendorForm.get('gl_expire_date').setValue(date);
+        //     }
 
-        }
-        else {
-            this.exp_date_not_valid = true;
-            this.switchTab(1);
-            return;
+        // }
+        // else {
+        //     this.exp_date_not_valid = true;
+        //     this.switchTab(1);
+        //     return;
+        // }
+
+        let expireDate = this.vendorForm.get('gl_expire_date').value;
+        let expireDateString = null;
+        if(expireDate) {
+            console.log('The Given Date Is: ' + expireDate);
+            expireDate = new Date(expireDate);
+            expireDateString = expireDate.toISOString();
+            console.log('The UTC/ISO Representation: ' + expireDateString);
+            // this.tenantForm.get('inscertdate').setValue(inscertDateString);
         }
 
         // let val = this.vendorForm.value;
@@ -230,6 +240,8 @@ export class VendorComponent implements OnInit {
 
         // this.vendorForm.removeControl('vendor_contacts');
         let vendorData = this.vendorForm.value;
+        if(expireDateString)
+            vendorData.gl_expire_date = expireDateString;
         if (vendorData.vendor_contacts) { delete vendorData.vendor_contacts; }
         this.vendorService.saveVendor(vendorData).subscribe((vendor: any) => {
             // Vendor Saved lets go for saving contact with/without file
