@@ -2,11 +2,11 @@
     <!-- Block Tabs Title -->
     <div class="block-title">
         <div *ngIf="isAdmin" class="block-options pull-right">
-            <a *ngIf="tabs.isTicketTabVisible" href="#add-tenant-ticket" class="btn btn-effect-ripple btn-default"
+            <!--a *ngIf="tabs.isTicketTabVisible" href="#add-tenant-ticket" class="btn btn-effect-ripple btn-default"
                data-toggle="modal"
                title="" style="overflow: hidden; position: relative;" data-original-title="Add Contact"><i
                     class="fa fa-plus"></i></a>
-            <!--<a *ngIf="tabs.isInvoiceTabVisible" href="#add-tenant-invoice" class="btn btn-effect-ripple btn-default" data-toggle="modal"
+            <a *ngIf="tabs.isInvoiceTabVisible" href="#add-tenant-invoice" class="btn btn-effect-ripple btn-default" data-toggle="modal"
               title="" style="overflow: hidden; position: relative;" data-original-title="Add Contact"><i class="fa fa-plus"></i></a>-->
             <a *ngIf="tabs.isPeopleTabVisible" modal-dialog-open="add-tenant-cotact-people"
                class="btn btn-effect-ripple btn-default" data-toggle="modal"
