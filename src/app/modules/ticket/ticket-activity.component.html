@@ -6,10 +6,10 @@
 <a *ngIf="isAdmin" modal-dialog-open="modal-merge-wo" class="btn btn-sm btn-default" data-toggle="modal"><i
         class="fa fa-sort-amount-desc"></i>
     Merge</a>
-<a *ngIf="isAdmin" modal-dialog-open="modal-send-vendor" class="btn btn-sm btn-default" data-toggle="modal"><i
+<a *ngIf="isAdmin && !ticket.closed" modal-dialog-open="modal-send-vendor" class="btn btn-sm btn-default" data-toggle="modal"><i
         class="fa fa-external-link"></i> Send
     Vendor</a>
-<a *ngIf="isAdmin" modal-dialog-open="modal-close-wo" class="btn btn-sm btn-default" data-toggle="modal"><i class="fa fa-check"></i>
+<a *ngIf="isAdmin && !ticket.closed" modal-dialog-open="modal-close-wo" class="btn btn-sm btn-default" data-toggle="modal"><i class="fa fa-check"></i>
     Close</a>
 
 <div class="pull-right">
@@ -75,8 +75,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-3 control-label" for="details">Note <span class="required">*</span> </label>
-                        <div class="col-md-9">
+                        <label class="col-sm-6 col-md-4 col-lg-3 control-label" for="details">Note <span class="required">*</span> </label>
+                        <div class="col-sm-6 col-md-8 col-lg-9">
                             <textarea id="details" [formControlValidator]="ticketPublicForm.controls.details" formControlName="details" name="details" rows="7" class="form-control" placeholder="Note..."></textarea>
                             <span class="validation-error">{{ticketPublicForm.controls.details.error}}</span>
                         </div>
@@ -113,8 +113,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-3 control-label" for="private_details">Note <span class="required">*</span> </label>
-                        <div class="col-md-9">
+                        <label class="col-sm-6 col-md-4 col-lg-3 control-label" for="private_details">Note <span class="required">*</span> </label>
+                        <div class="col-sm-6 col-md-8 col-lg-9">
                             <textarea id="private_details" [formControlValidator]="ticketPrivateForm.controls.details" formControlName="details" name="details" rows="7" class="form-control" placeholder="Note..."></textarea>
                             <span class="validation-error">{{ticketPrivateForm.controls.details.error}}</span>
                         </div>
@@ -141,34 +141,31 @@
             </div>
             <!-- this is a new comment  -->
             <div class="modal-body">
-                <form action="page_ready_contacts.html" method="post" class="form-horizontal form-bordered" onsubmit="return false;">
+                <form [formGroup]="ticketVendorForm" (ngSubmit)="ticketVendorForm.valid && onVendorSubmit()" class="form-horizontal">
                     <div class="form-group">
-                        <label class="col-md-3 control-label" for="example-select2">Vendor</label>
-                        <div class="col-md-5">
-                            <select id="example-select2" name="example-select2" class="select-select2 select2-hidden-accessible" style="width: 100%;" data-placeholder="Select a vendor..." tabindex="-1" aria-hidden="true">
-                                <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
-                                <option value="HTML">Al's HVAC</option>
-                                <option value="CSS">McNevin Carpet Cleaning</option>
-                                <option value="Javascript">A1 Janitorial</option>
-                                <option value="PHP">Restoration Management</option>
-                                <option value="MySQL">Universal Protection</option>
-                            </select><span class="select2 select2-container select2-container--default select2-container--below" dir="ltr" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-example-select2-container"><span class="select2-selection__rendered" id="select2-example-select2-container"><span class="select2-selection__placeholder">Select a vendor...</span></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                        <label class="col-sm-6 col-md-4 col-lg-3 control-label" for="vendor">Vendor <span class="required">*</span> </label>
+                        <div class="col-sm-6 col-md-8 col-lg-9">
+                            <ng-select id="vendor" [multiple]="false" [items]="vendors" placeholder="Select Vendor" (selected)="setSelectedVendor($event)"
+                                       [active]="selectedVendor"></ng-select>
+                            <span *ngIf="(_vendorSubmitted && selectedVendor.length == 0)" class="validation-error">This field is Required</span>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-3 control-label" for="example-textarea-input">Work Descrition</label>
-                        <div class="col-md-9">
-                            <textarea id="example-textarea-input" name="example-textarea-input" rows="7" class="form-control" placeholder="Description..."></textarea>
+                        <label class="col-sm-6 col-md-4 col-lg-3 control-label" for="work_description">Work Descriptin <span class="required">*</span> </label>
+                        <div class="col-sm-6 col-md-8 col-lg-9">
+                            <textarea id="work_description" [formControlValidator]="ticketVendorForm.controls.details" formControlName="details" name="details" rows="7" class="form-control" placeholder="Work description"></textarea>
+                            <span class="validation-error">{{ticketVendorForm.controls.details.error}}</span>
                         </div>
                     </div>
-
                     <div class="form-group">
-                        <label class="col-xs-3 control-label">File(s)</label>
+                        <label class="col-xs-3 control-label">Send Tenant's Information?</label>
                         <div class="col-xs-9">
-                            <i class="fa fa-fw fa-upload"></i> <a href="#">Attach file</a><br>
+                            <label class="switch switch-success">
+                                <input type="checkbox" formControlName="send_tenant_info" id="send_tenant_info" name="send_tenant_info"><span></span></label>
                         </div>
                     </div>
+
                     <div class="form-group form-actions">
                         <div class="col-xs-12 text-right">
                             <button type="submit" class="btn btn-effect-ripple btn-success" style="overflow: hidden; position: relative;">Send</button>
@@ -189,17 +186,18 @@
             </div>
             <!-- this is a new comment  -->
             <div class="modal-body">
-                <form action="page_ready_contacts.html" method="post" class="form-horizontal form-bordered" onsubmit="return false;">
+                <form [formGroup]="ticketCloseForm" (ngSubmit)="ticketCloseForm.valid && onCloseSubmit()" class="form-horizontal">
                     <div class="form-group">
-                        <label class="col-md-3 control-label" for="example-textarea-input">Closing Note</label>
-                        <div class="col-md-9">
-                            <textarea id="example-textarea-input" name="example-textarea-input" rows="7" class="form-control" placeholder="Note..."></textarea>
+                        <label class="col-sm-6 col-md-4 col-lg-3 control-label" for="close_note">Note <span class="required">*</span> </label>
+                        <div class="col-sm-6 col-md-8 col-lg-9">
+                            <textarea id="close_note" [formControlValidator]="ticketCloseForm.controls.details" formControlName="details" name="details" rows="7" class="form-control" placeholder="Close note"></textarea>
+                            <span class="validation-error">{{ticketCloseForm.controls.details.error}}</span>
                         </div>
                     </div>
 
                     <div class="form-group form-actions">
                         <div class="col-xs-12 text-right">
-                            <button type="submit" class="btn btn-effect-ripple btn-success" style="overflow: hidden; position: relative;">Send</button>
+                            <button type="submit" class="btn btn-effect-ripple btn-success" style="overflow: hidden; position: relative;">Submit</button>
                         </div>
                     </div>
                 </form>
