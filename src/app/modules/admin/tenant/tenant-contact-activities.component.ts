@@ -2,6 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output, Injectable } from '@ang
 import { Subject } from "rxjs/Subject";
 import { UpdatePeopleService } from "app/modules/admin/tenant/people.service";
 import { UpdateTenantInsuranceService } from "./tenant-insurance.service";
+import {TicketService} from './../../ticket/ticket.service';
 declare var $: any;
 
 export class TabVisibility {
@@ -23,15 +24,22 @@ export class TenantContactActivitiesComponent implements OnInit {
     @Input() isAdmin: boolean = false;
     @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
 
-    // updatePeopleInfo: any;
+
+    tickets: any[] = [];
 
 
     tabs = new TabVisibility();
     constructor(private updatePeopleService: UpdatePeopleService,
-        private updateTenantInsuranceService: UpdateTenantInsuranceService) { }
+        private updateTenantInsuranceService: UpdateTenantInsuranceService,
+        private ticketService: TicketService) {}
 
     ngOnInit() {
-
+        console.log(this.tenant);
+        this.ticketService.getAllTenantTickets(this.tenant.id).subscribe(
+            data => {
+                this.tickets = data;
+            }
+        );
     }
 
     switchTab(tabId: number) {
@@ -42,6 +50,7 @@ export class TenantContactActivitiesComponent implements OnInit {
         this.tabs.isFilesTabVisible = tabId == 5 ? true : false;
         this.tabs.selectedTabNo = tabId;
     }
+
 
     updatePeople(event) {
         this.change.emit(event);

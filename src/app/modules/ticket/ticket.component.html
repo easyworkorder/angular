@@ -193,7 +193,7 @@
             <div class="tab-content">
                 <!-- Tickets List -->
                 <div class="tab-pane active" id="tickets-list">
-                    <ewo-ticket-list [tickets]="tickets" [isAdmin]="true"></ewo-ticket-list>
+                    <ewo-ticket-list  *ngIf="tickets" [tickets]="tickets" [isAdmin]="true"></ewo-ticket-list>
                 </div>
                 <!-- END Tickets List -->
 
