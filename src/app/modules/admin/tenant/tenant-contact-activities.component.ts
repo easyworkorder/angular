@@ -22,6 +22,8 @@ export class TenantContactActivitiesComponent implements OnInit {
     @Input() tenant: any;
     @Input() insurances: any;
     @Input() isAdmin: boolean = false;
+    @Input() isDashboardList: boolean = false;
+    @Input() isTenant: boolean = false;
     @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
 
 
@@ -34,12 +36,8 @@ export class TenantContactActivitiesComponent implements OnInit {
         private ticketService: TicketService) {}
 
     ngOnInit() {
-        console.log(this.tenant);
-        this.ticketService.getAllTenantTickets(this.tenant.id).subscribe(
-            data => {
-                this.tickets = data;
-            }
-        );
+        // console.log(this.tenant);
+        this.getAllTenantTickets();
     }
 
     switchTab(tabId: number) {
@@ -51,6 +49,17 @@ export class TenantContactActivitiesComponent implements OnInit {
         this.tabs.selectedTabNo = tabId;
     }
 
+    getAllTenantTickets() {
+        this.ticketService.getAllTenantTickets(this.tenant.id).subscribe(
+            data => {
+                this.tickets = data;
+            }
+        );
+    }
+
+    updateTicketList(data) {
+        this.getAllTenantTickets();
+    }
 
     updatePeople(event) {
         this.change.emit(event);

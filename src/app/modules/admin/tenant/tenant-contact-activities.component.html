@@ -1,28 +1,31 @@
 <div class="block full">
     <!-- Block Tabs Title -->
     <div class="block-title">
-        <div *ngIf="isAdmin" class="block-options pull-right">
-            <!--a *ngIf="tabs.isTicketTabVisible" href="#add-tenant-ticket" class="btn btn-effect-ripple btn-default"
+        <div class="block-options pull-right">
+            <a *ngIf="tabs.isTicketTabVisible && (isTenant || isAdmin)" modal-dialog-open="modal-add-tenant-ticket"
+               class="btn btn-effect-ripple btn-default"
                data-toggle="modal"
                title="" style="overflow: hidden; position: relative;" data-original-title="Add Contact"><i
                     class="fa fa-plus"></i></a>
-            <a *ngIf="tabs.isInvoiceTabVisible" href="#add-tenant-invoice" class="btn btn-effect-ripple btn-default" data-toggle="modal"
+            <!--a *ngIf="tabs.isInvoiceTabVisible" href="#add-tenant-invoice" class="btn btn-effect-ripple btn-default" data-toggle="modal"
               title="" style="overflow: hidden; position: relative;" data-original-title="Add Contact"><i class="fa fa-plus"></i></a>-->
-            <a *ngIf="tabs.isPeopleTabVisible" modal-dialog-open="add-tenant-cotact-people"
+            <a *ngIf="isAdmin && tabs.isPeopleTabVisible" modal-dialog-open="add-tenant-cotact-people"
                class="btn btn-effect-ripple btn-default" data-toggle="modal"
                title="" style="overflow: hidden; position: relative;" data-original-title="Add Contact"><i
                     class="fa fa-plus"></i></a>
-            <a *ngIf="tabs.isInsuranceTabVisible" modal-dialog-open="add-tenant-insurance" class="btn btn-effect-ripple btn-default"
+            <a *ngIf="isAdmin && tabs.isInsuranceTabVisible" modal-dialog-open="add-tenant-insurance"
+               class="btn btn-effect-ripple btn-default"
                data-toggle="modal"
                title="" style="overflow: hidden; position: relative;" data-original-title="Add Contact"><i
                     class="fa fa-plus"></i></a>
-            <a *ngIf="tabs.isFilesTabVisible" href="#add-tenant-files" class="btn btn-effect-ripple btn-default"
+            <a *ngIf="isAdmin && tabs.isFilesTabVisible" href="#add-tenant-files"
+               class="btn btn-effect-ripple btn-default"
                data-toggle="modal"
                title="" style="overflow: hidden; position: relative;" data-original-title="Add Contact"><i
                     class="fa fa-plus"></i></a>
         </div>
         <ul class="nav nav-tabs" data-toggle="tabs">
-            <li class="active"><a (click)="switchTab(2)" href="#profile-tickets" data-toggle="tab">Tickets</a></li>
+            <li class="active"><a (click)="switchTab(1)" href="#profile-tickets" data-toggle="tab">Tickets</a></li>
             <li class=""><a (click)="switchTab(2)" href="#profile-invoices" data-toggle="tab">Invoices</a></li>
             <li class=""><a (click)="switchTab(3)" href="#profile-people" data-toggle="tab">People</a></li>
             <li class=""><a (click)="switchTab(4)" href="#profile-insurance" data-toggle="tab">Insurance</a></li>
@@ -36,7 +39,7 @@
         <!-- Tickets -->
         <div class="tab-pane active" id="profile-tickets">
             <!-- Tickets List -->
-            <ewo-ticket-list *ngIf="tickets" [tickets]="tickets" [isAdmin]="true"></ewo-ticket-list>
+            <ewo-ticket-list *ngIf="tickets" [tickets]="tickets" [isAdmin]="isAdmin"></ewo-ticket-list>
             <!-- END Tickets List -->
         </div>
         <!-- END Tickets -->
@@ -98,7 +101,8 @@
         <!-- People -->
         <div class="tab-pane" id="profile-people">
             <div class="block-content-full">
-                <ewo-contact-list [contactList]="tenant" [isEditable]="isAdmin" (update)="updateContactInfo($event)"></ewo-contact-list>
+                <ewo-contact-list [contactList]="tenant" [isEditable]="isAdmin"
+                                  (update)="updateContactInfo($event)"></ewo-contact-list>
             </div>
         </div>
         <!-- END People -->
@@ -255,13 +259,18 @@
     <!-- END Tabs Content -->
 </div>
 
-<div *ngIf="isAdmin">
-    <ewo-tenant-contact-people id="add-tenant-cotact-people" [tenant]="tenant" (update)="updatePeople($event)"
-                               class="modal fade"
-                               role="dialog" aria-hidden="true"></ewo-tenant-contact-people>
+<ewo-tenant-add-ticket *ngIf="tenant && (isTenant || isAdmin)" id="modal-add-tenant-ticket" [tenant]="tenant"
+                       [isDashboardList]="isDashboardList" [isAdmin]="isAdmin"
+                       (update)="updateTicketList($event)" class="modal fade"
+                       role="dialog" aria-hidden="true"></ewo-tenant-add-ticket>
 
-    <ewo-tenant-insurance id="add-tenant-insurance" [tenant]="tenant" (update)="updateInsurance($event)"
-                          class="modal fade"
-                          role="dialog" aria-hidden="true"></ewo-tenant-insurance>
+<ewo-tenant-contact-people *ngIf="isAdmin && tenant" id="add-tenant-cotact-people" [tenant]="tenant"
+                           (update)="updatePeople($event)"
+                           class="modal fade"
+                           role="dialog" aria-hidden="true"></ewo-tenant-contact-people>
 
-</div>
+<ewo-tenant-insurance *ngIf="isAdmin && tenant" id="add-tenant-insurance" [tenant]="tenant"
+                      (update)="updateInsurance($event)"
+                      class="modal fade"
+                      role="dialog" aria-hidden="true"></ewo-tenant-insurance>
+

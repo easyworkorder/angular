@@ -18,7 +18,7 @@
                     <th class="text-center">ID</th>
                     <th>Type</th>
                     <th>Source</th>
-                    <th>Title</th>
+                    <th>Subject</th>
                     <th class="text-center">Sender</th>
                     <th class="text-center"><i class="fa fa-comments"></i></th>
                 </tr>
@@ -28,7 +28,7 @@
                 <tr *ngFor="let ticket of tickets">
                     <td *ngIf="isAdmin" class="text-center"><label class="csscheckbox csscheckbox-primary"><input
                             type="checkbox"><span></span></label></td>
-                    <td class="text-center"><a (click)="getTicketDetails(ticket)">#TCK{{ticket.id}}</a></td>
+                    <td class="text-center"><a (click)="getTicketDetails(ticket)">#{{ticket.ticket_key}}</a></td>
                     <td><span class="label"
                               ng-class="{'Low': 'label-default', 'Medium': 'label-info', 'High': 'label-warning', 'Urgent': 'label-danger', 'Safety': 'label-danger'}[ticket.priority]">{{ticket.problem_name}}</span>
                     </td>

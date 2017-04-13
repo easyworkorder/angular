@@ -1,35 +1,40 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
-import config from '../../config';
-import {EmployeeService} from './../admin/employee/employee.service';
-import {BuildingService} from './../admin/building/building.service';
-import {TenantService} from './../admin/tenant/tenant.service';
-import {ProblemTypeService} from './../admin/problem_type/problem_type.service';
-import {TicketService} from './ticket.service';
+import config from '../../../config';
+import {EmployeeService} from './../../admin/employee/employee.service';
+import {BuildingService} from './../../admin/building/building.service';
+import {TenantService} from './../../admin/tenant/tenant.service';
+import {ProblemTypeService} from './../../admin/problem_type/problem_type.service';
+import {TicketService} from './../../ticket/ticket.service';
 import {AuthenticationService} from "app/modules/authentication";
 declare var $: any;
 
 @Component({
-    selector: 'ewo-ticket',
-    templateUrl: './ticket.component.html'
+    selector: 'ewo-tenant-add-ticket',
+    templateUrl: './tenant-add-ticket.component.html'
 })
-export class TicketComponent implements OnInit {
+export class TenantAddTicketComponent implements OnInit {
+
+    @Input() tenant: any;
+    @Input() isAdmin: boolean = false;
+    @Input() isDashboardList: boolean = false;
+    @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
 
     _submitted = false;
-    building: any[] = [];
-    tenant: any[] = [];
-    problem_type: any[] = [];
-    priority: any[] = [];
-    assigned_to: any[] = [];
-    group: any[] = [];
-    selectSource: any[] = [];
+    // building: any[] = [];
+    // tenant: any[] = [];
+    selectedProblemType: any[] = [];
+    selectedPriority: any[] = [];
+    selectedAssignedTo: any[] = [];
+    selectedGroup: any[] = [];
+    selectedSource: any[] = [];
     selectedNotified: any[] = [];
     sendNotification = false;
 
-    tickets: any[] = [];
-    buildings: any[] = [];
-    tenants: any[] = [];
+    // tickets: any[] = [];
+    // buildings: any[] = [];
+    // tenants: any[] = [];
     problem_types: any[] = [];
     priorities = [{ id: 'Low', text: 'Low' },
                     { id: 'Medium', text: 'Medium' },
@@ -47,6 +52,7 @@ export class TicketComponent implements OnInit {
         { id: 'Phone', text: 'Phone' },
         { id: 'Chat', text: 'Chat' },
         { id: 'Agent', text: 'Agent' }];
+
     currentCompanyId = 1;
 
     ticketForm = new FormGroup({
@@ -56,8 +62,8 @@ export class TicketComponent implements OnInit {
         problemtype: new FormControl(''),
         priority: new FormControl(''),
         assigned_to: new FormControl(''),
-        source: new FormControl('', Validators.required),
-        group: new FormControl('', Validators.required),
+        source: new FormControl('Agent'),
+        group: new FormControl(''),
         subject: new FormControl('', Validators.required),
         description: new FormControl('', Validators.required),
         is_private: new FormControl(false),
@@ -65,14 +71,14 @@ export class TicketComponent implements OnInit {
         is_billable: new FormControl(false),
         is_safety_issue: new FormControl(false),
         notify_tenant: new FormControl(false),
-        tenant_notify_flag: new FormControl(true),
+        tenant_notify_flag: new FormControl(false),
         status: new FormControl('Open'),
         closed: new FormControl(false),
         notified_list: new FormControl(''),
         optional_notification_message: new FormControl(''),
         is_save_as_note: new FormControl(false),
         notify_employee: new FormControl(false),
-        submitted_by_type: new FormControl('E')
+        submitted_by_type: new FormControl('TU')
     });
 
     constructor(private buildingService: BuildingService,
@@ -82,27 +88,35 @@ export class TicketComponent implements OnInit {
                 private ticketService: TicketService,
                 private authService: AuthenticationService) {
         this.authService.verifyToken().take(1).subscribe(data => {
-            this.getAllTickets();
-            this.getAllActiveBuildings();
+            // this.getAllTickets();
+            // this.getAllActiveBuildings();
             this.getAllActiveEmployees();
             this.getAllActiveProblemTypes();
         });
     }
 
     ngOnInit() {
-
+        /**
+         * Enable additional ticket fields when admin
+         */
+        if (this.isAdmin) {
+            this.isDashboardList = this.isAdmin;
+        }
     }
 
     onSubmit() {
         this._submitted = true;
         if (!this.ticketForm.valid) { return; }
+        this.ticketForm.get('building').setValue(this.tenant.building);
+        this.ticketForm.get('tenant').setValue(this.tenant.url);
         this.ticketService.create(this.ticketForm.value).subscribe((tikcet: any) => {
-            this.getAllTickets();
+            // this.getAllTickets();
+            this.change.emit(true);
             this.closeModal();
         });
     }
 
-    getAllTickets(): void {
+    /*getAllTickets(): void {
         this.ticketService.getAllTickets(this.currentCompanyId).subscribe(
             data => {
                 this.tickets = data;
@@ -119,7 +133,7 @@ export class TicketComponent implements OnInit {
                 this.buildings = _building;
             }
         );
-    }
+    }*/
 
     getAllActiveEmployees(): void {
         this.employeeService.getAllActiveEmployees(this.currentCompanyId).subscribe(
@@ -133,7 +147,7 @@ export class TicketComponent implements OnInit {
     }
 
     getAllActiveProblemTypes(): void {
-        this.problemTypeService.getAllActiveProblemTypes(this.currentCompanyId).subscribe(
+        this.problemTypeService.getAllActiveProblemTypesForTenant(this.currentCompanyId).subscribe(
             data => {
                 let _problem_type: any[] = data.results.map(item => {
                     return { id: item.id, text: (item.problem_name) };
@@ -143,7 +157,7 @@ export class TicketComponent implements OnInit {
         );
     }
 
-    getActiveTenantsByBuilding(building_id): void {
+    /*getActiveTenantsByBuilding(building_id): void {
         this.tenantService.getActiveTenantsByBuilding(building_id).subscribe(
             data => {
                 let _tenant: any[] = data.results.map(item => {
@@ -163,35 +177,35 @@ export class TicketComponent implements OnInit {
     public selectedTenant(value: any): void {
         this.tenant = [value];
         this.ticketForm.get('tenant').setValue(config.api.base + 'tenant/' + this.tenant[0].id + '/');
+    }*/
+
+    public setSelectedProblemType(value: any): void {
+        this.selectedProblemType = [value];
+        this.ticketForm.get('problemtype').setValue(config.api.base + 'problemType/' + this.selectedProblemType[0].id + '/');
     }
 
-    public selectedProblemType(value: any): void {
-        this.problem_type = [value];
-        this.ticketForm.get('problemtype').setValue(config.api.base + 'problemType/' + this.problem_type[0].id + '/');
+    public setSelectedPriority(value: any): void {
+        this.selectedPriority = [value];
+        this.ticketForm.get('priority').setValue(this.selectedPriority[0].id);
     }
 
-    public selectedPriority(value: any): void {
-        this.priority = [value];
-        this.ticketForm.get('priority').setValue(this.priority[0].id);
+    public setSelectedAssignedTo(value: any): void {
+        this.selectedAssignedTo = [value];
+        this.ticketForm.get('assigned_to').setValue(config.api.base + 'employee/' + this.selectedAssignedTo[0].id + '/');
     }
 
-    public selectedAssignedTo(value: any): void {
-        this.assigned_to = [value];
-        this.ticketForm.get('assigned_to').setValue(config.api.base + 'employee/' + this.assigned_to[0].id + '/');
+    public setSelectedGroup(value: any): void {
+        this.selectedGroup = [value];
+        this.ticketForm.get('group').setValue(this.selectedGroup[0].id);
     }
 
-    public selectedGroup(value: any): void {
-        this.group = [value];
-        this.ticketForm.get('group').setValue(this.group[0].id);
-    }
-
-    public selectedSource(value: any): void {
-        this.selectSource = [value];
-        this.ticketForm.get('source').setValue(this.selectSource[0].id);
+    public setSelectedSource(value: any): void {
+        this.selectedSource = [value];
+        this.ticketForm.get('source').setValue(this.selectedSource[0].id);
     }
 
     public emptyNoficationFields(value): void {
-        if (!value.target.checked){
+        if (!value.target.checked) {
             this.selectedNotified = [];
             this.ticketForm.get('notified_list').setValue('');
             this.ticketForm.get('optional_notification_message').setValue('');
@@ -238,13 +252,13 @@ export class TicketComponent implements OnInit {
 
     closeModal() {
         this.resetForm();
-        this.building = [];
-        this.tenant = [];
-        this.problem_type = [];
-        this.priority = [];
-        this.assigned_to = [];
-        this.group = [];
-        $('#modal-add-ticket').modal('hide');
+        // this.building = [];
+        // this.tenant = [];
+        this.selectedProblemType = [];
+        this.selectedPriority = [];
+        this.selectedAssignedTo = [];
+        this.selectedGroup = [];
+        $('#modal-add-tenant-ticket').modal('hide');
     }
 
     resetForm() {
@@ -252,7 +266,12 @@ export class TicketComponent implements OnInit {
             is_private: false,
             estimated_amount: 0,
             is_billable: false,
-            is_safety_issue: false
+            is_safety_issue: false,
+            notify_tenant: false,
+            tenant_notify_flag: false,
+            closed: false,
+            is_save_as_note: false,
+            notify_employee: false
         });
     }
 }

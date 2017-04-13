@@ -5,7 +5,7 @@
     </div>
     <div class="col-md-7 col-lg-8">
         <loading-spinner-wave *ngIf="!tenant"></loading-spinner-wave>
-        <ewo-tenant-contact-activities *ngIf="tenant" [tenant]="tenant" [insurances]="insurances" [isAdmin]="false" (update)="updateInActivity($event)"></ewo-tenant-contact-activities>
+        <ewo-tenant-contact-activities *ngIf="tenant" [tenant]="tenant" [insurances]="insurances" [isAdmin]="false" [isTenant]="true" [isDashboardList]="true" (update)="updateInActivity($event)"></ewo-tenant-contact-activities>
     </div>
 </div>
 <!-- END Contact Profile Row -->

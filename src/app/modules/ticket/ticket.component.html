@@ -251,11 +251,11 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-xs-3 control-label" for="employee">Assigned to <span class="required">*</span> </label>
+                        <label class="col-xs-3 control-label" for="assigned_to">Assigned to <span class="required">*</span> </label>
                         <div class="col-xs-9">
-                            <ng-select id="employee" [multiple]="false" [items]="employees" placeholder="Select Employee" (selected)="selectedEmployee($event)"
-                                       [active]="employee"></ng-select>
-                            <span *ngIf="(_submitted && employee.length == 0)" class="validation-error">This field is Required</span>
+                            <ng-select id="assigned_to" [multiple]="false" [items]="employees" placeholder="Select Asigned To" (selected)="selectedAssignedTo($event)"
+                                       [active]="assigned_to"></ng-select>
+                            <span *ngIf="(_submitted && assigned_to.length == 0)" class="validation-error">This field is Required</span>
                         </div>
                     </div>
                     <div class="form-group">

@@ -4,7 +4,7 @@ import { TenantService } from './../../admin/tenant/tenant.service';
 import { DataService } from './../../../services/data.service';
 import { Contact } from "app/modules/admin/contact-profile-card/contact";
 import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
-
+import {AuthenticationService} from "app/modules/authentication";
 
 @Component({
     selector: 'ewo-tenant-profile',
@@ -20,8 +20,10 @@ export class TenantProfileComponent implements OnInit {
         private tenantService: TenantService,
         private dataService: DataService,
         private route: ActivatedRoute,
+        private authService: AuthenticationService,
         private breadcrumbHeaderService: BreadcrumbHeaderService
     ) {
+        this.authService.verifyToken().take(1).subscribe(data => {});
     }
 
     ngOnInit() {

@@ -67,7 +67,7 @@ import { UpdateTicketLaborService } from './modules/ticket/ticket-labor.service'
 import { TicketLaborComponent } from './modules/ticket/ticket-labor.component';
 import { UpdateTicketMaterialService } from './modules/ticket/ticket-material.service';
 import { TicketMaterialComponent } from './modules/ticket/ticket-material.component';
-import { TicketListComponent } from './modules/shared/ticket-list/ticket-list.component';
+import { TicketListComponent } from './modules/shared/ticket/ticket-list.component';
 import { TicketService } from './modules/ticket/ticket.service';
 
 import { AdminSetupComponent } from './modules/admin_setup/admin_setup.component';
@@ -110,6 +110,7 @@ import { TenantProfileComponent } from './modules/list/tenant-list/tenant-profil
  * Tenant Dashboard after login
  */
 import { TenantDashboardComponent } from './modules/dashboard/tenant-dashboard.component';
+import { TenantAddTicketComponent } from './modules/shared/ticket/tenant-add-ticket.component';
 
 import { ValidationService } from './services/validation.service'
 import { AuthGuard } from "app/services/auth-guard.service";
@@ -217,6 +218,7 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
          * Tenant dashboard after login
          */
         TenantDashboardComponent,
+        TenantAddTicketComponent,
 
         AdminSetupComponent,
 

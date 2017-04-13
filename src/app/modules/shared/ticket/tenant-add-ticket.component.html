@@ -1,0 +1,125 @@
+<!--div id="modal-add-tenant-ticket" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;"-->
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title"><i class="fa fa-plus"></i> <strong>New Request</strong></h3>
+            </div>
+            <!-- this is a new comment  -->
+            <div class="modal-body">
+                <form [formGroup]="ticketForm" (ngSubmit)="onSubmit()" class="form-horizontal form-bordered">
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label" for="problem_type">Type <span class="required">*</span> </label>
+                        <div class="col-xs-9">
+                            <ng-select id="problem_type" [multiple]="false" [items]="problem_types" placeholder="Select Type" (selected)="setSelectedProblemType($event)"
+                                       [active]="selectedProblemType"></ng-select>
+                            <span *ngIf="(_submitted && selectedProblemType.length == 0)" class="validation-error">This field is Required</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label" for="priority">Priority <span class="required">*</span> </label>
+                        <div class="col-xs-9">
+                            <ng-select id="priority" [multiple]="false" [items]="priorities" placeholder="Select Priority" (selected)="setSelectedPriority($event)"
+                                       [active]="selectedPriority"></ng-select>
+                            <span *ngIf="(_submitted && selectedPriority.length == 0)" class="validation-error">This field is Required</span>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="isDashboardList">
+                        <label class="col-xs-3 control-label" for="assigned_to">Assigned to <span class="required">*</span> </label>
+                        <div class="col-xs-9">
+                            <ng-select id="assigned_to" [multiple]="false" [items]="employees" placeholder="Select Employee" (selected)="setSelectedAssignedTo($event)"
+                                       [active]="selectedAssignedTo"></ng-select>
+                            <span *ngIf="(_submitted && selectedAssignedTo.length == 0)" class="validation-error">This field is Required</span>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="isDashboardList">
+                        <label class="col-xs-3 control-label" for="source">Source <span class="required">*</span> </label>
+                        <div class="col-xs-9">
+                            <ng-select id="source" [multiple]="false" [items]="sources" placeholder="Select Source" (selected)="setSelectedSource($event)"
+                                       [active]="selectedSource"></ng-select>
+                            <span *ngIf="(_submitted && selectedSource.length == 0)" class="validation-error">This field is Required</span>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="isDashboardList">
+                        <label class="col-xs-3 control-label" for="group">Group <span class="required">*</span> </label>
+                        <div class="col-xs-9">
+                            <ng-select id="group" [multiple]="false" [items]="groups" placeholder="Select Group" (selected)="setSelectedGroup($event)"
+                                       [active]="selectedGroup"></ng-select>
+                            <span *ngIf="(_submitted && selectedGroup.length == 0)" class="validation-error">This field is Required</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label" for="subject">Subject <span class="required">*</span> </label>
+                        <div class="col-xs-9">
+                            <input [formControlValidator]="ticketForm.controls.subject" formControlName="subject" type="text" id="subject" name="subject" class="form-control"
+                                   placeholder="Subject">
+                            <span class="validation-error">{{ticketForm.controls.subject.error}}</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label" for="description">Description <span class="required">*</span></label>
+                        <div class="col-xs-9">
+                            <textarea [formControlValidator]="ticketForm.controls.description"  formControlName="description" id="description" class="form-control"></textarea>
+                            <span class="validation-error">{{ticketForm.controls.description.error}}</span>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="isDashboardList">
+                        <label class="col-xs-3 control-label">Notify Tenant</label>
+                        <div class="col-xs-9">
+                            <label class="switch switch-success">
+                                <input type="checkbox" formControlName="notify_tenant" id="notify_tenant" name="notify_tenant"><span></span></label>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="isDashboardList">
+                        <label class="col-xs-3 control-label" for="estimated_amount">Estimated Amount</label>
+                        <div class="col-xs-9">
+                            <input decimalNumber [formControlValidator]="ticketForm.controls.estimated_amount" formControlName="estimated_amount" type="text" id="estimated_amount" name="estimated_amount" class="form-control"
+                                   placeholder="Estimated Amount">
+                            <span class="validation-error">{{ticketForm.controls.estimated_amount.error}}</span>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="isDashboardList">
+                        <label class="col-xs-3 control-label">Notify Employee(s)</label>
+                        <div class="col-xs-9">
+                            <label class="switch switch-success">
+                                <input type="checkbox" (click)="emptyNoficationFields($event)" [checked]="sendNotification" (change)="sendNotification = !sendNotification" formControlName="notify_employee" id="notify_employee" name="notify_employee"><span></span></label>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="sendNotification">
+                        <label class="col-xs-3 control-label" for="notified_list">Select Employee(s) </label>
+                        <div class="col-xs-9">
+                            <ng-select id="notified_list" [multiple]="true" [items]="employees" (selected)="selectedNotifiedList($event)" (removed)="removedNotifiedList($event)"
+                                       placeholder="Select Employee (s)" [active]="selectedNotified"></ng-select>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="sendNotification">
+                        <label class="col-xs-3 control-label" for="optional_notification_message">Enter Optional Message</label>
+                        <div class="col-xs-9">
+                            <textarea [formControlValidator]="ticketForm.controls.optional_notification_message"  formControlName="optional_notification_message" id="optional_notification_message" class="form-control"></textarea>
+                            <span class="validation-error">{{ticketForm.controls.optional_notification_message.error}}</span>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="sendNotification">
+                        <label class="col-xs-3 control-label">Save Notification as a Note </label>
+                        <div class="col-xs-9">
+                            <label class="switch switch-success">
+                                <input type="checkbox" formControlName="is_save_as_note" id="is_save_as_note" name="is_save_as_note"><span></span></label>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="isDashboardList">
+                        <label class="col-xs-3 control-label">Billable</label>
+                        <div class="col-xs-9">
+                            <label class="switch switch-success">
+                                <input type="checkbox" formControlName="is_billable" id="is_billable" name="is_billable"><span></span></label>
+                        </div>
+                    </div>
+                    <div class="form-group form-actions">
+                        <div class="col-xs-12 text-right">
+                            <button type="submit" class="btn btn-effect-ripple btn-success" style="overflow: hidden; position: relative;">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<!--/div-->

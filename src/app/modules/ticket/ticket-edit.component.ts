@@ -55,7 +55,7 @@ export class TicketEditComponent implements OnInit {
         id: new FormControl(),
         problemtype: new FormControl(''),
         priority: new FormControl(''),
-        employee: new FormControl(''),
+        assigned_to: new FormControl(''),
         source: new FormControl('', Validators.required),
         group: new FormControl('', Validators.required),
         estimated_amount: new FormControl(0, ValidationService.numericValidator),
@@ -103,10 +103,12 @@ export class TicketEditComponent implements OnInit {
     }
 
     getSelectEmployee() {
-        this.employeeService.getEmployeeByIdByUrl(this.ticket.employee).subscribe(data => {
-            // this.selectEmployee.push({id: data.id, text: (data.first_name + ' ' + data.last_name) });
-            this.selectEmployee = [{id: data.id, text: (data.first_name + ' ' + data.last_name) }];
-        });
+        if (this.ticket.assigned_to) {
+            this.employeeService.getEmployeeByIdByUrl(this.ticket.assigned_to).subscribe(data => {
+                // this.selectEmployee.push({id: data.id, text: (data.first_name + ' ' + data.last_name) });
+                this.selectEmployee = [{id: data.id, text: (data.first_name + ' ' + data.last_name)}];
+            });
+        }
     }
 
     onSubmit() {
@@ -180,7 +182,7 @@ export class TicketEditComponent implements OnInit {
 
     public selectedEmployee(value: any): void {
         this.selectEmployee = [value];
-        this.ticketForm.get('employee').setValue(config.api.base + 'employee/' + this.selectEmployee[0].id + '/');
+        this.ticketForm.get('assigned_to').setValue(config.api.base + 'employee/' + this.selectEmployee[0].id + '/');
     }
 
     public selectedSource(value: any): void {

@@ -104,4 +104,16 @@ export class ProblemTypeService extends DataService {
         });
         return observable;
     }
+
+    /**
+     * Get all problem types with tenant view true
+     * @param company_id
+     */
+    getAllActiveProblemTypesForTenant(company_id) {
+        const observable = this.http.get('problemType/', { company_id: company_id, active: true, tenant_view: true, ordering: 'problem_name'});
+        observable.subscribe(data => {
+             console.log(data);
+        });
+        return observable;
+    }
 }
