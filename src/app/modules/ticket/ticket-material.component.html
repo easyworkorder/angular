@@ -24,10 +24,10 @@
         </thead>
         <tbody>
         <tr *ngFor="let material of materials">
-            <td><strong>{{labor.date}}</strong></td>
+            <td><strong>{{labor.date | dateFormat}}</strong></td>
             <td class="hidden-xs">{{labor.description}}</td>
-            <td class="hidden-xs">{{labor.cost_each}}</td>
-            <td class="hidden-sm hidden-xs">{{labor.quantity}}</td>
+            <td class="hidden-xs">{{labor.cost_each | currency:'USD':true}}</td>
+            <td class="hidden-sm hidden-xs">{{labor.quantity | number}}</td>
             <td class="hidden-sm hidden-xs"></td>
             <td class="text-center">
                 <a modal-dialog-open="modal-add-labor" (click)="editMaterial(material)" data-toggle="tooltip" title=""
