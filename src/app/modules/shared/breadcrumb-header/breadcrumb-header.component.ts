@@ -4,8 +4,7 @@ import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/br
 
 @Component({
     selector: 'ewo-breadcrumb-header',
-    templateUrl: './breadcrumb-header.component.html',
-    styleUrls: ['./breadcrumb-header.component.css']
+    templateUrl: './breadcrumb-header.component.html'
 })
 export class BreadcrumbHeaderComponent implements OnInit {
 

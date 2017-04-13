@@ -201,7 +201,7 @@ export class DataService {
     }
 
     buildAddressHtml(tenantContact: any, companyName: string) {
-        let html = '<strong>' + this.buildName(tenantContact.first_name, tenantContact.last_name) + '</strong><br />';
+        let html = '<strong>' + this.buildName(tenantContact.firstName, tenantContact.lastName) + '</strong><br />';
         if (tenantContact.unit_no != null && tenantContact.unit_no.length > 0) {
             html += tenantContact.unit_no + '<br />';
         }

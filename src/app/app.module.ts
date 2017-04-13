@@ -101,10 +101,15 @@ import { UpdateTenantInsuranceService } from 'app/modules/admin/tenant/tenant-in
 import { UpdatePeopleService } from "app/modules/admin/tenant/people.service";
 
 /**
- * Tenant Dashboard
+ * Tenant dashboard list component
  */
 import { ContactListComponent } from "app/modules/shared/contact-list/contact-list.component";
 import { TenantProfileComponent } from './modules/list/tenant-list/tenant-profile.component';
+
+/**
+ * Tenant Dashboard after login
+ */
+import { TenantDashboardComponent } from './modules/dashboard/tenant-dashboard.component';
 
 import { ValidationService } from './services/validation.service'
 import { AuthGuard } from "app/services/auth-guard.service";
@@ -207,6 +212,11 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
          */
         TenantListComponent,
         TenantProfileComponent,
+
+        /**
+         * Tenant dashboard after login
+         */
+        TenantDashboardComponent,
 
         AdminSetupComponent,
 
