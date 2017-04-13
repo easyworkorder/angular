@@ -71,8 +71,7 @@ export class TicketComponent implements OnInit {
         notified_list: new FormControl(''),
         optional_notification_message: new FormControl(''),
         is_save_as_note: new FormControl(false),
-        notify_employee: new FormControl(false),
-        submitted_by_type: new FormControl('E')
+        notify_employee: new FormControl(false)
     });
 
     constructor(private buildingService: BuildingService,
