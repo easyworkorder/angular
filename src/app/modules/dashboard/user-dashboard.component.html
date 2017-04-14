@@ -23,6 +23,7 @@
 
     <div class="col-md-7 col-lg-9">
         <ewo-tenant-dashboard *ngIf="tenantContactId" [tenantContactId]="tenantContactId"></ewo-tenant-dashboard>
+        <ewo-vendor-dashboard *ngIf="vendorContactId" [vendorContactId]="vendorContactId"></ewo-vendor-dashboard>
         <ewo-ticket *ngIf="IsPropertyManager || IsEmployee"></ewo-ticket>
         <!--ewo-contact-activities *ngIf="tenant" [tenant]="tenant" [isEditable]="false"></ewo-contact-activities-->
     </div>

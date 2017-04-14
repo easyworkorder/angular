@@ -4,8 +4,7 @@ import { AuthenticationService } from "app/modules/authentication";
 
 @Component({
     selector: 'ewo-user-dashboard',
-    templateUrl: './user-dashboard.component.html',
-    styleUrls: ['./user-dashboard.component.css']
+    templateUrl: './user-dashboard.component.html'
 })
 export class UserDashboardComponent implements OnInit {
 
@@ -14,7 +13,7 @@ export class UserDashboardComponent implements OnInit {
     userInfo: any;
     IsEmployee: any;
     IsPropertyManager: any;
-    IsVendor: any;
+    vendorContactId: any;
 
     constructor(
         private authService: AuthenticationService,
@@ -23,7 +22,6 @@ export class UserDashboardComponent implements OnInit {
         private http: AppHttp
     ) {
         this.authService.verifyToken().take(1).subscribe(data => {
-            console.log('------------1-----------');
             this.userInfo = this.storage.getUserInfo();
             if (this.userInfo && this.userInfo.IsContact) {
                 this.tenantContactId = this.userInfo.tenant_contact_id;
@@ -36,7 +34,10 @@ export class UserDashboardComponent implements OnInit {
             } else if (this.userInfo && this.userInfo.IsPropertyManager) {
                 this.IsPropertyManager = true;
             } else if (this.userInfo && this.userInfo.IsVendor) {
-                this.IsVendor = true;
+                this.vendorContactId = this.userInfo.vendor_contact_id;
+            }
+            else{
+                this.IsPropertyManager = true;
             }
 
         });

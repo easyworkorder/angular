@@ -92,6 +92,11 @@ import { VendorListComponent } from './modules/list/vendor-list/vendor-list.comp
 import { VendorProfileComponent } from './modules/list/vendor-list/vendor-profile.component';
 
 /**
+ * Vendor Dashboard after login
+ */
+import { VendorDashboardComponent } from './modules/dashboard/vendor-dashboard.component';
+
+/**
  * Tenant Admin
  */
 import { TenantContactActivitiesComponent } from './modules/admin/tenant/tenant-contact-activities.component';
@@ -211,6 +216,11 @@ export function translateStaticLoaderFactory (Backend, defaultOptions, storage, 
         VendorProfileComponent,
 
         /**
+         * Vendor dashboard after login
+         */
+        VendorDashboardComponent,
+
+        /**
          * Tenant dashboard list component
          */
         TenantListComponent,
@@ -224,7 +234,7 @@ export function translateStaticLoaderFactory (Backend, defaultOptions, storage, 
 
         AdminSetupComponent,
 
-        //Validation Messages
+        // Validation Messages
         ValidationMessagesComponent,
 
         EmployeeStartWithPipe,
