@@ -1,13 +1,15 @@
 import { Component, OnInit, Input, EventEmitter, Output, Injectable } from '@angular/core';
-import { Subject } from "rxjs/Subject";
+import { Subject } from 'rxjs/Subject';
 import { VendorService } from './vendor.service';
-import { UpdateVendorPeopleService } from "./vendor-people.service";
-import { UpdateVendorInsuranceService } from "./vendor-insurance.service";
+import { UpdateVendorPeopleService } from './vendor-people.service';
+import { UpdateVendorInsuranceService } from './vendor-insurance.service';
+import {TicketService} from './../../ticket/ticket.service';
+
 declare var $: any;
 
 export class TabVisibility {
     isTicketTabVisible = true;
-    //isInvoiceTabVisible = false;
+    isInvoiceTabVisible = false;
     isPeopleTabVisible = false;
     isInsuranceTabVisible = false;
     isFilesTabVisible = false;
@@ -22,29 +24,44 @@ export class VendorContactActivitiesComponent implements OnInit {
 
     @Input() vendor: any;
     @Input() insurances: any;
-    @Input() isAdmin: boolean = false;
+    @Input() isAdmin: false;
+    @Input() isDashboardList: false;
+    @Input() isVendor: false;
     @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
 
-    // updatePeopleInfo: any;
+    tickets: any[] = [];
 
 
     tabs = new TabVisibility();
     constructor(
         private vendorService: VendorService,
         private updateVendorPeopleService: UpdateVendorPeopleService,
-        private updateVendorInsuranceService: UpdateVendorInsuranceService) { }
+        private updateVendorInsuranceService: UpdateVendorInsuranceService,
+        private ticketService: TicketService) { }
 
     ngOnInit() {
-
+        this.getAllVendorTickets();
     }
 
     switchTab(tabId: number) {
-        this.tabs.isTicketTabVisible = tabId == 1 ? true : false;
-        //this.tabs.isInvoiceTabVisible = tabId == 2 ? true : false;
-        this.tabs.isPeopleTabVisible = tabId == 3 ? true : false;
-        this.tabs.isInsuranceTabVisible = tabId == 4 ? true : false;
-        this.tabs.isFilesTabVisible = tabId == 5 ? true : false;
+        this.tabs.isTicketTabVisible = tabId === 1 ? true : false;
+        this.tabs.isInvoiceTabVisible = tabId === 2 ? true : false;
+        this.tabs.isPeopleTabVisible = tabId === 3 ? true : false;
+        this.tabs.isInsuranceTabVisible = tabId === 4 ? true : false;
+        this.tabs.isFilesTabVisible = tabId === 5 ? true : false;
         this.tabs.selectedTabNo = tabId;
+    }
+
+    getAllVendorTickets() {
+        this.ticketService.getAllVendorTickets(this.vendor.id).subscribe(
+            data => {
+                this.tickets = data;
+            }
+        );
+    }
+
+    updateTicketList(data) {
+        this.getAllVendorTickets();
     }
 
     updatePeople(event) {
