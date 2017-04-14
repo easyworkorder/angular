@@ -9,6 +9,7 @@ import { ValidationService } from "../../../services/validation.service";
 import { AuthenticationService } from "app/modules/authentication";
 import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
 import { DataService } from "app/services";
+import { VerifyEmailService } from "app/modules/shared/verify-email.service";
 declare var $: any;
 
 export class TabVisibility {
@@ -35,7 +36,7 @@ export class EmployeeComponent implements OnInit {
     selectedProblemTypes: any[] = [{ id: -1, text: 'All' }];
     photoFile: File;
     selectedPhoto: string = '';
-    isShowingLoadingSpinner:boolean = true;
+    isShowingLoadingSpinner: boolean = true;
     showSaveSpinner: boolean = false;
 
     employeeForm = new FormGroup({
@@ -69,7 +70,8 @@ export class EmployeeComponent implements OnInit {
         private problemTypeService: ProblemTypeService,
         private authService: AuthenticationService,
         private breadcrumbHeaderService: BreadcrumbHeaderService,
-        private dataService: DataService
+        private dataService: DataService,
+        private verifyEmailService: VerifyEmailService
     ) {
         this.authService.verifyToken().take(1).subscribe(data => {
             this.getAllEmployees(this.currentCompanyId);
@@ -78,7 +80,7 @@ export class EmployeeComponent implements OnInit {
         });
     }
 
-    ngOnInit() {
+    ngOnInit () {
         this.breadcrumbHeaderService.setBreadcrumbTitle('Employees');
 
         $('#modal-add-employee').on('hidden.bs.modal', () => {
@@ -89,7 +91,7 @@ export class EmployeeComponent implements OnInit {
         this.setProblemTypeLsit();
     }
 
-    switchTab(tabId: number) {
+    switchTab (tabId: number) {
         if (tabId < 1) // First tabs back button click
             tabId = 1;
         else if (tabId > 3) //This is the last tab's next button click
@@ -100,7 +102,7 @@ export class EmployeeComponent implements OnInit {
         this.tabs.selectedTabNo = tabId;
     }
 
-    getAllEmployees(company_id): void {
+    getAllEmployees (company_id): void {
         this.isShowingLoadingSpinner = true;
         this.employeeService.getAllEmployees(company_id).subscribe(
             data => {
@@ -109,7 +111,7 @@ export class EmployeeComponent implements OnInit {
             }
         );
     }
-    getAllBuildings(company_id): void {
+    getAllBuildings (company_id): void {
         this.buildingService.getAllBuildings(company_id).subscribe(
             data => {
                 // this.buildings = data.results;
@@ -122,7 +124,7 @@ export class EmployeeComponent implements OnInit {
             }
         );
     }
-    getAllProblemTypes(company_id): void {
+    getAllProblemTypes (company_id): void {
         this.problemTypeService.getAllActiveProblemTypes(company_id).subscribe(
             data => {
                 // this.buildings = data.results;
@@ -137,14 +139,14 @@ export class EmployeeComponent implements OnInit {
         );
     }
 
-    getBuilding(id) {
+    getBuilding (id) {
         return this.buildings.find(item => item.id == id);
     }
-    getProblemType(id) {
+    getProblemType (id) {
         return this.problemTypes.find(item => item.id == id);
     }
 
-    editEmployee(employee) {
+    editEmployee (employee) {
         let sb = [];
         let sp = [];
         employee.building_list.split(',').forEach(id => sb.push(this.getBuilding(id)));
@@ -155,7 +157,7 @@ export class EmployeeComponent implements OnInit {
         this.employeeForm.patchValue(employee);
     }
 
-    onSubmit() {
+    onSubmit () {
         console.log('On submit 1')
         this.setBuildingList();
         this.setProblemTypeLsit();
@@ -204,6 +206,8 @@ export class EmployeeComponent implements OnInit {
 
         // New Implementation with S3
         let boundEmployee = this.employeeForm.value;
+        if (this.verifyEmailService.isEmailDuplicate) return;
+
         this.showSaveSpinner = true;
         if (boundEmployee.id) {
             this.employeeService.update(boundEmployee).subscribe((employee: any) => {
@@ -218,14 +222,14 @@ export class EmployeeComponent implements OnInit {
         }
     }
 
-    private refreshEditor(logMsg, employee) {
+    private refreshEditor (logMsg, employee) {
         console.log(logMsg, employee);
         this.getAllEmployees(this.currentCompanyId);
         this.closeModal();
         this.showSaveSpinner = false;
     }
-    private uploadtFile(logMsg: string, employee: any) {
-        if(this.photoFile) {
+    private uploadtFile (logMsg: string, employee: any) {
+        if (this.photoFile) {
             let url = 's3filesignature/?name=' + this.photoFile.name + '&type=' + this.photoFile.type + '&etype=emp&rid=' + this.currentCompanyId;
             this.employeeService.get(url).subscribe(s3Data => {
                 this.uploadToAws(this.photoFile, s3Data.data, s3Data.url, employee);
@@ -235,9 +239,9 @@ export class EmployeeComponent implements OnInit {
         }
     }
 
-    uploadToAws(file: File, s3Data:any, url:string, employee) {
+    uploadToAws (file: File, s3Data: any, url: string, employee) {
         var postData = new FormData();
-        for(let key in s3Data.fields){
+        for (let key in s3Data.fields) {
             postData.append(key, s3Data.fields[key]);
         }
         postData.append('file', file);
@@ -251,7 +255,7 @@ export class EmployeeComponent implements OnInit {
         })
     }
 
-    photoSelectionChange(event) {
+    photoSelectionChange (event) {
         let fileList: FileList = event.target.files;
         if (fileList.length > 0) {
             this.photoFile = fileList[0];
@@ -260,17 +264,17 @@ export class EmployeeComponent implements OnInit {
         }
     }
 
-    setBuildingList() {
+    setBuildingList () {
         let buildingList = this.itemsToString(this.selectedBuildings);
         buildingList = buildingList.split(',').filter(item => item != '-1').join(',');
         this.employeeForm.get('building_list').setValue(buildingList == "" ? "-1" : buildingList);
     }
-    setProblemTypeLsit() {
+    setProblemTypeLsit () {
         let problemTypeList = this.itemsToString(this.selectedProblemTypes);
         problemTypeList = problemTypeList.split(',').filter(item => item != '-1').join(',');
         this.employeeForm.get('problem_type_list').setValue(problemTypeList == "" ? "-1" : problemTypeList);
     }
-    public selectedBuilding(value: any): void {
+    public selectedBuilding (value: any): void {
         // if (value.id == -1) {
         //   return;
         // }
@@ -289,7 +293,7 @@ export class EmployeeComponent implements OnInit {
         this.setBuildingList();
     }
 
-    public removedBuilding(value: any): void {
+    public removedBuilding (value: any): void {
 
         console.log('Removed value is: ', value);
         let sel = [];
@@ -306,7 +310,7 @@ export class EmployeeComponent implements OnInit {
     //   this.selectedBuildings = value;
     // }
 
-    public selectedProblemType(value: any): void {
+    public selectedProblemType (value: any): void {
         // if (value.id == -1) return;
 
         // if (this.selectedProblemTypes.length >= 1 && value.id == -1) { return; }
@@ -324,7 +328,7 @@ export class EmployeeComponent implements OnInit {
         this.setProblemTypeLsit();
     }
 
-    public removedProblemType(value: any): void {
+    public removedProblemType (value: any): void {
         // console.log('Removed value is: ', value);
         let sel = [];
         this.selectedProblemTypes.forEach(item => {
@@ -336,24 +340,24 @@ export class EmployeeComponent implements OnInit {
         this.setProblemTypeLsit();
     }
 
-    public itemsToString(value: Array<any> = []): string {
+    public itemsToString (value: Array<any> = []): string {
         return value
             .map((item: any) => {
                 return item.id;
             }).join(',');
     }
 
-    buildAddressHtml(employee: any) {
+    buildAddressHtml (employee: any) {
         return this.dataService.buildEmployeedAddressHtml(employee);
     }
 
-    getPhotoUrl(employee) {
+    getPhotoUrl (employee) {
         if (employee.photo != null && employee.photo.length > 0)
             return employee.photo;
         return 'assets/img/placeholders/avatars/avatar9.jpg';
     }
 
-    closeModal() {
+    closeModal () {
         this.resetForm();
         this.selectedBuildings = [{ id: -1, text: 'All' }];
         this.selectedProblemTypes = [{ id: -1, text: 'All' }];
@@ -363,7 +367,7 @@ export class EmployeeComponent implements OnInit {
         $('#modal-add-employee').modal('hide');
     }
 
-    resetForm() {
+    resetForm () {
         this.photoFile = null;
         this.selectedPhoto = '';
         this.employeeForm.reset({
@@ -372,6 +376,10 @@ export class EmployeeComponent implements OnInit {
             active: true,
             wireless_email: ''
         });
+    }
+
+    onVerifyEmail (event) {
+        this.verifyEmailService.verifyEmail(event.target.value);
     }
 }
 

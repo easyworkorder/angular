@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators, FormArray, AbstractControl, ValidatorFn } from '@angular/forms';
 import { TenantService } from './tenant.service';
 import { BuildingService } from './../building/building.service';
 import { ValidationService } from './../../../services/validation.service';
@@ -7,6 +7,7 @@ import { AuthenticationService } from "app/modules/authentication";
 import { ActivatedRoute } from "@angular/router";
 import config from '../../../config';
 import { DataService } from "app/services";
+import { VerifyEmailService } from "app/modules/shared/verify-email.service";
 declare var $: any;
 
 export class TabVisibility {
@@ -20,7 +21,8 @@ export class TabVisibility {
     templateUrl: './tenant.component.html',
 })
 export class TenantComponent implements OnInit {
-    isShowingLoadingSpinner:boolean = true;
+    isShowingLoadingSpinner: boolean = true;
+    isSubmit: boolean = true;
     currentCompanyId = 1;
     isSuccess: boolean = false;
     exp_date_not_valid: boolean = false;
@@ -34,7 +36,10 @@ export class TenantComponent implements OnInit {
     buildingId: any;
     searchControl: FormControl = new FormControl('');
     photoFile: File
-    selectedPhotoFile:string = '';
+    selectedPhotoFile: string = '';
+    // isEmailDuplicate: boolean = false;
+    // emailDuplicateMsg: string = 'Email already used!!!';
+    isInscertdateValid: boolean = true;
 
     tabs = new TabVisibility();
 
@@ -44,11 +49,12 @@ export class TenantComponent implements OnInit {
         private formBuilder: FormBuilder,
         private authService: AuthenticationService,
         private route: ActivatedRoute,
-        private dataService: DataService) {
+        private dataService: DataService,
+        private verifyEmailService: VerifyEmailService) {
 
     }
 
-    ngOnInit() {
+    ngOnInit () {
         this.buildingId = this.route.snapshot.params['id'];
 
         this.authService.verifyToken().take(1).subscribe(data => {
@@ -59,13 +65,17 @@ export class TenantComponent implements OnInit {
         $('#modal-add-tenant').on('hidden.bs.modal', () => {
             this.closeModal();
         });
+        // this.authService.emailVerifyInfo$.subscribe((data: any) => {
+        //     this.isEmailDuplicate = data ? data : false;
+        // });
     }
 
     tenantForm = this.formBuilder.group({
         // building: new FormControl('http://localhost:8080/api/building/6/'),
         building: new FormControl(),
         tenant_company_name: new FormControl('', Validators.required),
-        inscertdate: new FormControl(null),
+        // inscertdate: new FormControl('', this.dateValided()),
+        inscertdate: new FormControl(''),
         mgtfeepercent: new FormControl('', [Validators.required]),
         gl_notify: new FormControl(true),
         unitno: new FormControl('', Validators.required),
@@ -77,7 +87,7 @@ export class TenantComponent implements OnInit {
         )
     })
 
-    buildBlankContact(firstName: string, lastName: string, title: string, viewinvoices: boolean,
+    buildBlankContact (firstName: string, lastName: string, title: string, viewinvoices: boolean,
         phone: string, extension: string, mobile: string, emergencyPhone: string, fax: string,
         email: string, isPrimaryContact: boolean, tenantID: number, notes: string) {
         return new FormGroup({
@@ -103,7 +113,7 @@ export class TenantComponent implements OnInit {
     }
 
 
-    getAllBuildings(): void {
+    getAllBuildings (): void {
         this.buildingService.getAllBuildings(this.currentCompanyId).subscribe(
             data => {
                 this.buildings = data;
@@ -115,7 +125,7 @@ export class TenantComponent implements OnInit {
         );
     }
 
-    getAllTenantsByBuilding(building_id): void {
+    getAllTenantsByBuilding (building_id): void {
         this.isShowingLoadingSpinner = true;
         this.tenantService.getAllTenantsByBuilding(building_id).subscribe(
             data => {
@@ -125,20 +135,36 @@ export class TenantComponent implements OnInit {
         );
     }
 
-    photoSelectionChange(event) {
+    photoSelectionChange (event) {
         let fileList: FileList = event.target.files;
-        if(fileList.length > 0) {
+        if (fileList.length > 0) {
             this.photoFile = fileList[0];
             this.selectedPhotoFile = this.photoFile.name;
         }
     }
 
-    onSubmit() {
+    onSubmit () {
         if (!this.validateBasicInfo()) {
             this.switchTab(1);
         } else if (!this.validateContactInfo()) {
             this.switchTab(2);
         }
+        // console.log('is Email duplicate', this.verifyEmailService.isEmailDuplicate);
+        if (this.verifyEmailService.isEmailDuplicate) return;
+
+        this.tenantForm.markAsUntouched();
+
+        this.isInscertdateValid = false;
+
+        if (this.dateValidation(this.tenantForm.get('inscertdate'))) {
+            this.isInscertdateValid = true;
+        } else {
+            this.isInscertdateValid = false;
+            return;
+        }
+        //isInscertdateInValid
+
+        // this.verifyEmailService.isEmailDuplicate
         if (!this.tenantForm.valid) { return; }
 
         /**
@@ -162,13 +188,13 @@ export class TenantComponent implements OnInit {
         // }
         let inscertDate = this.tenantForm.get('inscertdate').value;
         let inscertDateString = null;
-        if(inscertDate) {
+        if (inscertDate) {
             console.log('The Given Date Is: ' + inscertDate);
             inscertDate = new Date(inscertDate);
             inscertDateString = inscertDate.toISOString();
             console.log('The UTC/ISO Representation: ' + inscertDateString);
             // this.tenantForm.get('inscertdate').setValue(inscertDateString);
-        } 
+        }
         this.tenantForm.get('building').setValue(`${config.api.base}building/${this.buildingId}/`);
         // Save operation with/without photo begins from here
         let contactFormArray = this.tenantForm.get('tenant_contacts') as FormArray;
@@ -176,35 +202,41 @@ export class TenantComponent implements OnInit {
 
         // this.tenantForm.removeControl('tenant_contacts');
         let tenantData = this.tenantForm.value;
-        if(tenantData.tenant_contacts) { delete tenantData.tenant_contacts; }
-        if(inscertDateString)
+        if (tenantData.tenant_contacts) { delete tenantData.tenant_contacts; }
+        if (inscertDateString)
             tenantData.inscertdate = inscertDateString;
-        this.tenantService.saveTenant(tenantData).subscribe((tenant:any) => {
+        this.isSubmit = true;
+        this.tenantService.saveTenant(tenantData).subscribe((tenant: any) => {
             // Tenant Saved lets go for saving contact with/without file
             console.log('Tenant Saved');
             // this.tenantService.saveContact(this.photoFile, contactForm, tenant, this.refreshEditor);
-            this.tenantService.saveContact(this.photoFile, contactForm, tenant, this.refreshEditor).subscribe( (contact: any) => {
-                this.refreshEditor('Tenant & Tenant Contact Saved successfully.', contact);
-            });
+            this.tenantService.saveContact(this.photoFile, contactForm, tenant, this.refreshEditor).subscribe(
+                (contact: any) => {
+                    this.isSubmit = false;
+                    this.refreshEditor('Tenant & Tenant Contact Saved successfully.', contact);
+                },
+                error => {
+                    this.isSubmit = false;
+                });
         });
     }
 
-    private refreshEditor(logMsg:string, obj: any) {
+    private refreshEditor (logMsg: string, obj: any) {
         console.log(logMsg, obj);
         this.getAllTenantsByBuilding(this.buildingId);
         this.closeModal();
     }
 
-    validateBasicInfo() {
+    validateBasicInfo () {
         return this.tenantForm.get('tenant_company_name').valid &&
-            this.tenantForm.get('mgtfeepercent').valid;
+            this.tenantForm.get('mgtfeepercent').valid && this.dateValidation(this.tenantForm.get('inscertdate'));
     }
 
-    validateContactInfo() {
+    validateContactInfo () {
         return this.tenantForm.get('tenant_contacts').valid;
     }
 
-    switchTab(tabId: number) {
+    switchTab (tabId: number) {
         if (tabId < 1) // First tabs back button click
             tabId = 1;
         else if (tabId > 3) //This is the last tab's next button click
@@ -214,7 +246,7 @@ export class TenantComponent implements OnInit {
         this.tabs.selectedTabNo = tabId;
     }
 
-    buildName(firstName: string, lastName: string) {
+    buildName (firstName: string, lastName: string) {
         if (firstName != null && firstName.length > 0 && lastName != null && lastName.length > 0) {
             return lastName + ' ' + firstName;
         }
@@ -225,28 +257,28 @@ export class TenantComponent implements OnInit {
         return '';
     }
 
-    buildAddressHtml(tenant: any) {
+    buildAddressHtml (tenant: any) {
         return this.dataService.buildAddressHtml(tenant, tenant.tenant_company_name);
     }
 
-    getPhotoUrl(tenant) {
+    getPhotoUrl (tenant) {
         // if (tenant.photo != null && tenant.photo.length > 0)
         //     return tenant.photo;
         // return 'assets/img/placeholders/avatars/avatar9.jpg';
         return this.dataService.getPhotoUrl(tenant.photo)
     }
 
-    stopPropagation(event) {
+    stopPropagation (event) {
         event.stopPropagation()
     }
 
-    closeModal() {
+    closeModal () {
         this.resetForm();
         this.switchTab(1);
         $('#modal-add-tenant').modal('hide');
     }
 
-    resetForm() {
+    resetForm () {
         this.photoFile = null;
         this.selectedPhotoFile = '';
         this.tenantForm.reset({
@@ -261,5 +293,14 @@ export class TenantComponent implements OnInit {
         });
     }
 
+    onVerifyEmail (event) {
+        this.verifyEmailService.verifyEmail(event.target.value);
+    }
+    dateValidation (control: AbstractControl): boolean {
+        return control.value !== null && control.value !== undefined && control.value !== '' ? true : false;
+    }
+    onSelectDate (value) {
+        this.isInscertdateValid = true;
+    }
 }
 

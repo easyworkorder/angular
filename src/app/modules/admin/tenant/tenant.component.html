@@ -1,6 +1,7 @@
 <!-- START CONTACTS ALPHABET FILTER -->
 <div class="text-center border-top push-inner-top-bottom">
-    <a [modal-dialog-open]="'modal-add-tenant'" class="btn btn-sm btn-success" data-toggle="modal" style="overflow: hidden; position: relative;"><i class="fa fa-plus"></i></a>
+    <a [modal-dialog-open]="'modal-add-tenant'" (click)="isSubmit = false;" class="btn btn-sm btn-success" data-toggle="modal"
+        style="overflow: hidden; position: relative;"><i class="fa fa-plus"></i></a>
     <ewo-alphabetical-sort [searchControl]="searchControl"></ewo-alphabetical-sort>
 </div>
 <!-- END CONTACTS ALPHABET FILTER -->
@@ -45,8 +46,9 @@
                             <!--<div class="col-xs-9" data-style="display: flex; -js-display:flex;">-->
                             <div class="col-xs-9">
                                 <div class="input-group">
-                                    <input percentage [formControlValidator]="tenantForm.controls.mgtfeepercent" formControlName="mgtfeepercent" type="text" id="mgtfeepercent"
-                                        name="mgtfeepercent" class="form-control input-sm" placeholder="Management Fee Percent" size="20">
+                                    <input percentage [formControlValidator]="tenantForm.controls.mgtfeepercent" formControlName="mgtfeepercent" type="text"
+                                        id="mgtfeepercent" name="mgtfeepercent" class="form-control input-sm" placeholder="Management Fee Percent"
+                                        size="20">
                                     <div class="input-group-addon help-text help-text--custom-size"> % (Do not enter a decimal point)</div>
                                 </div>
                                 <span class="validation-error">{{tenantForm.controls.mgtfeepercent.error}}</span>
@@ -63,8 +65,12 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label" for="inscertdate">Ins Cert exp date<span class="required">*</span></label>
                             <div class="col-xs-9">
-                                <ewo-calendar [readonlyInput]="true" [showOnFocus]="false" formControlName="inscertdate" [icon]="fa-calendar" [showIcon]="true" inputStyleClass="form-control"></ewo-calendar>
-                                <span *ngIf="exp_date_not_valid" class="validation-error">This field is required.</span>
+                                <ewo-calendar [readonlyInput]="true" [showOnFocus]="false" formControlName="inscertdate" (onSelect)="onSelectDate($event)"
+                                    [icon]="fa-calendar" [showIcon]="true" inputStyleClass="form-control"></ewo-calendar>
+                                <!--<span class="validation-error">{{tenantForm.controls.inscertdate.error}}</span>-->
+                                <span *ngIf="!isInscertdateValid" class="validation-error">
+                                        This field is Required
+                                </span>
                             </div>
                         </div>
 
@@ -89,7 +95,7 @@
                             <div class="form-group">
                                 <label class="col-xs-3 control-label text-muted">NO AVATAR</label>
                                 <div class="col-xs-9">
-                                    <input type="file" id="contact_photo" name="contact_photo" (change)="photoSelectionChange($event)" class="hidden"  />
+                                    <input type="file" id="contact_photo" name="contact_photo" (change)="photoSelectionChange($event)" class="hidden" />
 
                                     <i class="fa fa-fw fa-upload"></i> <a href="javascript:void(0)" onclick="$('#contact_photo').click();">Upload New Avatar</a>
                                     <span>{{ selectedPhotoFile }}</span>
@@ -108,7 +114,7 @@
                             <div class="form-group">
                                 <label class="col-xs-3 control-label" for="lname">Last Name <span class="required">*</span></label>
                                 <div class="col-xs-9">
-                                    <input [formControlValidator]="contact.controls.last_name" formControlName="last_name" type="text" id="lname" class="form-control"
+                                    <input #tt [formControlValidator]="contact.controls.last_name" formControlName="last_name" type="text" id="lname" class="form-control"
                                         placeholder="Last Name" />
                                     <span class="validation-error">{{contact.controls.last_name.error}}</span>
                                 </div>
@@ -123,9 +129,11 @@
                             <div class="form-group">
                                 <label class="col-xs-3 control-label" for="email">Email <span class="required">*</span></label>
                                 <div class="col-xs-9">
-                                    <input [formControlValidator]="contact.controls.email" formControlName="email" type="text" for="email" class="form-control"
-                                        placeholder="Email" />
+                                    <input [formControlValidator]="contact.controls.email" formControlName="email" (blur)="onVerifyEmail($event)" type="text"
+                                        for="email" class="form-control" placeholder="Email" />
                                     <span class="validation-error">{{contact.controls.email.error}}</span>
+                                    <verify-email></verify-email>
+                                    <!--<span *ngIf="isEmailDuplicate" class="validation-error">{{emailDuplicateMsg}}</span>-->
                                 </div>
                             </div>
                             <div class="form-group">
@@ -135,7 +143,8 @@
                                 </div>
                                 <label class="col-xs-3 control-label" for="phone_extension">Extention</label>
                                 <div class="col-xs-3">
-                                    <input onlyNumber formControlName="extension" id="phone_extension" type="text" class="form-control" placeholder="Extention" />
+                                    <input onlyNumber formControlName="extension" id="phone_extension" type="text" class="form-control" placeholder="Extention"
+                                    />
                                 </div>
                             </div>
                             <div class="form-group">
@@ -147,13 +156,14 @@
                             <div class="form-group">
                                 <label class="col-xs-3 control-label" for="mobile">Mobile Phone</label>
                                 <div class="col-xs-9">
-                                    <input phoneNumber formControlName="mobile" type="text" id="mobile" class="form-control" placeholder="Mobile Phone"/>
+                                    <input phoneNumber formControlName="mobile" type="text" id="mobile" class="form-control" placeholder="Mobile Phone" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-xs-3 control-label" for="emergencyphone">Emergency Phone</label>
                                 <div class="col-xs-9">
-                                    <input phoneNumber formControlName="emergency_phone" type="text" id="emergencyphone" class="form-control" placeholder="Emergency Phone"/>
+                                    <input phoneNumber formControlName="emergency_phone" type="text" id="emergencyphone" class="form-control" placeholder="Emergency Phone"
+                                    />
                                 </div>
                             </div>
                             <div class="form-group">
@@ -180,8 +190,9 @@
                                 value="Next">Next
                             </button>-->
                             <button type="submit" class="btn btn-effect-ripple btn-primary ui-wizard-content ui-formwizard-button" id="btnSave" style="overflow: hidden; position: relative;"
-                                value="Save">Save
+                                value="Save" [disabled]="isSubmit">Save <i *ngIf="isSubmit" class="fa fa-spinner fa-spin"></i>
                             </button>
+                            <!--<loading-spinner-wave *ngIf="isSubmit" style="display: inline-block"></loading-spinner-wave>-->
                         </div>
                     </div>
                 </form>

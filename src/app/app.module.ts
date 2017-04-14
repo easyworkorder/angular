@@ -144,8 +144,10 @@ import { BuildingSlaTargetComponent } from './modules/admin/sla-policy/building-
 import { InputValueRestrictionModule } from "app/directives/input-value-restriction.directive";
 import { LoadingSpinnerModule } from "app/modules/shared/loading-spinner/loading-spinner.module";
 import { BreadcrumbComponent, BreadcrumbService } from "app/modules/shared/breadcrumb";
+import { VerifyEmailComponent } from "app/modules/shared/verify-email.component";
+import { VerifyEmailService } from "app/modules/shared/verify-email.service";
 
-export function translateStaticLoaderFactory(Backend, defaultOptions, storage, notificationService) {
+export function translateStaticLoaderFactory (Backend, defaultOptions, storage, notificationService) {
     return new AppHttp(Backend, defaultOptions, storage, notificationService);
 };
 
@@ -251,7 +253,8 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         EmployeeListItemComponent,
         BuildingSlaTargetComponent,
         ModalDialogDirective,
-        BreadcrumbComponent
+        BreadcrumbComponent,
+        VerifyEmailComponent
     ],
     imports: [
         BrowserModule,
@@ -302,7 +305,8 @@ export function translateStaticLoaderFactory(Backend, defaultOptions, storage, n
         UpdateVendorInsuranceService,
         UpdateTenantInsuranceService,
         SLAPolicyService,
-        BreadcrumbService
+        BreadcrumbService,
+        VerifyEmailService
 
         // { provide: XSRFStrategy, useValue: new      CookieXSRFStrategy('token', 'x-csrftoken')
         // },
