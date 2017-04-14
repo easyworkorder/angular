@@ -12,6 +12,9 @@ export class UserDashboardComponent implements OnInit {
     tenantContactId: any;
     contactStat: any;
     userInfo: any;
+    IsEmployee: any;
+    IsPropertyManager: any;
+    IsVendor: any;
 
     constructor(
         private authService: AuthenticationService,
@@ -20,19 +23,27 @@ export class UserDashboardComponent implements OnInit {
         private http: AppHttp
     ) {
         this.authService.verifyToken().take(1).subscribe(data => {
+            console.log('------------1-----------');
+            this.userInfo = this.storage.getUserInfo();
+            if (this.userInfo && this.userInfo.IsContact) {
+                this.tenantContactId = this.userInfo.tenant_contact_id;
+                /*this.getTenantById(this.userInfo.tenant_id).subscribe(data => {
+                 this.tenant = data;
+                 });*/
+                this.getWorkOrderStatistics(this.userInfo.tenant_id);
+            } else if (this.userInfo && this.userInfo.IsEmployee) {
+                this.IsEmployee = true;
+            } else if (this.userInfo && this.userInfo.IsPropertyManager) {
+                this.IsPropertyManager = true;
+            } else if (this.userInfo && this.userInfo.IsVendor) {
+                this.IsVendor = true;
+            }
 
         });
     }
 
     ngOnInit() {
-        this.userInfo = this.storage.getUserInfo();
-        if (this.userInfo && this.userInfo.IsContact) {
-            this.tenantContactId = this.userInfo.tenant_contact_id;
-            /*this.getTenantById(this.userInfo.tenant_id).subscribe(data => {
-                this.tenant = data;
-            });*/
-            this.getWorkOrderStatistics(this.userInfo.tenant_id);
-        }
+
     }
 
     getWorkOrderStatistics(tenantId) {
