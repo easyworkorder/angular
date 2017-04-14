@@ -22,7 +22,7 @@ export class TabVisibility {
 })
 export class TenantComponent implements OnInit {
     isShowingLoadingSpinner: boolean = true;
-    isSubmit: boolean = true;
+    isSubmit: boolean = false;
     currentCompanyId = 1;
     isSuccess: boolean = false;
     exp_date_not_valid: boolean = false;
@@ -152,7 +152,7 @@ export class TenantComponent implements OnInit {
         // console.log('is Email duplicate', this.verifyEmailService.isEmailDuplicate);
         if (this.verifyEmailService.isEmailDuplicate) return;
 
-        this.tenantForm.markAsUntouched();
+        // this.tenantForm.markAsUntouched();
 
         this.isInscertdateValid = false;
 
@@ -218,7 +218,10 @@ export class TenantComponent implements OnInit {
                 error => {
                     this.isSubmit = false;
                 });
-        });
+        },
+            error => {
+                this.isSubmit = false;
+            });
     }
 
     private refreshEditor (logMsg: string, obj: any) {

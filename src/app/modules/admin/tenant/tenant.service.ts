@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 // import { NotificationService } from '../../services/notification.service';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/do';
+// import 'rxjs/add/operator/switchMap';
+// import 'rxjs/add/observable/forkJoin'
+// import 'rxjs/add/operator/do';
 // import 'rxjs/Rx';
 
 import { Tenant } from '../../../interfaces/tenant.interface';
@@ -65,8 +66,9 @@ export class TenantService extends DataService {
             // this.toasterService.pop('success', operation, 'Contact has been saved successfully.');
         },
             error => {
-                this.toasterService.pop('error', operation, 'Sorry! Something went wrong and contact could not be saved!!');
-                console.log(error);
+                // this.toasterService.pop('error', operation, 'Sorry! Something went wrong and contact could not be saved!!');
+                console.log('saveTenantContact', error);
+
             });
 
         return observable;
@@ -264,7 +266,7 @@ export class TenantService extends DataService {
 
         observable.subscribe(
             (data) => {
-                console.log('contact Data', data);
+                console.log('Tenant Data', data);
 
                 this.toasterService.pop('success', 'SAVED', 'Tenant & Tenant Contact Saved successfully');
             },

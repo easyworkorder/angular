@@ -68,7 +68,7 @@
                                 <ewo-calendar [readonlyInput]="true" [showOnFocus]="false" formControlName="inscertdate" (onSelect)="onSelectDate($event)"
                                     [icon]="fa-calendar" [showIcon]="true" inputStyleClass="form-control"></ewo-calendar>
                                 <!--<span class="validation-error">{{tenantForm.controls.inscertdate.error}}</span>-->
-                                <span *ngIf="!isInscertdateValid" class="validation-error">
+                                <span *ngIf="!isInscertdateValid" class="validation-error" style="display: block">
                                         This field is Required
                                 </span>
                             </div>

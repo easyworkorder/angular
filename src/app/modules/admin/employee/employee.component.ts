@@ -10,6 +10,8 @@ import { AuthenticationService } from "app/modules/authentication";
 import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
 import { DataService } from "app/services";
 import { VerifyEmailService } from "app/modules/shared/verify-email.service";
+import { Observable } from "rxjs/Observable";
+import { ToasterService } from "angular2-toaster/angular2-toaster";
 declare var $: any;
 
 export class TabVisibility {
@@ -25,6 +27,7 @@ export class TabVisibility {
 })
 
 export class EmployeeComponent implements OnInit {
+    isSubmit: boolean = false;
     public mask: Array<string | RegExp>;
 
     employees: any[] = [];
@@ -60,7 +63,8 @@ export class EmployeeComponent implements OnInit {
         // photo: new FormControl(''),
         active: new FormControl('true'),
         user_id: new FormControl(null),
-        url: new FormControl()
+        url: new FormControl(),
+        photo: new FormControl('')
     });
 
     searchControl = new FormControl('');
@@ -71,7 +75,8 @@ export class EmployeeComponent implements OnInit {
         private authService: AuthenticationService,
         private breadcrumbHeaderService: BreadcrumbHeaderService,
         private dataService: DataService,
-        private verifyEmailService: VerifyEmailService
+        private verifyEmailService: VerifyEmailService,
+        private toasterService: ToasterService
     ) {
         this.authService.verifyToken().take(1).subscribe(data => {
             this.getAllEmployees(this.currentCompanyId);
@@ -208,18 +213,84 @@ export class EmployeeComponent implements OnInit {
         let boundEmployee = this.employeeForm.value;
         if (this.verifyEmailService.isEmailDuplicate) return;
 
+        // let observable: Observable<any>;
+
         this.showSaveSpinner = true;
+        this.isSubmit = true;
+
+        // if (boundEmployee.id) {
+        //     this.employeeService.update(boundEmployee).subscribe((employee: any) => {
+        //         this.uploadtFile('Employee Updated.', employee);
+        //     });
+        // } else {
+        //     if (boundEmployee.user_id)
+        //         delete boundEmployee.user_id
+        //     this.employeeService.create(boundEmployee).subscribe((employee: any) => {
+        //         this.uploadtFile('Employee created', employee);
+        //     });
+        // }
+
+        //April 14-2017
+        this.uploadImageAndFile(boundEmployee);
+    }
+
+    uploadImageAndFile (boundEmployee) {
+        let observable: Observable<any>;
+        let creatORUpdateObservable: Observable<any>;
+
         if (boundEmployee.id) {
-            this.employeeService.update(boundEmployee).subscribe((employee: any) => {
-                this.uploadtFile('Employee Updated.', employee);
-            });
+            creatORUpdateObservable = this.employeeService.update(boundEmployee);
         } else {
             if (boundEmployee.user_id)
-                delete boundEmployee.user_id
-            this.employeeService.create(boundEmployee).subscribe((employee: any) => {
-                this.uploadtFile('Employee created', employee);
-            });
+                delete boundEmployee.user_id;
+            creatORUpdateObservable = this.employeeService.create(boundEmployee);
         }
+
+        if (this.photoFile) {
+            let url = 's3filesignature/?name=' + this.photoFile.name + '&type=' + this.photoFile.type + '&etype=emp&rid=' + this.currentCompanyId;
+            observable = Observable.forkJoin(
+                creatORUpdateObservable
+                    .switchMap(employee => this.employeeService.get(url), (employeeInfo, s3Info) => ({ employeeInfo, s3Info }))
+                    // .do(data11 => { console.log('data11>> ', data11); })
+                    .switchMap(employeeAndS3Info => this.uploadToAws(this.photoFile, employeeAndS3Info.s3Info.data, employeeAndS3Info.s3Info.url, employeeAndS3Info.employeeInfo),
+                    (employeeAndAs3, aws) => ({ employeeAndAs3, aws }))
+                    // .do(data12 => { console.log('data12>> ', data12); })
+                    .switchMap(empS3Aws => {
+                        empS3Aws.employeeAndAs3.employeeInfo.photo = empS3Aws.employeeAndAs3.s3Info.url;
+                        return this.employeeService.update(empS3Aws.employeeAndAs3.employeeInfo)
+                    },
+                    (empS3AwsInfo, updatedEmployee) => ({ empS3AwsInfo, updatedEmployee }))
+                    // .do(data13 => { console.log('data13>> ', data13); })
+                    .share()
+            )
+
+        } else {
+            // this.refreshEditor(logMsg, employee);
+            observable = creatORUpdateObservable;
+        }
+
+        observable.subscribe(
+            (data) => {
+                this.isSubmit = false;
+                console.log('contact Data', data);
+                if (boundEmployee.id) {
+                    this.refreshEditor('Employee Updated', data)
+                    this.toasterService.pop('success', 'UPDATE', 'Employee has been updated successfully');
+                } else {
+                    this.refreshEditor('Employee created', data)
+                    this.toasterService.pop('success', 'SAVED', 'Employee has been saved successfully');
+
+                }
+            },
+            error => {
+                this.isSubmit = false;
+                if (boundEmployee.id) {
+                    this.toasterService.pop('error', 'UPDATE', 'Employee not updated due to API error!!!');
+                } else {
+                    this.toasterService.pop('error', 'SAVED', 'Employee not Saved due to API error!!!');
+                }
+            });
+        return observable;
     }
 
     private refreshEditor (logMsg, employee) {
@@ -228,31 +299,36 @@ export class EmployeeComponent implements OnInit {
         this.closeModal();
         this.showSaveSpinner = false;
     }
-    private uploadtFile (logMsg: string, employee: any) {
-        if (this.photoFile) {
-            let url = 's3filesignature/?name=' + this.photoFile.name + '&type=' + this.photoFile.type + '&etype=emp&rid=' + this.currentCompanyId;
-            this.employeeService.get(url).subscribe(s3Data => {
-                this.uploadToAws(this.photoFile, s3Data.data, s3Data.url, employee);
-            });
-        } else {
-            this.refreshEditor(logMsg, employee);
-        }
-    }
+    // private uploadtFile (logMsg: string, employee: any) {
+    //     if (this.photoFile) {
+    //         let url = 's3filesignature/?name=' + this.photoFile.name + '&type=' + this.photoFile.type + '&etype=emp&rid=' + this.currentCompanyId;
+    //         this.employeeService.get(url).subscribe(s3Data => {
+    //             this.uploadToAws(this.photoFile, s3Data.data, s3Data.url, employee);
+    //         });
+    //     } else {
+    //         this.refreshEditor(logMsg, employee);
+    //     }
+    // }
 
-    uploadToAws (file: File, s3Data: any, url: string, employee) {
+    uploadToAws (file: File, s3Data: any, url: string, employee): Observable<any> {
+        let observable: Observable<any>;
+
         var postData = new FormData();
         for (let key in s3Data.fields) {
             postData.append(key, s3Data.fields[key]);
         }
         postData.append('file', file);
-        this.employeeService.postToS3(s3Data.url, postData).subscribe(data => {
-            console.log(data);
+        observable = this.employeeService.postToS3(s3Data.url, postData);
+        observable.subscribe(data => {
+            console.log('postToS3', data);
             console.log('Should be accessible through: ' + url);
-            employee.photo = url;
-            this.employeeService.update(employee).subscribe(data => {
-                this.refreshEditor('Saved emp to db', data);
-            });
+            // employee.photo = url;
+            // this.employeeService.update(employee).subscribe(data => {
+            //     this.refreshEditor('Saved emp to db', data);
+            // });
         })
+
+        return observable;
     }
 
     photoSelectionChange (event) {

@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators, FormArray, AbstractControl } from '@angular/forms';
 import { VendorService } from './vendor.service';
 import { ProblemTypeService } from './../problem_type/problem_type.service';
 import { ValidationService } from './../../../services/validation.service';
 import { AuthenticationService } from "app/modules/authentication";
 import config from '../../../config';
 import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
+import { VerifyEmailService } from "app/modules/shared/verify-email.service";
 declare var $: any;
 
 export class TabVisibility {
@@ -20,6 +21,7 @@ export class TabVisibility {
 })
 export class VendorComponent implements OnInit {
     isShowingLoadingSpinner: boolean = true;
+    isSubmit: boolean = false;
     config = config;
     currentCompanyId = 1;
     isSuccess: boolean = false;
@@ -32,6 +34,8 @@ export class VendorComponent implements OnInit {
     photoFile: File
     selectedPhotoFile: string = '';
 
+    isExpireDateValid: boolean = true;
+
     tabs = new TabVisibility();
 
     constructor(
@@ -39,11 +43,12 @@ export class VendorComponent implements OnInit {
         private problemTypeService: ProblemTypeService,
         private formBuilder: FormBuilder,
         private authService: AuthenticationService,
-        private breadcrumbHeaderService: BreadcrumbHeaderService) {
+        private breadcrumbHeaderService: BreadcrumbHeaderService,
+        private verifyEmailService: VerifyEmailService) {
 
     }
 
-    ngOnInit() {
+    ngOnInit () {
 
         this.authService.verifyToken().take(1).subscribe(data => {
             this.getAllVendors();
@@ -75,7 +80,7 @@ export class VendorComponent implements OnInit {
         )
     })
 
-    buildBlankContact(firstName: string, lastName: string, title: string,
+    buildBlankContact (firstName: string, lastName: string, title: string,
         phone: string, extension: string, mobile: string, emergencyPhone: string, fax: string,
         email: string, isPrimaryContact: boolean, vendorID: number, notes: string, active: boolean) {
         return new FormGroup({
@@ -98,7 +103,7 @@ export class VendorComponent implements OnInit {
         });
     }
 
-    getAllVendors(): void {
+    getAllVendors (): void {
         this.isShowingLoadingSpinner = true;
         this.vendorService.getAllVendors(this.currentCompanyId).subscribe(
             data => {
@@ -109,7 +114,7 @@ export class VendorComponent implements OnInit {
     }
 
 
-    getAllActiveProblemTypes(): void {
+    getAllActiveProblemTypes (): void {
         this.problemTypeService.getAllActiveProblemTypes(this.currentCompanyId).subscribe(
             data => {
                 // this.buildings = data.results;
@@ -124,20 +129,20 @@ export class VendorComponent implements OnInit {
         );
     }
 
-    public itemsToString(value: Array<any> = []): string {
+    public itemsToString (value: Array<any> = []): string {
         return value
             .map((item: any) => {
                 return item.id;
             }).join(',');
     }
 
-    setProblemTypeLsit() {
+    setProblemTypeLsit () {
         let problemTypeList = this.itemsToString(this.selectedProblemTypes);
         problemTypeList = problemTypeList.split(',').filter(item => item != '-1').join(',');
         this.vendorForm.get('problem_types').setValue(problemTypeList == "" ? "" : problemTypeList);
     }
 
-    public selectedProblemType(value: any): void {
+    public selectedProblemType (value: any): void {
         // if (value.id == -1) return;
 
         // if (this.selectedProblemTypes.length >= 1 && value.id == -1) { return; }
@@ -155,7 +160,7 @@ export class VendorComponent implements OnInit {
         this.setProblemTypeLsit();
     }
 
-    public removedProblemType(value: any): void {
+    public removedProblemType (value: any): void {
         // console.log('Removed value is: ', value);
         let sel = [];
         this.selectedProblemTypes.forEach(item => {
@@ -167,7 +172,7 @@ export class VendorComponent implements OnInit {
         this.setProblemTypeLsit();
     }
 
-    photoSelectionChange(event) {
+    photoSelectionChange (event) {
         let fileList: FileList = event.target.files;
         if (fileList.length > 0) {
             this.photoFile = fileList[0];
@@ -175,12 +180,31 @@ export class VendorComponent implements OnInit {
         }
     }
 
-    onSubmit() {
+    onSubmit () {
         this._submitted = true;
         if (!this.validateBasicInfo()) {
             this.switchTab(1);
         } else if (!this.validateContactInfo()) {
             this.switchTab(2);
+        }
+
+        if (this.verifyEmailService.isEmailDuplicate) return;
+
+        this.isExpireDateValid = false;
+
+        if (this.dateValidation(this.vendorForm.get('gl_expire_date'))) {
+            this.isExpireDateValid = true;
+        } else {
+            this.isExpireDateValid = false;
+            return;
+        }
+
+        /**
+        * Problem type validation
+        */
+        if (this.selectedProblemTypes.length == 0) {
+            this.switchTab(1);
+            return;
         }
 
         if (!this.vendorForm.valid) { return; }
@@ -190,13 +214,7 @@ export class VendorComponent implements OnInit {
         // this.vendorForm.get('phone').setValue(phone.toNormalText());
         // this.vendorForm.get('emergency_phone').setValue(emergency_phone.toNormalText());
 
-        /**
-         * Problem type validation
-         */
-        if (this.selectedProblemTypes.length == 0) {
-            this.switchTab(1);
-            return;
-        }
+
         /**
          * Expire Date validation
          */
@@ -219,7 +237,7 @@ export class VendorComponent implements OnInit {
 
         let expireDate = this.vendorForm.get('gl_expire_date').value;
         let expireDateString = null;
-        if(expireDate) {
+        if (expireDate) {
             console.log('The Given Date Is: ' + expireDate);
             expireDate = new Date(expireDate);
             expireDateString = expireDate.toISOString();
@@ -240,35 +258,45 @@ export class VendorComponent implements OnInit {
 
         // this.vendorForm.removeControl('vendor_contacts');
         let vendorData = this.vendorForm.value;
-        if(expireDateString)
+        if (expireDateString)
             vendorData.gl_expire_date = expireDateString;
         if (vendorData.vendor_contacts) { delete vendorData.vendor_contacts; }
+
+        this.isSubmit = true;
+
         this.vendorService.saveVendor(vendorData).subscribe((vendor: any) => {
             // Vendor Saved lets go for saving contact with/without file
             console.log('Vendor Saved');
             this.vendorService.saveContact(this.photoFile, contactForm, vendor, this.refreshEditor).subscribe((contact: any) => {
+                this.isSubmit = false;
                 this.refreshEditor('Vendor & Vendor Contact Saved successfully.', contact);
+            },
+                error => {
+                    this.isSubmit = false;
+                });
+        },
+            error => {
+                this.isSubmit = false;
             });
-        });
     }
 
-    private refreshEditor(logMsg: string, obj: any) {
+    private refreshEditor (logMsg: string, obj: any) {
         console.log(logMsg, obj);
         this.isSuccess = true;
         this.closeModal();
         this.getAllVendors();
     }
 
-    validateBasicInfo() {
+    validateBasicInfo () {
         return this.vendorForm.get('company_name').valid;
         //&& this.vendorForm.get('mgtfeepercent').valid;
     }
 
-    validateContactInfo() {
+    validateContactInfo () {
         return this.vendorForm.get('vendor_contacts').valid;
     }
 
-    switchTab(tabId: number) {
+    switchTab (tabId: number) {
         if (tabId < 1) // First tabs back button click
             tabId = 1;
         else if (tabId > 3) //This is the last tab's next button click
@@ -278,13 +306,13 @@ export class VendorComponent implements OnInit {
         this.tabs.selectedTabNo = tabId;
     }
 
-    closeModal() {
+    closeModal () {
         this.resetForm();
         this.switchTab(1);
         $('#modal-add-vendor').modal('hide');
     }
 
-    resetForm() {
+    resetForm () {
         this.photoFile = null;
         this.selectedPhotoFile = '';
         this.vendorForm.reset({
@@ -296,6 +324,16 @@ export class VendorComponent implements OnInit {
                 active: true
             }]
         });
+    }
+
+    onVerifyEmail (event) {
+        this.verifyEmailService.verifyEmail(event.target.value);
+    }
+    dateValidation (control: AbstractControl): boolean {
+        return control.value !== null && control.value !== undefined && control.value !== '' ? true : false;
+    }
+    onSelectDate (value) {
+        this.isExpireDateValid = true;
     }
 }
 
