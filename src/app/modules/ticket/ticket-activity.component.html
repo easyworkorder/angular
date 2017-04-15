@@ -65,12 +65,13 @@
             </div>
             <!-- this is a new comment  -->
             <div class="modal-body">
-                <form [formGroup]="ticketPublicForm" (ngSubmit)="ticketPublicForm.valid && onPublicSubmit()" class="form-horizontal">
+                <form [formGroup]="ticketPublicForm" (ngSubmit)="onPublicSubmit()" class="form-horizontal">
                     <div class="form-group">
-                        <label class="col-sm-6 col-md-4 col-lg-3 control-label" for="tenant_list">Tenant</label>
+                        <label class="col-sm-6 col-md-4 col-lg-3 control-label" for="tenant_list">Tenant <span class="required">*</span></label>
                         <div class="col-sm-6 col-md-8 col-lg-9">
                            <ng-select id="tenant_list" [multiple]="true" [items]="tenant_contacts" (selected)="selectedTenantList($event)" (removed)="removedTenantList($event)"
                                                placeholder="Choose Reciptient(s)" [active]="selectedTenant"></ng-select>
+                            <span *ngIf="_publicFormSubmitted && (selectedTenant.length == 0)" class="validation-error">This field is Required</span>
                         </div>
                     </div>
 

@@ -26,6 +26,7 @@ export class TicketActivityComponent implements OnInit {
     @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
 
     _vendorSubmitted = false;
+    _publicFormSubmitted = false;
 
     vendors: any[] = [];
     selectedVendor: any[] = [];
@@ -148,6 +149,10 @@ export class TicketActivityComponent implements OnInit {
     }
 
     onPublicSubmit() {
+        this._publicFormSubmitted = true;
+        if(!this.ticketPublicForm.valid){
+            return;
+        }
         this.ticketPublicForm.get('workorder').setValue(`${config.api.base}ticket/${this.ticket.id}/`);
         this.ticketService.createNote(this.ticketPublicForm.value, true).subscribe((note: any) => {
             this.change.emit(true);
@@ -323,5 +328,6 @@ export class TicketActivityComponent implements OnInit {
 
 
         this._vendorSubmitted = false;
+        this._publicFormSubmitted = false;
     }
 }
