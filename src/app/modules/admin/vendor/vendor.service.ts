@@ -169,6 +169,18 @@ export class VendorService extends DataService {
         return observable;
     }
 
+    /**
+     * Get All active vendor by problem type id
+     * @returns {Observable<any>}
+     */
+    getActiveVendorsByProblemType (problemtype_id) {
+        const observable = this.http.get('vendorlistbyproblemtype/' + problemtype_id + '/?active=true');
+        observable.subscribe(data => {
+            console.log(data);
+        });
+        return observable;
+    }
+
     getContactDetails (contactId) {
         const observable = this.http.get('vendorcontact/' + contactId + '/');
         observable.subscribe(data => {

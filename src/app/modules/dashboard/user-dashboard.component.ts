@@ -35,8 +35,7 @@ export class UserDashboardComponent implements OnInit {
                 this.IsPropertyManager = true;
             } else if (this.userInfo && this.userInfo.IsVendor) {
                 this.vendorContactId = this.userInfo.vendor_contact_id;
-            }
-            else{
+            } else {
                 this.IsPropertyManager = true;
             }
 
