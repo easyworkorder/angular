@@ -151,6 +151,8 @@ import { LoadingSpinnerModule } from "app/modules/shared/loading-spinner/loading
 import { BreadcrumbComponent, BreadcrumbService } from "app/modules/shared/breadcrumb";
 import { VerifyEmailComponent } from "app/modules/shared/verify-email.component";
 import { VerifyEmailService } from "app/modules/shared/verify-email.service";
+import { ConfirmModalComponent } from './modules/shared/confirm-modal/confirm-modal.component';
+import { AssignTicketComponent } from './modules/shared/ticket/assign-ticket.component';
 
 export function translateStaticLoaderFactory (Backend, defaultOptions, storage, notificationService) {
     return new AppHttp(Backend, defaultOptions, storage, notificationService);
@@ -264,7 +266,9 @@ export function translateStaticLoaderFactory (Backend, defaultOptions, storage, 
         BuildingSlaTargetComponent,
         ModalDialogDirective,
         BreadcrumbComponent,
-        VerifyEmailComponent
+        VerifyEmailComponent,
+        ConfirmModalComponent,
+        AssignTicketComponent
     ],
     imports: [
         BrowserModule,
