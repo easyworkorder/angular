@@ -139,7 +139,7 @@ export class VendorComponent implements OnInit {
     setProblemTypeLsit () {
         let problemTypeList = this.itemsToString(this.selectedProblemTypes);
         problemTypeList = problemTypeList.split(',').filter(item => item != '-1').join(',');
-        this.vendorForm.get('problem_types').setValue(problemTypeList == "" ? "" : problemTypeList);
+        this.vendorForm.get('problem_types').setValue(problemTypeList == "" ? "-1" : problemTypeList);
     }
 
     public selectedProblemType (value: any): void {
@@ -319,9 +319,11 @@ export class VendorComponent implements OnInit {
     resetForm () {
         this.photoFile = null;
         this.selectedPhotoFile = '';
+        this.selectedProblemTypes = [];
         this.vendorForm.reset({
             company: new FormControl(config.api.base + 'company/' + this.currentCompanyId + '/'),
             company_name: '',
+            active: true,
             vendor_contacts: [{
                 title: '',
                 isprimary_contact: true,
