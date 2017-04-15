@@ -153,6 +153,7 @@ import { VerifyEmailComponent } from "app/modules/shared/verify-email.component"
 import { VerifyEmailService } from "app/modules/shared/verify-email.service";
 import { ConfirmModalComponent } from './modules/shared/confirm-modal/confirm-modal.component';
 import { AssignTicketComponent } from './modules/shared/ticket/assign-ticket.component';
+import { CloseTicketComponent } from "app/modules/shared/ticket/close-ticket.component";
 
 export function translateStaticLoaderFactory (Backend, defaultOptions, storage, notificationService) {
     return new AppHttp(Backend, defaultOptions, storage, notificationService);
@@ -268,7 +269,8 @@ export function translateStaticLoaderFactory (Backend, defaultOptions, storage, 
         BreadcrumbComponent,
         VerifyEmailComponent,
         ConfirmModalComponent,
-        AssignTicketComponent
+        AssignTicketComponent,
+        CloseTicketComponent
     ],
     imports: [
         BrowserModule,

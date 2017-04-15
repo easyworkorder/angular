@@ -75,7 +75,7 @@ export class AssignTicketComponent implements OnInit {
 
             ticket.assigned_to = `${config.api.base}employee/${this.selectedEmployee[0].id}/`;
             ticket.url = `${config.api.base}ticket/${ticket.id}/`;
-
+            ticket.status = 'Open';
             this.ticketService.update(ticket, false).subscribe(() => {
                 if (++counter == checkedTicketList.length) {
                     this.toasterService.pop('success', 'Assign', `${displayTicketsMsg.join(', ')} Ticket${checkedTicketList.length == 1 ? '' : '\'s'} has been Assign to ${this.selectedEmployee[0].text}`);

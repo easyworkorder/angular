@@ -110,7 +110,7 @@ export class TicketListComponent implements OnInit {
 
             ticket.assigned_to = `${config.api.base}employee/${user.user_id}/`;
             ticket.url = `${config.api.base}ticket/${ticket.id}/`;
-
+            ticket.status = 'Open';
             this.ticketService.update(ticket, false).subscribe(() => {
                 if (++counter == checkedTicketList.length) {
                     this.toasterService.pop('success', 'Accept', `${displayTicketsMsg.join(', ')} Ticket${checkedTicketList.length == 1 ? '' : '\'s'} has been Accepted successfully`);
@@ -133,7 +133,24 @@ export class TicketListComponent implements OnInit {
         })
     }
 
-    onModalAssign (value) {
+    onModalAssignTicket (value) {
+        let checkedOne = this.ticketList.some(item => item.checked);
+        // const modalId = checkedOne ? value : 'modal-confirm';
+        if (!checkedOne) {
+            $('#modal-confirm').modal({
+                show: true,
+                backdrop: 'static'
+            })
+            return;
+        }
+
+        $('#' + value).modal({
+            show: true,
+            backdrop: 'static'
+        })
+    }
+
+    onModalCloseTicket (value) {
         let checkedOne = this.ticketList.some(item => item.checked);
         // const modalId = checkedOne ? value : 'modal-confirm';
         if (!checkedOne) {

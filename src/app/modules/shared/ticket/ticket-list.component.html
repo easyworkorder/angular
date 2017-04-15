@@ -3,8 +3,8 @@
         <div *ngIf="isAdmin" class="form-group form-actions">
             <!--<button modal-dialog-open="modal-confirm" type="submit" class="btn btn-sm btn-default">Accept</button>-->
             <button (click)="onModalConfirm('modal-confirm')" type="submit" class="btn btn-sm btn-default">Accept</button>
-            <button (click)="onModalAssign('modal-assign')" type="button" class="btn btn-sm btn-default">Assign</button>
-            <button type="button" class="btn btn-sm btn-default">Close</button>
+            <button (click)="onModalAssignTicket('modal-assign')" type="button" class="btn btn-sm btn-default">Assign</button>
+            <button (click)="onModalCloseTicket('modal-close-ticket')" type="button" class="btn btn-sm btn-default">Close</button>
             <!--button type="button" class="btn btn-sm btn-default">Merge</button-->
             <button type="button" class="btn btn-sm btn-default">Delete</button>
         </div>
@@ -62,3 +62,5 @@
 <ewo-assign-ticket id="modal-assign" [employees]="employees" [tickets]="ticketList" class="modal fade" tabindex="-1" role="dialog"
     aria-hidden="true" style="display: none;">
 </ewo-assign-ticket>
+<ewo-close-ticket id="modal-close-ticket" [tickets]="ticketList" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"
+    style="display:none;"></ewo-close-ticket>

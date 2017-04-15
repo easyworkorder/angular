@@ -85,6 +85,9 @@ export class TicketComponent implements OnInit {
             this.getAllActiveBuildings();
             this.getAllActiveEmployees();
             this.getAllActiveProblemTypes();
+            this.ticketService.ticketClose$.subscribe(status => {
+                this.getAllTickets();
+            })
         });
     }
 
@@ -251,7 +254,14 @@ export class TicketComponent implements OnInit {
             is_private: false,
             estimated_amount: 0,
             is_billable: false,
-            is_safety_issue: false
+            is_safety_issue: false,
+            notified_list: '',
+            tenant_notify_flag: true,
+            closed: false,
+            is_save_as_note: false,
+            notify_employee: false,
+            notify_tenant: false,
+
         });
     }
 }
