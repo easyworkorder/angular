@@ -21,7 +21,7 @@ export class TicketActivityComponent implements OnInit {
     @Input() ticket: any;
     @Input() notes: any;
     @Input() employees: any;
-    @Input() tenants: any;
+    @Input() tenant_contacts: any;
     @Input() isAdmin: boolean = false;
     @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
 
@@ -127,7 +127,7 @@ export class TicketActivityComponent implements OnInit {
         private authService: AuthenticationService,
         private toasterService: ToasterService
         ) {
-        this.authService.verifyToken().take(1).subscribe(data => {
+        this.authService.verifyToken().take(1).subscribe(data => { console.log(this.tenant_contacts);
             /**
              * Get All Vendors
              */

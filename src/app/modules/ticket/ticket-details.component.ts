@@ -32,7 +32,8 @@ export class TicketDetailsComponent implements OnInit {
     notes: any[] = [];
     labors: any[];
     materials: any[];
-    tenants: any[];
+    tenant_contacts: any[] = [];
+    // tenants: any[] = [];
     employees: any[];
 
     currentCompanyId = 1;
@@ -62,7 +63,17 @@ export class TicketDetailsComponent implements OnInit {
         this.ticketService.getTicketDetails(this.ticketId).subscribe(
             data => {
                 this.ticket = data;
-                this.getActiveTenantsByBuilding(this.ticket.building_id);
+                this.tenantService.getTenant(this.ticket.tenant).subscribe(
+                    data => {
+                        let _tenant_contact: any[] = data.tenant_contacts.map(item => {
+                            return { id: item.id, text: (item.first_name + ' ' + item.last_name) };
+                        });
+                        this.tenant_contacts = _tenant_contact;
+                    }
+                );
+                // this.tenant = this.tenantService.getTenant(this.ticket.tenant);
+                // let _building_id = this.ticket.building.extractIdFromURL();
+                // this.getActiveTenantsByBuilding(_building_id);
             }
         );
         this.switchTab(1);
@@ -112,16 +123,17 @@ export class TicketDetailsComponent implements OnInit {
         );
     }
 
-    getActiveTenantsByBuilding(building_id): void {
+    /*getActiveTenantsByBuilding(building_id): void {
         this.tenantService.getActiveTenantsByBuilding(building_id).subscribe(
             data => {
                 let _tenant: any[] = data.results.map(item => {
                     return { id: item.id, text: (item.unitno + ' ' + item.tenant_company_name) };
                 })
                 this.tenants = _tenant;
+                console.log(this.tenants);
             }
         );
-    }
+    }*/
 
     updateNotes(data){
         this.ticketId && this.getAllNotes(this.ticketId);
