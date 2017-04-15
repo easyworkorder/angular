@@ -36,7 +36,6 @@ export class VendorDashboardComponent implements OnInit {
             .mergeMap(conact => this.vendorService.getVendor(conact.vendor), (contactInfo, vendorInfo) => ({ contactInfo, vendorInfo }))
             .subscribe(data => {
                 this.primaryContact = data.contactInfo;
-                console.log(this.primaryContact);
                 this.vendor = data.vendorInfo;
                 this.contactInfo = {
                     id: this.primaryContact.id,

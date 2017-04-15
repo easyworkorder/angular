@@ -2,7 +2,7 @@
     <!-- Block Tabs Title -->
     <div class="block-title">
         <div class="block-options pull-right">
-            <a *ngIf="tabs.isTicketTabVisible && (isTenant || isAdmin)" modal-dialog-open="modal-add-tenant-ticket"
+            <a *ngIf="tabs.isTicketTabVisible && (isDashboardList || isAdmin)" modal-dialog-open="modal-add-tenant-ticket"
                class="btn btn-effect-ripple btn-default"
                data-toggle="modal"
                title="" style="overflow: hidden; position: relative;" data-original-title="Add Contact"><i
@@ -259,7 +259,7 @@
     <!-- END Tabs Content -->
 </div>
 
-<ewo-tenant-add-ticket *ngIf="tenant && (isTenant || isAdmin)" id="modal-add-tenant-ticket" [tenant]="tenant"
+<ewo-tenant-add-ticket *ngIf="tenant && (isDashboardList || isAdmin)" id="modal-add-tenant-ticket" [tenant]="tenant"
                        [isDashboardList]="isDashboardList" [isAdmin]="isAdmin"
                        (update)="updateTicketList($event)" class="modal fade"
                        role="dialog" aria-hidden="true"></ewo-tenant-add-ticket>
