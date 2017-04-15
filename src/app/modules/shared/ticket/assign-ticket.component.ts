@@ -11,7 +11,6 @@ declare var $: any;
 @Component({
     selector: 'ewo-assign-ticket',
     templateUrl: './assign-ticket.component.html',
-    styleUrls: ['./assign-ticket.component.css']
 })
 export class AssignTicketComponent implements OnInit {
     @Input() employees: any[] = [];
