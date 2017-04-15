@@ -30,7 +30,7 @@
             </div>
             <!-- END Menu Title -->
 
-            <!-- Menu Content --
+<!-- Menu Content --
             <ul class="nav nav-pills nav-stacked">
                 <li class="active">
                     <a href="index.html">
@@ -176,35 +176,35 @@
     </div>
     <div class="col-md-8 col-lg-9">
         <!-- Tickets Block -->
-        <div class="block">
-            <!-- Tickets Title -->
-            <div class="block-title">
-                <div class="block-options pull-right">
-                    <a modal-dialog-open="modal-add-ticket" class="btn btn-sm btn-success" data-toggle="modal">
-                        <i class="fa fa-plus"></i>
-                    </a>
-                    <!-- <a href="javascript:void(0)" class="btn btn-effect-ripple btn-success" data-toggle="tooltip" title="New Work Order"><i class="fa fa-plus-square"></i></a> -->
-                </div>
-                <h2>Request List</h2>
-            </div>
-            <!-- END Tickets Title -->
-
-            <!-- Tabs Content -->
-            <div class="tab-content">
-                <!-- Tickets List -->
-                <div class="tab-pane active" id="tickets-list">
-                    <ewo-ticket-list  *ngIf="tickets" [tickets]="tickets" [isAdmin]="true"></ewo-ticket-list>
-                </div>
-                <!-- END Tickets List -->
-
-                <!-- Ticket View -->
-
-                <!-- END Ticket View -->
-            </div>
-            <!-- END Tabs Content -->
+<div class="block">
+    <!-- Tickets Title -->
+    <div class="block-title">
+        <div class="block-options pull-right">
+            <a modal-dialog-open="modal-add-ticket" class="btn btn-sm btn-success" data-toggle="modal">
+                <i class="fa fa-plus"></i>
+            </a>
+            <!-- <a href="javascript:void(0)" class="btn btn-effect-ripple btn-success" data-toggle="tooltip" title="New Work Order"><i class="fa fa-plus-square"></i></a> -->
         </div>
-        <!-- END Tickets Block -->
-    <!--/div>
+        <h2>Request List</h2>
+    </div>
+    <!-- END Tickets Title -->
+
+    <!-- Tabs Content -->
+    <div class="tab-content">
+        <!-- Tickets List -->
+        <div class="tab-pane active" id="tickets-list">
+            <ewo-ticket-list *ngIf="!!tickets" [tickets]="tickets" [isAdmin]="true" [employees]="employees"></ewo-ticket-list>
+        </div>
+        <!-- END Tickets List -->
+
+        <!-- Ticket View -->
+
+        <!-- END Ticket View -->
+    </div>
+    <!-- END Tabs Content -->
+</div>
+<!-- END Tickets Block -->
+<!--/div>
 </div-->
 <!-- END Tickets Content -->
 
@@ -222,7 +222,7 @@
                         <label class="col-xs-3 control-label" for="building">Building <span class="required">*</span> </label>
                         <div class="col-xs-9">
                             <ng-select id="building" [multiple]="false" [items]="buildings" placeholder="Select Building" (selected)="selectedBuilding($event)"
-                                       [active]="building"></ng-select>
+                                [active]="building"></ng-select>
                             <span *ngIf="(_submitted && building.length == 0)" class="validation-error">This field is Required</span>
                         </div>
                     </div>
@@ -230,7 +230,7 @@
                         <label class="col-xs-3 control-label" for="tenant">Tenant <span class="required">*</span> </label>
                         <div class="col-xs-9">
                             <ng-select id="tenant" [multiple]="false" [items]="tenants" placeholder="Select Tenant" (selected)="selectedTenant($event)"
-                                       [active]="tenant"></ng-select>
+                                [active]="tenant"></ng-select>
                             <span *ngIf="(_submitted && tenant.length == 0)" class="validation-error">This field is Required</span>
                         </div>
                     </div>
@@ -238,7 +238,7 @@
                         <label class="col-xs-3 control-label" for="problem_type">Type <span class="required">*</span> </label>
                         <div class="col-xs-9">
                             <ng-select id="problem_type" [multiple]="false" [items]="problem_types" placeholder="Select Type" (selected)="selectedProblemType($event)"
-                                       [active]="problem_type"></ng-select>
+                                [active]="problem_type"></ng-select>
                             <span *ngIf="(_submitted && problem_type.length == 0)" class="validation-error">This field is Required</span>
                         </div>
                     </div>
@@ -246,7 +246,7 @@
                         <label class="col-xs-3 control-label" for="priority">Priority <span class="required">*</span> </label>
                         <div class="col-xs-9">
                             <ng-select id="priority" [multiple]="false" [items]="priorities" placeholder="Select Priority" (selected)="selectedPriority($event)"
-                                       [active]="priority"></ng-select>
+                                [active]="priority"></ng-select>
                             <span *ngIf="(_submitted && priority.length == 0)" class="validation-error">This field is Required</span>
                         </div>
                     </div>
@@ -254,7 +254,7 @@
                         <label class="col-xs-3 control-label" for="assigned_to">Assigned to <span class="required">*</span> </label>
                         <div class="col-xs-9">
                             <ng-select id="assigned_to" [multiple]="false" [items]="employees" placeholder="Select Asigned To" (selected)="selectedAssignedTo($event)"
-                                       [active]="assigned_to"></ng-select>
+                                [active]="assigned_to"></ng-select>
                             <span *ngIf="(_submitted && assigned_to.length == 0)" class="validation-error">This field is Required</span>
                         </div>
                     </div>
@@ -262,30 +262,29 @@
                         <label class="col-xs-3 control-label" for="source">Source <span class="required">*</span> </label>
                         <div class="col-xs-9">
                             <ng-select id="source" [multiple]="false" [items]="sources" placeholder="Select Source" (selected)="selectedSource($event)"
-                                       [active]="selectSource"></ng-select>
+                                [active]="selectSource"></ng-select>
                             <span *ngIf="(_submitted && selectSource.length == 0)" class="validation-error">This field is Required</span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-xs-3 control-label" for="group">Group <span class="required">*</span> </label>
                         <div class="col-xs-9">
-                            <ng-select id="group" [multiple]="false" [items]="groups" placeholder="Select Group" (selected)="selectedGroup($event)"
-                                       [active]="group"></ng-select>
+                            <ng-select id="group" [multiple]="false" [items]="groups" placeholder="Select Group" (selected)="selectedGroup($event)" [active]="group"></ng-select>
                             <span *ngIf="(_submitted && group.length == 0)" class="validation-error">This field is Required</span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-xs-3 control-label" for="subject">Subject <span class="required">*</span> </label>
                         <div class="col-xs-9">
-                            <input [formControlValidator]="ticketForm.controls.subject" formControlName="subject" type="text" id="subject" name="subject" class="form-control"
-                                   placeholder="Subject">
+                            <input [formControlValidator]="ticketForm.controls.subject" formControlName="subject" type="text" id="subject" name="subject"
+                                class="form-control" placeholder="Subject">
                             <span class="validation-error">{{ticketForm.controls.subject.error}}</span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-xs-3 control-label" for="description">Description <span class="required">*</span></label>
                         <div class="col-xs-9">
-                            <textarea [formControlValidator]="ticketForm.controls.description"  formControlName="description" id="description" class="form-control"></textarea>
+                            <textarea [formControlValidator]="ticketForm.controls.description" formControlName="description" id="description" class="form-control"></textarea>
                             <span class="validation-error">{{ticketForm.controls.description.error}}</span>
                         </div>
                     </div>
@@ -299,8 +298,8 @@
                     <div class="form-group">
                         <label class="col-xs-3 control-label" for="estimated_amount">Estimated Amount</label>
                         <div class="col-xs-9">
-                            <input decimalNumber [formControlValidator]="ticketForm.controls.estimated_amount" formControlName="estimated_amount" type="text" id="estimated_amount" name="estimated_amount" class="form-control"
-                                   placeholder="Estimated Amount">
+                            <input decimalNumber [formControlValidator]="ticketForm.controls.estimated_amount" formControlName="estimated_amount" type="text"
+                                id="estimated_amount" name="estimated_amount" class="form-control" placeholder="Estimated Amount">
                             <span class="validation-error">{{ticketForm.controls.estimated_amount.error}}</span>
                         </div>
                     </div>
@@ -315,13 +314,14 @@
                         <label class="col-xs-3 control-label" for="notified_list">Select Employee(s) </label>
                         <div class="col-xs-9">
                             <ng-select id="notified_list" [multiple]="true" [items]="employees" (selected)="selectedNotifiedList($event)" (removed)="removedNotifiedList($event)"
-                                       placeholder="Select Employee (s)" [active]="selectedNotified"></ng-select>
+                                placeholder="Select Employee (s)" [active]="selectedNotified"></ng-select>
                         </div>
                     </div>
                     <div class="form-group" *ngIf="sendNotification">
                         <label class="col-xs-3 control-label" for="optional_notification_message">Enter Optional Message</label>
                         <div class="col-xs-9">
-                            <textarea [formControlValidator]="ticketForm.controls.optional_notification_message"  formControlName="optional_notification_message" id="optional_notification_message" class="form-control"></textarea>
+                            <textarea [formControlValidator]="ticketForm.controls.optional_notification_message" formControlName="optional_notification_message"
+                                id="optional_notification_message" class="form-control"></textarea>
                             <span class="validation-error">{{ticketForm.controls.optional_notification_message.error}}</span>
                         </div>
                     </div>

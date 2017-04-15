@@ -1,0 +1,18 @@
+<!--<div class="modal fade in" tabindex="-1" role="dialog" aria-hidden="true">-->
+<div class="modal-dialog">
+  <div class="modal-content">
+    <form class="form-horizontal">
+      <div class="modal-body">
+        <div class="col-xs-12">
+          {{message}}
+        </div>
+        <div class="col-xs-12"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" *ngIf="showDelete" class="btn btn-primary"> {{deleteLabel}}</button>
+        <button type="button" *ngIf="cancel" data-dismiss="modal" class="btn  btn-primary"> {{cancelLabel}}</button>
+      </div>
+    </form>
+  </div>
+</div>
+<!--</div>-->

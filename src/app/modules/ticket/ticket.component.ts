@@ -1,13 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import config from '../../config';
-import {EmployeeService} from './../admin/employee/employee.service';
-import {BuildingService} from './../admin/building/building.service';
-import {TenantService} from './../admin/tenant/tenant.service';
-import {ProblemTypeService} from './../admin/problem_type/problem_type.service';
-import {TicketService} from './ticket.service';
-import {AuthenticationService} from "app/modules/authentication";
+import { EmployeeService } from './../admin/employee/employee.service';
+import { BuildingService } from './../admin/building/building.service';
+import { TenantService } from './../admin/tenant/tenant.service';
+import { ProblemTypeService } from './../admin/problem_type/problem_type.service';
+import { TicketService } from './ticket.service';
+import { AuthenticationService } from "app/modules/authentication";
 declare var $: any;
 
 @Component({
@@ -32,21 +32,21 @@ export class TicketComponent implements OnInit {
     tenants: any[] = [];
     problem_types: any[] = [];
     priorities = [{ id: 'Low', text: 'Low' },
-                    { id: 'Medium', text: 'Medium' },
-                    { id: 'High', text: 'High' },
-                    { id: 'Urgent', text: 'Urgent' },
-                    { id: 'Safety', text: 'Safety' }];
+    { id: 'Medium', text: 'Medium' },
+    { id: 'High', text: 'High' },
+    { id: 'Urgent', text: 'Urgent' },
+    { id: 'Safety', text: 'Safety' }];
     employees: any[] = [];
     groups = [{ id: 'Property Manager', text: 'Property Manager' },
-        { id: 'Engineering', text: 'Engineering' },
-        { id: 'Security', text: 'Security' },
-        { id: 'Janitorial', text: 'Janitorial' },
-        { id: 'Safety', text: 'Safety' }];
+    { id: 'Engineering', text: 'Engineering' },
+    { id: 'Security', text: 'Security' },
+    { id: 'Janitorial', text: 'Janitorial' },
+    { id: 'Safety', text: 'Safety' }];
     sources = [{ id: 'Email', text: 'Email' },
-        { id: 'Portal', text: 'Portal' },
-        { id: 'Phone', text: 'Phone' },
-        { id: 'Chat', text: 'Chat' },
-        { id: 'Agent', text: 'Agent' }];
+    { id: 'Portal', text: 'Portal' },
+    { id: 'Phone', text: 'Phone' },
+    { id: 'Chat', text: 'Chat' },
+    { id: 'Agent', text: 'Agent' }];
     currentCompanyId = 1;
 
     ticketForm = new FormGroup({
@@ -75,11 +75,11 @@ export class TicketComponent implements OnInit {
     });
 
     constructor(private buildingService: BuildingService,
-                private employeeService: EmployeeService,
-                private tenantService: TenantService,
-                private problemTypeService: ProblemTypeService,
-                private ticketService: TicketService,
-                private authService: AuthenticationService) {
+        private employeeService: EmployeeService,
+        private tenantService: TenantService,
+        private problemTypeService: ProblemTypeService,
+        private ticketService: TicketService,
+        private authService: AuthenticationService) {
         this.authService.verifyToken().take(1).subscribe(data => {
             this.getAllTickets();
             this.getAllActiveBuildings();
@@ -88,11 +88,11 @@ export class TicketComponent implements OnInit {
         });
     }
 
-    ngOnInit() {
+    ngOnInit () {
 
     }
 
-    onSubmit() {
+    onSubmit () {
         this._submitted = true;
         if (!this.ticketForm.valid) { return; }
         this.ticketService.create(this.ticketForm.value).subscribe((tikcet: any) => {
@@ -101,7 +101,7 @@ export class TicketComponent implements OnInit {
         });
     }
 
-    getAllTickets(): void {
+    getAllTickets (): void {
         this.ticketService.getAllTickets(this.currentCompanyId).subscribe(
             data => {
                 this.tickets = data;
@@ -109,7 +109,7 @@ export class TicketComponent implements OnInit {
         );
     }
 
-    getAllActiveBuildings(): void {
+    getAllActiveBuildings (): void {
         this.buildingService.getAllActiveBuildings(this.currentCompanyId).subscribe(
             data => {
                 let _building: any[] = data.results.map(item => {
@@ -120,7 +120,7 @@ export class TicketComponent implements OnInit {
         );
     }
 
-    getAllActiveEmployees(): void {
+    getAllActiveEmployees (): void {
         this.employeeService.getAllActiveEmployees(this.currentCompanyId).subscribe(
             data => {
                 let _employee: any[] = data.results.map(item => {
@@ -131,7 +131,7 @@ export class TicketComponent implements OnInit {
         );
     }
 
-    getAllActiveProblemTypes(): void {
+    getAllActiveProblemTypes (): void {
         this.problemTypeService.getAllActiveProblemTypes(this.currentCompanyId).subscribe(
             data => {
                 let _problem_type: any[] = data.results.map(item => {
@@ -142,7 +142,7 @@ export class TicketComponent implements OnInit {
         );
     }
 
-    getActiveTenantsByBuilding(building_id): void {
+    getActiveTenantsByBuilding (building_id): void {
         this.tenantService.getActiveTenantsByBuilding(building_id).subscribe(
             data => {
                 let _tenant: any[] = data.results.map(item => {
@@ -153,44 +153,44 @@ export class TicketComponent implements OnInit {
         );
     }
 
-    public selectedBuilding(value: any): void {
+    public selectedBuilding (value: any): void {
         this.building = [value];
         this.getActiveTenantsByBuilding(this.building[0].id);
         this.ticketForm.get('building').setValue(config.api.base + 'building/' + this.building[0].id + '/');
     }
 
-    public selectedTenant(value: any): void {
+    public selectedTenant (value: any): void {
         this.tenant = [value];
         this.ticketForm.get('tenant').setValue(config.api.base + 'tenant/' + this.tenant[0].id + '/');
     }
 
-    public selectedProblemType(value: any): void {
+    public selectedProblemType (value: any): void {
         this.problem_type = [value];
         this.ticketForm.get('problemtype').setValue(config.api.base + 'problemType/' + this.problem_type[0].id + '/');
     }
 
-    public selectedPriority(value: any): void {
+    public selectedPriority (value: any): void {
         this.priority = [value];
         this.ticketForm.get('priority').setValue(this.priority[0].id);
     }
 
-    public selectedAssignedTo(value: any): void {
+    public selectedAssignedTo (value: any): void {
         this.assigned_to = [value];
         this.ticketForm.get('assigned_to').setValue(config.api.base + 'employee/' + this.assigned_to[0].id + '/');
     }
 
-    public selectedGroup(value: any): void {
+    public selectedGroup (value: any): void {
         this.group = [value];
         this.ticketForm.get('group').setValue(this.group[0].id);
     }
 
-    public selectedSource(value: any): void {
+    public selectedSource (value: any): void {
         this.selectSource = [value];
         this.ticketForm.get('source').setValue(this.selectSource[0].id);
     }
 
-    public emptyNoficationFields(value): void {
-        if (!value.target.checked){
+    public emptyNoficationFields (value): void {
+        if (!value.target.checked) {
             this.selectedNotified = [];
             this.ticketForm.get('notified_list').setValue('');
             this.ticketForm.get('optional_notification_message').setValue('');
@@ -198,7 +198,7 @@ export class TicketComponent implements OnInit {
         }
     }
 
-    public selectedNotifiedList(value: any): void {
+    public selectedNotifiedList (value: any): void {
 
         if (this.selectedNotified.length >= 1 && value.id === -1) {
             this.removedNotifiedList(value);
@@ -211,7 +211,7 @@ export class TicketComponent implements OnInit {
         this.setNotifiedList();
     }
 
-    public removedNotifiedList(value: any): void {
+    public removedNotifiedList (value: any): void {
         let sel = [];
         this.selectedNotified.forEach(item => {
             if (item.id !== value.id) {
@@ -222,20 +222,20 @@ export class TicketComponent implements OnInit {
         this.setNotifiedList();
     }
 
-    setNotifiedList() {
+    setNotifiedList () {
         let notifiedList = this.itemsToString(this.selectedNotified);
         notifiedList = notifiedList.split(',').join(',');
         this.ticketForm.get('notified_list').setValue(notifiedList);
     }
 
-    public itemsToString(value: Array<any> = []): string {
+    public itemsToString (value: Array<any> = []): string {
         return value
             .map((item: any) => {
                 return item.id;
             }).join(',');
     }
 
-    closeModal() {
+    closeModal () {
         this.resetForm();
         this.building = [];
         this.tenant = [];
@@ -246,7 +246,7 @@ export class TicketComponent implements OnInit {
         $('#modal-add-ticket').modal('hide');
     }
 
-    resetForm() {
+    resetForm () {
         this.ticketForm.reset({
             is_private: false,
             estimated_amount: 0,

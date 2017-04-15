@@ -1,8 +1,9 @@
 <div class="block-content">
     <form action="page_forms_components.html" method="post" onsubmit="return false;">
         <div *ngIf="isAdmin" class="form-group form-actions">
-            <button type="submit" class="btn btn-sm btn-default">Accept</button>
-            <button type="button" class="btn btn-sm btn-default">Assign</button>
+            <!--<button modal-dialog-open="modal-confirm" type="submit" class="btn btn-sm btn-default">Accept</button>-->
+            <button (click)="onModalConfirm('modal-confirm')" type="submit" class="btn btn-sm btn-default">Accept</button>
+            <button (click)="onModalAssign('modal-assign')" type="button" class="btn btn-sm btn-default">Assign</button>
             <button type="button" class="btn btn-sm btn-default">Close</button>
             <!--button type="button" class="btn btn-sm btn-default">Merge</button-->
             <button type="button" class="btn btn-sm btn-default">Delete</button>
@@ -13,7 +14,7 @@
                 <thead>
                     <tr>
                         <th *ngIf="isAdmin" style="width: 80px;" class="text-center"><label class="csscheckbox csscheckbox-primary"><input
-                            type="checkbox"><span></span></label></th>
+                            type="checkbox" (change)="allCheckbox.setValue($event.target.checked)"><span></span></label></th>
                         <th class="text-center">ID</th>
                         <th>Type</th>
                         <th>Source</th>
@@ -23,12 +24,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngIf="tickets.length == 0">
+                    <tr *ngIf="ticketList.length == 0">
                         <td colspan="7"> No Tickets Found.</td>
                     </tr>
-                    <tr *ngFor="let ticket of tickets">
+                    <tr *ngFor="let ticket of ticketList">
                         <td *ngIf="isAdmin" class="text-center"><label class="csscheckbox csscheckbox-primary"><input
-                            type="checkbox"><span></span></label></td>
+                            type="checkbox" [checked]="ticket.checked" (change)="ticket.checked = !ticket.checked; onChangeCheckbox(ticket.checked)"><span></span></label></td>
                         <td class="text-center"><a (click)="getTicketDetails(ticket)">#{{ticket.ticket_key}}</a></td>
                         <td><span class="label" [ngClass]="{'Low': 'label-default', 'Medium': 'label-info', 'High': 'label-warning', 'Urgent': 'label-danger', 'Safety': 'label-danger'}[ticket.priority]">{{ticket.problem_name}}</span>
                         </td>
@@ -54,3 +55,10 @@
         </ul>
     </div-->
 </div>
+
+<ewo-confirm-modal id="modal-confirm" delete="false" [cancelLabel]="'Continue'" [message]="'At least one request must be selected.'"
+    class="modal fade in" tabindex="-1" role="dialog" aria-hidden="true"></ewo-confirm-modal>
+
+<ewo-assign-ticket id="modal-assign" [employees]="employees" [tickets]="ticketList" class="modal fade" tabindex="-1" role="dialog"
+    aria-hidden="true" style="display: none;">
+</ewo-assign-ticket>
