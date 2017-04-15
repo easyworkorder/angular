@@ -215,6 +215,8 @@ export class EmployeeComponent implements OnInit {
 
         // let observable: Observable<any>;
 
+        if (!this.employeeForm.valid) return;
+
         this.showSaveSpinner = true;
         this.isSubmit = true;
 

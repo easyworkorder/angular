@@ -288,7 +288,11 @@ export class VendorComponent implements OnInit {
     }
 
     validateBasicInfo () {
-        return this.vendorForm.get('company_name').valid;
+        return this.vendorForm.get('company_name').valid &&
+            this.vendorForm.get('address').valid &&
+            this.vendorForm.get('city').valid &&
+            this.vendorForm.get('state').valid &&
+            this.vendorForm.get('postal_code').valid && this.dateValidation(this.vendorForm.get('gl_expire_date'));
         //&& this.vendorForm.get('mgtfeepercent').valid;
     }
 
