@@ -53,7 +53,7 @@ export class CloseTicketComponent implements OnInit {
         tenant_follow_up: new FormControl(false),
         vendor_notified: new FormControl(false),
         vendor_follow_up: new FormControl(false),
-        action_type: new FormControl('Close')
+        action_type: new FormControl('close')
     });
 
     constructor(
@@ -122,7 +122,7 @@ export class CloseTicketComponent implements OnInit {
             tenant_follow_up: false,
             vendor_notified: false,
             vendor_follow_up: false,
-            action_type: 'Close'
+            action_type: 'close'
         });
         $('#modal-close-ticket').modal('hide');
     }

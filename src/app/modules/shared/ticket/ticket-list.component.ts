@@ -93,17 +93,9 @@ export class TicketListComponent implements OnInit {
         }
 
         const user = this.storage.getUserInfo();
-
-        // console.log(user);
         const checkedTicketList: any[] = this.ticketList.filter(item => item.checked);
-        // console.log(checkedTicketList + `Ticket${checkedTicketList.length == 1 ? '' : '\'s'}`);
-        // checkedTicketList.map(item => {
-        //     item.assigned_to = `${config.api.base}/employee/${user.user_id}/`;
-        // });
 
-        // console.log(checkedTicketList);
-
-        let displayTicketsMsg: any[] = []; //checkedTicketList.map(ticket => ticket.ticket_key).join(',')
+        let displayTicketsMsg: any[] = [];
         let counter = 0;
         checkedTicketList && checkedTicketList.forEach(ticket => {
             displayTicketsMsg.push(ticket.ticket_key);
@@ -119,7 +111,7 @@ export class TicketListComponent implements OnInit {
 
             let note = {
                 workorder: `${config.api.base}ticket/${ticket.id}/`,
-                action_type: 'Accept',
+                action_type: 'accept',
                 is_private: true,
                 tenant_notified: false,
                 tenant_follow_up: false,
@@ -164,6 +156,46 @@ export class TicketListComponent implements OnInit {
         $('#' + value).modal({
             show: true,
             backdrop: 'static'
+        })
+    }
+    onModalDeleteTicket (modalId) {
+        let checkedOne = this.ticketList.some(item => item.checked);
+        // const modalId = checkedOne ? value : 'modal-confirm';
+        if (!checkedOne) {
+            $('#modal-confirm').modal({
+                show: true,
+                backdrop: 'static'
+            })
+            return;
+        }
+
+        $('#' + modalId).modal({
+            show: true,
+            backdrop: 'static'
+        })
+    }
+
+    onDeleteModalOkButtonClick (event) {
+        const checkedTicketList: any[] = this.ticketList.filter(item => item.checked);
+
+        let displayTicketsMsg: any[] = [];
+        let counter = 0;
+        checkedTicketList && checkedTicketList.forEach(ticket => {
+            displayTicketsMsg.push(ticket.ticket_key);
+            ticket.assigned_to && delete ticket.assigned_to;
+
+            ticket.url = `${config.api.base}ticket/${ticket.id}/`;
+            ticket.status = 'Deleted';
+            ticket.is_deleted = true;
+            this.ticketService.update(ticket, false).subscribe(() => {
+                if (++counter == checkedTicketList.length) {
+                    $('#modal-delete-ticket').modal('hide');
+                    this.ticketService.updateTicketList(true);
+                    this.toasterService.pop('success', 'Delete?', `${displayTicketsMsg.join(', ')} Ticket${checkedTicketList.length == 1 ? '' : '\'s'} has been deleted successfully`);
+                }
+            }, error => {
+                this.toasterService.pop('error', 'Delete?', `${displayTicketsMsg.join(', ')} Ticket${checkedTicketList.length == 1 ? '' : '\'s'} are not deleted`);
+            });
         })
     }
 }

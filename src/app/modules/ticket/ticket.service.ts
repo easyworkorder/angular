@@ -225,9 +225,9 @@ export class TicketService extends DataService {
   /**
    * After close the ticket refresh the ticket list
    */
-  private ticketCloseSource = new Subject<boolean>();
-  ticketClose$ = this.ticketCloseSource.asObservable();
+  private ticketUpdateSource = new Subject<boolean>();
+  ticketListRefresh$ = this.ticketUpdateSource.asObservable();
   updateTicketList (status) {
-    this.ticketCloseSource.next(status);
+    this.ticketUpdateSource.next(status);
   }
 }

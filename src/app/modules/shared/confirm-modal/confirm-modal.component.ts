@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'ewo-confirm-modal',
@@ -15,16 +15,21 @@ export class ConfirmModalComponent implements OnInit {
   //   cancelLabel: 'Cancel',
   // }
   @Input() message: string = 'Are you sure?';
-  @Input() delete: boolean;
-  @Input() deleteLabel: string = 'Delete';
-  @Input() cancel: boolean = true;
-  @Input() cancelLabel: string = 'Cancel';
-  showDelete: boolean;
-  showCancel: boolean;
+  @Input() OkButton: boolean = true;
+  @Input() okButtonLabel: string = 'Delete';
+  @Input() cancelButton: boolean = true;
+  @Input() cancelButtonLabel: string = 'Cancel';
+  @Output('okButtonClick') okButtonClicked: EventEmitter<any> = new EventEmitter<any>();
+
+
+
   constructor() { }
 
   ngOnInit () {
     // this.showDelete = this.delete;
     // this.showCancel = this.cancel;
+  }
+  btnOkClick (event) {
+    this.okButtonClicked.emit(event);
   }
 }

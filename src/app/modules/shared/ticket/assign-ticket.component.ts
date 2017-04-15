@@ -86,7 +86,7 @@ export class AssignTicketComponent implements OnInit {
             let note = {
                 workorder: `${config.api.base}ticket/${ticket.id}/`,
                 details: this.ticketPrivateForm.get('details').value,
-                action_type: 'Assign',
+                action_type: 'assign',
                 is_private: true,
                 tenant_notified: false,
                 tenant_follow_up: false,
