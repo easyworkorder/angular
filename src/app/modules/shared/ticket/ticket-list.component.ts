@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, AfterViewInit } from '@angular/core';
 import { DataService, AppHttp } from "app/services";
 import { Router } from "@angular/router";
 
@@ -18,24 +18,31 @@ export class TicketListComponent implements OnInit {
     @Input() isAdmin: boolean = false;
     @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
 
-    ngOnInit() {
+    ngOnInit () {
+        console.log('tickets', this.tickets);
 
+        let ticketList = Object.assign({}, this.tickets, { checked: false });
+    }
+    ngAfterViewInit () {
+        console.log('tickets', this.tickets);
+
+        let ticketList = Object.assign({}, this.tickets, { checked: false });
     }
 
 
-    stopPropagation(event) {
+    stopPropagation (event) {
         event.stopPropagation();
     }
 
-    updateTicket(data) {
+    updateTicket (data) {
         this.change.emit(data);
     }
 
-    getTicketDetails(ticket) {
+    getTicketDetails (ticket) {
         this.router.navigate(['/ticket-details', ticket.id]);
     }
 
-    getPhotoUrl(ticket) {
+    getPhotoUrl (ticket) {
         if (ticket.photo != null && ticket.photo.length > 0) {
             return ticket.photo;
         }
