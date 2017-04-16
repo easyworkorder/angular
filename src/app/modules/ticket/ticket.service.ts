@@ -35,8 +35,8 @@ export class TicketService extends DataService {
    * Get All tickets by Company Id
    * @returns {Observable<any>}
    */
-  getAllTickets (company_id) {
-    const observable = this.http.get('workordersbycompany/' + company_id + '/?status=Open,Unassigned');
+  getAllTickets (company_id, status) {
+    const observable = this.http.get('workordersbycompany/' + company_id + '/?status='+status);
     observable.subscribe(data => {
       // console.log(data);
     });
@@ -76,7 +76,7 @@ export class TicketService extends DataService {
   }
 
   getAllNotes (ticket_id) {
-    const observable = this.http.get('ticketnote/?workorder_id=' + ticket_id);
+    const observable = this.http.get('ticketnotedetails/' + ticket_id  + '/');
     observable.subscribe(data => {
       // console.log(data);
     });

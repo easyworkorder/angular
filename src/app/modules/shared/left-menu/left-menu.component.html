@@ -1,4 +1,4 @@
-<div *ngIf="userInfo?.IsContact">
+<div>
     <!-- Menu Block for Tenant's users -->
     <div class="block full">
         <!-- Menu Title -->
@@ -22,6 +22,18 @@
                     <i class="fa fa-fw fa-exclamation-triangle icon-push"></i> <strong>Replies</strong>
                 </a>
             </li>
+            <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
+                <a href="#">
+                    <span class="badge pull-right">{{contactStat.pending}}</span>
+                    <i class="fa fa-fw fa-folder-open-o icon-push"></i> <strong>Due Today</strong>
+                </a>
+            </li>
+            <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
+                <a href="#">
+                    <span class="badge pull-right">{{contactStat.pending}}</span>
+                    <i class="fa fa-fw fa-folder-open-o icon-push"></i> <strong>Overdue</strong>
+                </a>
+            </li>
             <li>
                 <a href="#">
                     <span class="badge pull-right">{{contactStat.pending}}</span>
@@ -39,5 +51,6 @@
     </div>
     <!-- END Menu Block for Tenant's users -->
 </div>
-<div *ngIf="userInfo?.IsEmployee">This is Employee menu</div>
-<div *ngIf="userInfo?.IsPropertyManager">This is Property manager menu</div>
+<div *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
+
+</div>

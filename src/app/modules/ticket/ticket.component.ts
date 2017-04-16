@@ -65,7 +65,7 @@ export class TicketComponent implements OnInit {
         is_billable: new FormControl(false),
         is_safety_issue: new FormControl(false),
         notify_tenant: new FormControl(false),
-        tenant_notify_flag: new FormControl(true),
+        tenant_notify_flag: new FormControl(false),
         status: new FormControl('Open'),
         closed: new FormControl(false),
         notified_list: new FormControl(''),
@@ -101,12 +101,12 @@ export class TicketComponent implements OnInit {
         private ticketService: TicketService,
         private authService: AuthenticationService) {
         this.authService.verifyToken().take(1).subscribe(data => {
-            this.getAllTickets();
+            this.getAllTickets('Unassigned');
             this.getAllActiveBuildings();
             this.getAllActiveEmployees();
             this.getAllActiveProblemTypes();
             this.ticketService.tickettListRefresh$.subscribe(status => {
-                this.getAllTickets();
+                this.getAllTickets('Unassigned');
             });
         });
     }
@@ -124,13 +124,13 @@ export class TicketComponent implements OnInit {
                 this.ticketPrivateForm.get('details').setValue(this.ticketForm.get('optional_notification_message').value);
                 this.ticketService.createNote(this.ticketPrivateForm.value, true).subscribe((note: any) => {});
             }*/
-            this.getAllTickets();
+            this.getAllTickets('Unassigned');
             this.closeModal();
         });
     }
 
-    getAllTickets (): void {
-        this.ticketService.getAllTickets(this.currentCompanyId).subscribe(
+    getAllTickets (status): void {
+        this.ticketService.getAllTickets(this.currentCompanyId, status).subscribe(
             data => {
                 this.tickets = data;
             }
@@ -288,7 +288,8 @@ export class TicketComponent implements OnInit {
             is_save_as_note: false,
             notify_employee: false,
             notify_tenant: false,
-            is_deleted: false
+            is_deleted: false,
+            status: 'Open'
         });
 
         this.ticketPrivateForm.reset({

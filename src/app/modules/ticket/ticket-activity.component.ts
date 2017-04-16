@@ -349,7 +349,8 @@ export class TicketActivityComponent implements OnInit {
             tenant_notified: true,
             tenant_follow_up: false,
             vendor_notified: false,
-            vendor_follow_up: false
+            vendor_follow_up: false,
+            action_type: 'tenant_message'
         });
 
         this.ticketPrivateForm.reset({
@@ -359,7 +360,8 @@ export class TicketActivityComponent implements OnInit {
             tenant_notified: false,
             tenant_follow_up: false,
             vendor_notified: false,
-            vendor_follow_up: false
+            vendor_follow_up: false,
+            action_type: 'employee_message'
         });
 
         this.ticketVendorForm.reset({
@@ -370,7 +372,8 @@ export class TicketActivityComponent implements OnInit {
             tenant_follow_up: false,
             vendor_notified: true,
             vendor_follow_up: false,
-            send_tenant_info: true
+            send_tenant_info: true,
+            action_type: 'send_vendor'
         });
 
         this.ticketCloseForm.reset({
@@ -380,7 +383,8 @@ export class TicketActivityComponent implements OnInit {
             tenant_notified: false,
             tenant_follow_up: false,
             vendor_notified: false,
-            vendor_follow_up: false
+            vendor_follow_up: false,
+            action_type: 'close'
         });
 
 

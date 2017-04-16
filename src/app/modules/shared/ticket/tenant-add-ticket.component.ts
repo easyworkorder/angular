@@ -72,7 +72,7 @@ export class TenantAddTicketComponent implements OnInit {
         is_safety_issue: new FormControl(false),
         notify_tenant: new FormControl(false),
         tenant_notify_flag: new FormControl(false),
-        status: new FormControl('Open'),
+        status: new FormControl('Unassigned'),
         closed: new FormControl(false),
         notified_list: new FormControl(''),
         optional_notification_message: new FormControl(''),
@@ -272,7 +272,8 @@ export class TenantAddTicketComponent implements OnInit {
             closed: false,
             is_save_as_note: false,
             notify_employee: false,
-            is_deleted: false
+            is_deleted: false,
+            status: 'Unassigned'
         });
     }
 }

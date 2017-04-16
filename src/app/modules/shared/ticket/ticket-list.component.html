@@ -34,11 +34,11 @@
                         <td><span class="label" [ngClass]="{'Low': 'label-default', 'Medium': 'label-info', 'High': 'label-warning', 'Urgent': 'label-danger', 'Safety': 'label-danger'}[ticket.priority]">{{ticket.problem_name}}</span>
                         </td>
                         <td>{{ticket.source}}</td>
-                        <td><a href="javascript:void(0)"><strong>{{ticket.subject}}</strong></a><br>
-                            <span class="text-muted">1 hour ago by <strong>Carolyn Murray</strong></span>
+                        <td><strong>{{ticket.subject}}</strong><br>
+                            <span class="text-muted">{{ticket.submit_time | ticketListdateFormat}} by <strong>{{ticket.tenant_company_name}}</strong></span>
                         </td>
-                        <td class="text-center"><img [src]="getPhotoUrl(ticket)" alt="Avatar" class="img-circle"></td>
-                        <td class="text-center"><span class="badge">******</span></td>
+                        <td class="text-center"><img [src]="getPhotoUrl(ticket)" alt="Avatar" class="img-circle ticket-image"></td>
+                        <td class="text-center"><span class="badge">{{ticket.note_count}}</span></td>
                     </tr>
                 </tbody>
             </table>
