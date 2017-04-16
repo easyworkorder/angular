@@ -77,7 +77,8 @@ export class TenantAddTicketComponent implements OnInit {
         notified_list: new FormControl(''),
         optional_notification_message: new FormControl(''),
         is_save_as_note: new FormControl(false),
-        notify_employee: new FormControl(false)
+        notify_employee: new FormControl(false),
+        is_deleted: new FormControl(false)
     });
 
     constructor(private buildingService: BuildingService,
@@ -270,7 +271,8 @@ export class TenantAddTicketComponent implements OnInit {
             tenant_notify_flag: false,
             closed: false,
             is_save_as_note: false,
-            notify_employee: false
+            notify_employee: false,
+            is_deleted: false
         });
     }
 }

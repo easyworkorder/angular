@@ -71,7 +71,27 @@ export class TicketComponent implements OnInit {
         notified_list: new FormControl(''),
         optional_notification_message: new FormControl(''),
         is_save_as_note: new FormControl(false),
-        notify_employee: new FormControl(false)
+        notify_employee: new FormControl(false),
+        is_deleted: new FormControl(false)
+    });
+
+    /**
+     * If Save Notification as Note selected
+     * @type {FormGroup}
+     */
+    ticketPrivateForm = new FormGroup({
+        id: new FormControl(),
+        url: new FormControl(''),
+        workorder: new FormControl(''),
+        details: new FormControl(''),
+        employee_list: new FormControl(''),
+        updated_by_type: new FormControl('E'),
+        is_private: new FormControl(true),
+        tenant_notified: new FormControl(false),
+        tenant_follow_up: new FormControl(false),
+        vendor_notified: new FormControl(false),
+        vendor_follow_up: new FormControl(false),
+        action_type: new FormControl('employee_message')
     });
 
     constructor(private buildingService: BuildingService,
@@ -87,7 +107,7 @@ export class TicketComponent implements OnInit {
             this.getAllActiveProblemTypes();
             this.ticketService.ticketListRefresh$.subscribe(status => {
                 this.getAllTickets();
-            })
+            });
         });
     }
 
@@ -98,7 +118,12 @@ export class TicketComponent implements OnInit {
     onSubmit () {
         this._submitted = true;
         if (!this.ticketForm.valid) { return; }
-        this.ticketService.create(this.ticketForm.value).subscribe((tikcet: any) => {
+        this.ticketService.create(this.ticketForm.value).subscribe((ticket: any) => {
+            /*if (this.ticketForm.get('is_save_as_note').value) {
+                this.ticketPrivateForm.get('workorder').setValue(config.api.base + 'ticket/' + ticket.id + '/');
+                this.ticketPrivateForm.get('details').setValue(this.ticketForm.get('optional_notification_message').value);
+                this.ticketService.createNote(this.ticketPrivateForm.value, true).subscribe((note: any) => {});
+            }*/
             this.getAllTickets();
             this.closeModal();
         });
@@ -229,6 +254,7 @@ export class TicketComponent implements OnInit {
         let notifiedList = this.itemsToString(this.selectedNotified);
         notifiedList = notifiedList.split(',').join(',');
         this.ticketForm.get('notified_list').setValue(notifiedList);
+        this.ticketPrivateForm.get('employee_list').setValue(notifiedList);
     }
 
     public itemsToString (value: Array<any> = []): string {
@@ -250,6 +276,7 @@ export class TicketComponent implements OnInit {
     }
 
     resetForm () {
+
         this.ticketForm.reset({
             is_private: false,
             estimated_amount: 0,
@@ -261,7 +288,17 @@ export class TicketComponent implements OnInit {
             is_save_as_note: false,
             notify_employee: false,
             notify_tenant: false,
+            is_deleted: false
+        });
 
+        this.ticketPrivateForm.reset({
+            employee_list: '',
+            is_private: true,
+            tenant_notified: false,
+            tenant_follow_up: false,
+            vendor_notified: false,
+            vendor_follow_up: false,
+            action_type: 'employee_message'
         });
     }
 }
