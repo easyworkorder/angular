@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import config from '../../config';
@@ -16,6 +16,8 @@ declare var $: any;
 })
 export class TicketComponent implements OnInit {
 
+    @Input() tickets: any[];
+
     _submitted = false;
     building: any[] = [];
     tenant: any[] = [];
@@ -27,7 +29,7 @@ export class TicketComponent implements OnInit {
     selectedNotified: any[] = [];
     sendNotification = false;
 
-    tickets: any[] = [];
+
     buildings: any[] = [];
     tenants: any[] = [];
     problem_types: any[] = [];
@@ -101,13 +103,10 @@ export class TicketComponent implements OnInit {
         private ticketService: TicketService,
         private authService: AuthenticationService) {
         this.authService.verifyToken().take(1).subscribe(data => {
-            this.getAllTickets('Unassigned');
+            // this.getAllTickets('Unassigned');
             this.getAllActiveBuildings();
             this.getAllActiveEmployees();
             this.getAllActiveProblemTypes();
-            this.ticketService.tickettListRefresh$.subscribe(status => {
-                this.getAllTickets('Unassigned');
-            });
         });
     }
 
@@ -124,17 +123,10 @@ export class TicketComponent implements OnInit {
                 this.ticketPrivateForm.get('details').setValue(this.ticketForm.get('optional_notification_message').value);
                 this.ticketService.createNote(this.ticketPrivateForm.value, true).subscribe((note: any) => {});
             }*/
-            this.getAllTickets('Unassigned');
+            // this.getAllTickets('Unassigned');
+            this.ticketService.updateTicketList(true);
             this.closeModal();
         });
-    }
-
-    getAllTickets (status): void {
-        this.ticketService.getAllTickets(this.currentCompanyId, status).subscribe(
-            data => {
-                this.tickets = data;
-            }
-        );
     }
 
     getAllActiveBuildings (): void {

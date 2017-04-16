@@ -32,38 +32,38 @@
 
                 <!-- Menu Content -->
                 <ul class="nav nav-pills nav-stacked">
-                    <li class="active">
-                        <a (click)="updateTicketList('Unassigned')">
+                    <li [ngClass]="{'active': currentRequestType=='new'}">
+                        <a (click)="updateTicketList('new')">
                             <span class="badge pull-right">{{contactStat?.new}}</span>
                             <i class="fa fa-fw fa-ticket icon-push"></i> <strong>New</strong>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a (click)="updateTicketList('replies')">
                             <span class="badge pull-right">{{contactStat?.replies}}</span>
                             <i class="fa fa-fw fa-exclamation-triangle icon-push"></i> <strong>Replies</strong>
                         </a>
                     </li>
                     <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
-                        <a href="#">
-                            <span class="badge pull-right">{{contactStat?.pending}}</span>
+                        <a (click)="updateTicketList('due_today')">
+                            <span class="badge pull-right">{{contactStat?.due_today}}</span>
                             <i class="fa fa-fw fa-folder-open-o icon-push"></i> <strong>Due Today</strong>
                         </a>
                     </li>
                     <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
-                        <a href="#">
-                            <span class="badge pull-right">{{contactStat?.pending}}</span>
+                        <a (click)="updateTicketList('overdue')">
+                            <span class="badge pull-right">{{contactStat?.overdue}}</span>
                             <i class="fa fa-fw fa-folder-open-o icon-push"></i> <strong>Overdue</strong>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a (click)="updateTicketList('pending')">
                             <span class="badge pull-right">{{contactStat?.pending}}</span>
                             <i class="fa fa-fw fa-folder-open-o icon-push"></i> <strong>Pending</strong>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a (click)="updateTicketList('closed')">
                             <span class="badge pull-right">{{contactStat?.closed}}</span>
                             <i class="fa fa-fw fa-folder-o icon-push"></i> <strong>Closed</strong>
                         </a>
@@ -84,7 +84,7 @@
     <div class="col-md-7 col-lg-9">
         <ewo-tenant-dashboard *ngIf="tenantContactId" [tenantContactId]="tenantContactId"></ewo-tenant-dashboard>
         <ewo-vendor-dashboard *ngIf="vendorContactId" [vendorContactId]="vendorContactId"></ewo-vendor-dashboard>
-        <ewo-ticket *ngIf="IsPropertyManager || IsEmployee"></ewo-ticket>
+        <ewo-ticket *ngIf="IsPropertyManager || IsEmployee" [tickets]="tickets"></ewo-ticket>
         <!--ewo-contact-activities *ngIf="tenant" [tenant]="tenant" [isEditable]="false"></ewo-contact-activities-->
     </div>
 </div>

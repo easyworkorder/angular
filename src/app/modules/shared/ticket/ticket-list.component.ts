@@ -44,7 +44,9 @@ export class TicketListComponent implements OnInit {
         if (changes['tickets']) {
             if (changes['tickets'].currentValue.length > 0) {
                 this.ticketList = changes['tickets'].currentValue.map(item => Object.assign({}, item, { checked: false }));
-                console.log('tickets>>', this.ticketList);
+                // console.log('tickets>>', this.ticketList);
+            } else {
+                this.ticketList = [];
             }
         }
     }
