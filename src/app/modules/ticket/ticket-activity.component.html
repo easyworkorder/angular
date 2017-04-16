@@ -1,59 +1,60 @@
-<a *ngIf="ticket.is_safety_issue" href="javascript:void(0)" class="btn btn-sm btn-danger"><i class="fa fa-life-ring"></i> Saftey Issue</a>
-<a  modal-dialog-open="modal-add-public" class="btn btn-sm btn-default" data-toggle="modal"><i class="fa fa-reply"></i> Reply</a>
-<a *ngIf="isAdmin" modal-dialog-open="modal-add-private" class="btn btn-sm btn-default" data-toggle="modal"><i
-        class="fa fa-sticky-note"></i> Add
-    Note</a>
-<!--a *ngIf="isAdmin" modal-dialog-open="modal-merge-wo" class="btn btn-sm btn-default" data-toggle="modal"><i
-        class="fa fa-sort-amount-desc"></i>
-    Merge</a-->
-<a *ngIf="isAdmin && !ticket.closed" modal-dialog-open="modal-send-vendor" class="btn btn-sm btn-default" data-toggle="modal"><i
-        class="fa fa-external-link"></i> Send
-    Vendor</a>
-<a *ngIf="isAdmin && !ticket.closed" modal-dialog-open="modal-close-wo" class="btn btn-sm btn-default" data-toggle="modal"><i class="fa fa-check"></i>
-    Close</a>
-
+<span *ngIf="(userInfo?.IsPropertyManager || userInfo?.IsEmployee)">
+    <a *ngIf="ticket.is_safety_issue" href="javascript:void(0)" class="btn btn-sm btn-danger"><i class="fa fa-life-ring"></i> Saftey Issue</a>
+    <a  modal-dialog-open="modal-add-public" class="btn btn-sm btn-default" data-toggle="modal"><i class="fa fa-reply"></i> Reply</a>
+    <a *ngIf="isAdmin" modal-dialog-open="modal-add-private" class="btn btn-sm btn-default" data-toggle="modal"><i
+            class="fa fa-sticky-note"></i> Add
+        Note</a>
+    <!--a *ngIf="isAdmin" modal-dialog-open="modal-merge-wo" class="btn btn-sm btn-default" data-toggle="modal"><i
+            class="fa fa-sort-amount-desc"></i>
+        Merge</a-->
+    <a *ngIf="isAdmin && !ticket.closed" modal-dialog-open="modal-send-vendor" class="btn btn-sm btn-default" data-toggle="modal"><i
+            class="fa fa-external-link"></i> Send
+        Vendor</a>
+    <a *ngIf="isAdmin && !ticket.closed" modal-dialog-open="modal-close-wo" class="btn btn-sm btn-default" data-toggle="modal"><i class="fa fa-check"></i>
+        Close</a>
+</span>
 <div class="pull-right">
     <a href="javascript:void(0)" class="btn btn-sm btn-primary"><i class="fa fa-arrow-left"></i> Prev</a>
     <a href="javascript:void(0)" class="btn btn-sm btn-primary">Next <i class="fa fa-arrow-right"></i></a>
 </div>
 <hr>
 <div>
-<ul class="media-list media-feed push">
-    <!-- Ticket -->
-    <li class="media" *ngIf="ticket">
-        <a href="javascript:void(0)" class="pull-left">
-            <img [src]="getPhotoUrl(ticket)" alt="Avatar" class="img-circle">
-        </a>
-        <div class="media-body">
-            <p class="push-bit">
-                <span class="text-muted pull-right">
+    <ul class="media-list media-feed push">
+        <!-- Ticket -->
+        <li class="media" *ngIf="ticket">
+            <a href="javascript:void(0)" class="pull-left">
+                <img [src]="getPhotoUrl(ticket)" alt="Avatar" class="img-circle">
+            </a>
+            <div class="media-body">
+                <p class="push-bit">
+                    <span class="text-muted pull-right">
                     <small>2 hours ago</small>
                 </span>
-                <small><a href="#">Howard Smith</a> <span *ngIf="ticket.source">through <a href="javascript:void(0)">{{ticket.source}}</a></span></small>
-            </p>
-            <h4><strong>{{ticket.subject}}</strong></h4>
-            <p>{{ticket.description}}</p>
-        </div>
-    </li>
-    <!-- END Ticket -->
+                    <small><a href="#">Howard Smith</a> <span *ngIf="ticket.source">through <a href="javascript:void(0)">{{ticket.source}}</a></span></small>
+                </p>
+                <h4><strong>{{ticket.subject}}</strong></h4>
+                <p>{{ticket.description}}</p>
+            </div>
+        </li>
+        <!-- END Ticket -->
 
-    <!-- Replies -->
-    <li class="media" *ngFor="let note of notes">
-        <a href="javascript:void(0)" class="pull-left">
-            <img [src]="getPhotoUrl(note)" alt="Avatar" class="img-circle chatui-talk-msg-avatar">
-        </a>
-        <div class="media-body">
-            <p class="push-bit">
-                                                            <span class="text-muted pull-right">
+        <!-- Replies -->
+        <li class="media" *ngFor="let note of notes">
+            <a href="javascript:void(0)" class="pull-left">
+                <img [src]="getPhotoUrl(note)" alt="Avatar" class="img-circle chatui-talk-msg-avatar">
+            </a>
+            <div class="media-body">
+                <p class="push-bit">
+                    <span class="text-muted pull-right">
                                                                 <small>1 hour ago</small>
                                                             </span>
-                <small><a *ngIf="note.updated_by_type == 'E'" href="javascript:void(0)">Support</a></small>
-            </p>
-            <div [innerHTML]="note.details"></div>
-        </div>
-    </li>
-    <!-- END Replies -->
-</ul>
+                    <small><a *ngIf="note.updated_by_type == 'E'" href="javascript:void(0)">Support</a></small>
+                </p>
+                <div [innerHTML]="note.details"></div>
+            </div>
+        </li>
+        <!-- END Replies -->
+    </ul>
 </div>
 <!-- END Tickets List -->
 <div id="modal-add-public" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
@@ -69,8 +70,8 @@
                     <div class="form-group">
                         <label class="col-sm-6 col-md-4 col-lg-3 control-label" for="tenant_list">Tenant <span class="required">*</span></label>
                         <div class="col-sm-6 col-md-8 col-lg-9">
-                           <ng-select id="tenant_list" [multiple]="true" [items]="tenant_contacts" (selected)="selectedTenantList($event)" (removed)="removedTenantList($event)"
-                                               placeholder="Choose Reciptient(s)" [active]="selectedTenant"></ng-select>
+                            <ng-select id="tenant_list" [multiple]="true" [items]="tenant_contacts" (selected)="selectedTenantList($event)" (removed)="removedTenantList($event)"
+                                placeholder="Choose Reciptient(s)" [active]="selectedTenant"></ng-select>
                             <span *ngIf="_publicFormSubmitted && (selectedTenant.length == 0)" class="validation-error">This field is Required</span>
                         </div>
                     </div>
@@ -78,7 +79,8 @@
                     <div class="form-group">
                         <label class="col-sm-6 col-md-4 col-lg-3 control-label" for="details">Note <span class="required">*</span> </label>
                         <div class="col-sm-6 col-md-8 col-lg-9">
-                            <textarea id="details" [formControlValidator]="ticketPublicForm.controls.details" formControlName="details" name="details" rows="7" class="form-control" placeholder="Note..."></textarea>
+                            <textarea id="details" [formControlValidator]="ticketPublicForm.controls.details" formControlName="details" name="details"
+                                rows="7" class="form-control" placeholder="Note..."></textarea>
                             <span class="validation-error">{{ticketPublicForm.controls.details.error}}</span>
                         </div>
                     </div>
@@ -108,14 +110,15 @@
                         <label class="col-sm-6 col-md-4 col-lg-3 control-label" for="employee_list">Employee</label>
                         <div class="col-sm-6 col-md-8 col-lg-9">
                             <ng-select id="employee_list" [multiple]="true" [items]="employees" (selected)="selectedEmployeeList($event)" (removed)="removedEmployeeList($event)"
-                                       placeholder="Choose Reciptient(s)" [active]="selectedEmployee"></ng-select>
+                                placeholder="Choose Reciptient(s)" [active]="selectedEmployee"></ng-select>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-sm-6 col-md-4 col-lg-3 control-label" for="private_details">Note <span class="required">*</span> </label>
                         <div class="col-sm-6 col-md-8 col-lg-9">
-                            <textarea id="private_details" [formControlValidator]="ticketPrivateForm.controls.details" formControlName="details" name="details" rows="7" class="form-control" placeholder="Note..."></textarea>
+                            <textarea id="private_details" [formControlValidator]="ticketPrivateForm.controls.details" formControlName="details" name="details"
+                                rows="7" class="form-control" placeholder="Note..."></textarea>
                             <span class="validation-error">{{ticketPrivateForm.controls.details.error}}</span>
                         </div>
                     </div>
@@ -146,7 +149,7 @@
                         <label class="col-sm-6 col-md-4 col-lg-3 control-label" for="vendor">Vendor <span class="required">*</span> </label>
                         <div class="col-sm-6 col-md-8 col-lg-9">
                             <ng-select id="vendor" [multiple]="false" [items]="vendors" placeholder="Select Vendor" (selected)="setSelectedVendor($event)"
-                                       [active]="selectedVendor"></ng-select>
+                                [active]="selectedVendor"></ng-select>
                             <span *ngIf="(_vendorSubmitted && selectedVendor.length == 0)" class="validation-error">This field is Required</span>
                         </div>
                     </div>
@@ -154,14 +157,16 @@
                     <div class="form-group">
                         <label class="col-sm-6 col-md-4 col-lg-3 control-label" for="work_description">Work Descriptin <span class="required">*</span> </label>
                         <div class="col-sm-6 col-md-8 col-lg-9">
-                            <textarea id="work_description" [formControlValidator]="ticketVendorForm.controls.details" formControlName="details" name="details" rows="7" class="form-control" placeholder="Work description"></textarea>
+                            <textarea id="work_description" [formControlValidator]="ticketVendorForm.controls.details" formControlName="details" name="details"
+                                rows="7" class="form-control" placeholder="Work description"></textarea>
                             <span class="validation-error">{{ticketVendorForm.controls.details.error}}</span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-xs-3 control-label">File(s)</label>
                         <div class="col-xs-9">
-                            <input id="photo" name="photo" type="file" (change)="fileSelectionChange($event)" class="hidden" accept="image/gif, image/jpeg, image/png, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/pdf" />
+                            <input id="photo" name="photo" type="file" (change)="fileSelectionChange($event)" class="hidden" accept="image/gif, image/jpeg, image/png, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/pdf"
+                            />
                             <i class="fa fa-fw fa-upload"></i> <a href="javascript:void(0)" onclick="$('#photo').click();">Attach file</a>
                             <span id="selected_photo">{{ selectedPhoto }}</span>
                         </div>
@@ -198,7 +203,8 @@
                     <div class="form-group">
                         <label class="col-sm-6 col-md-4 col-lg-3 control-label" for="close_note">Note <span class="required">*</span> </label>
                         <div class="col-sm-6 col-md-8 col-lg-9">
-                            <textarea id="close_note" [formControlValidator]="ticketCloseForm.controls.details" formControlName="details" name="details" rows="7" class="form-control" placeholder="Close note"></textarea>
+                            <textarea id="close_note" [formControlValidator]="ticketCloseForm.controls.details" formControlName="details" name="details"
+                                rows="7" class="form-control" placeholder="Close note"></textarea>
                             <span class="validation-error">{{ticketCloseForm.controls.details.error}}</span>
                         </div>
                     </div>

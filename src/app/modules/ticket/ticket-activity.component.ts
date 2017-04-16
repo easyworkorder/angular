@@ -146,6 +146,8 @@ export class TicketActivityComponent implements OnInit {
     ) {
         this.authService.verifyToken().take(1).subscribe(data => {
             this.userInfo = this.storage.getUserInfo();
+            console.log('userInfo2', this.userInfo);
+
 
             let _problemtype_id = this.ticket.problemtype.extractIdFromURL();
             /**

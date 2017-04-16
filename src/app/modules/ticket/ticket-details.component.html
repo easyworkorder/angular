@@ -27,8 +27,8 @@
             <div class="block-title">
                 <ul class="nav nav-tabs" data-toggle="tabs">
                     <li class="active"><a (click)="switchTab(1)" href="#ticket-activity" data-toggle="tab">Activity</a></li>
-                    <li class=""><a (click)="switchTab(2)" href="#ticket-labor" data-toggle="tab">Labor <span class="badge">{{ticket?.labor_total | currency:'USD':true}}</span></a></li>
-                    <li class=""><a (click)="switchTab(3)" href="#ticket-materials" data-toggle="tab">Materials <span class="badge">{{ticket?.material_total | currency:'USD':true}}</span></a></li>
+                    <li *ngIf="userInfo?.IsPropertyManager || userInfo?.IsEmployee" class=""><a (click)="switchTab(2)" href="#ticket-labor" data-toggle="tab">Labor <span class="badge">{{ticket?.labor_total | currency:'USD':true}}</span></a></li>
+                    <li *ngIf="userInfo?.IsPropertyManager || userInfo?.IsEmployee" class=""><a (click)="switchTab(3)" href="#ticket-materials" data-toggle="tab">Materials <span class="badge">{{ticket?.material_total | currency:'USD':true}}</span></a></li>
                     <li class=""><a (click)="switchTab(4)" href="#ticket-files" data-toggle="tab">Files <span class="badge">3</span></a></li>
                 </ul>
             </div>
@@ -95,8 +95,9 @@
             <!-- Quick Month Stats Title -->
             <div class="block-title">
                 <div class="block-options pull-right">
-                    <a modal-dialog-open="modal-due-date" (click)="onDueDateEdit($event)" class="btn btn-effect-ripple btn-success" data-toggle="modal"
-                        title="" style="overflow: hidden; position: relative;" data-original-title="Change"><i class="fa fa-pencil"></i></a>
+                    <a *ngIf="userInfo?.IsPropertyManager || userInfo?.IsEmployee" modal-dialog-open="modal-due-date" (click)="onDueDateEdit($event)"
+                        class="btn btn-effect-ripple btn-success" data-toggle="modal" title="" style="overflow: hidden; position: relative;"
+                        data-original-title="Change"><i class="fa fa-pencil"></i></a>
                 </div>
                 <h2>Open</h2><span class="badge" *ngIf="ticket?.is_billable">Billable - {{(ticket?.billable_total == 0 ? ticket?.estimated_amount : ticket?.billable_total)  | currency:'USD':true}}</span>
             </div>
@@ -114,8 +115,9 @@
             <!-- Quick Month Stats Title -->
             <div class="block-title">
                 <div class="block-options pull-right">
-                    <a modal-dialog-open="modal-requestor" (click)="onRequestorModalOpen()" class="btn btn-effect-ripple btn-success" data-toggle="modal"
-                        title="" style="overflow: hidden; position: relative;" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                    <a *ngIf="userInfo?.IsPropertyManager || userInfo?.IsEmployee" modal-dialog-open="modal-requestor" (click)="onRequestorModalOpen()"
+                        class="btn btn-effect-ripple btn-success" data-toggle="modal" title="" style="overflow: hidden; position: relative;"
+                        data-original-title="Edit"><i class="fa fa-pencil"></i></a>
                 </div>
                 <h2>Requestor</h2>
             </div>
@@ -140,7 +142,7 @@
         <!-- END Requestor Block -->
 
         <!-- Organization Block -->
-        <div class="block">
+        <div *ngIf="userInfo?.IsPropertyManager || userInfo?.IsEmployee" class="block">
             <ewo-ticket-edit *ngIf="ticket && employees" [ticket]="ticket" [employees]="employees"></ewo-ticket-edit>
         </div>
         <!-- END Organization Block -->

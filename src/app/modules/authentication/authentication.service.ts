@@ -49,13 +49,13 @@ export class AuthenticationService {
     });
   }
 
-  token(): string {
+  token (): string {
     // fetch token from storage
     const token = this.storage.get(config.storage.token);
     return token ? token.token : null;
   }
 
-  isAuthenticated(): boolean {
+  isAuthenticated (): boolean {
     // true, false or null (if authentication is not compeleted yet)
     return this._authenticated;
   }
@@ -82,7 +82,7 @@ export class AuthenticationService {
   }
   */
 
-  authenticate(validate: boolean = true): Observable<any> {
+  authenticate (validate: boolean = true): Observable<any> {
     const user = this.storage.get(config.storage.user);
     const token = this.storage.get(config.storage.token);
 
@@ -137,7 +137,7 @@ export class AuthenticationService {
     return observable;
   }
 
-  deauthenticate(): void {
+  deauthenticate (): void {
     this._data.view = null; // this._userDataGuest;
     this._authenticated = false;
 
@@ -145,7 +145,7 @@ export class AuthenticationService {
     this.events.emit('USER_DEAUTHORIZED');
   }
 
-  edit(user?: any): any {
+  edit (user?: any): any {
     user = user || this._data.view || {};
     user = Object.assign(true, {}, user); // TODO: replace with native function later
     delete user.password;
@@ -153,7 +153,7 @@ export class AuthenticationService {
     this._data.edit = user;
   }
 
-  signup(credentials: any): Observable<any> {
+  signup (credentials: any): Observable<any> {
     // POST '/signup'
     const observable = this.http.post('signup', credentials);
 
@@ -173,14 +173,14 @@ export class AuthenticationService {
     return observable;
   }
 
-  signin(credentials: any): Observable<any> {
+  signin (credentials: any): Observable<any> {
     // POST '/signin'
     const observable = this.http.post('api-token-auth/', credentials);
 
     observable.subscribe(
       data => {
         const token = <any>data;
-
+        // this.storage.set(config.storage.user);
         // OBSOLETED / this.storage.set(config.storage.user, user);
         this.storage.set(config.storage.token, token);
         // this.toasterService.pop('success', 'Args Title', 'Args Body');
@@ -196,8 +196,9 @@ export class AuthenticationService {
     return observable;
   }
 
-  signout(): void {
+  signout (): void {
     this.deauthenticate();
+    this.storage.clear();
     this.storage.remove(config.storage.user);
     this.storage.remove(config.storage.token);
     //this.storage.remove(config.storage.preferences);
@@ -206,7 +207,7 @@ export class AuthenticationService {
     this.router.navigate([config.routes.signoutRedirect]);
   }
 
-  getUserInfo(): any {
+  getUserInfo (): any {
     const observable = this.http.get('userinfo/');
     observable.subscribe(
       data => {
@@ -214,11 +215,11 @@ export class AuthenticationService {
         userInfo = Object.assign({}, userInfo, { IsContact: false, IsPropertyManager: false, IsEmployee: false, IsVendor: false });
         if (userInfo.group_name == config.userGroup.CONTACT)
           userInfo.IsContact = true;
-        else if(userInfo.group_name == config.userGroup.PROPERTY_MANAGER)
+        else if (userInfo.group_name == config.userGroup.PROPERTY_MANAGER)
           userInfo.IsPropertyManager = true;
-        else if(userInfo.group_name == config.userGroup.EMPLOYEE)
+        else if (userInfo.group_name == config.userGroup.EMPLOYEE)
           userInfo.IsEmployee = true;
-        else if(userInfo.group_name == config.userGroup.VENDOR)
+        else if (userInfo.group_name == config.userGroup.VENDOR)
           userInfo.IsVendor = true;
 
         this.storage.set(config.storage.user, userInfo);
@@ -232,7 +233,7 @@ export class AuthenticationService {
   }
 
 
-  update(user?: any): Observable<any> {
+  update (user?: any): Observable<any> {
     user = user || this._data.edit;
 
     let data = Object.assign(true, {}, user); // TODO: replace with native function later
@@ -251,7 +252,7 @@ export class AuthenticationService {
     return observable;
   }
 
-  password(credentials: any): Observable<any> {
+  password (credentials: any): Observable<any> {
     // POST 'api/me/password'
     const observable = this.http.post('me/password', credentials);
 
@@ -264,7 +265,7 @@ export class AuthenticationService {
     return observable;
   }
 
-  passwordReset(data: any): Observable<any> {
+  passwordReset (data: any): Observable<any> {
     // POST 'api/me/password/reset'
     const observable = this.http.post('me/password/reset', data);
 
@@ -277,7 +278,7 @@ export class AuthenticationService {
     return observable;
   }
 
-  passwordResetConfirmation(data: any): Observable<any> {
+  passwordResetConfirmation (data: any): Observable<any> {
     // POST 'api/me/password/resetcomplete'
     // TODO: ask to rename to ..../password/reset/confirmation
     const observable = this.http.post('me/password/resetcomplete', data);
@@ -291,19 +292,19 @@ export class AuthenticationService {
     return observable;
   }
 
-  setPreferences(key, value): void {
+  setPreferences (key, value): void {
     let preferences = this.storage.get(config.storage.preferences) || {};
     preferences[key] = value;
 
     this.storage.set(config.storage.preferences, preferences);
   }
 
-  getPreferences(key): any {
+  getPreferences (key): any {
     let preferences = this.storage.get(config.storage.preferences) || {};
     return preferences[key];
   }
 
-  verifyToken() {
+  verifyToken () {
     const token = this.storage.get(config.storage.token);
     const observable = this.http.post('api-token-verify/', token)
 

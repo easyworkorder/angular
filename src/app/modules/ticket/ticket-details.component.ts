@@ -9,6 +9,9 @@ import { UpdateTicketLaborService } from './ticket-labor.service';
 import { UpdateTicketMaterialService } from './ticket-material.service';
 import config from '../../config';
 
+import {
+    Storage
+} from './../../services/index';
 
 import {
     AppHttp
@@ -52,6 +55,8 @@ export class TicketDetailsComponent implements OnInit {
 
     isRequestorValid: boolean = true;
 
+    userInfo: any;
+
     dueDateForm = new FormGroup({
         dueDate: new FormControl('', Validators.required)
     });
@@ -69,9 +74,12 @@ export class TicketDetailsComponent implements OnInit {
         private route: ActivatedRoute,
         private updateTicketLaborService: UpdateTicketLaborService,
         private updateTicketMaterialService: UpdateTicketMaterialService,
-        private toasterService: ToasterService
+        private toasterService: ToasterService,
+        private storage: Storage,
     ) {
         this.authService.verifyToken().take(1).subscribe(data => {
+            this.userInfo = this.storage.getUserInfo();
+            console.log('userInfo', this.userInfo);
             this.getAllActiveEmployees();
             this.ticketService.ticketRefresh$.subscribe(status => {
                 this.getTicketDetails();
@@ -86,6 +94,7 @@ export class TicketDetailsComponent implements OnInit {
         this.getAllMaterials(this.ticketId);
         this.getTicketDetails();
         this.switchTab(1);
+
     }
     getTicketDetails () {
         this.ticketService.getTicketDetails(this.ticketId).subscribe(
