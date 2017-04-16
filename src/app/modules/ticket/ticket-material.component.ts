@@ -69,6 +69,7 @@ export class TicketMaterialComponent implements OnInit {
         // Update Material
         if (this.ticketMaterialForm.value.id) {
             this.ticketService.updateMaterial(this.ticketMaterialForm.value).subscribe((material: any) => {
+                this.ticketService.updateTicketList(true);
                 this._submitted = false;
                 this.change.emit(true);
                 this.closeModal();
@@ -83,6 +84,7 @@ export class TicketMaterialComponent implements OnInit {
             delete this.ticketMaterialForm.value.url;
 
         this.ticketService.createMaterial(this.ticketMaterialForm.value).subscribe((material: any) => {
+            this.ticketService.updateTicketList(true);
             this._submitted = false;
             this.closeModal();
             this.change.emit(true);
@@ -113,6 +115,7 @@ export class TicketMaterialComponent implements OnInit {
         if (this.toDeletedMaterial) {
             this.ticketService.deleteMaterial(this.toDeletedMaterial).subscribe(data => {
                 $('#modal-material-delete-confirm').modal('hide');
+                this.ticketService.updateTicketList(true);
                 this.change.emit(true);
             })
         }
