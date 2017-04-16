@@ -10,11 +10,12 @@
     <tbody>
         <tr *ngFor="let insurance of insuranceList">
             <td><strong>{{insurance.type.type}}</strong></td>
-            <td class="hidden-xs"><span *ngIf="insurance.exp_date">{{insurance.exp_date}}</span></td>
+            <td class="hidden-xs"><span *ngIf="insurance.exp_date">{{insurance.exp_date | dateFormat}}</span></td>
             <td class="hidden-sm hidden-xs"><span *ngIf="insurance.per_occur">{{insurance.per_occur | currency:'USD':true}}</span></td>
             <td><span *ngIf="insurance.aggregate">{{insurance.aggregate | currency:'USD':true}}</span></td>
             <td class="text-center">
-                <a *ngIf="isEditable" href="javascript:void(0)" (click)="updateInsurance(insurance)" class="btn btn btn-success" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                <a *ngIf="isEditable" href="javascript:void(0)" (click)="updateInsurance(insurance)" class="btn btn btn-success" data-toggle="tooltip"
+                    title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
             </td>
         </tr>
     </tbody>

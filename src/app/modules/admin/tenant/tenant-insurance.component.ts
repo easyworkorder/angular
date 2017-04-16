@@ -18,7 +18,7 @@ export class TenantInsuranceComponent implements OnInit {
     @Input() updateInsuranceDataInfo: any;
     @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
 
-    exp_date_not_valid = false;
+    exp_date_not_valid = true;
 
     constructor(
         private tenantService: TenantService,
@@ -27,14 +27,15 @@ export class TenantInsuranceComponent implements OnInit {
         private route: ActivatedRoute,
         private dataService: DataService,
         private updateTenantInsuranceService: UpdateTenantInsuranceService) {
-        this.updateTenantInsuranceService.updateInsuranceInfo$.subscribe(data => {
+        this.updateTenantInsuranceService.updateInsuranceInfo$.subscribe((data: any) => {
             this.updateInsuranceDataInfo = data;
             // console.log('people>>>', this.updatePeopleInfo);
-            this.tenantInsuranceForm.setValue(this.updateInsuranceDataInfo);
+            data.exp_date = data.exp_date ? data.exp_date.toDate() : data.exp_date;
+            this.tenantInsuranceForm.patchValue(this.updateInsuranceDataInfo);
         });
     }
 
-    ngOnInit() {
+    ngOnInit () {
         // console.log('Edited Data', this.updatePeopleInfo);
         $('#add-tenant-insurance').on('hidden.bs.modal', () => {
             this.closeModal();
@@ -52,25 +53,34 @@ export class TenantInsuranceComponent implements OnInit {
     });
 
 
-    onSubmit() {
+    onSubmit () {
 
-        if (!this.tenantInsuranceForm.valid) { return; }
+        // if (this.tenantInsuranceForm.get('exp_date').value) {
+        //     let date: Date = this.tenantInsuranceForm.get('exp_date').value;
+        //     if(date.toString().indexOf('T') > -1) {
+        //         let dateAndTime = date.toISOString().split('T');
+        //         this.tenantInsuranceForm.get('exp_date').setValue(dateAndTime[0]);
+        //     }
+        //     else {
+        //         this.tenantInsuranceForm.get('exp_date').setValue(date);
+        //     }
 
-        if (this.tenantInsuranceForm.get('exp_date').value) {
-            let date: Date = this.tenantInsuranceForm.get('exp_date').value;
-            if(date.toString().indexOf('T') > -1) {
-                let dateAndTime = date.toISOString().split('T');
-                this.tenantInsuranceForm.get('exp_date').setValue(dateAndTime[0]);
-            }
-            else {
-                this.tenantInsuranceForm.get('exp_date').setValue(date);
-            }
+        // }
+        // else{
+        //     this.exp_date_not_valid = true;
+        //     return;
+        // }
 
-        }
-        else{
+        this.exp_date_not_valid = false;
+
+        if (this.dataService.dateValidation(this.tenantInsuranceForm.get('exp_date'))) {
             this.exp_date_not_valid = true;
+        } else {
+            this.exp_date_not_valid = false;
             return;
         }
+
+        if (!this.tenantInsuranceForm.valid) { return; }
 
         //Update People
         if (this.tenantInsuranceForm.value.id) {
@@ -85,24 +95,30 @@ export class TenantInsuranceComponent implements OnInit {
         this.tenantInsuranceForm.get('tenant').setValue(`${config.api.base}tenant/${this.tenant.id}/`);
         let val = this.tenantInsuranceForm.value;
         this.tenantInsuranceForm.removeControl('id');
+        this.tenantInsuranceForm.removeControl('url');
         this.tenantService.createTenantInsurance(this.tenantInsuranceForm.value).subscribe((insurance: any) => {
             this.change.emit(true);
             this.closeModal();
         });
         this.tenantInsuranceForm.addControl('id', new FormControl());
+        this.tenantInsuranceForm.addControl('url', new FormControl());
     }
 
-    closeModal() {
+    closeModal () {
         this.resetForm();
         $('#add-tenant-insurance').modal('hide');
     }
 
-    resetForm() {
+    resetForm () {
         this.tenantInsuranceForm.reset({
-            type:{ type: ''},
-            exp_date:'',
-            per_occur:'',
-            aggregate:''
+            type: { type: '' },
+            exp_date: '',
+            per_occur: '',
+            aggregate: ''
         });
+    }
+
+    onSelectDate (value) {
+        this.exp_date_not_valid = true;
     }
 }

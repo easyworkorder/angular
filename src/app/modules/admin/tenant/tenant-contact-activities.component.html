@@ -3,25 +3,20 @@
     <div class="block-title">
         <div class="block-options pull-right">
             <a *ngIf="tabs.isTicketTabVisible && (isTenant || isDashboardList || isAdmin)" modal-dialog-open="modal-add-tenant-ticket"
-               class="btn btn-effect-ripple btn-default"
-               data-toggle="modal"
-               title="" style="overflow: hidden; position: relative;" data-original-title="Add Contact"><i
+                class="btn btn-effect-ripple btn-default" data-toggle="modal" title="" style="overflow: hidden; position: relative;"
+                data-original-title="Add Contact"><i
                     class="fa fa-plus"></i></a>
             <!--a *ngIf="tabs.isInvoiceTabVisible" href="#add-tenant-invoice" class="btn btn-effect-ripple btn-default" data-toggle="modal"
               title="" style="overflow: hidden; position: relative;" data-original-title="Add Contact"><i class="fa fa-plus"></i></a>-->
-            <a *ngIf="isAdmin && tabs.isPeopleTabVisible" modal-dialog-open="add-tenant-cotact-people"
-               class="btn btn-effect-ripple btn-default" data-toggle="modal"
-               title="" style="overflow: hidden; position: relative;" data-original-title="Add Contact"><i
-                    class="fa fa-plus"></i></a>
-            <a *ngIf="isAdmin && tabs.isInsuranceTabVisible" modal-dialog-open="add-tenant-insurance"
+            <a *ngIf="isAdmin && tabs.isPeopleTabVisible" modal-dialog-open="add-tenant-cotact-people" class="btn btn-effect-ripple btn-default"
+                data-toggle="modal" title="" style="overflow: hidden; position: relative;" data-original-title="Add Contact"><i class="fa fa-plus"></i></a>
+            <!--<a *ngIf="isAdmin && tabs.isInsuranceTabVisible" modal-dialog-open="add-tenant-insurance"
                class="btn btn-effect-ripple btn-default"
                data-toggle="modal"
                title="" style="overflow: hidden; position: relative;" data-original-title="Add Contact"><i
-                    class="fa fa-plus"></i></a>
-            <a *ngIf="isAdmin && tabs.isFilesTabVisible" href="#add-tenant-files"
-               class="btn btn-effect-ripple btn-default"
-               data-toggle="modal"
-               title="" style="overflow: hidden; position: relative;" data-original-title="Add Contact"><i
+                    class="fa fa-plus"></i></a>-->
+            <a *ngIf="isAdmin && tabs.isFilesTabVisible" href="#add-tenant-files" class="btn btn-effect-ripple btn-default" data-toggle="modal"
+                title="" style="overflow: hidden; position: relative;" data-original-title="Add Contact"><i
                     class="fa fa-plus"></i></a>
         </div>
         <ul class="nav nav-tabs" data-toggle="tabs">
@@ -50,47 +45,41 @@
                 <!-- Partial Responsive Content -->
                 <table class="table table-striped table-borderless table-vcenter">
                     <thead>
-                    <tr>
-                        <th>Inv No</th>
-                        <th class="hidden-xs">Date</th>
-                        <th class="hidden-sm hidden-xs">Amount</th>
-                        <th colspan="2"></th>
-                    </tr>
+                        <tr>
+                            <th>Inv No</th>
+                            <th class="hidden-xs">Date</th>
+                            <th class="hidden-sm hidden-xs">Amount</th>
+                            <th colspan="2"></th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td><strong><a href="tenant_invoice.html">117011</a></strong></td>
-                        <td class="hidden-xs">06/30/2017</td>
-                        <td class="hidden-sm hidden-xs">$1,500,00</td>
-                        <td class="text-center">
-                            <a href="javascript:void(0)" data-toggle="tooltip" title=""
-                               class="btn btn-effect-ripple btn btn-default"
-                               style="overflow: hidden; position: relative;"
-                               data-original-title="Print"><i class="fa fa-print"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><strong><a href="tenant_invoice.html">217129</a></strong></td>
-                        <td class="hidden-xs">06/30/2017</td>
-                        <td class="hidden-sm hidden-xs">$1,500,00</td>
-                        <td class="text-center">
-                            <a href="javascript:void(0)" data-toggle="tooltip" title=""
-                               class="btn btn-effect-ripple btn btn-default"
-                               style="overflow: hidden; position: relative;"
-                               data-original-title="Print"><i class="fa fa-print"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><strong><a href="tenant_invoice.html">317013</a></strong></td>
-                        <td class="hidden-xs">06/30/2017</td>
-                        <td class="hidden-sm hidden-xs">$1,500,00</td>
-                        <td class="text-center">
-                            <a href="javascript:void(0)" data-toggle="tooltip" title=""
-                               class="btn btn-effect-ripple btn btn-default"
-                               style="overflow: hidden; position: relative;"
-                               data-original-title="Print"><i class="fa fa-print"></i></a>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td><strong><a href="tenant_invoice.html">117011</a></strong></td>
+                            <td class="hidden-xs">06/30/2017</td>
+                            <td class="hidden-sm hidden-xs">$1,500,00</td>
+                            <td class="text-center">
+                                <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn btn-default" style="overflow: hidden; position: relative;"
+                                    data-original-title="Print"><i class="fa fa-print"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong><a href="tenant_invoice.html">217129</a></strong></td>
+                            <td class="hidden-xs">06/30/2017</td>
+                            <td class="hidden-sm hidden-xs">$1,500,00</td>
+                            <td class="text-center">
+                                <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn btn-default" style="overflow: hidden; position: relative;"
+                                    data-original-title="Print"><i class="fa fa-print"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong><a href="tenant_invoice.html">317013</a></strong></td>
+                            <td class="hidden-xs">06/30/2017</td>
+                            <td class="hidden-sm hidden-xs">$1,500,00</td>
+                            <td class="text-center">
+                                <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn btn-default" style="overflow: hidden; position: relative;"
+                                    data-original-title="Print"><i class="fa fa-print"></i></a>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
                 <!-- END Partial Responsive Content -->
@@ -101,8 +90,7 @@
         <!-- People -->
         <div class="tab-pane" id="profile-people">
             <div class="block-content-full">
-                <ewo-contact-list [contactList]="tenant" [isEditable]="isAdmin"
-                                  (update)="updateContactInfo($event)"></ewo-contact-list>
+                <ewo-contact-list [contactList]="tenant" [isEditable]="isAdmin" (update)="updateContactInfo($event)"></ewo-contact-list>
             </div>
         </div>
         <!-- END People -->
@@ -110,8 +98,7 @@
         <!-- Insurance -->
         <div class="tab-pane" id="profile-insurance">
             <div class="block-content-full">
-                <ewo-insurance-list [insuranceList]="insurances" [isEditable]="isAdmin"
-                                    (update)="updateInsuranceInfo($event)"></ewo-insurance-list>
+                <ewo-insurance-list [insuranceList]="insurances" [isEditable]="isAdmin" (update)="updateInsuranceInfo($event)"></ewo-insurance-list>
             </div>
         </div>
         <!-- END Insurance -->
@@ -123,8 +110,7 @@
                 <div class="col-lg-4">
                     <div class="gallery-image-container animation-fadeInQuick2Inv">
                         <img src="assets/img/placeholders/photos/photo5.jpg" alt="Image">
-                        <a href="assets/img/placeholders/photos/photo5.jpg" class="gallery-image-options"
-                           title="Image Info">
+                        <a href="assets/img/placeholders/photos/photo5.jpg" class="gallery-image-options" title="Image Info">
                             <i class="fa fa-search-plus fa-3x text-light"></i>
                         </a>
                     </div>
@@ -132,8 +118,7 @@
                 <div class="col-lg-4">
                     <div class="gallery-image-container animation-fadeInQuick2Inv">
                         <img src="assets/img/placeholders/photos/photo6.jpg" alt="Image">
-                        <a href="assets/img/placeholders/photos/photo6.jpg" class="gallery-image-options"
-                           title="Image Info">
+                        <a href="assets/img/placeholders/photos/photo6.jpg" class="gallery-image-options" title="Image Info">
                             <i class="fa fa-search-plus fa-3x text-light"></i>
                         </a>
                     </div>
@@ -141,8 +126,7 @@
                 <div class="col-lg-4">
                     <div class="gallery-image-container animation-fadeInQuick2Inv">
                         <img src="assets/img/placeholders/photos/photo7.jpg" alt="Image">
-                        <a href="assets/img/placeholders/photos/photo7.jpg" class="gallery-image-options"
-                           title="Image Info">
+                        <a href="assets/img/placeholders/photos/photo7.jpg" class="gallery-image-options" title="Image Info">
                             <i class="fa fa-search-plus fa-3x text-light"></i>
                         </a>
                     </div>
@@ -150,8 +134,7 @@
                 <div class="col-lg-3">
                     <div class="gallery-image-container animation-fadeInQuick2">
                         <img src="assets/img/placeholders/photos/photo8.jpg" alt="Image">
-                        <a href="assets/img/placeholders/photos/photo8.jpg" class="gallery-image-options"
-                           title="Image Info">
+                        <a href="assets/img/placeholders/photos/photo8.jpg" class="gallery-image-options" title="Image Info">
                             <i class="fa fa-search-plus fa-3x text-light"></i>
                         </a>
                     </div>
@@ -159,8 +142,7 @@
                 <div class="col-lg-3">
                     <div class="gallery-image-container animation-fadeInQuick2">
                         <img src="assets/img/placeholders/photos/photo9.jpg" alt="Image">
-                        <a href="assets/img/placeholders/photos/photo9.jpg" class="gallery-image-options"
-                           title="Image Info">
+                        <a href="assets/img/placeholders/photos/photo9.jpg" class="gallery-image-options" title="Image Info">
                             <i class="fa fa-search-plus fa-3x text-light"></i>
                         </a>
                     </div>
@@ -168,8 +150,7 @@
                 <div class="col-lg-3">
                     <div class="gallery-image-container animation-fadeInQuick2">
                         <img src="assets/img/placeholders/photos/photo10.jpg" alt="Image">
-                        <a href="assets/img/placeholders/photos/photo10.jpg" class="gallery-image-options"
-                           title="Image Info">
+                        <a href="assets/img/placeholders/photos/photo10.jpg" class="gallery-image-options" title="Image Info">
                             <i class="fa fa-search-plus fa-3x text-light"></i>
                         </a>
                     </div>
@@ -177,8 +158,7 @@
                 <div class="col-lg-3">
                     <div class="gallery-image-container animation-fadeInQuick2">
                         <img src="assets/img/placeholders/photos/photo11.jpg" alt="Image">
-                        <a href="assets/img/placeholders/photos/photo11.jpg" class="gallery-image-options"
-                           title="Image Info">
+                        <a href="assets/img/placeholders/photos/photo11.jpg" class="gallery-image-options" title="Image Info">
                             <i class="fa fa-search-plus fa-3x text-light"></i>
                         </a>
                     </div>
@@ -189,8 +169,7 @@
                 <div class="col-lg-4">
                     <div class="gallery-image-container animation-fadeInQuick2Inv">
                         <img src="assets/img/placeholders/photos/photo12.jpg" alt="Image">
-                        <a href="assets/img/placeholders/photos/photo12.jpg" class="gallery-image-options"
-                           title="Image Info">
+                        <a href="assets/img/placeholders/photos/photo12.jpg" class="gallery-image-options" title="Image Info">
                             <i class="fa fa-search-plus fa-3x text-light"></i>
                         </a>
                     </div>
@@ -198,8 +177,7 @@
                 <div class="col-lg-4">
                     <div class="gallery-image-container animation-fadeInQuick2Inv">
                         <img src="assets/img/placeholders/photos/photo13.jpg" alt="Image">
-                        <a href="assets/img/placeholders/photos/photo13.jpg" class="gallery-image-options"
-                           title="Image Info">
+                        <a href="assets/img/placeholders/photos/photo13.jpg" class="gallery-image-options" title="Image Info">
                             <i class="fa fa-search-plus fa-3x text-light"></i>
                         </a>
                     </div>
@@ -207,8 +185,7 @@
                 <div class="col-lg-4">
                     <div class="gallery-image-container animation-fadeInQuick2Inv">
                         <img src="assets/img/placeholders/photos/photo14.jpg" alt="Image">
-                        <a href="assets/img/placeholders/photos/photo14.jpg" class="gallery-image-options"
-                           title="Image Info">
+                        <a href="assets/img/placeholders/photos/photo14.jpg" class="gallery-image-options" title="Image Info">
                             <i class="fa fa-search-plus fa-3x text-light"></i>
                         </a>
                     </div>
@@ -216,8 +193,7 @@
                 <div class="col-lg-3">
                     <div class="gallery-image-container animation-fadeInQuick2">
                         <img src="assets/img/placeholders/photos/photo15.jpg" alt="Image">
-                        <a href="assets/img/placeholders/photos/photo15.jpg" class="gallery-image-options"
-                           title="Image Info">
+                        <a href="assets/img/placeholders/photos/photo15.jpg" class="gallery-image-options" title="Image Info">
                             <i class="fa fa-search-plus fa-3x text-light"></i>
                         </a>
                     </div>
@@ -225,8 +201,7 @@
                 <div class="col-lg-3">
                     <div class="gallery-image-container animation-fadeInQuick2">
                         <img src="assets/img/placeholders/photos/photo16.jpg" alt="Image">
-                        <a href="assets/img/placeholders/photos/photo16.jpg" class="gallery-image-options"
-                           title="Image Info">
+                        <a href="assets/img/placeholders/photos/photo16.jpg" class="gallery-image-options" title="Image Info">
                             <i class="fa fa-search-plus fa-3x text-light"></i>
                         </a>
                     </div>
@@ -234,8 +209,7 @@
                 <div class="col-lg-3">
                     <div class="gallery-image-container animation-fadeInQuick2">
                         <img src="assets/img/placeholders/photos/photo17.jpg" alt="Image">
-                        <a href="assets/img/placeholders/photos/photo17.jpg" class="gallery-image-options"
-                           title="Image Info">
+                        <a href="assets/img/placeholders/photos/photo17.jpg" class="gallery-image-options" title="Image Info">
                             <i class="fa fa-search-plus fa-3x text-light"></i>
                         </a>
                     </div>
@@ -243,8 +217,7 @@
                 <div class="col-lg-3">
                     <div class="gallery-image-container animation-fadeInQuick2">
                         <img src="assets/img/placeholders/photos/photo18.jpg" alt="Image">
-                        <a href="assets/img/placeholders/photos/photo18.jpg" class="gallery-image-options"
-                           title="Image Info">
+                        <a href="assets/img/placeholders/photos/photo18.jpg" class="gallery-image-options" title="Image Info">
                             <i class="fa fa-search-plus fa-3x text-light"></i>
                         </a>
                     </div>
@@ -260,17 +233,11 @@
 </div>
 
 <ewo-tenant-add-ticket *ngIf="tenant && (isTenant || isDashboardList || isAdmin)" id="modal-add-tenant-ticket" [tenant]="tenant"
-                       [isDashboardList]="isDashboardList" [isAdmin]="isAdmin"
-                       (update)="updateTicketList($event)" class="modal fade"
-                       role="dialog" aria-hidden="true"></ewo-tenant-add-ticket>
+    [isDashboardList]="isDashboardList" [isAdmin]="isAdmin" (update)="updateTicketList($event)" class="modal fade" role="dialog"
+    aria-hidden="true"></ewo-tenant-add-ticket>
 
-<ewo-tenant-contact-people *ngIf="isAdmin && tenant" id="add-tenant-cotact-people" [tenant]="tenant"
-                           (update)="updatePeople($event)"
-                           class="modal fade"
-                           role="dialog" aria-hidden="true"></ewo-tenant-contact-people>
+<ewo-tenant-contact-people *ngIf="isAdmin && tenant" id="add-tenant-cotact-people" [tenant]="tenant" (update)="updatePeople($event)"
+    class="modal fade" role="dialog" aria-hidden="true"></ewo-tenant-contact-people>
 
-<ewo-tenant-insurance *ngIf="isAdmin && tenant" id="add-tenant-insurance" [tenant]="tenant"
-                      (update)="updateInsurance($event)"
-                      class="modal fade"
-                      role="dialog" aria-hidden="true"></ewo-tenant-insurance>
-
+<ewo-tenant-insurance *ngIf="isAdmin && tenant" id="add-tenant-insurance" [tenant]="tenant" (update)="updateInsurance($event)"
+    class="modal fade" role="dialog" aria-hidden="true"></ewo-tenant-insurance>
