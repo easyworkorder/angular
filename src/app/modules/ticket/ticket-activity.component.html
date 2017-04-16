@@ -82,7 +82,6 @@
                             <span class="validation-error">{{ticketPublicForm.controls.details.error}}</span>
                         </div>
                     </div>
-
                     <div class="form-group form-actions">
                         <div class="col-xs-12 text-right">
                             <button type="submit" class="btn btn-effect-ripple btn-success" [disabled]="isSubmit">Submit<i *ngIf="isSubmit" class="fa fa-spinner fa-spin"></i></button>
@@ -160,6 +159,14 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-xs-3 control-label">File(s)</label>
+                        <div class="col-xs-9">
+                            <input id="photo" name="photo" type="file" (change)="fileSelectionChange($event)" class="hidden" accept="image/gif, image/jpeg, image/png, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/pdf" />
+                            <i class="fa fa-fw fa-upload"></i> <a href="javascript:void(0)" onclick="$('#photo').click();">Attach file</a>
+                            <span id="selected_photo">{{ selectedPhoto }}</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-xs-3 control-label">Send Tenant's Information?</label>
                         <div class="col-xs-9">
                             <label class="switch switch-success">
@@ -169,7 +176,7 @@
 
                     <div class="form-group form-actions">
                         <div class="col-xs-12 text-right">
-                            <button type="submit" class="btn btn-effect-ripple btn-success" style="overflow: hidden; position: relative;">Send</button>
+                            <button type="submit" class="btn btn-effect-ripple btn-success" [disabled]="isSubmit">Send<i *ngIf="isSubmit" class="fa fa-spinner fa-spin"></i></button>
                         </div>
                     </div>
                 </form>

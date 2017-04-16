@@ -1,5 +1,6 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { Storage } from 'app/services';
 import { ToasterService } from 'angular2-toaster';
 import { ActivatedRoute } from '@angular/router';
 
@@ -36,6 +37,10 @@ export class TicketActivityComponent implements OnInit {
     selectedTenant: any[] = [];
     selectedEmployee: any[] = [];
 
+    attachFile: File;
+    selectedFile: string = '';
+
+    userInfo: any;
 
     /**
      * Note Reply form
@@ -84,14 +89,17 @@ export class TicketActivityComponent implements OnInit {
         id: new FormControl(),
         url: new FormControl(''),
         workorder: new FormControl(''),
+        vendor: new FormControl(''),
         details: new FormControl('', Validators.required),
+        updated_by_id: new FormControl(''),
         updated_by_type: new FormControl('E'),
         is_private: new FormControl(true),
         tenant_notified: new FormControl(false),
         tenant_follow_up: new FormControl(false),
         vendor_notified: new FormControl(true),
         vendor_follow_up: new FormControl(false),
-        send_tenant_info: new FormControl(true)
+        send_tenant_info: new FormControl(true),
+        action_type: new FormControl('send_vendor')
     });
 
     ticketVendorRequestForm = new FormGroup({
@@ -131,13 +139,17 @@ export class TicketActivityComponent implements OnInit {
         private vendorService: VendorService,
         private employeeService: EmployeeService,
         private authService: AuthenticationService,
+        private storage: Storage,
         private toasterService: ToasterService
         ) {
-        this.authService.verifyToken().take(1).subscribe(data => { console.log(this.tenant_contacts);
+        this.authService.verifyToken().take(1).subscribe(data => {
+            this.userInfo = this.storage.getUserInfo();
+
+            let _problemtype_id = this.ticket.problemtype.extractIdFromURL();
             /**
-             * Get All Vendors
+             * Get All Vendors by problem type
              */
-            this.vendorService.getAllActiveVendors(this.currentCompanyId).subscribe(
+            this.vendorService.getActiveVendorsByProblemType(_problemtype_id).subscribe(
                 data => {
                     let _vendor: any[] = data.map(item => {
                         return { id: item.id, text: (item.company_name) };
@@ -145,7 +157,7 @@ export class TicketActivityComponent implements OnInit {
                     this.vendors = _vendor;
                 }
             );
-            this.getEmployeesByTicketBuildingProblemType();
+            this.getEmployeesByTicketBuildingProblemType(_problemtype_id);
         });
     }
 
@@ -179,15 +191,18 @@ export class TicketActivityComponent implements OnInit {
     }
 
     onVendorSubmit() {
+        this.isSubmit = true;
         this._vendorSubmitted = true;
         if (this.selectedVendor.length === 0) {
             return;
         }
         this.ticketVendorForm.get('workorder').setValue(`${config.api.base}ticket/${this.ticket.id}/`);
+        this.ticketVendorForm.get('updated_by_id').setValue(this.userInfo.user_id);
         this.ticketService.createNote(this.ticketVendorForm.value, false).subscribe((note: any) => {
             this.ticketVendorRequestForm.get('workordernote').setValue(`${config.api.base}ticketnote/${note.id}/`);
             this.ticketVendorRequestForm.get('send_tenant_info').setValue(this.ticketVendorForm.get('send_tenant_info').value);
             this.ticketService.createWorkorderVendor(this.ticketVendorRequestForm.value);
+            this.isSubmit = false;
             this.change.emit(true);
             this.closeModal();
         });
@@ -208,6 +223,15 @@ export class TicketActivityComponent implements OnInit {
         });
     }
 
+    fileSelectionChange (event) {
+        let fileList: FileList = event.target.files;
+        if (fileList.length > 0) {
+            this.attachFile = fileList[0];
+            this.selectedFile = this.attachFile.name;
+            console.log('Selected file type is: ' + fileList[0].type);
+        }
+    }
+
     getPhotoUrl(ticket) {
         if (ticket.photo != null && ticket.photo.length > 0) {
             return ticket.photo;
@@ -218,10 +242,9 @@ export class TicketActivityComponent implements OnInit {
     /**
      * Get All employee for ticket building & problem type
      */
-    getEmployeesByTicketBuildingProblemType(): void {
+    getEmployeesByTicketBuildingProblemType(problemtype_id): void {
         let _building_id = this.ticket.building.extractIdFromURL();
-        let _problemtype_id = this.ticket.problemtype.extractIdFromURL();
-        this.employeeService.getEmployeesByTicketBuildingProblemType(_building_id, _problemtype_id).subscribe(
+        this.employeeService.getEmployeesByTicketBuildingProblemType(_building_id, problemtype_id).subscribe(
             data => {
                 let _employee: any[] = data.map(item => {
                     return { id: item.id, text: (item.first_name + ' ' + item.last_name) };
@@ -291,6 +314,7 @@ export class TicketActivityComponent implements OnInit {
     public setSelectedVendor(value: any): void {
         this.selectedVendor = [value];
         this.ticketVendorRequestForm.get('vendor').setValue(config.api.base + 'vendor/' + this.selectedVendor[0].id + '/');
+        this.ticketVendorForm.get('vendor').setValue(config.api.base + 'vendor/' + this.selectedVendor[0].id + '/');
     }
 
     public itemsToString(value: Array<any> = []): string {
