@@ -72,7 +72,7 @@ export class TicketEditComponent implements OnInit {
         this.authService.verifyToken().take(1).subscribe(data => {
             // console.log('Ticket ---- ' + this.ticket);
             this.ticketForm.patchValue(this.ticket);
-            this.getAllTickets();
+            // this.getAllTickets();
             this.getAllActiveBuildings();
             this.getAllActiveProblemTypes();
         });
@@ -119,13 +119,13 @@ export class TicketEditComponent implements OnInit {
         });
     }
 
-    getAllTickets (): void {
+    /*getAllTickets (): void {
         this.ticketService.getAllTickets(this.currentCompanyId).subscribe(
             data => {
                 this.tickets = data;
             }
         );
-    }
+    }*/
 
     getAllActiveBuildings (): void {
         this.buildingService.getAllActiveBuildings(this.currentCompanyId).subscribe(
