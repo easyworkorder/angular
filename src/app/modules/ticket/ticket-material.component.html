@@ -4,7 +4,7 @@
             <a modal-dialog-open="modal-ticket-material" (click)="_submitted = false" class="btn btn-effect-ripple btn-success" data-toggle="modal"
                 title="Edit" style="overflow: hidden; position: relative;"><span class="btn-ripple animate" style="height: 34px; width: 34px; top: 10px; left: 0.34375px;"></span><i class="fa fa-plus"></i></a>
         </div>
-        <h2>MATERIALS</h2><span class="badge">$637.50</span>
+        <h2>MATERIALS</h2><span class="badge">{{ticket?.material_total | currency:'USD':true}}</span>
     </div>
     <!-- END Partial Responsive Title -->
 

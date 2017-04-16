@@ -27,8 +27,8 @@
             <div class="block-title">
                 <ul class="nav nav-tabs" data-toggle="tabs">
                     <li class="active"><a (click)="switchTab(1)" href="#ticket-activity" data-toggle="tab">Activity</a></li>
-                    <li class=""><a (click)="switchTab(2)" href="#ticket-labor" data-toggle="tab">Labor <span class="badge">$637.50</span></a></li>
-                    <li class=""><a (click)="switchTab(3)" href="#ticket-materials" data-toggle="tab">Materials <span class="badge">$637.50</span></a></li>
+                    <li class=""><a (click)="switchTab(2)" href="#ticket-labor" data-toggle="tab">Labor <span class="badge">{{ticket?.labor_total | currency:'USD':true}}</span></a></li>
+                    <li class=""><a (click)="switchTab(3)" href="#ticket-materials" data-toggle="tab">Materials <span class="badge">{{ticket?.material_total | currency:'USD':true}}</span></a></li>
                     <li class=""><a (click)="switchTab(4)" href="#ticket-files" data-toggle="tab">Files <span class="badge">3</span></a></li>
                 </ul>
             </div>
@@ -98,7 +98,7 @@
                     <a modal-dialog-open="modal-due-date" (click)="onDueDateEdit($event)" class="btn btn-effect-ripple btn-success" data-toggle="modal"
                         title="" style="overflow: hidden; position: relative;" data-original-title="Change"><i class="fa fa-pencil"></i></a>
                 </div>
-                <h2>Open</h2><span class="badge">Billable - $40</span>
+                <h2>Open</h2><span class="badge">Billable - {{ticket?.billable_amount | currency:'USD':true}}</span>
             </div>
             <!-- END Due Block -->
 
