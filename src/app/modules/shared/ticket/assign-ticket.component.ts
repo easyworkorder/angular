@@ -45,7 +45,7 @@ export class AssignTicketComponent implements OnInit {
         if (changes['tickets']) {
             if (changes['tickets'].currentValue.length > 0) {
                 this.ticketList = changes['tickets'].currentValue;
-                console.log('tickets Assign>>', this.ticketList);
+                // console.log('tickets Assign>>', this.ticketList);
             }
         }
     }
@@ -63,7 +63,6 @@ export class AssignTicketComponent implements OnInit {
         }
 
         if (!this.ticketPrivateForm.valid) return;
-
 
         const checkedTicketList: any[] = this.ticketList.filter(item => item.checked);
 
