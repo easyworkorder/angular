@@ -53,7 +53,7 @@
                                                             </span>
                     <small><a *ngIf="note.updated_by_type == 'E'" href="javascript:void(0)">Support</a></small>
                 </p>
-                <div [innerHTML]="note.details"></div>
+                <div [innerHTML]="note.details" class="multiline"></div>
             </div>
         </li>
         <!-- END Replies -->
