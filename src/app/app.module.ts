@@ -154,6 +154,7 @@ import { VerifyEmailService } from "app/modules/shared/verify-email.service";
 import { ConfirmModalComponent } from './modules/shared/confirm-modal/confirm-modal.component';
 import { AssignTicketComponent } from './modules/shared/ticket/assign-ticket.component';
 import { CloseTicketComponent } from "app/modules/shared/ticket/close-ticket.component";
+import { TenantTicketReplyComponent } from "app/modules/ticket/tenant-ticket-reply.component";
 
 export function translateStaticLoaderFactory (Backend, defaultOptions, storage, notificationService) {
     return new AppHttp(Backend, defaultOptions, storage, notificationService);
@@ -270,7 +271,8 @@ export function translateStaticLoaderFactory (Backend, defaultOptions, storage, 
         VerifyEmailComponent,
         ConfirmModalComponent,
         AssignTicketComponent,
-        CloseTicketComponent
+        CloseTicketComponent,
+        TenantTicketReplyComponent
     ],
     imports: [
         BrowserModule,

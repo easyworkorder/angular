@@ -13,6 +13,9 @@
     <a *ngIf="isAdmin && !ticket.closed" modal-dialog-open="modal-close-wo" class="btn btn-sm btn-default" data-toggle="modal"><i class="fa fa-check"></i>
         Close</a>
 </span>
+
+<a *ngIf="(userInfo?.IsContact)" modal-dialog-open="modal-tenant-ticket-reply" class="btn btn-sm btn-default" data-toggle="modal"><i class="fa fa-reply"></i> Reply</a>
+
 <div class="pull-right">
     <a href="javascript:void(0)" class="btn btn-sm btn-primary"><i class="fa fa-arrow-left"></i> Prev</a>
     <a href="javascript:void(0)" class="btn btn-sm btn-primary">Next <i class="fa fa-arrow-right"></i></a>
@@ -218,4 +221,8 @@
             </div>
         </div>
     </div>
+</div>
+
+<div id="modal-tenant-ticket-reply" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <ewo-tenant-ticket-reply *ngIf="ticket" [ticket]="ticket"></ewo-tenant-ticket-reply>
 </div>
