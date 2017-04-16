@@ -2,7 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output, Injectable } from '@ang
 import { Subject } from "rxjs/Subject";
 import { UpdatePeopleService } from "app/modules/admin/tenant/people.service";
 import { UpdateTenantInsuranceService } from "./tenant-insurance.service";
-import {TicketService} from './../../ticket/ticket.service';
+import { TicketService } from './../../ticket/ticket.service';
 declare var $: any;
 
 export class TabVisibility {
@@ -33,14 +33,14 @@ export class TenantContactActivitiesComponent implements OnInit {
     tabs = new TabVisibility();
     constructor(private updatePeopleService: UpdatePeopleService,
         private updateTenantInsuranceService: UpdateTenantInsuranceService,
-        private ticketService: TicketService) {}
+        private ticketService: TicketService) { }
 
-    ngOnInit() {
+    ngOnInit () {
         // console.log(this.tenant);
         this.getAllTenantTickets();
     }
 
-    switchTab(tabId: number) {
+    switchTab (tabId: number) {
         this.tabs.isTicketTabVisible = tabId == 1 ? true : false;
         this.tabs.isInvoiceTabVisible = tabId == 2 ? true : false;
         this.tabs.isPeopleTabVisible = tabId == 3 ? true : false;
@@ -49,7 +49,7 @@ export class TenantContactActivitiesComponent implements OnInit {
         this.tabs.selectedTabNo = tabId;
     }
 
-    getAllTenantTickets() {
+    getAllTenantTickets () {
         this.ticketService.getAllTenantTickets(this.tenant.id).subscribe(
             data => {
                 this.tickets = data;
@@ -57,15 +57,15 @@ export class TenantContactActivitiesComponent implements OnInit {
         );
     }
 
-    updateTicketList(data) {
+    updateTicketList (data) {
         this.getAllTenantTickets();
     }
 
-    updatePeople(event) {
+    updatePeople (event) {
         this.change.emit(event);
     }
 
-    updateContactInfo(data) {
+    updateContactInfo (data) {
         // this.updatePeopleInfo = data;
         this.updatePeopleService.setUpdatePeople(data);
         $('#add-tenant-cotact-people').modal({
@@ -74,11 +74,11 @@ export class TenantContactActivitiesComponent implements OnInit {
         });
     }
 
-    updateInsurance(event) {
+    updateInsurance (event) {
         this.change.emit(event);
     }
 
-    updateInsuranceInfo(data) {
+    updateInsuranceInfo (data) {
         // this.updatePeopleInfo = data;
         this.updateTenantInsuranceService.setUpdateInsurance(data);
         $('#add-tenant-insurance').modal({
