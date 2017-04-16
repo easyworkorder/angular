@@ -85,7 +85,7 @@
 
                     <div class="form-group form-actions">
                         <div class="col-xs-12 text-right">
-                            <button type="submit" class="btn btn-effect-ripple btn-success" style="overflow: hidden; position: relative;">Submit</button>
+                            <button type="submit" class="btn btn-effect-ripple btn-success" [disabled]="isSubmit">Submit<i *ngIf="isSubmit" class="fa fa-spinner fa-spin"></i></button>
                         </div>
                     </div>
                 </form>
@@ -123,7 +123,7 @@
 
                     <div class="form-group form-actions">
                         <div class="col-xs-12 text-right">
-                            <button type="submit" class="btn btn-effect-ripple btn-success" style="overflow: hidden; position: relative;">Submit</button>
+                            <button type="submit" class="btn btn-effect-ripple btn-success" [disabled]="isSubmit">Submit<i *ngIf="isSubmit" class="fa fa-spinner fa-spin"></i></button>
                         </div>
                     </div>
                 </form>

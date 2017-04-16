@@ -104,6 +104,20 @@ export class EmployeeService extends DataService {
     }
 
     /**
+     * the recipient picklist should be the property management employees that have access to
+     * the selected building, and those that have access to the problem type of the work order
+     * @param company_id
+     * @param ticket_id
+     */
+    getEmployeesByTicketBuildingProblemType(building_id, problemtype_id) {
+        const observable = this.http.get('employeelistbybuildingandproblemtype/?building_id=' + building_id + '&problemtype_id=' + problemtype_id);
+        observable.subscribe(data => {
+            // console.log(data);
+        });
+        return observable;
+    }
+
+    /**
      * Get All employee by Company Id
      * @returns {Observable<any>}
      */

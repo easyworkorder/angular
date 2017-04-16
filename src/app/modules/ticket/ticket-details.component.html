@@ -39,7 +39,7 @@
                 <!-- Tickets List -->
                 <loading-spinner-wave *ngIf="!ticket"></loading-spinner-wave>
                 <div class="tab-pane active" id="ticket-activity">
-                    <ewo-ticket-activity *ngIf="ticket && notes && employees && tenant_contacts" [ticket]="ticket" [notes]="notes" [employees]="employees" [tenant_contacts]="tenant_contacts" (update)="updateNotes($event)" [isAdmin]="true"></ewo-ticket-activity>
+                    <ewo-ticket-activity *ngIf="ticket && notes && tenant_contacts" [ticket]="ticket" [notes]="notes" [tenant_contacts]="tenant_contacts" (update)="updateNotes($event)" [isAdmin]="true"></ewo-ticket-activity>
                 </div>
                 <!-- END Tickets List -->
 

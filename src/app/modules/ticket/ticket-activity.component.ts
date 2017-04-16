@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import config from '../../config';
 import { TicketService } from './ticket.service';
 import { VendorService } from './../admin/vendor/vendor.service';
+import { EmployeeService } from './../admin/employee/employee.service';
 import { AuthenticationService } from "app/modules/authentication";
 declare var $: any;
 
@@ -15,12 +16,12 @@ declare var $: any;
     templateUrl: './ticket-activity.component.html'
 })
 export class TicketActivityComponent implements OnInit {
-
+    isSubmit: boolean = false;
     currentCompanyId = 1;
 
     @Input() ticket: any;
     @Input() notes: any;
-    @Input() employees: any;
+    // @Input() employees: any;
     @Input() tenant_contacts: any;
     @Input() isAdmin: boolean = false;
     @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
@@ -29,6 +30,7 @@ export class TicketActivityComponent implements OnInit {
     _publicFormSubmitted = false;
 
     vendors: any[] = [];
+    employees: any[] = [];
     selectedVendor: any[] = [];
 
     selectedTenant: any[] = [];
@@ -51,7 +53,8 @@ export class TicketActivityComponent implements OnInit {
         tenant_notified: new FormControl(true),
         tenant_follow_up: new FormControl(false),
         vendor_notified: new FormControl(false),
-        vendor_follow_up: new FormControl(false)
+        vendor_follow_up: new FormControl(false),
+        action_type: new FormControl('tenant_message')
     });
 
     /**
@@ -69,7 +72,8 @@ export class TicketActivityComponent implements OnInit {
         tenant_notified: new FormControl(false),
         tenant_follow_up: new FormControl(false),
         vendor_notified: new FormControl(false),
-        vendor_follow_up: new FormControl(false)
+        vendor_follow_up: new FormControl(false),
+        action_type: new FormControl('employee_message')
     });
 
     /**
@@ -125,6 +129,7 @@ export class TicketActivityComponent implements OnInit {
     constructor(
         private ticketService: TicketService,
         private vendorService: VendorService,
+        private employeeService: EmployeeService,
         private authService: AuthenticationService,
         private toasterService: ToasterService
         ) {
@@ -140,6 +145,7 @@ export class TicketActivityComponent implements OnInit {
                     this.vendors = _vendor;
                 }
             );
+            this.getEmployeesByTicketBuildingProblemType();
         });
     }
 
@@ -150,19 +156,23 @@ export class TicketActivityComponent implements OnInit {
 
     onPublicSubmit() {
         this._publicFormSubmitted = true;
-        if(!this.ticketPublicForm.valid){
+        if ( !this.ticketPublicForm.valid) {
             return;
         }
+        this.isSubmit = true;
         this.ticketPublicForm.get('workorder').setValue(`${config.api.base}ticket/${this.ticket.id}/`);
         this.ticketService.createNote(this.ticketPublicForm.value, true).subscribe((note: any) => {
+            this.isSubmit = false;
             this.change.emit(true);
             this.closeModal();
         });
     }
 
     onPrivateSubmit() {
+        this.isSubmit = true;
         this.ticketPrivateForm.get('workorder').setValue(`${config.api.base}ticket/${this.ticket.id}/`);
         this.ticketService.createNote(this.ticketPrivateForm.value, true).subscribe((note: any) => {
+            this.isSubmit = false;
             this.change.emit(true);
             this.closeModal();
         });
@@ -203,6 +213,23 @@ export class TicketActivityComponent implements OnInit {
             return ticket.photo;
         }
         return 'assets/img/placeholders/avatars/avatar9.jpg';
+    }
+
+    /**
+     * Get All employee for ticket building & problem type
+     */
+    getEmployeesByTicketBuildingProblemType(): void {
+        let _building_id = this.ticket.building.extractIdFromURL();
+        let _problemtype_id = this.ticket.problemtype.extractIdFromURL();
+        this.employeeService.getEmployeesByTicketBuildingProblemType(_building_id, _problemtype_id).subscribe(
+            data => {
+                let _employee: any[] = data.map(item => {
+                    return { id: item.id, text: (item.first_name + ' ' + item.last_name) };
+                })
+                //  _employee.splice(0, 0, { id: -1, text: 'Pleae select' });
+                this.employees = _employee;
+            }
+        );
     }
 
     /**
