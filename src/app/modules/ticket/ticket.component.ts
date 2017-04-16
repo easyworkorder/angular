@@ -105,7 +105,7 @@ export class TicketComponent implements OnInit {
             this.getAllActiveBuildings();
             this.getAllActiveEmployees();
             this.getAllActiveProblemTypes();
-            this.ticketService.ticketListRefresh$.subscribe(status => {
+            this.ticketService.tickettListRefresh$.subscribe(status => {
                 this.getAllTickets();
             });
         });

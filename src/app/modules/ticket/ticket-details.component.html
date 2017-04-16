@@ -98,7 +98,7 @@
                     <a modal-dialog-open="modal-due-date" (click)="onDueDateEdit($event)" class="btn btn-effect-ripple btn-success" data-toggle="modal"
                         title="" style="overflow: hidden; position: relative;" data-original-title="Change"><i class="fa fa-pencil"></i></a>
                 </div>
-                <h2>Open</h2><span class="badge">Billable - {{ticket?.billable_amount | currency:'USD':true}}</span>
+                <h2>Open</h2><span class="badge" *ngIf="ticket?.is_billable">Billable - {{(ticket?.billable_total == 0 ? ticket?.estimated_amount : ticket?.billable_total)  | currency:'USD':true}}</span>
             </div>
             <!-- END Due Block -->
 

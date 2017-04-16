@@ -73,6 +73,9 @@ export class TicketDetailsComponent implements OnInit {
     ) {
         this.authService.verifyToken().take(1).subscribe(data => {
             this.getAllActiveEmployees();
+            this.ticketService.ticketRefresh$.subscribe(status => {
+                this.getTicketDetails();
+            })
         });
     }
 
@@ -81,6 +84,10 @@ export class TicketDetailsComponent implements OnInit {
         this.getAllNotes(this.ticketId);
         this.getAllLabors(this.ticketId);
         this.getAllMaterials(this.ticketId);
+        this.getTicketDetails();
+        this.switchTab(1);
+    }
+    getTicketDetails () {
         this.ticketService.getTicketDetails(this.ticketId).subscribe(
             data => {
                 this.ticket = data;
@@ -99,7 +106,6 @@ export class TicketDetailsComponent implements OnInit {
                 this.getSelectedTenants();
             }
         );
-        this.switchTab(1);
     }
 
     getAllNotes (ticketId) {

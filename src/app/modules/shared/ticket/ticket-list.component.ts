@@ -105,6 +105,7 @@ export class TicketListComponent implements OnInit {
             ticket.status = 'Open';
             this.ticketService.update(ticket, false).subscribe(() => {
                 if (++counter == checkedTicketList.length) {
+                    this.ticketService.updateTicketList(true);
                     this.toasterService.pop('success', 'Accept', `${displayTicketsMsg.join(', ')} Ticket${checkedTicketList.length == 1 ? '' : '\'s'} has been Accepted successfully`);
                 }
             });

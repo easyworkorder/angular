@@ -74,7 +74,7 @@ export class TicketLaborComponent implements OnInit {
         // Update Labor
         if (this.ticketLaborForm.value.id) {
             this.ticketService.updateLabor(this.ticketLaborForm.value).subscribe((labor: any) => {
-                this.ticketService.updateTicketList(true);
+                this.ticketService.updateTicket(true);
                 this._submitted = false;
                 this.change.emit(true);
                 this.closeModal();
@@ -86,7 +86,7 @@ export class TicketLaborComponent implements OnInit {
         this.ticketLaborForm.get('workorder').setValue(`${config.api.base}ticket/${this.ticket.id}/`);
         this.ticketLaborForm.removeControl('id');
         this.ticketService.createLabor(this.ticketLaborForm.value).subscribe((labor: any) => {
-            this.ticketService.updateTicketList(true);
+            this.ticketService.updateTicket(true);
             this._submitted = false;
             this.change.emit(true);
             this.closeModal();
@@ -127,7 +127,7 @@ export class TicketLaborComponent implements OnInit {
         if (this.toDeletedLabor) {
             this.ticketService.deleteLabor(this.toDeletedLabor).subscribe(data => {
                 $('#modal-labor-delete-confirm').modal('hide');
-                this.ticketService.updateTicketList(true);
+                this.ticketService.updateTicket(true);
                 this.change.emit(true);
             })
         }

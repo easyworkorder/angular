@@ -12,9 +12,15 @@ import {
 
 } from '../../services';
 import { Subject } from "rxjs/Subject";
+import { ReplaySubject } from "rxjs/ReplaySubject";
 
 @Injectable()
 export class TicketService extends DataService {
+  private ticketListUpdateSource = new ReplaySubject<boolean>();
+  tickettListRefresh$ = this.ticketListUpdateSource.asObservable();
+
+  private ticketUpdateSource = new ReplaySubject<boolean>();
+  ticketRefresh$ = this.ticketUpdateSource.asObservable();
 
   constructor(
     protected http: AppHttp,
@@ -252,7 +258,7 @@ export class TicketService extends DataService {
     },
       error => {
         this.toasterService.pop('error', 'DELETE', 'Material not deleted due to API error!!!');
-        console.log(error);
+        // console.log(error);
       });
 
     return observable;
@@ -261,9 +267,12 @@ export class TicketService extends DataService {
   /**
    * After close the ticket refresh the ticket list
    */
-  private ticketUpdateSource = new Subject<boolean>();
-  ticketListRefresh$ = this.ticketUpdateSource.asObservable();
+
   updateTicketList (status) {
+    this.ticketListUpdateSource.next(status);
+  }
+
+  updateTicket (status) {
     this.ticketUpdateSource.next(status);
   }
 }

@@ -78,6 +78,7 @@ export class AssignTicketComponent implements OnInit {
             ticket.status = 'Open';
             this.ticketService.update(ticket, false).subscribe(() => {
                 if (++counter == checkedTicketList.length) {
+                    this.ticketService.updateTicketList(true);
                     this.toasterService.pop('success', 'Assign', `${displayTicketsMsg.join(', ')} Ticket${checkedTicketList.length == 1 ? '' : '\'s'} has been Assign to ${this.selectedEmployee[0].text}`);
                     this.closeModal();
                 }
