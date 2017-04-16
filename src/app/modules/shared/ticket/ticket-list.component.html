@@ -58,13 +58,18 @@
 
 <ewo-confirm-modal id="modal-confirm" [OkButton]="false" [cancelButtonLabel]="'Continue'" [message]="'At least one request must be selected.'"
     class="modal fade in" tabindex="-1" role="dialog" aria-hidden="true"></ewo-confirm-modal>
-
-<ewo-assign-ticket id="modal-assign" [employees]="employees" [tickets]="ticketList" class="modal fade" tabindex="-1" role="dialog"
+<ewo-accept-ticket id="modal-accept-ticket" [tickets]="ticketList" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"
+    style="display:none;"></ewo-accept-ticket>
+<!--<ewo-assign-ticket id="modal-assign" [employees]="employees" [tickets]="ticketList" class="modal fade" tabindex="-1" role="dialog"
     aria-hidden="true" style="display: none;">
-</ewo-assign-ticket>
+</ewo-assign-ticket>-->
 <ewo-close-ticket id="modal-close-ticket" [tickets]="ticketList" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"
     style="display:none;"></ewo-close-ticket>
 
 <ewo-confirm-modal id="modal-delete-ticket" [OkButton]="true" [okButtonLabel]="'Continue'" [cancelButtonLabel]="'Cancel'"
     [message]="'Are you sure?. After delete, ticket can not be reversible.'" (okButtonClick)="onDeleteModalOkButtonClick($event)"
     class="modal fade in" tabindex="-1" role="dialog" aria-hidden="true"></ewo-confirm-modal>
+
+<ewo-confirm-modal id="modal-accept-ticket-confirm" [OkButton]="true" [okButtonLabel]="'Continue'" [cancelButtonLabel]="'Cancel'"
+    [message]="'Do you want to accept?'" (okButtonClick)="onAcceptModalOkButtonClick($event)" class="modal fade in" tabindex="-1"
+    role="dialog" aria-hidden="true"></ewo-confirm-modal>

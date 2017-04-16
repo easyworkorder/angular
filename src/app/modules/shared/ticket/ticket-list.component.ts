@@ -91,39 +91,46 @@ export class TicketListComponent implements OnInit {
             })
             return;
         }
+        //modal-accept-ticket
 
-        const user = this.storage.getUserInfo();
-        const checkedTicketList: any[] = this.ticketList.filter(item => item.checked);
-
-        let displayTicketsMsg: any[] = [];
-        let counter = 0;
-        checkedTicketList && checkedTicketList.forEach(ticket => {
-            displayTicketsMsg.push(ticket.ticket_key);
-
-            ticket.assigned_to = `${config.api.base}employee/${user.user_id}/`;
-            ticket.url = `${config.api.base}ticket/${ticket.id}/`;
-            ticket.status = 'Open';
-            this.ticketService.update(ticket, false).subscribe(() => {
-                if (++counter == checkedTicketList.length) {
-                    this.ticketService.updateTicketList(true);
-                    this.toasterService.pop('success', 'Accept', `${displayTicketsMsg.join(', ')} Ticket${checkedTicketList.length == 1 ? '' : '\'s'} has been Accepted successfully`);
-                }
-            });
-
-            let note = {
-                workorder: `${config.api.base}ticket/${ticket.id}/`,
-                action_type: 'accept',
-                is_private: true,
-                tenant_notified: false,
-                tenant_follow_up: false,
-                vendor_notified: false,
-                vendor_follow_up: false
-            }
-            this.ticketService.createNote(note, false).subscribe(data => {
-                console.log('data>>>', data);
-            });
-
+        $('#modal-accept-ticket-confirm').modal({
+            show: true,
+            backdrop: 'static'
         })
+
+        // const user = this.storage.getUserInfo();
+        // const checkedTicketList: any[] = this.ticketList.filter(item => item.checked);
+
+        // let displayTicketsMsg: any[] = [];
+        // let counter = 0;
+        // checkedTicketList && checkedTicketList.forEach(ticket => {
+        //     displayTicketsMsg.push(ticket.ticket_key);
+
+        //     ticket.assigned_to = `${config.api.base}employee/${user.user_id}/`;
+        //     ticket.url = `${config.api.base}ticket/${ticket.id}/`;
+        //     ticket.status = 'Open';
+        //     this.ticketService.update(ticket, false).subscribe(() => {
+        //         if (++counter == checkedTicketList.length) {
+        //             this.ticketService.updateTicketList(true);
+        //             this.toasterService.pop('success', 'Accept', `${displayTicketsMsg.join(', ')} Ticket${checkedTicketList.length == 1 ? '' : '\'s'} has been Accepted successfully`);
+        //         }
+        //     });
+
+        //     let note = {
+        //         workorder: `${config.api.base}ticket/${ticket.id}/`,
+        //         details: '',
+        //         action_type: 'accept',
+        //         is_private: true,
+        //         tenant_notified: false,
+        //         tenant_follow_up: false,
+        //         vendor_notified: false,
+        //         vendor_follow_up: false
+        //     }
+        //     this.ticketService.createNote(note, false).subscribe(data => {
+        //         // console.log('data>>>', data);
+        //     });
+
+        // })
     }
 
     onModalAssignTicket (value) {
@@ -197,6 +204,43 @@ export class TicketListComponent implements OnInit {
             }, error => {
                 this.toasterService.pop('error', 'Delete?', `${displayTicketsMsg.join(', ')} Ticket${checkedTicketList.length == 1 ? '' : '\'s'} are not deleted`);
             });
+        })
+    }
+
+    onAcceptModalOkButtonClick (event) {
+        const user = this.storage.getUserInfo();
+        const checkedTicketList: any[] = this.ticketList.filter(item => item.checked);
+
+        let displayTicketsMsg: any[] = [];
+        let counter = 0;
+        checkedTicketList && checkedTicketList.forEach(ticket => {
+            displayTicketsMsg.push(ticket.ticket_key);
+
+            ticket.assigned_to = `${config.api.base}employee/${user.user_id}/`;
+            ticket.url = `${config.api.base}ticket/${ticket.id}/`;
+            ticket.status = 'Open';
+            this.ticketService.update(ticket, false).subscribe(() => {
+                if (++counter == checkedTicketList.length) {
+                    $('#modal-accept-ticket-confirm').modal('hide');
+                    this.ticketService.updateTicketList(true);
+                    this.toasterService.pop('success', 'Accept', `${displayTicketsMsg.join(', ')} Ticket${checkedTicketList.length == 1 ? '' : '\'s'} has been accepted successfully`);
+                }
+            });
+
+            let note = {
+                workorder: `${config.api.base}ticket/${ticket.id}/`,
+                details: '',
+                action_type: 'accept',
+                is_private: true,
+                tenant_notified: false,
+                tenant_follow_up: false,
+                vendor_notified: false,
+                vendor_follow_up: false
+            }
+            this.ticketService.createNote(note, false).subscribe(data => {
+                // console.log('data>>>', data);
+            });
+
         })
     }
 }
