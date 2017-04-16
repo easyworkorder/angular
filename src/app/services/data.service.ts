@@ -58,7 +58,7 @@ export class DataService {
             .subscribe((event: IEvent) => this.reset(this._data));
     }
 
-    private _cloneForm(abstractControl: AbstractControl): AbstractControl {
+    private _cloneForm (abstractControl: AbstractControl): AbstractControl {
         // experimental and weird
         // supposed to be used to clone ControlArray elements
         let control: FormControl | FormGroup | FormArray;
@@ -95,7 +95,7 @@ export class DataService {
     }
 
     // TODO: how about to drop it to replace with FormGroup.patchValue
-    private _editForm(abstractControl: AbstractControl, data: any): void {
+    private _editForm (abstractControl: AbstractControl, data: any): void {
         // set initial values for form controls (recursively)
         if (data === undefined) { return; }
 
@@ -129,7 +129,7 @@ export class DataService {
         }
     }
 
-    private __editFormExtendArray(controlArray: FormArray): AbstractControl {
+    private __editFormExtendArray (controlArray: FormArray): AbstractControl {
         // to extend control array (see _editForm)
         let prototypeControl = controlArray.controls[0] || new FormControl(); // could be even smarter
         let control: AbstractControl = this._cloneForm(prototypeControl);
@@ -138,14 +138,14 @@ export class DataService {
         return control;
     }
 
-    view(item?: Object): void {
+    view (item?: Object): void {
         const data = item ? Object.assign({}, item) : null;
 
         this._data.view = data;
         this._observables.view.next(data);
     }
 
-    edit(item?: Object): void {
+    edit (item?: Object): void {
         item = item || this._data.view; // || {}
         const data = item ? Object.assign({}, item) : null;
 
@@ -153,7 +153,7 @@ export class DataService {
         this._observables.edit.next(data);
     }
 
-    editForm(form: FormGroup, item?: Object): void {
+    editForm (form: FormGroup, item?: Object): void {
         item = item || this._data.view || {};
         const data = Object.assign({}, item);
 
@@ -163,17 +163,17 @@ export class DataService {
         this._observables.edit.next(data);
     }
 
-    trackBy(index: number, item): any {
+    trackBy (index: number, item): any {
         return item && item['id'];
     }
 
     // experimental
-    reset(obj: Object) {
+    reset (obj: Object) {
         Object.keys(obj).forEach(prop => { delete obj[prop]; });
     }
 
     // experimental
-    refresh(id: TObjectId, type: string) {
+    refresh (id: TObjectId, type: string) {
         type = type || this._type;
         if (type != this._type) { return; }
 
@@ -189,7 +189,7 @@ export class DataService {
     }
 
     // Few Common Methods used in different components
-    buildName(firstName: string, lastName: string) {
+    buildName (firstName: string, lastName: string) {
         if (firstName != null && firstName.length > 0 && lastName != null && lastName.length > 0) {
             return firstName + ' ' + lastName;
         }
@@ -200,7 +200,7 @@ export class DataService {
         return '';
     }
 
-    buildAddressHtml(tenantContact: any, companyName: string) {
+    buildAddressHtml (tenantContact: any, companyName: string) {
         let html = '<strong>' + this.buildName(tenantContact.firstName, tenantContact.lastName) + '</strong><br />';
         if (tenantContact.unit_no != null && tenantContact.unit_no.length > 0) {
             html += tenantContact.unit_no + '<br />';
@@ -222,7 +222,7 @@ export class DataService {
         return html;
     }
 
-    buildVendorAddressHtml(contact: any, companyName: string) {
+    buildVendorAddressHtml (contact: any, companyName: string) {
         let html = '<strong>' + this.buildName(contact.first_name, contact.last_name) + '</strong><br />';
         html += contact.address + '<br />';
         html += contact.city + ', ' + contact.state + ' ' + contact.postal_code + '<br/>';
@@ -240,7 +240,7 @@ export class DataService {
         return html;
     }
 
-    buildEmployeedAddressHtml(contact: any) {
+    buildEmployeedAddressHtml (contact: any) {
         let html = '<strong>' + contact.title + '</strong><br />';
         let extension = (contact.work_phone_ext != null && contact.work_phone_ext.length > 0) ? (' ext. ' + contact.work_phone_ext) : '';
         if (contact.work_phone != null && contact.work_phone.length > 0) {
@@ -262,17 +262,17 @@ export class DataService {
         return html;
     }
 
-    getPhotoUrl(photo: string) {
+    getPhotoUrl (photo: string) {
         if (photo != null && photo.length > 0)
             return photo;
         return 'assets/img/placeholders/avatars/avatar9.jpg';
     }
 
-    stopPropagation(event) {
+    stopPropagation (event) {
         event.stopPropagation();
     }
 
-    mapToFormData(form: FormGroup, fileFieldKeys: string[]): FormData {
+    mapToFormData (form: FormGroup, fileFieldKeys: string[]): FormData {
         let formData: FormData = new FormData();
         Object.keys(form.controls);
         for (let key of Object.keys(form.controls)) {
@@ -283,12 +283,12 @@ export class DataService {
         return formData;
     }
 
-    convertMaskToNormalText(val) {
+    convertMaskToNormalText (val) {
         const inputVal: string = val.toString();
         return inputVal.replace(/[\(\||,-\s\)]/g, '');
     }
 
-    phoneNumberFormat(val) {
+    phoneNumberFormat (val) {
         let viewVal = val.trim().replace(/^\+/, '');
         viewVal = viewVal.replace(/[^0-9]/g, '').slice(0, 10);
         let area, number;
@@ -314,5 +314,9 @@ export class DataService {
         } else {
             return '(' + area + ')';
         }
+    }
+
+    dateValidation (control: AbstractControl): boolean {
+        return control.value !== null && control.value !== undefined && control.value !== '' ? true : false;
     }
 }

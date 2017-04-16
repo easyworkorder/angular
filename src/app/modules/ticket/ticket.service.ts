@@ -188,6 +188,24 @@ export class TicketService extends DataService {
     return observable;
   }
 
+  deleteLabor (data?: any) {
+    data = Object.assign({}, data);
+
+    // PUT '/employee'
+    const observable = this.http.delete(data.url, data);
+
+    observable.subscribe(data => {
+      this.toasterService.pop('success', 'DELETE', 'Labor has been deleted successfully');
+      // console.log(data);
+    },
+      error => {
+        this.toasterService.pop('error', 'DELETE', 'Labor not deleted due to API error!!!');
+        console.log(error);
+      });
+
+    return observable;
+  }
+
   createMaterial (data?: any) {
     data = Object.assign({}, data);
     const observable = this.http.post('ticketmaterial/', data);
@@ -216,6 +234,24 @@ export class TicketService extends DataService {
     },
       error => {
         this.toasterService.pop('error', 'UPDATE', 'Material not updated due to API error!!!');
+        console.log(error);
+      });
+
+    return observable;
+  }
+
+  deleteMaterial (data?: any) {
+    data = Object.assign({}, data);
+
+    // PUT '/employee'
+    const observable = this.http.delete(data.url, data);
+
+    observable.subscribe(data => {
+      this.toasterService.pop('success', 'DELETE', 'Material has been deleted successfully');
+      // console.log(data);
+    },
+      error => {
+        this.toasterService.pop('error', 'DELETE', 'Material not deleted due to API error!!!');
         console.log(error);
       });
 

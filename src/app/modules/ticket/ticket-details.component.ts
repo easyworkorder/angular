@@ -174,11 +174,12 @@ export class TicketDetailsComponent implements OnInit {
     }
 
     updateMaterialInfo (data) {
-        this.updateTicketMaterialService.setUpdateMaterial(data);
-        $('#modal-add-material').modal({
-            backdrop: 'static',
-            show: true
-        });
+        // this.updateTicketMaterialService.setUpdateMaterial(data);
+        // $('#modal-add-material').modal({
+        //     backdrop: 'static',
+        //     show: true
+        // });
+        this.ticketId && this.getAllMaterials(this.ticketId);
     }
 
     onDueDateEdit (event) {

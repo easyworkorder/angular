@@ -24,11 +24,11 @@ export class TicketLaborComponent implements OnInit {
     _submitted = false;
     selectedEmployee: any = [];
     ticketId: number;
-
     photoFile: File
     selectedPhotoFile: string = '';
     work_date_not_valid = false;
 
+    toDeletedLabor: any;
     constructor(
         private ticketService: TicketService,
         private formBuilder: FormBuilder,
@@ -42,14 +42,12 @@ export class TicketLaborComponent implements OnInit {
             this.ticketLaborForm.patchValue(this.updateTicketLaborInfo);
         });
     }
-
-    ngOnInit() {
+    ngOnInit () {
         this.ticketId = this.route.snapshot.params['id'];
         $('#add-ticket-labor').on('hidden.bs.modal', () => {
             this.closeModal();
         });
     }
-
     ticketLaborForm = new FormGroup({
         id: new FormControl(),
         url: new FormControl(''),
@@ -63,7 +61,7 @@ export class TicketLaborComponent implements OnInit {
         gl_code: new FormControl(''),
     });
 
-    onSubmit() {
+    onSubmit () {
         this._submitted = true;
         if (this.ticketLaborForm.get('work_date').errors) {
             this.work_date_not_valid = true;
@@ -76,6 +74,7 @@ export class TicketLaborComponent implements OnInit {
         // Update Labor
         if (this.ticketLaborForm.value.id) {
             this.ticketService.updateLabor(this.ticketLaborForm.value).subscribe((labor: any) => {
+                this._submitted = false;
                 this.change.emit(true);
                 this.closeModal();
             });
@@ -84,47 +83,50 @@ export class TicketLaborComponent implements OnInit {
 
         // Add Labor
         this.ticketLaborForm.get('workorder').setValue(`${config.api.base}ticket/${this.ticket.id}/`);
-        // let val = this.ticketLaborForm.value;
         this.ticketLaborForm.removeControl('id');
         this.ticketService.createLabor(this.ticketLaborForm.value).subscribe((labor: any) => {
-            // console.log('Tenant created', tenant);
-            //     // this.getAllTenantsByBuilding(this.buildingId);
-            //     // this.isSuccess = true;
-
+            this._submitted = false;
             this.change.emit(true);
             this.closeModal();
         });
         this.ticketLaborForm.addControl('id', new FormControl());
-
     }
-
-    public onSelectedEmployee(value: any): void {
+    public onSelectedEmployee (value: any): void {
         this.selectedEmployee = [value];
         this.ticketLaborForm.get('employee').setValue(config.api.base + 'employee/' + this.selectedEmployee[0].id + '/');
     }
-
-
-    editLabor(labor) {
+    editLabor (labor) {
         labor.work_date = labor.work_date.toDate();
         this.setSelectedEmployee(labor.employee);
         this.ticketLaborForm.patchValue(labor);
     }
-
-    closeModal() {
+    deleteLabor (labor) {
+        this.toDeletedLabor = labor;
+    }
+    closeModal () {
         this.resetForm();
         $('#modal-add-labor').modal('hide');
         this.selectedEmployee = [];
     }
-
-    resetForm() {
+    resetForm () {
         this.ticketLaborForm.reset({
             is_billable: true
         });
     }
-
-    setSelectedEmployee(employeeUrl) {
+    setSelectedEmployee (employeeUrl) {
         this.employeeService.getEmployeeByIdByUrl(employeeUrl).subscribe(data => {
             this.selectedEmployee = [{ id: data.id, text: (data.first_name + ' ' + data.last_name) }];
         });
+    }
+    onSelectDate (value) {
+        this.work_date_not_valid = false;
+    }
+    onModalOkButtonClick (event) {
+        if (this.toDeletedLabor) {
+            this.ticketService.deleteLabor(this.toDeletedLabor).subscribe(data => {
+                $('#modal-labor-delete-confirm').modal('hide');
+                this.change.emit(true);
+            })
+        }
     }
 }

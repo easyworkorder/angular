@@ -1,5 +1,5 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Storage } from 'app/services';
 import { ToasterService } from 'angular2-toaster';
 import { ActivatedRoute } from '@angular/router';
@@ -143,7 +143,7 @@ export class TicketActivityComponent implements OnInit {
         private authService: AuthenticationService,
         private storage: Storage,
         private toasterService: ToasterService
-        ) {
+    ) {
         this.authService.verifyToken().take(1).subscribe(data => {
             this.userInfo = this.storage.getUserInfo();
 
@@ -159,18 +159,18 @@ export class TicketActivityComponent implements OnInit {
                     this.vendors = _vendor;
                 }
             );
-            this.getEmployeesByTicketBuildingProblemType(_problemtype_id);
+            this.getEmployeesByTicketBuildingProblemType(_problemtype_id); //TEMP
         });
     }
 
 
-    ngOnInit() {
+    ngOnInit () {
         this.ticketForm.patchValue(this.ticket);
     }
 
-    onPublicSubmit() {
+    onPublicSubmit () {
         this._publicFormSubmitted = true;
-        if ( !this.ticketPublicForm.valid) {
+        if (!this.ticketPublicForm.valid) {
             return;
         }
         this.isSubmit = true;
@@ -182,7 +182,7 @@ export class TicketActivityComponent implements OnInit {
         });
     }
 
-    onPrivateSubmit() {
+    onPrivateSubmit () {
         this.isSubmit = true;
         this.ticketPrivateForm.get('workorder').setValue(`${config.api.base}ticket/${this.ticket.id}/`);
         this.ticketService.createNote(this.ticketPrivateForm.value, true).subscribe((note: any) => {
@@ -192,7 +192,7 @@ export class TicketActivityComponent implements OnInit {
         });
     }
 
-    onVendorSubmit() {
+    onVendorSubmit () {
         this.isSubmit = true;
         this._vendorSubmitted = true;
         if (this.selectedVendor.length === 0) {
@@ -210,7 +210,7 @@ export class TicketActivityComponent implements OnInit {
         });
     }
 
-    onCloseSubmit() {
+    onCloseSubmit () {
         this.isSubmit = true;
         this.ticketCloseForm.get('workorder').setValue(`${config.api.base}ticket/${this.ticket.id}/`);
         this.ticketService.createNote(this.ticketCloseForm.value, false).subscribe((note: any) => {
@@ -219,7 +219,7 @@ export class TicketActivityComponent implements OnInit {
             this.ticketForm.get('closed').setValue(true);
             this.ticketForm.get('submitted_by_type').setValue('E');
 
-            this.ticketService.update(this.ticketForm.value, false).subscribe((tikcet: any) => {});
+            this.ticketService.update(this.ticketForm.value, false).subscribe((tikcet: any) => { });
             this.toasterService.pop('success', 'UPDATE', 'Ticket has been Closed successfully');
             this.isSubmit = false;
             this.change.emit(true);
@@ -236,7 +236,7 @@ export class TicketActivityComponent implements OnInit {
         }
     }
 
-    getPhotoUrl(ticket) {
+    getPhotoUrl (ticket) {
         if (ticket.photo != null && ticket.photo.length > 0) {
             return ticket.photo;
         }
@@ -246,7 +246,7 @@ export class TicketActivityComponent implements OnInit {
     /**
      * Get All employee for ticket building & problem type
      */
-    getEmployeesByTicketBuildingProblemType(problemtype_id): void {
+    getEmployeesByTicketBuildingProblemType (problemtype_id): void {
         let _building_id = this.ticket.building.extractIdFromURL();
         this.employeeService.getEmployeesByTicketBuildingProblemType(_building_id, problemtype_id).subscribe(
             data => {
@@ -263,12 +263,12 @@ export class TicketActivityComponent implements OnInit {
      * Set selected tenant data
      * @param value
      */
-    public selectedTenantList(value: any): void {
+    public selectedTenantList (value: any): void {
         this.selectedTenant.push(value);
         this.setTenantList();
     }
 
-    public removedTenantList(value: any): void {
+    public removedTenantList (value: any): void {
         let sel = [];
         this.selectedTenant.forEach(item => {
             if (item.id !== value.id) {
@@ -279,8 +279,8 @@ export class TicketActivityComponent implements OnInit {
         this.setTenantList();
     }
 
-    setTenantList() {
-        let tenantList = this.itemsToString( this.selectedTenant );
+    setTenantList () {
+        let tenantList = this.itemsToString(this.selectedTenant);
         tenantList = tenantList.split(',').join(',');
         this.ticketPublicForm.get('tenant_list').setValue(tenantList);
     }
@@ -289,12 +289,12 @@ export class TicketActivityComponent implements OnInit {
      * Set selected employee data
      * @param value
      */
-    public selectedEmployeeList(value: any): void {
+    public selectedEmployeeList (value: any): void {
         this.selectedEmployee.push(value);
         this.setEmployeeList();
     }
 
-    public removedEmployeeList(value: any): void {
+    public removedEmployeeList (value: any): void {
         let sel = [];
         this.selectedEmployee.forEach(item => {
             if (item.id !== value.id) {
@@ -305,8 +305,8 @@ export class TicketActivityComponent implements OnInit {
         this.setEmployeeList();
     }
 
-    setEmployeeList() {
-        let employeeList = this.itemsToString( this.selectedEmployee );
+    setEmployeeList () {
+        let employeeList = this.itemsToString(this.selectedEmployee);
         employeeList = employeeList.split(',').join(',');
         this.ticketPrivateForm.get('employee_list').setValue(employeeList);
     }
@@ -315,20 +315,20 @@ export class TicketActivityComponent implements OnInit {
      * Set selected vendor data
      * @param value
      */
-    public setSelectedVendor(value: any): void {
+    public setSelectedVendor (value: any): void {
         this.selectedVendor = [value];
         this.ticketVendorRequestForm.get('vendor').setValue(config.api.base + 'vendor/' + this.selectedVendor[0].id + '/');
         this.ticketVendorForm.get('vendor').setValue(config.api.base + 'vendor/' + this.selectedVendor[0].id + '/');
     }
 
-    public itemsToString(value: Array<any> = []): string {
+    public itemsToString (value: Array<any> = []): string {
         return value
             .map((item: any) => {
                 return item.id;
             }).join(',');
     }
 
-    closeModal() {
+    closeModal () {
         this.resetForm();
         this.selectedTenant = [];
         this.selectedEmployee = [];
@@ -339,7 +339,7 @@ export class TicketActivityComponent implements OnInit {
         $('#modal-close-wo').modal('hide');
     }
 
-    resetForm() {
+    resetForm () {
         this.ticketPublicForm.reset({
             details: '',
             updated_by_type: 'E',
