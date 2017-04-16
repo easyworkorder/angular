@@ -120,7 +120,9 @@ export class TicketActivityComponent implements OnInit {
         tenant_notified: new FormControl(false),
         tenant_follow_up: new FormControl(false),
         vendor_notified: new FormControl(false),
-        vendor_follow_up: new FormControl(false)
+        vendor_follow_up: new FormControl(false),
+        action_type: new FormControl('close')
+
     });
     /**
      * To Close the ticket
@@ -209,6 +211,7 @@ export class TicketActivityComponent implements OnInit {
     }
 
     onCloseSubmit() {
+        this.isSubmit = true;
         this.ticketCloseForm.get('workorder').setValue(`${config.api.base}ticket/${this.ticket.id}/`);
         this.ticketService.createNote(this.ticketCloseForm.value, false).subscribe((note: any) => {
 
@@ -218,6 +221,7 @@ export class TicketActivityComponent implements OnInit {
 
             this.ticketService.update(this.ticketForm.value, false).subscribe((tikcet: any) => {});
             this.toasterService.pop('success', 'UPDATE', 'Ticket has been Closed successfully');
+            this.isSubmit = false;
             this.change.emit(true);
             this.closeModal();
         });
