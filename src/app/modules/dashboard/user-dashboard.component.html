@@ -18,7 +18,67 @@
 <div class="row">
     <!-- Tickets Content -->
     <div class="col-md-4 col-lg-3">
-        <app-left-menu *ngIf="contactStat && userInfo" [contactStat]="contactStat" [userInfo]="userInfo"></app-left-menu>
+        <!--app-left-menu *ngIf="contactStat && userInfo" [contactStat]="contactStat" [userInfo]="userInfo"></app-left-menu-->
+
+        <div>
+            <!-- Menu Block for Tenant's users -->
+            <div class="block full">
+                <!-- Menu Title -->
+                <div class="block-title clearfix">
+
+                    <h2>Manage Requests</h2>
+                </div>
+                <!-- END Menu Title -->
+
+                <!-- Menu Content -->
+                <ul class="nav nav-pills nav-stacked">
+                    <li class="active">
+                        <a (click)="updateTicketList('Unassigned')">
+                            <span class="badge pull-right">{{contactStat?.new}}</span>
+                            <i class="fa fa-fw fa-ticket icon-push"></i> <strong>New</strong>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="badge pull-right">{{contactStat?.replies}}</span>
+                            <i class="fa fa-fw fa-exclamation-triangle icon-push"></i> <strong>Replies</strong>
+                        </a>
+                    </li>
+                    <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
+                        <a href="#">
+                            <span class="badge pull-right">{{contactStat?.pending}}</span>
+                            <i class="fa fa-fw fa-folder-open-o icon-push"></i> <strong>Due Today</strong>
+                        </a>
+                    </li>
+                    <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
+                        <a href="#">
+                            <span class="badge pull-right">{{contactStat?.pending}}</span>
+                            <i class="fa fa-fw fa-folder-open-o icon-push"></i> <strong>Overdue</strong>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="badge pull-right">{{contactStat?.pending}}</span>
+                            <i class="fa fa-fw fa-folder-open-o icon-push"></i> <strong>Pending</strong>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="badge pull-right">{{contactStat?.closed}}</span>
+                            <i class="fa fa-fw fa-folder-o icon-push"></i> <strong>Closed</strong>
+                        </a>
+                    </li>
+                </ul>
+                <!-- END Menu Content -->
+            </div>
+            <!-- END Menu Block for Tenant's users -->
+        </div>
+        <div *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
+
+        </div>
+
+
+
     </div>
 
     <div class="col-md-7 col-lg-9">
