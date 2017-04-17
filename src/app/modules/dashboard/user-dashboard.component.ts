@@ -41,34 +41,25 @@ export class UserDashboardComponent implements OnInit {
 
 
             } else if (this.userInfo && this.userInfo.IsEmployee) {
-                /**
-                 * Get All ticket list for employees
-                 */
-                this.getAllTickets(this.currentRequestType);
                 this.IsEmployee = true;
 
             } else if (this.userInfo && this.userInfo.IsPropertyManager) {
-                /**
-                 * Get All ticket list for property manager
-                 */
-                this.getAllTickets(this.currentRequestType);
                 this.IsPropertyManager = true;
 
             } else if (this.userInfo && this.userInfo.IsVendor) {
                 this.vendorContactId = this.userInfo.vendor_contact_id;
 
             } else {
-                /**
-                 * Get All ticket list for admin
-                 */
-                this.getAllTickets(this.currentRequestType);
                 this.IsPropertyManager = true;
             }
 
             this.getWorkOrderStatistics();
             this.getWorkOrderQuickStats();
+            this.getAllTickets(this.currentRequestType);
 
             this.ticketService.tickettListRefresh$.subscribe(status => {
+                this.getWorkOrderStatistics();
+                this.getWorkOrderQuickStats();
                 this.getAllTickets(this.currentRequestType);
             });
 
