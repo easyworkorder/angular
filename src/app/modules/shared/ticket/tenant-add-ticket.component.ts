@@ -273,7 +273,8 @@ export class TenantAddTicketComponent implements OnInit {
             is_save_as_note: false,
             notify_employee: false,
             is_deleted: false,
-            status: 'Unassigned'
+            status: 'Unassigned',
+            source: 'Agent'
         });
     }
 }
