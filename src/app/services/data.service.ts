@@ -201,14 +201,15 @@ export class DataService {
     }
 
     buildAddressHtml (tenantContact: any, companyName: string) {
-        let html = '<strong>' + this.buildName(tenantContact.firstName, tenantContact.lastName) + '</strong><br />';
+        console.log(tenantContact);
+        let html = '<strong>' + this.buildName(tenantContact.first_name, tenantContact.last_name) + '</strong><br />';
         if (tenantContact.unit_no != null && tenantContact.unit_no.length > 0) {
             html += tenantContact.unit_no + '<br />';
         }
         if (tenantContact.title != null && tenantContact.title.length > 0) {
             html += tenantContact.title + '<br />';
         }
-        let extension = (tenantContact.extension != null && tenantContact.extension.length > 0) ? (' ext. ' + tenantContact.phone_extension) : '';
+        let extension = (tenantContact.phone_extension != null && tenantContact.phone_extension.length > 0) ? (' ext. ' + tenantContact.phone_extension) : '';
         if (tenantContact.phone != null && tenantContact.phone.length > 0) {
             html += 'P: ' + this.phoneNumberFormat(tenantContact.phone) + extension;
         }

@@ -297,7 +297,7 @@ export class TenantComponent implements OnInit {
     }
 
     onVerifyEmail (event) {
-        this.verifyEmailService.verifyEmail(event.target.value);
+        this.verifyEmailService.verifyEmail(event.target.value, '');
     }
     dateValidation (control: AbstractControl): boolean {
         return control.value !== null && control.value !== undefined && control.value !== '' ? true : false;

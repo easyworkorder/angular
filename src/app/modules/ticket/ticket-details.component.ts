@@ -41,6 +41,7 @@ export class TicketDetailsComponent implements OnInit {
     dueDateValid: boolean = true;
 
     ticket: any;
+    ticket_submitter_info: any;
     notes: any[] = [];
     labors: any[];
     materials: any[];
@@ -108,6 +109,10 @@ export class TicketDetailsComponent implements OnInit {
                         this.tenant_contacts = _tenant_contact;
                     }
                 );
+                this.ticketService.getTicketSubmitterInfo(this.ticket.id).subscribe(
+                    data => {
+                        this.ticket_submitter_info = data;
+                });
                 // this.tenant = this.tenantService.getTenant(this.ticket.tenant);
                 // let _building_id = this.ticket.building.extractIdFromURL();
                 // this.getActiveTenantsByBuilding(_building_id);
@@ -120,7 +125,7 @@ export class TicketDetailsComponent implements OnInit {
     getAllNotes (ticketId) {
         this.ticketService.getAllNotes(ticketId).subscribe(
             data => {
-                this.notes = data.results;
+                this.notes = data;
             });
     }
 

@@ -457,7 +457,7 @@ export class EmployeeComponent implements OnInit {
     }
 
     onVerifyEmail (event) {
-        this.verifyEmailService.verifyEmail(event.target.value);
+        this.verifyEmailService.verifyEmail(event.target.value, this.employeeForm.get('user_id').value);
     }
 }
 

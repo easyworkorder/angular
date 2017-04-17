@@ -213,36 +213,39 @@ export class TicketListComponent implements OnInit {
         const user = this.storage.getUserInfo();
         const checkedTicketList: any[] = this.ticketList.filter(item => item.checked);
 
+        console.log(user);
+
         let displayTicketsMsg: any[] = [];
         let counter = 0;
         checkedTicketList && checkedTicketList.forEach(ticket => {
             displayTicketsMsg.push(ticket.ticket_key);
-
-            ticket.assigned_to = `${config.api.base}employee/${user.user_id}/`;
+            if (user.employee_id) {
+                ticket.assigned_to = `${config.api.base}employee/${user.employee_id}/`;
+            }
             ticket.url = `${config.api.base}ticket/${ticket.id}/`;
             ticket.status = 'Open';
+            console.log(ticket);
             this.ticketService.update(ticket, false).subscribe(() => {
                 if (++counter == checkedTicketList.length) {
                     $('#modal-accept-ticket-confirm').modal('hide');
                     this.ticketService.updateTicketList(true);
                     this.toasterService.pop('success', 'Accept', `${displayTicketsMsg.join(', ')} Ticket${checkedTicketList.length == 1 ? '' : '\'s'} has been accepted successfully`);
                 }
-            });
 
-            let note = {
-                workorder: `${config.api.base}ticket/${ticket.id}/`,
-                details: '',
-                action_type: 'accept',
-                is_private: true,
-                tenant_notified: false,
-                tenant_follow_up: false,
-                vendor_notified: false,
-                vendor_follow_up: false
-            }
-            this.ticketService.createNote(note, false).subscribe(data => {
-                // console.log('data>>>', data);
+                let note = {
+                    workorder: `${config.api.base}ticket/${ticket.id}/`,
+                    details: '',
+                    action_type: 'accept',
+                    is_private: true,
+                    tenant_notified: false,
+                    tenant_follow_up: false,
+                    vendor_notified: false,
+                    vendor_follow_up: false
+                }
+                this.ticketService.createNote(note, false).subscribe(data => {
+                    // console.log('data>>>', data);
+                });
             });
-
-        })
+        });
     }
 }

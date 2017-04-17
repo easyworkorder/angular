@@ -126,6 +126,14 @@ export class DateFormatPipe implements PipeTransform {
 export class TicketListDateFormatPipe implements PipeTransform {
   datePipe = new DatePipe('en-US');
   transform (value: any) {
-    return this.datePipe.transform(value, 'hh:mm, MM/dd/yyyy');
+    return this.datePipe.transform(value, 'hh:mm a, MM/dd/yyyy');
+  }
+}
+
+@Pipe({ name: 'ticketDetailsdateFormat' })
+export class TicketDetailsDateFormatPipe implements PipeTransform {
+  datePipe = new DatePipe('en-US');
+  transform (value: any) {
+    return this.datePipe.transform(value, 'MM/dd/yyyy, hh:mm a');
   }
 }

@@ -83,6 +83,14 @@ export class TicketService extends DataService {
     return observable;
   }
 
+  getTicketSubmitterInfo(ticket_id) {
+    const observable = this.http.get('ticketsubmitterinfo/' + ticket_id  + '/');
+    observable.subscribe(data => {
+      // console.log(data);
+    });
+    return observable;
+  }
+
   create (data?: any): Observable<ITicket> {
     data = Object.assign({}, data);
 

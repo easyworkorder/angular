@@ -47,7 +47,8 @@ import {
     FilterWithStartLetterPipe,
     PhonePipe,
     DateFormatPipe,
-    TicketListDateFormatPipe
+    TicketListDateFormatPipe,
+    TicketDetailsDateFormatPipe
 } from './pipes';
 import { BuildingComponent } from './modules/admin/building/building.component';
 import { AddressComponent } from './modules/address/address.component';
@@ -183,6 +184,7 @@ export function translateStaticLoaderFactory (Backend, defaultOptions, storage, 
         PhonePipe,
         DateFormatPipe,
         TicketListDateFormatPipe,
+        TicketDetailsDateFormatPipe,
         // Directives
         FormControlValidator,
         ActiveDirective,

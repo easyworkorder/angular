@@ -26,17 +26,17 @@
         <!-- Ticket -->
         <li class="media" *ngIf="ticket">
             <a href="javascript:void(0)" class="pull-left">
-                <img [src]="getPhotoUrl(ticket)" alt="Avatar" class="img-circle">
+                <img [src]="getPhotoUrl(ticket_submitter_info)" alt="Avatar" class="img-circle ticket-image">
             </a>
             <div class="media-body">
                 <p class="push-bit">
                     <span class="text-muted pull-right">
-                    <small>2 hours ago</small>
+                    <small>{{ticket.submit_time | ticketDetailsdateFormat}}</small>
                 </span>
-                    <small><a href="#">Howard Smith</a> <span *ngIf="ticket.source">through <a href="javascript:void(0)">{{ticket.source}}</a></span></small>
+                    <small>{{ticket_submitter_info?.name}} <span *ngIf="ticket.source">through <a href="javascript:void(0)">{{ticket.source}}</a></span></small>
                 </p>
                 <h4><strong>{{ticket.subject}}</strong></h4>
-                <p>{{ticket.description}}</p>
+                <p class="multiline">{{ticket.description}}</p>
             </div>
         </li>
         <!-- END Ticket -->
@@ -44,16 +44,15 @@
         <!-- Replies -->
         <li class="media" *ngFor="let note of notes">
             <a href="javascript:void(0)" class="pull-left">
-                <img [src]="getPhotoUrl(note)" alt="Avatar" class="img-circle chatui-talk-msg-avatar">
+                <img [src]="getPhotoUrl(note)" alt="Avatar" class="img-circle ticket-image">
             </a>
             <div class="media-body">
                 <p class="push-bit">
-                    <span class="text-muted pull-right">
-                                                                <small>1 hour ago</small>
-                                                            </span>
-                    <small><a *ngIf="note.updated_by_type == 'E'" href="javascript:void(0)">Support</a></small>
+                    <span class="text-muted pull-right"><small>{{note.note_time | ticketDetailsdateFormat}}</small></span>
+                    <small>{{note.submitter_name}}</small>
                 </p>
-                <div [innerHTML]="note.details" class="multiline"></div>
+                <p *ngIf="note.message_text" class="multiline">{{note.message_text}} {{note.note_time | ticketDetailsdateFormat}}</p>
+                <div *ngIf="note.details" class="multiline alert alert-info">{{note.details}}</div>
             </div>
         </li>
         <!-- END Replies -->

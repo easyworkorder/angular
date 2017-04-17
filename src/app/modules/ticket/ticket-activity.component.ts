@@ -21,6 +21,7 @@ export class TicketActivityComponent implements OnInit {
     currentCompanyId = 1;
 
     @Input() ticket: any;
+    @Input() ticket_submitter_info: any;
     @Input() notes: any;
     // @Input() employees: any;
     @Input() tenant_contacts: any;
@@ -29,6 +30,7 @@ export class TicketActivityComponent implements OnInit {
 
     _vendorSubmitted = false;
     _publicFormSubmitted = false;
+
 
     vendors: any[] = [];
     employees: any[] = [];
@@ -132,7 +134,7 @@ export class TicketActivityComponent implements OnInit {
         id: new FormControl(),
         status: new FormControl('Closed'),
         closed: new FormControl(true),
-        submitted_by_type: new FormControl('E'),
+        // submitted_by_type: new FormControl('E'),
         url: new FormControl()
     });
 
@@ -161,7 +163,9 @@ export class TicketActivityComponent implements OnInit {
                     this.vendors = _vendor;
                 }
             );
-            this.getEmployeesByTicketBuildingProblemType(_problemtype_id); //TEMP
+
+            this.getEmployeesByTicketBuildingProblemType(_problemtype_id);
+
         });
     }
 
@@ -219,7 +223,7 @@ export class TicketActivityComponent implements OnInit {
 
             this.ticketForm.get('status').setValue('Closed');
             this.ticketForm.get('closed').setValue(true);
-            this.ticketForm.get('submitted_by_type').setValue('E');
+            // this.ticketForm.get('submitted_by_type').setValue('E');
 
             this.ticketService.update(this.ticketForm.value, false).subscribe((tikcet: any) => { });
             this.toasterService.pop('success', 'UPDATE', 'Ticket has been Closed successfully');

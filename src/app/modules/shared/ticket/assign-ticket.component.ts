@@ -69,6 +69,7 @@ export class AssignTicketComponent implements OnInit {
 
         let displayTicketsMsg: any[] = [];
         let counter = 0;
+        let _assigned_to = this.selectedEmployee[0].id;
         checkedTicketList && checkedTicketList.forEach(ticket => {
             displayTicketsMsg.push(ticket.ticket_key);
 
@@ -81,22 +82,22 @@ export class AssignTicketComponent implements OnInit {
                     this.toasterService.pop('success', 'Assign', `${displayTicketsMsg.join(', ')} Ticket${checkedTicketList.length == 1 ? '' : '\'s'} has been Assign to ${this.selectedEmployee[0].text}`);
                     this.closeModal();
                 }
-            });
 
-            let note = {
-                workorder: `${config.api.base}ticket/${ticket.id}/`,
-                details: this.ticketPrivateForm.get('details').value,
-                action_type: 'assign',
-                is_private: true,
-                tenant_notified: false,
-                tenant_follow_up: false,
-                vendor_notified: false,
-                vendor_follow_up: false
-            }
-            this.ticketService.createNote(note, false).subscribe(data => {
-                console.log('data>>>', data);
+                let note = {
+                    workorder: `${config.api.base}ticket/${ticket.id}/`,
+                    details: this.ticketPrivateForm.get('details').value,
+                    action_type: 'assign',
+                    is_private: true,
+                    tenant_notified: false,
+                    tenant_follow_up: false,
+                    vendor_notified: false,
+                    vendor_follow_up: false,
+                    employee_list: _assigned_to
+                }
+                this.ticketService.createNote(note, false).subscribe(data => {
+                    // console.log('data>>>', data);
+                });
             });
-
         })
 
     }

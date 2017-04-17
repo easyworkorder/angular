@@ -30,6 +30,8 @@ export class UserDashboardComponent implements OnInit {
         this.authService.verifyToken().take(1).subscribe(data => {
             this.userInfo = this.storage.getUserInfo();
 
+            console.log(this.userInfo);
+
             if (this.userInfo && this.userInfo.IsContact) {
                 this.tenantContactId = this.userInfo.tenant_contact_id;
                 /*this.getTenantById(this.userInfo.tenant_id).subscribe(data => {
