@@ -23,7 +23,7 @@ export class AddressService extends DataService {
         super(events);
     }
 
-    create(data?: any): Observable<Address> {
+    create (data?: any): Observable<Address> {
         data = Object.assign({}, data);
 
         // POST '/address'
@@ -31,23 +31,20 @@ export class AddressService extends DataService {
         // const observable = this.http.post_with_file('address/', data)
 
         observable.subscribe(data => {
-            console.log(data);
         });
 
         return observable;
     }
-    createWithFile(formData: FormData): Observable<any> {
+    createWithFile (formData: FormData): Observable<any> {
         const observable = this.http.postWithFile('address/', formData);
         observable.subscribe(data => {
-            console.log(data);
         });
         return observable;
     }
 
-    getAll() {
+    getAll () {
         const observable = this.http.get('address/?address_type=b');
         observable.subscribe(data => {
-            console.log(data);
         });
         return observable;
     }

@@ -80,7 +80,6 @@ export class TicketDetailsComponent implements OnInit {
     ) {
         this.authService.verifyToken().take(1).subscribe(data => {
             this.userInfo = this.storage.getUserInfo();
-            console.log('userInfo', this.userInfo);
             this.getAllActiveEmployees();
             this.ticketService.ticketRefresh$.subscribe(status => {
                 this.getTicketDetails();
@@ -173,7 +172,6 @@ export class TicketDetailsComponent implements OnInit {
                     return { id: item.id, text: (item.unitno + ' ' + item.tenant_company_name) };
                 })
                 this.tenants = _tenant;
-                console.log(this.tenants);
             }
         );
     }*/

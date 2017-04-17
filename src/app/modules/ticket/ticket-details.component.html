@@ -39,8 +39,8 @@
                 <!-- Tickets List -->
                 <loading-spinner-wave *ngIf="!ticket"></loading-spinner-wave>
                 <div class="tab-pane active" id="ticket-activity">
-                    <ewo-ticket-activity *ngIf="ticket && notes && tenant_contacts && ticket_submitter_info" [ticket]="ticket" [ticket_submitter_info]="ticket_submitter_info" [notes]="notes" [tenant_contacts]="tenant_contacts"
-                        (update)="updateNotes($event)" [isAdmin]="true"></ewo-ticket-activity>
+                    <ewo-ticket-activity *ngIf="ticket && notes && tenant_contacts && ticket_submitter_info" [ticket]="ticket" [ticket_submitter_info]="ticket_submitter_info"
+                        [notes]="notes" [tenant_contacts]="tenant_contacts" (update)="updateNotes($event)" [isAdmin]="true"></ewo-ticket-activity>
                 </div>
                 <!-- END Tickets List -->
 
@@ -131,10 +131,10 @@
                 <abbr title="Email">E:</abbr> vicky.pink@twitter.com<br>
                 <strong>Twitter, Inc.</strong><br> 795 Folsom Ave, Suite 600<br> San Francisco, CA 94107<br>-->
                 <strong>{{selectedTenant.tenant_contacts[0].first_name}} {{selectedTenant.tenant_contacts[0].last_name}}</strong><br>
-                <abbr title="Phone">P:</abbr> {{selectedTenant.tenant_contacts[0].phone | phone}}
-                <br>
-                <abbr title="Email">E:</abbr> {{selectedTenant.tenant_contacts[0].email}}<br>
-                <strong>{{selectedTenant.tenant_company_name}}</strong><br>
+                <span *ngIf="selectedTenant.tenant_contacts[0].phone"><abbr title="Phone">P:</abbr> {{selectedTenant.tenant_contacts[0].phone | phone}}</span>
+                <span *ngIf="selectedTenant.tenant_contacts[0].email"><br>
+                <abbr title="Email">E:</abbr> {{selectedTenant.tenant_contacts[0].email}}</span><br>
+                <strong>{{selectedTenant.tenant_company_name}}</strong><br>{{selectedTenant.unitno}}
                 <!--795 Folsom Ave, Suite 600<br> San Francisco, CA 94107<br>-->
             </address>
             <!-- END Tenant Information -->

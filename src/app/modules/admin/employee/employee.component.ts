@@ -163,7 +163,6 @@ export class EmployeeComponent implements OnInit {
     }
 
     onSubmit () {
-        console.log('On submit 1')
         this.setBuildingList();
         this.setProblemTypeLsit();
         // let val = this.employeeForm.value;
@@ -174,7 +173,6 @@ export class EmployeeComponent implements OnInit {
         // FIXME: Should be enabled, but validation always fails.
         // if(!this.employeeForm.valid) return;
         // if (this.photoFile) {
-        //     console.log('Inside On Submit');
         //     let user_id = this.employeeForm.get('user_id').value;
         //     let formData: FormData = this.dataService.mapToFormData(this.employeeForm, ['user_id']);
         //     formData.append('photo', this.photoFile, this.photoFile.name);
@@ -184,7 +182,6 @@ export class EmployeeComponent implements OnInit {
         //             this.refreshEditor('Employee created with file', employee);
         //         });
         //     } else {
-        //         console.log('Creating employee')
         //         this.employeeService.createWithFile(formData).subscribe((employee: any) => {
         //             this.refreshEditor('Employee created with file', employee);
         //         });
@@ -274,7 +271,6 @@ export class EmployeeComponent implements OnInit {
         observable.subscribe(
             (data) => {
                 this.isSubmit = false;
-                console.log('contact Data', data);
                 if (boundEmployee.id) {
                     this.refreshEditor('Employee Updated', data)
                     this.toasterService.pop('success', 'UPDATE', 'Employee has been updated successfully');
@@ -296,7 +292,6 @@ export class EmployeeComponent implements OnInit {
     }
 
     private refreshEditor (logMsg, employee) {
-        console.log(logMsg, employee);
         this.getAllEmployees(this.currentCompanyId);
         this.closeModal();
         this.showSaveSpinner = false;
@@ -322,8 +317,6 @@ export class EmployeeComponent implements OnInit {
         postData.append('file', file);
         observable = this.employeeService.postToS3(s3Data.url, postData);
         observable.subscribe(data => {
-            console.log('postToS3', data);
-            console.log('Should be accessible through: ' + url);
             // employee.photo = url;
             // this.employeeService.update(employee).subscribe(data => {
             //     this.refreshEditor('Saved emp to db', data);
@@ -338,7 +331,7 @@ export class EmployeeComponent implements OnInit {
         if (fileList.length > 0) {
             this.photoFile = fileList[0];
             this.selectedPhoto = this.photoFile.name;
-            console.log('Selected file type is: ' + fileList[0].type);
+            // console.log('Selected file type is: ' + fileList[0].type);
         }
     }
 
@@ -365,15 +358,12 @@ export class EmployeeComponent implements OnInit {
             this.removedBuilding({ id: -1, text: 'All' });
         }
 
-        console.log('Selected value is: ', value);
         this.selectedBuildings.push(value);
-        console.log(this.selectedBuildings);
         this.setBuildingList();
     }
 
     public removedBuilding (value: any): void {
 
-        console.log('Removed value is: ', value);
         let sel = [];
         this.selectedBuildings.forEach(item => {
             if (item.id != value.id) {
@@ -400,14 +390,11 @@ export class EmployeeComponent implements OnInit {
             this.removedProblemType({ id: -1, text: 'All' });
         }
 
-        console.log('Selected value is: ', value);
         this.selectedProblemTypes.push(value);
-        console.log(this.selectedProblemTypes);
         this.setProblemTypeLsit();
     }
 
     public removedProblemType (value: any): void {
-        // console.log('Removed value is: ', value);
         let sel = [];
         this.selectedProblemTypes.forEach(item => {
             if (item.id != value.id) {

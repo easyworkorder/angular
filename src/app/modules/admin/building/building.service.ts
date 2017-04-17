@@ -28,25 +28,22 @@ export class BuildingService extends DataService {
     super(events);
   }
 
-  create(data?: any): Observable<IBuilding> {
+  create (data?: any): Observable<IBuilding> {
 
     data = Object.assign({}, data);
-    // console.log(data);
     const observable = this.http.post('building/', data);
 
     observable.subscribe(data => {
       this.toasterService.pop('success', 'ADD', 'Building has been saved successfully');
-      // console.log(data);
     },
       error => {
         this.toasterService.pop('error', 'ADD', 'Building not Saved due to API error!!!');
-        console.log(error);
       });
 
     return observable;
   }
 
-  update(data?: any): Observable<IBuilding> {
+  update (data?: any): Observable<IBuilding> {
     data = Object.assign({}, data);
 
     // PUT '/employee'
@@ -55,46 +52,41 @@ export class BuildingService extends DataService {
 
     observable.subscribe(data => {
       this.toasterService.pop('success', 'UPDATE', 'Building information has been updated successfully');
-      // console.log(data);
     },
       error => {
         this.toasterService.pop('error', 'UPDATE', 'Building information not updated due to API error!!!');
-        console.log(error);
       });
 
     return observable;
   }
 
-  getAllBuildings(company_id) {
+  getAllBuildings (company_id) {
 
     const observable = this.http.get('buildinglist/' + company_id + '/');
     observable.subscribe(data => {
-      // console.log(data);
     });
     return observable;
   }
 
-  getBuilding(id) {
-      const observable = this.http.get('building/' + id + '/');
-      observable.subscribe(data => {
-          // console.log('building data:' + data);
-      });
-      return observable;
+  getBuilding (id) {
+    const observable = this.http.get('building/' + id + '/');
+    observable.subscribe(data => {
+    });
+    return observable;
   }
 
-  getAllActiveBuildings(company_id) {
+  getAllActiveBuildings (company_id) {
     const observable = this.http.get('building/', { company: company_id, active: true, ordering: 'name' });
     observable.subscribe(data => {
-      // console.log(data);
     });
     return observable;
   }
 
-  get editedBuilding(): any {
+  get editedBuilding (): any {
     return this._editedBuilding;
   }
 
-  set editedBuilding(val: any) {
+  set editedBuilding (val: any) {
     if (val != this._editedBuilding) {
       this._editedBuilding = val;
     }

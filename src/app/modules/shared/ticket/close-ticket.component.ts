@@ -69,7 +69,6 @@ export class CloseTicketComponent implements OnInit {
         if (changes['tickets']) {
             if (changes['tickets'].currentValue.length > 0) {
                 this.ticketList = changes['tickets'].currentValue;
-                console.log('ticket Close>>', this.ticketList);
             }
         }
     }
@@ -106,7 +105,6 @@ export class CloseTicketComponent implements OnInit {
             // this.ticketCloseForm.get('action_type').setValue('Close');
 
             this.ticketService.createNote(this.ticketCloseForm.value, false).subscribe(data => {
-                // console.log('data>>>', data);
             });
 
         })

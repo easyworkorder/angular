@@ -30,14 +30,12 @@ export class TenantInsuranceComponent implements OnInit {
         private updateTenantInsuranceService: UpdateTenantInsuranceService) {
         this.updateTenantInsuranceService.updateInsuranceInfo$.subscribe((data: any) => {
             this.updateInsuranceDataInfo = data;
-            // console.log('people>>>', this.updatePeopleInfo);
             data.exp_date = data.exp_date ? data.exp_date.toDate() : data.exp_date;
             this.tenantInsuranceForm.patchValue(this.updateInsuranceDataInfo);
         });
     }
 
     ngOnInit () {
-        // console.log('Edited Data', this.updatePeopleInfo);
         $('#add-tenant-insurance').on('hidden.bs.modal', () => {
             this.closeModal();
         });

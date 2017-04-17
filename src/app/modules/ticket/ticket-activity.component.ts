@@ -148,7 +148,6 @@ export class TicketActivityComponent implements OnInit {
     ) {
         this.authService.verifyToken().take(1).subscribe(data => {
             this.userInfo = this.storage.getUserInfo();
-            console.log('userInfo2', this.userInfo);
 
 
             let _problemtype_id = this.ticket.problemtype.extractIdFromURL();
@@ -238,7 +237,7 @@ export class TicketActivityComponent implements OnInit {
         if (fileList.length > 0) {
             this.attachFile = fileList[0];
             this.selectedFile = this.attachFile.name;
-            console.log('Selected file type is: ' + fileList[0].type);
+            // console.log('Selected file type is: ' + fileList[0].type);
         }
     }
 

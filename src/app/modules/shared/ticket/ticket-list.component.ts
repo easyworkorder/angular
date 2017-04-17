@@ -44,7 +44,6 @@ export class TicketListComponent implements OnInit {
         if (changes['tickets']) {
             if (changes['tickets'].currentValue.length > 0) {
                 this.ticketList = changes['tickets'].currentValue.map(item => Object.assign({}, item, { checked: false }));
-                // console.log('tickets>>', this.ticketList);
             } else {
                 this.ticketList = [];
             }
@@ -73,12 +72,10 @@ export class TicketListComponent implements OnInit {
     // onAllCheckboxChange (event) {
     //     // event.target.value = !event.target.value;
 
-    //     console.log('all', event.target.checked);
     //     this.ticketList.map(item => item.checked = event.target.checked)
     // }
 
     onChangeCheckbox (value) {
-        // console.log('Valu', value);
         // let all = this.ticketList.every(item => item.checked);
 
         // all && this.allCheckbox.setValue(all);
@@ -129,7 +126,6 @@ export class TicketListComponent implements OnInit {
         //         vendor_follow_up: false
         //     }
         //     this.ticketService.createNote(note, false).subscribe(data => {
-        //         // console.log('data>>>', data);
         //     });
 
         // })
@@ -213,7 +209,6 @@ export class TicketListComponent implements OnInit {
         const user = this.storage.getUserInfo();
         const checkedTicketList: any[] = this.ticketList.filter(item => item.checked);
 
-        console.log(user);
 
         let displayTicketsMsg: any[] = [];
         let counter = 0;
@@ -224,7 +219,6 @@ export class TicketListComponent implements OnInit {
             }
             ticket.url = `${config.api.base}ticket/${ticket.id}/`;
             ticket.status = 'Open';
-            console.log(ticket);
             this.ticketService.update(ticket, false).subscribe(() => {
                 if (++counter == checkedTicketList.length) {
                     $('#modal-accept-ticket-confirm').modal('hide');
@@ -243,7 +237,6 @@ export class TicketListComponent implements OnInit {
                     vendor_follow_up: false
                 }
                 this.ticketService.createNote(note, false).subscribe(data => {
-                    // console.log('data>>>', data);
                 });
             });
         });

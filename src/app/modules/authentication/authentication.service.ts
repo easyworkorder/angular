@@ -189,7 +189,6 @@ export class AuthenticationService {
       error => {
         this.toasterService.pop('info', 'Login Failed!', 'Sorry you have entered invalid credential!!!');
 
-        console.log('Login failed: ', error);
       }
     );
 
@@ -226,7 +225,6 @@ export class AuthenticationService {
       },
       error => {
         this.toasterService.pop('Info', 'Failed to get additional user information!', 'Sorry! something went wrong, try to login again!!!');
-        console.log('Unable to get User Info: ', error);
       }
     );
     return observable;

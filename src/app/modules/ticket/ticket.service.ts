@@ -76,15 +76,15 @@ export class TicketService extends DataService {
   }
 
   getAllNotes (ticket_id) {
-    const observable = this.http.get('ticketnotedetails/' + ticket_id  + '/');
+    const observable = this.http.get('ticketnotedetails/' + ticket_id + '/');
     observable.subscribe(data => {
       // console.log(data);
     });
     return observable;
   }
 
-  getTicketSubmitterInfo(ticket_id) {
-    const observable = this.http.get('ticketsubmitterinfo/' + ticket_id  + '/');
+  getTicketSubmitterInfo (ticket_id) {
+    const observable = this.http.get('ticketsubmitterinfo/' + ticket_id + '/');
     observable.subscribe(data => {
       // console.log(data);
     });
@@ -102,7 +102,6 @@ export class TicketService extends DataService {
     },
       error => {
         this.toasterService.pop('error', 'ADD', 'Ticket not posted due to API error!!!');
-        console.log(error);
       });
 
     return observable;
@@ -124,7 +123,6 @@ export class TicketService extends DataService {
         if (showMessage) {
           this.toasterService.pop('error', 'UPDATE', 'Ticket not updated!!!');
         }
-        console.log(error);
       });
 
     return observable;
@@ -145,7 +143,6 @@ export class TicketService extends DataService {
         if (showMessage) {
           this.toasterService.pop('error', 'ADD', 'Ticket Note not posted due to API error!!!');
         }
-        console.log(error);
       });
 
     return observable;
@@ -162,7 +159,6 @@ export class TicketService extends DataService {
     },
       error => {
         // this.toasterService.pop('error', 'ADD', 'Ticket Note not posted due to API error!!!');
-        console.log(error);
       });
 
     return observable;
@@ -178,7 +174,6 @@ export class TicketService extends DataService {
     },
       error => {
         this.toasterService.pop('error', 'ADD', 'Labor not posted due to API error!!!');
-        console.log(error);
       });
 
     return observable;
@@ -196,7 +191,6 @@ export class TicketService extends DataService {
     },
       error => {
         this.toasterService.pop('error', 'UPDATE', 'Labor not updated due to API error!!!');
-        console.log(error);
       });
 
     return observable;
@@ -214,7 +208,6 @@ export class TicketService extends DataService {
     },
       error => {
         this.toasterService.pop('error', 'DELETE', 'Labor not deleted due to API error!!!');
-        console.log(error);
       });
 
     return observable;
@@ -230,7 +223,6 @@ export class TicketService extends DataService {
     },
       error => {
         this.toasterService.pop('error', 'ADD', 'Material not posted due to API error!!!');
-        console.log(error);
       });
 
     return observable;
@@ -248,7 +240,6 @@ export class TicketService extends DataService {
     },
       error => {
         this.toasterService.pop('error', 'UPDATE', 'Material not updated due to API error!!!');
-        console.log(error);
       });
 
     return observable;

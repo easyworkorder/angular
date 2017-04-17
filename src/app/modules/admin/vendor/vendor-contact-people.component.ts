@@ -20,7 +20,7 @@ export class VendorContactPeopleComponent implements OnInit {
     // @Output('updatePeople') changePeople: EventEmitter<any> = new EventEmitter<any>();
 
     photoFile: File
-    selectedPhotoFile:string = '';
+    selectedPhotoFile: string = '';
 
     constructor(
         private vendorService: VendorService,
@@ -36,7 +36,7 @@ export class VendorContactPeopleComponent implements OnInit {
         });
     }
 
-    ngOnInit() {
+    ngOnInit () {
         // console.log('Edited Data', this.updatePeopleInfo);
         $('#add-vendor-cotact-people').on('hidden.bs.modal', () => {
             this.closeModal();
@@ -63,15 +63,15 @@ export class VendorContactPeopleComponent implements OnInit {
         user_id: new FormControl()
     });
 
-    photoSelectionChange(event) {
+    photoSelectionChange (event) {
         let fileList: FileList = event.target.files;
-        if(fileList.length > 0) {
+        if (fileList.length > 0) {
             this.photoFile = fileList[0];
             this.selectedPhotoFile = this.photoFile.name;
         }
     }
 
-    onSubmit() {
+    onSubmit () {
 
         if (!this.vendorContactPeopleForm.valid) { return; }
 
@@ -98,23 +98,22 @@ export class VendorContactPeopleComponent implements OnInit {
         // });
         // this.vendorContactPeopleForm.addControl('id', new FormControl());
 
-        this.vendorService.saveContact(this.photoFile, this.vendorContactPeopleForm, this.vendor, this.contactSaveCallback).subscribe( (contact: any) => {
+        this.vendorService.saveContact(this.photoFile, this.vendorContactPeopleForm, this.vendor, this.contactSaveCallback).subscribe((contact: any) => {
             this.contactSaveCallback('Vendor Contact Saved successfully.', contact);
         });
     }
 
-    public contactSaveCallback(logMsg:string, obj:any) {
-        console.log(logMsg, obj);
+    public contactSaveCallback (logMsg: string, obj: any) {
         this.change.emit(true);
         this.closeModal();
     }
 
-    closeModal() {
+    closeModal () {
         this.resetForm();
         $('#add-vendor-cotact-people').modal('hide');
     }
 
-    resetForm() {
+    resetForm () {
         this.photoFile = null;
         this.selectedPhotoFile = '';
         this.vendorContactPeopleForm.reset({

@@ -20,70 +20,62 @@ export class SLAPolicyService extends DataService {
         super(events);
     }
 
-    getCompanySLAPolicy(company) {
+    getCompanySLAPolicy (company) {
         const observable = this.http.get('companyslapolicy/', { company_id: company }); // this
         // const observable = this.http.get(`companyslapolicy/?company=${company}`); // this
         observable.map(data => data.results).subscribe(data => {
-            console.log(data);
         });
         return observable;
     }
 
-    updateSLAPolicy(data?: any): Observable<any> {
+    updateSLAPolicy (data?: any): Observable<any> {
         data = Object.assign({}, data);
 
         const observable = this.http.patch(data.url, data);
 
         observable.subscribe(data => {
             this.toasterService.pop('success', 'UPDATE', 'SLA Policy has been updated successfully');
-            console.log(data);
         },
             error => {
                 this.toasterService.pop('error', 'UPDATE', 'SLA Policy not updated due to API error!!!');
-                console.log(error);
             });
 
         return observable;
     }
 
-    updateSLATarget(data?: any): Observable<any> {
+    updateSLATarget (data?: any): Observable<any> {
         data = Object.assign({}, data);
 
         const observable = this.http.patch(data.url, data);
 
         observable.subscribe(data => {
             this.toasterService.pop('success', 'UPDATE', 'SLA Target has been updated successfully');
-            console.log(data);
         },
             error => {
                 this.toasterService.pop('error', 'UPDATE', 'SLA Target not updated due to API error!!!');
-                console.log(error);
             });
 
         return observable;
     }
 
-    getBuildingSLAPolicy(building) {
+    getBuildingSLAPolicy (building) {
         const observable = this.http.get('buildingslapolicy/', { building_id: building, ordering: 'id' }); // this
         // const observable = this.http.get(`companyslapolicy/?company=${company}`); // this
         observable.map(data => data.results).subscribe(data => {
-            console.log(data);
         });
         return observable;
     }
 
-    updateBuildingSLATarget(data?: any): Observable<any> {
+    updateBuildingSLATarget (data?: any): Observable<any> {
         data = Object.assign({}, data);
 
         const observable = this.http.patch(data.url, data);
 
         observable.subscribe(data => {
             // this.toasterService.pop('success', 'UPDATE', 'Building SLA Target has been updated successfully');
-            console.log(data);
         },
             error => {
                 // this.toasterService.pop('error', 'UPDATE', 'Building SLA Target not updated due to API error!!!');
-                console.log(error);
             });
 
         return observable;

@@ -38,13 +38,11 @@ export class TenantContactPeopleComponent implements OnInit {
         private updatePeopleService: UpdatePeopleService) {
         this.updatePeopleService.updatePeopleInfo$.subscribe(data => {
             this.updatePeopleInfo = data;
-            // console.log('people>>>', this.updatePeopleInfo);
             this.tenantContactPeopleForm.setValue(this.updatePeopleInfo);
         });
     }
 
     ngOnInit () {
-        // console.log('Edited Data', this.updatePeopleInfo);
         $('#add-tenant-cotact-people').on('hidden.bs.modal', () => {
             this.closeModal();
         });
@@ -94,7 +92,6 @@ export class TenantContactPeopleComponent implements OnInit {
     }
 
     public contactSaveCallback (logMsg: string, obj: any) {
-        console.log(logMsg, obj);
         this.change.emit(true);
         this.closeModal();
     }

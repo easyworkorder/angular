@@ -9,7 +9,7 @@ import { CommonModule } from "@angular/common";
 })
 export class OnlyNumberDirective {
     @HostListener('keypress', ['$event'])
-    public onKeyPress(event) {
+    public onKeyPress (event) {
         if (checkZero(event)) {
             return false;
         }
@@ -26,7 +26,7 @@ export class OnlyNumberDirective {
 })
 export class DecimalNumberDirective {
     @HostListener('keypress', ['$event'])
-    public onKeyPress(event) {
+    public onKeyPress (event) {
         if (checkZero(event)) {
             return false;
         }
@@ -47,7 +47,7 @@ export class PostalCodeDirective {
     @Input('postalCode') postalCodeLength: number;
 
     @HostListener('keypress', ['$event'])
-    public onKeyPress(event) {
+    public onKeyPress (event) {
         this.postalCodeLength = this.postalCodeLength || 5;
         return (event.charCode == 8 || event.charCode == 0) ? null :
             event.charCode >= 48 && event.charCode <= 57 && event.target.value.length < this.postalCodeLength;
@@ -65,13 +65,12 @@ export class PercentageDirective {
     inputVal: string;
 
     @HostListener('keypress', ['$event'])
-    public onKeyPress(event) {
+    public onKeyPress (event) {
         // event.target.contentEditable = true;
 
         if (document.getSelection().toString() == event.target.value) {
             event.target.value = '';
         }
-        // console.log('Test', document.getSelection.toString() === event.target.value);
 
         this.maxLength = this.maxLength || 3;
         this.inputVal = event.target.value + event.key;
@@ -95,18 +94,18 @@ export class PhoneNumberDirective {
     @Input('phoneNumber') phoneNumberLength: number;
 
     @HostListener('keypress', ['$event'])
-    public onKeyPress(event) {
+    public onKeyPress (event) {
         this.phoneNumberLength = this.phoneNumberLength || 10;
         if (document.getSelection().toString() == event.target.value) {
             event.target.value = '';
         }
         return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57 &&
-        event.target.value.length < this.phoneNumberLength;
+            event.target.value.length < this.phoneNumberLength;
     }
 }
 
 
-function checkZero(event) {
+function checkZero (event) {
     let inputVal = event.target.value + event.key;
     // if (this.inputVal.indexOf('0') == 0 && this.inputVal.lastIndexOf('0') == 1) return false;
     return (inputVal.indexOf('0') == 0 && inputVal.lastIndexOf('0') == 1);

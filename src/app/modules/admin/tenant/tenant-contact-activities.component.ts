@@ -33,7 +33,6 @@ export class TenantContactActivitiesComponent implements OnInit {
         private ticketService: TicketService) { }
 
     ngOnInit () {
-        // console.log(this.tenant);
         // this.getAllTenantTickets();
     }
 

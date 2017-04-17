@@ -149,7 +149,6 @@ export class TenantComponent implements OnInit {
         } else if (!this.validateContactInfo()) {
             this.switchTab(2);
         }
-        // console.log('is Email duplicate', this.verifyEmailService.isEmailDuplicate);
         if (this.verifyEmailService.isEmailDuplicate) return;
 
         // this.tenantForm.markAsUntouched();
@@ -189,10 +188,8 @@ export class TenantComponent implements OnInit {
         let inscertDate = this.tenantForm.get('inscertdate').value;
         let inscertDateString = null;
         if (inscertDate) {
-            console.log('The Given Date Is: ' + inscertDate);
             inscertDate = new Date(inscertDate);
             inscertDateString = inscertDate.toISOString();
-            console.log('The UTC/ISO Representation: ' + inscertDateString);
             // this.tenantForm.get('inscertdate').setValue(inscertDateString);
         }
         this.tenantForm.get('building').setValue(`${config.api.base}building/${this.buildingId}/`);
@@ -208,7 +205,6 @@ export class TenantComponent implements OnInit {
         this.isSubmit = true;
         this.tenantService.saveTenant(tenantData).subscribe((tenant: any) => {
             // Tenant Saved lets go for saving contact with/without file
-            console.log('Tenant Saved');
             // this.tenantService.saveContact(this.photoFile, contactForm, tenant, this.refreshEditor);
             this.tenantService.saveContact(this.photoFile, contactForm, tenant, this.refreshEditor).subscribe(
                 (contact: any) => {
@@ -225,7 +221,6 @@ export class TenantComponent implements OnInit {
     }
 
     private refreshEditor (logMsg: string, obj: any) {
-        console.log(logMsg, obj);
         this.getAllTenantsByBuilding(this.buildingId);
         this.closeModal();
     }

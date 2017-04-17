@@ -154,14 +154,11 @@ export class VendorComponent implements OnInit {
             this.removedProblemType({ id: -1, text: 'All' });
         }
 
-        console.log('Selected value is: ', value);
         this.selectedProblemTypes.push(value);
-        console.log(this.selectedProblemTypes);
         this.setProblemTypeLsit();
     }
 
     public removedProblemType (value: any): void {
-        // console.log('Removed value is: ', value);
         let sel = [];
         this.selectedProblemTypes.forEach(item => {
             if (item.id != value.id) {
@@ -238,10 +235,8 @@ export class VendorComponent implements OnInit {
         let expireDate = this.vendorForm.get('gl_expire_date').value;
         let expireDateString = null;
         if (expireDate) {
-            console.log('The Given Date Is: ' + expireDate);
             expireDate = new Date(expireDate);
             expireDateString = expireDate.toISOString();
-            console.log('The UTC/ISO Representation: ' + expireDateString);
             // this.tenantForm.get('inscertdate').setValue(inscertDateString);
         }
 
@@ -266,7 +261,6 @@ export class VendorComponent implements OnInit {
 
         this.vendorService.saveVendor(vendorData).subscribe((vendor: any) => {
             // Vendor Saved lets go for saving contact with/without file
-            console.log('Vendor Saved');
             this.vendorService.saveContact(this.photoFile, contactForm, vendor, this.refreshEditor).subscribe((contact: any) => {
                 this.isSubmit = false;
                 this.refreshEditor('Vendor & Vendor Contact Saved successfully.', contact);
@@ -281,7 +275,6 @@ export class VendorComponent implements OnInit {
     }
 
     private refreshEditor (logMsg: string, obj: any) {
-        console.log(logMsg, obj);
         this.isSuccess = true;
         this.closeModal();
         this.getAllVendors();

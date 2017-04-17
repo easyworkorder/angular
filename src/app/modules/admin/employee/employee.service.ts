@@ -35,11 +35,9 @@ export class EmployeeService extends DataService {
 
         observable.subscribe(data => {
             // this.toasterService.pop('success', 'ADD', 'Employee has been saved successfully');
-            // console.log(data);
         },
             error => {
                 // this.toasterService.pop('error', 'ADD', 'Employee not Saved due to API error!!!');
-                console.log(error);
             });
 
         return observable;
@@ -48,7 +46,6 @@ export class EmployeeService extends DataService {
     createWithFile (formData: FormData): Observable<any> {
         const observable = this.http.postWithFile('employee/', formData);
         observable.subscribe(data => {
-            // console.log(data);
         });
         return observable;
     }
@@ -61,11 +58,9 @@ export class EmployeeService extends DataService {
 
         observable.subscribe(data => {
             // this.toasterService.pop('success', 'UPDATE', 'Employee has been updated successfully');
-            console.log(data);
         },
             error => {
                 // this.toasterService.pop('error', 'UPDATE', 'Employee not updated due to API error!!!');
-                console.log(error);
             });
 
         return observable;
@@ -74,7 +69,6 @@ export class EmployeeService extends DataService {
     updateWithFile (url, formData: FormData): Observable<any> {
         const observable = this.http.putWithFile(url, formData);
         observable.subscribe(data => {
-            // console.log('Updated Employee Info: ' + data);
         });
         return observable;
     }
@@ -86,7 +80,6 @@ export class EmployeeService extends DataService {
     getAllEmployees (company_id) {
         const observable = this.http.get('employee/', { company_id: company_id, ordering: 'last_name, first_name' });
         observable.subscribe(data => {
-            // console.log(data);
         });
         return observable;
     }
@@ -98,7 +91,6 @@ export class EmployeeService extends DataService {
     getAllActiveEmployees (company_id) {
         const observable = this.http.get('employee/', { company_id: company_id, active: true, ordering: 'last_name, first_name' });
         observable.subscribe(data => {
-            // console.log(data);
         });
         return observable;
     }
@@ -109,10 +101,9 @@ export class EmployeeService extends DataService {
      * @param company_id
      * @param ticket_id
      */
-    getEmployeesByTicketBuildingProblemType(building_id, problemtype_id) {
+    getEmployeesByTicketBuildingProblemType (building_id, problemtype_id) {
         const observable = this.http.get('employeelistbybuildingandproblemtype/?building_id=' + building_id + '&problemtype_id=' + problemtype_id);
         observable.subscribe(data => {
-            // console.log(data);
         });
         return observable;
     }
@@ -124,7 +115,6 @@ export class EmployeeService extends DataService {
     getEmployeeById (contact_id) {
         const observable = this.http.get(`employee/${contact_id}/`);
         observable.subscribe(data => {
-            // console.log('Employee Data: ', data);
         });
         return observable;
     }
@@ -132,7 +122,6 @@ export class EmployeeService extends DataService {
     getEmployeeByIdByUrl (url) {
         const observable = this.http.get(url);
         observable.subscribe(data => {
-            // console.log('Employee Data: ', data);
         });
         return observable;
     }
@@ -144,7 +133,6 @@ export class EmployeeService extends DataService {
     getCompanyById (companyId: any) {
         const observable = this.http.get(companyId);
         observable.subscribe(data => {
-            // console.log('Company Data: ', data);
         });
         return observable;
     }

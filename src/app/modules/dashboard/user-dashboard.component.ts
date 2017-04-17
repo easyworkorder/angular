@@ -19,7 +19,7 @@ export class UserDashboardComponent implements OnInit {
 
     tickets: any;
     currentRequestType = 'new';
-    currentCompanyId= 1;
+    currentCompanyId = 1;
 
     constructor(
         private authService: AuthenticationService,
@@ -31,7 +31,6 @@ export class UserDashboardComponent implements OnInit {
         this.authService.verifyToken().take(1).subscribe(data => {
             this.userInfo = this.storage.getUserInfo();
 
-            console.log(this.userInfo);
 
             if (this.userInfo && this.userInfo.IsContact) {
                 this.tenantContactId = this.userInfo.tenant_contact_id;
@@ -66,7 +65,7 @@ export class UserDashboardComponent implements OnInit {
         });
     }
 
-    ngOnInit() {
+    ngOnInit () {
 
     }
 
@@ -78,7 +77,7 @@ export class UserDashboardComponent implements OnInit {
         );
     }
 
-    updateTicketList(type) {
+    updateTicketList (type) {
 
         this.currentRequestType = type;
 
@@ -104,7 +103,7 @@ export class UserDashboardComponent implements OnInit {
         }
     }
 
-    getWorkOrderStatistics() {
+    getWorkOrderStatistics () {
         const observable = this.http.get('workorderstatistics/' + this.currentCompanyId + '/');
         observable.subscribe(data => {
             // console.log(data);
@@ -113,7 +112,7 @@ export class UserDashboardComponent implements OnInit {
         return observable;
     }
 
-    getWorkOrderQuickStats() {
+    getWorkOrderQuickStats () {
         const observable = this.http.get('workorderquickstats/' + this.currentCompanyId + '/');
         observable.subscribe(data => {
             // console.log(data);
