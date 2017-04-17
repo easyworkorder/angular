@@ -19,6 +19,7 @@ export class TenantInsuranceComponent implements OnInit {
     @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
 
     exp_date_not_valid = true;
+    isSubmit: boolean = false;
 
     constructor(
         private tenantService: TenantService,
@@ -85,9 +86,13 @@ export class TenantInsuranceComponent implements OnInit {
         //Update People
         if (this.tenantInsuranceForm.value.id) {
             this.tenantService.updateTenantInsurance(this.tenantInsuranceForm.value).subscribe((insurance: any) => {
+                this.isSubmit = false;
                 this.change.emit(true);
                 this.closeModal();
-            });
+            },
+                error => {
+                    this.isSubmit = false;
+                });
             return;
         }
 
@@ -97,14 +102,19 @@ export class TenantInsuranceComponent implements OnInit {
         this.tenantInsuranceForm.removeControl('id');
         this.tenantInsuranceForm.removeControl('url');
         this.tenantService.createTenantInsurance(this.tenantInsuranceForm.value).subscribe((insurance: any) => {
+            this.isSubmit = false;
             this.change.emit(true);
             this.closeModal();
-        });
+        },
+            error => {
+                this.isSubmit = false;
+            });
         this.tenantInsuranceForm.addControl('id', new FormControl());
         this.tenantInsuranceForm.addControl('url', new FormControl());
     }
 
     closeModal () {
+        this.isSubmit = false;
         this.resetForm();
         $('#add-tenant-insurance').modal('hide');
     }
@@ -116,6 +126,7 @@ export class TenantInsuranceComponent implements OnInit {
             per_occur: '',
             aggregate: ''
         });
+        this.exp_date_not_valid = true;
     }
 
     onSelectDate (value) {

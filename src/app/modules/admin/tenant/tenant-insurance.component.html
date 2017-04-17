@@ -42,7 +42,7 @@
                 <div class="form-group form-actions">
                     <div class="col-md-12 text-right">
                         <button type="submit" class="btn btn-effect-ripple btn-primary ui-wizard-content ui-formwizard-button" id="btnSave" style="overflow: hidden; position: relative;"
-                            value="Save">Save
+                            value="Save" [disabled]="isSubmit">Save <i *ngIf="isSubmit" class="fa fa-spinner fa-spin"></i>
                         </button>
                     </div>
                 </div>
