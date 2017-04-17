@@ -11,6 +11,7 @@ export class UserDashboardComponent implements OnInit {
 
     tenantContactId: any;
     contactStat: any;
+    quickStat: any;
     userInfo: any;
     IsEmployee: any;
     IsPropertyManager: any;
@@ -65,6 +66,7 @@ export class UserDashboardComponent implements OnInit {
             }
 
             this.getWorkOrderStatistics();
+            this.getWorkOrderQuickStats();
 
             this.ticketService.tickettListRefresh$.subscribe(status => {
                 this.getAllTickets(this.currentRequestType);
@@ -116,6 +118,15 @@ export class UserDashboardComponent implements OnInit {
         observable.subscribe(data => {
             // console.log(data);
             this.contactStat = data;
+        });
+        return observable;
+    }
+
+    getWorkOrderQuickStats() {
+        const observable = this.http.get('workorderquickstats/' + this.currentCompanyId + '/');
+        observable.subscribe(data => {
+            // console.log(data);
+            this.quickStat = data;
         });
         return observable;
     }

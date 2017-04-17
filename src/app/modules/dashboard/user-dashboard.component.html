@@ -73,12 +73,56 @@
             </div>
             <!-- END Menu Block for Tenant's users -->
         </div>
-        <div *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
+        <div class="block" *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
+            <!-- Quick Month Stats Title -->
+            <div class="block-title">
+                <h2>Quick Stats</h2>
+            </div>
+            <!-- END Quick Month Stats Title -->
 
+            <!-- Quick Month Stats Content -->
+            <table class="table table-striped table-borderless table-vcenter">
+                <tbody>
+                <tr>
+                    <td style="width: 60%;">
+                        <strong>Total Requests</strong>
+                    </td>
+                    <td>{{quickStat?.total_tickets}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Total Responses</strong>
+                    </td>
+                    <td>{{quickStat?.total_responses}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Tenant Requests</strong>
+                    </td>
+                    <td>{{quickStat?.tenant_ticket}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Employee Requests</strong>
+                    </td>
+                    <td>{{quickStat?.employee_ticket}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Vendor Requests</strong>
+                    </td>
+                    <td>{{quickStat?.vendor_ticket}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Avg Response Time</strong>
+                    </td>
+                    <td>{{quickStat?.averate_time}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- END Quick Month Stats Content -->
         </div>
-
-
-
     </div>
 
     <div class="col-md-7 col-lg-9">
