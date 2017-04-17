@@ -12,6 +12,7 @@ import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/br
 })
 export class TenantDashboardComponent implements OnInit {
     @Input() tenantContactId: any;
+    @Input() tickets: any;
 
     tenant: any;
     insurances: any;

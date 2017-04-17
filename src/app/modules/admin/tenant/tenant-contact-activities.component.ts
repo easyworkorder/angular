@@ -21,14 +21,11 @@ export class TabVisibility {
 export class TenantContactActivitiesComponent implements OnInit {
     @Input() tenant: any;
     @Input() insurances: any;
+    @Input() tickets: any;
     @Input() isAdmin: boolean = false;
     @Input() isDashboardList: boolean = false;
     @Input() isTenant: boolean = false;
     @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
-
-
-    tickets: any[] = [];
-
 
     tabs = new TabVisibility();
     constructor(private updatePeopleService: UpdatePeopleService,
@@ -37,7 +34,7 @@ export class TenantContactActivitiesComponent implements OnInit {
 
     ngOnInit () {
         // console.log(this.tenant);
-        this.getAllTenantTickets();
+        // this.getAllTenantTickets();
     }
 
     switchTab (tabId: number) {
@@ -49,16 +46,16 @@ export class TenantContactActivitiesComponent implements OnInit {
         this.tabs.selectedTabNo = tabId;
     }
 
-    getAllTenantTickets () {
-        this.ticketService.getAllTenantTickets(this.tenant.id).subscribe(
+    /*getAllTenantTickets () {
+        this.ticketService.getAllTickets(this.tenant.id).subscribe(
             data => {
                 this.tickets = data;
             }
         );
-    }
+    }*/
 
     updateTicketList (data) {
-        this.getAllTenantTickets();
+        // this.getAllTenantTickets();
     }
 
     updatePeople (event) {

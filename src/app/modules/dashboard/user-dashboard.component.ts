@@ -37,14 +37,13 @@ export class UserDashboardComponent implements OnInit {
                 /*this.getTenantById(this.userInfo.tenant_id).subscribe(data => {
                  this.tenant = data;
                  });*/
-                this.getWorkOrderStatistics('tenant');
+
 
             } else if (this.userInfo && this.userInfo.IsEmployee) {
                 /**
                  * Get All ticket list for employees
                  */
                 this.getAllTickets(this.currentRequestType);
-                this.getWorkOrderStatistics('employee');
                 this.IsEmployee = true;
 
             } else if (this.userInfo && this.userInfo.IsPropertyManager) {
@@ -52,11 +51,9 @@ export class UserDashboardComponent implements OnInit {
                  * Get All ticket list for property manager
                  */
                 this.getAllTickets(this.currentRequestType);
-                this.getWorkOrderStatistics('employee');
                 this.IsPropertyManager = true;
 
             } else if (this.userInfo && this.userInfo.IsVendor) {
-                this.getWorkOrderStatistics('vendor');
                 this.vendorContactId = this.userInfo.vendor_contact_id;
 
             } else {
@@ -64,10 +61,10 @@ export class UserDashboardComponent implements OnInit {
                  * Get All ticket list for admin
                  */
                 this.getAllTickets(this.currentRequestType);
-                this.getWorkOrderStatistics('employee');
                 this.IsPropertyManager = true;
             }
 
+            this.getWorkOrderStatistics();
 
             this.ticketService.tickettListRefresh$.subscribe(status => {
                 this.getAllTickets(this.currentRequestType);
@@ -114,8 +111,8 @@ export class UserDashboardComponent implements OnInit {
         }
     }
 
-    getWorkOrderStatistics(user_type) {
-        const observable = this.http.get('workorderstatistics/?user_type=' + user_type);
+    getWorkOrderStatistics() {
+        const observable = this.http.get('workorderstatistics/' + this.currentCompanyId + '/');
         observable.subscribe(data => {
             // console.log(data);
             this.contactStat = data;
