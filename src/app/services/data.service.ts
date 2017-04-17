@@ -223,6 +223,25 @@ export class DataService {
         return html;
     }
 
+    buildTenantContactAddressHtml (tenantContact: any) {
+        let html = '<strong>' + tenantContact.companyName + '</strong><br />';
+        if (tenantContact.unit_no != null && tenantContact.unit_no.length > 0) {
+            html += tenantContact.unit_no + '<br />';
+        }
+        let extension = (tenantContact.phone_extension != null && tenantContact.phone_extension.length > 0) ? (' ext. ' + tenantContact.phone_extension) : '';
+        if (tenantContact.phone != null && tenantContact.phone.length > 0) {
+            html += 'P: ' + this.phoneNumberFormat(tenantContact.phone) + extension;
+        }
+        if (tenantContact.fax != null && tenantContact.fax) {
+            html += '<br/>F: ' + this.phoneNumberFormat(tenantContact.fax);
+        }
+        if (tenantContact.mobile != null && tenantContact.mobile) {
+            html += '<br/>M: ' + this.phoneNumberFormat(tenantContact.mobile);
+        }
+
+        return html;
+    }
+
     buildVendorAddressHtml (contact: any, companyName: string) {
         let html = '<strong>' + this.buildName(contact.first_name, contact.last_name) + '</strong><br />';
         html += contact.address + '<br />';
