@@ -88,7 +88,7 @@
         <!-- Sidebar Navigation -->
         <ul class="sidebar-nav">
           <li>
-            <a [routerLink]="['/']"><i class="gi gi-compass sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Dashboard</span></a>
+            <a [routerLink]="['/']" onclick="App.sidebar('toggle-sidebar');"><i class="gi gi-compass sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Dashboard</span></a>
           </li>
           <li class="sidebar-separator">
             <i class="fa fa-ellipsis-h"></i>
@@ -180,7 +180,7 @@
                         'navbar-fixed-bottom'       for a bottom fixed header (fixed main sidebar with scroll will be auto initialized, functionality can be found in js/app.js - handleSidebar()))
                             'header-fixed-bottom'   has to be added on #page-container only if the class 'navbar-fixed-bottom' was added
                     -->
-   <app-header></app-header>
+    <app-header></app-header>
     <!-- END Header -->
 
     <!-- Page content -->

@@ -3,7 +3,7 @@ import config from '../../../config';
 import { FormBuilder, Validators, FormGroup, FormArray } from "@angular/forms";
 import { SLAPolicyService } from "app/modules/admin/sla-policy/sla-policy.service";
 import { ToasterService } from "angular2-toaster/angular2-toaster";
-declare var $:any;
+declare var $: any;
 
 @Component({
   selector: 'ewo-building-sla-target',
@@ -30,18 +30,18 @@ export class BuildingSlaTargetComponent implements OnInit {
   ) {
   }
 
-  ngOnInit() {
+  ngOnInit () {
     this.buildingPolicyForm = this.fb.group({
       buildingTargets: this.fb.array([])
     });
     this.getSLAPolicy();
   }
 
-  get buildingTargets(): FormArray {
+  get buildingTargets (): FormArray {
     return <FormArray>this.buildingPolicyForm.get('buildingTargets');
   }
 
-  buildSlaTarget(url: string, id: any, buildingId: string, priority: string, priorespond_withinrity: string, respond_within_unit: string,
+  buildSlaTarget (url: string, id: any, buildingId: string, priority: string, priorespond_withinrity: string, respond_within_unit: string,
     resolve_within: string, resolve_within_unit: string, operational_hours: string, escalation_email: any = false): FormGroup {
     return this.fb.group({
       url: url,
@@ -57,7 +57,7 @@ export class BuildingSlaTargetComponent implements OnInit {
     });
   }
 
-  getSLAPolicy() {
+  getSLAPolicy () {
     // this.slaPolicyService.getBuildingSLAPolicy(this.buildingId).map(data => data.results).subscribe(data => {
     let slaPolicy = this.buildingSLATargets;
 
@@ -90,8 +90,7 @@ export class BuildingSlaTargetComponent implements OnInit {
   }
 
 
-  onSubmit() {
-    console.log('Valid?', this.buildingPolicyForm.get('buildingTargets').valid);
+  onSubmit () {
     if (!this.buildingPolicyForm.valid) return;
 
     // this.slaPolicyForm.get('company_sla_policy_targets').valid
@@ -120,25 +119,24 @@ export class BuildingSlaTargetComponent implements OnInit {
         }
       }, error => {
         this.toasterService.pop('error', 'UPDATE', 'Building SLA Target not updated due to API error!!!');
-        console.log(error);
       })
     })
 
   }
 
-  public onSelectedRespondWithInUnit(index: any, selectedItem: any): void {
+  public onSelectedRespondWithInUnit (index: any, selectedItem: any): void {
     this.selectedRespondWithinUnit[index].selected = [{ id: selectedItem.id, text: selectedItem.text }];
   }
 
-  public onSelectedResolveWithInUnit(index: any, selectedItem: any): void {
+  public onSelectedResolveWithInUnit (index: any, selectedItem: any): void {
     this.selectedResolveWithinUnit[index].selected = [{ id: selectedItem.id, text: selectedItem.text }];
   }
 
-  public onSelectedOperationHours(index: any, selectedItem: any): void {
+  public onSelectedOperationHours (index: any, selectedItem: any): void {
     this.selectedOperationHours[index].selected = [{ id: selectedItem.id, text: selectedItem.text }];
   }
 
-  closeModal() {
+  closeModal () {
     $('#modalBuildingSLAInfo').modal('hide');
   }
 

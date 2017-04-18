@@ -1,19 +1,20 @@
 <div class="block-content">
     <form action="page_forms_components.html" method="post" onsubmit="return false;">
-        <div *ngIf="isAdmin" class="form-group form-actions">
-            <button type="submit" class="btn btn-sm btn-default">Accept</button>
-            <button type="button" class="btn btn-sm btn-default">Assign</button>
-            <button type="button" class="btn btn-sm btn-default">Close</button>
+        <div *ngIf="(isAdmin && ticketList.length)" class="form-group form-actions">
+            <!--<button modal-dialog-open="modal-confirm" type="submit" class="btn btn-sm btn-default">Accept</button>-->
+            <button (click)="onModalConfirm('modal-confirm')" type="submit" class="btn btn-sm btn-default">Accept</button>
+            <button (click)="onModalAssignTicket('modal-assign')" type="button" class="btn btn-sm btn-default">Assign</button>
+            <button (click)="onModalCloseTicket('modal-close-ticket')" type="button" class="btn btn-sm btn-default">Close</button>
             <!--button type="button" class="btn btn-sm btn-default">Merge</button-->
-            <button type="button" class="btn btn-sm btn-default">Delete</button>
+            <button (click)="onModalDeleteTicket('modal-delete-ticket')" type="button" class="btn btn-sm btn-default">Delete</button>
         </div>
 
         <div class="table-responsive remove-margin-bottom">
             <table class="table table-striped table-vcenter remove-margin-bottom">
                 <thead>
                     <tr>
-                        <th *ngIf="isAdmin" style="width: 80px;" class="text-center"><label class="csscheckbox csscheckbox-primary"><input
-                            type="checkbox"><span></span></label></th>
+                        <th *ngIf="(isAdmin && ticketList.length)" style="width: 80px;" class="text-center"><label class="csscheckbox csscheckbox-primary"><input
+                            type="checkbox" (change)="allCheckbox.setValue($event.target.checked)"><span></span></label></th>
                         <th class="text-center">ID</th>
                         <th>Type</th>
                         <th>Source</th>
@@ -23,21 +24,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngIf="tickets.length == 0">
+                    <tr *ngIf="ticketList.length == 0">
                         <td colspan="7"> No Tickets Found.</td>
                     </tr>
-                    <tr *ngFor="let ticket of tickets">
+                    <tr *ngFor="let ticket of ticketList">
                         <td *ngIf="isAdmin" class="text-center"><label class="csscheckbox csscheckbox-primary"><input
-                            type="checkbox"><span></span></label></td>
+                            type="checkbox" [checked]="ticket.checked" (change)="ticket.checked = !ticket.checked; onChangeCheckbox(ticket.checked)"><span></span></label></td>
                         <td class="text-center"><a (click)="getTicketDetails(ticket)">#{{ticket.ticket_key}}</a></td>
                         <td><span class="label" [ngClass]="{'Low': 'label-default', 'Medium': 'label-info', 'High': 'label-warning', 'Urgent': 'label-danger', 'Safety': 'label-danger'}[ticket.priority]">{{ticket.problem_name}}</span>
                         </td>
                         <td>{{ticket.source}}</td>
-                        <td><a href="javascript:void(0)"><strong>{{ticket.subject}}</strong></a><br>
-                            <span class="text-muted">1 hour ago by <strong>Carolyn Murray</strong></span>
+                        <td><strong>{{ticket.subject}}</strong><br>
+                            <span class="text-muted">{{ticket.submit_time | ticketListdateFormat}} by <strong>{{ticket.tenant_company_name}}</strong></span>
                         </td>
-                        <td class="text-center"><img [src]="getPhotoUrl(ticket)" alt="Avatar" class="img-circle"></td>
-                        <td class="text-center"><span class="badge">******</span></td>
+                        <td class="text-center"><img [src]="getPhotoUrl(ticket)" alt="Avatar" class="img-circle ticket-image"></td>
+                        <td class="text-center"><span class="badge">{{ticket.note_count}}</span></td>
                     </tr>
                 </tbody>
             </table>
@@ -54,3 +55,20 @@
         </ul>
     </div-->
 </div>
+
+<ewo-confirm-modal id="modal-confirm" [OkButton]="false" [cancelButtonLabel]="'Continue'" [message]="'At least one request must be selected.'"
+    class="modal fade in" tabindex="-1" role="dialog" aria-hidden="true"></ewo-confirm-modal>
+
+<ewo-assign-ticket id="modal-assign" [employees]="employees" [tickets]="ticketList" class="modal fade" tabindex="-1" role="dialog"
+    aria-hidden="true" style="display: none;">
+</ewo-assign-ticket>
+<ewo-close-ticket id="modal-close-ticket" [tickets]="ticketList" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"
+    style="display:none;"></ewo-close-ticket>
+
+<ewo-confirm-modal id="modal-delete-ticket" [OkButton]="true" [okButtonLabel]="'Continue'" [cancelButtonLabel]="'Cancel'"
+    [message]="'Are you sure?. After delete, ticket can not be reversible.'" (okButtonClick)="onDeleteModalOkButtonClick($event)"
+    class="modal fade in" tabindex="-1" role="dialog" aria-hidden="true"></ewo-confirm-modal>
+
+<ewo-confirm-modal id="modal-accept-ticket-confirm" [OkButton]="true" [okButtonLabel]="'Continue'" [cancelButtonLabel]="'Cancel'"
+    [message]="'Do you want to accept?'" (okButtonClick)="onAcceptModalOkButtonClick($event)" class="modal fade in" tabindex="-1"
+    role="dialog" aria-hidden="true"></ewo-confirm-modal>

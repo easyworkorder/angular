@@ -19,14 +19,14 @@ export class TenantContactPeopleComponent implements OnInit {
     @Input() updatePeopleInfo: any;
     @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
     // @Output('updatePeople') changePeople: EventEmitter<any> = new EventEmitter<any>();
-
+    isSubmit: boolean = false;
     viewInvoicesList = [
         { value: true, display: 'Yes, they are authorized (default)' },
         { value: false, display: 'No, they are not authorized' }
     ];
 
     photoFile: File
-    selectedPhotoFile:string = '';
+    selectedPhotoFile: string = '';
 
     constructor(
         private tenantService: TenantService,
@@ -38,13 +38,11 @@ export class TenantContactPeopleComponent implements OnInit {
         private updatePeopleService: UpdatePeopleService) {
         this.updatePeopleService.updatePeopleInfo$.subscribe(data => {
             this.updatePeopleInfo = data;
-            // console.log('people>>>', this.updatePeopleInfo);
             this.tenantContactPeopleForm.setValue(this.updatePeopleInfo);
         });
     }
 
-    ngOnInit() {
-        // console.log('Edited Data', this.updatePeopleInfo);
+    ngOnInit () {
         $('#add-tenant-cotact-people').on('hidden.bs.modal', () => {
             this.closeModal();
         });
@@ -71,40 +69,44 @@ export class TenantContactPeopleComponent implements OnInit {
         user_id: new FormControl()
     });
 
-    photoSelectionChange(event) {
+    photoSelectionChange (event) {
         let fileList: FileList = event.target.files;
-        if(fileList.length > 0) {
+        if (fileList.length > 0) {
             this.photoFile = fileList[0];
             this.selectedPhotoFile = this.photoFile.name;
         }
     }
 
-    onSubmit() {
+    onSubmit () {
 
         if (!this.tenantContactPeopleForm.valid) { return; }
-        
+        this.isSubmit = true;
         // this.tenantService.saveContact(this.photoFile, this.tenantContactPeopleForm, this.tenant, this.contactSaveCallback);
-        this.tenantService.saveContact(this.photoFile, this.tenantContactPeopleForm, this.tenant, this.contactSaveCallback).subscribe( (contact: any) => {
+        this.tenantService.saveContact(this.photoFile, this.tenantContactPeopleForm, this.tenant, this.contactSaveCallback).subscribe((contact: any) => {
+            this.isSubmit = false;
             this.contactSaveCallback('Tenant Contact Saved successfully.', contact);
-        });
+        },
+            error => {
+                this.isSubmit = false;
+            });
     }
 
-    public contactSaveCallback(logMsg:string, obj:any) {
-        console.log(logMsg, obj);
+    public contactSaveCallback (logMsg: string, obj: any) {
         this.change.emit(true);
         this.closeModal();
     }
 
-    closeModal() {
+    closeModal () {
+        this.isSubmit = false;
         this.resetForm();
         $('#add-tenant-cotact-people').modal('hide');
     }
 
-    resetForm() {
+    resetForm () {
         this.photoFile = null;
         this.selectedPhotoFile = '';
         this.tenantContactPeopleForm.reset({
-            title:'',
+            title: '',
             isprimary_contact: false,
             active: true,
             viewinvoices: true

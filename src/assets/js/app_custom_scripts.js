@@ -32,6 +32,11 @@ String.prototype.toDate = function () {
     return new Date();
 }
 
+String.prototype.extractIdFromURL = function () {
+    var split_data = this.split('/');
+    return split_data[split_data.length-2];
+}
+
 Date.prototype.toDate = function() {
     return !!this && new Date(this);
 }

@@ -1,0 +1,16 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <form class="form-horizontal">
+      <div class="modal-body">
+        <div class="col-xs-12">
+          {{message}}
+        </div>
+        <div class="col-xs-12"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" *ngIf="cancelButton == true" data-dismiss="modal" class="btn  btn-primary"> {{cancelButtonLabel}}</button>
+        <button type="submit" *ngIf="OkButton == true" (click)="btnOkClick($event)" class="btn btn-primary"> {{okButtonLabel}}</button>
+      </div>
+    </form>
+  </div>
+</div>

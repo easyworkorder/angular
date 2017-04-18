@@ -18,13 +18,117 @@
 <div class="row">
     <!-- Tickets Content -->
     <div class="col-md-4 col-lg-3">
-        <app-left-menu *ngIf="contactStat && userInfo" [contactStat]="contactStat" [userInfo]="userInfo"></app-left-menu>
+        <!--app-left-menu *ngIf="contactStat && userInfo" [contactStat]="contactStat" [userInfo]="userInfo"></app-left-menu-->
+
+        <div>
+            <!-- Menu Block for Tenant's users -->
+            <div class="block full">
+                <!-- Menu Title -->
+                <div class="block-title clearfix">
+
+                    <h2>Manage Requests</h2>
+                </div>
+                <!-- END Menu Title -->
+
+                <!-- Menu Content -->
+                <ul class="nav nav-pills nav-stacked">
+                    <li [ngClass]="{'active': currentRequestType=='new'}">
+                        <a (click)="updateTicketList('new')">
+                            <span class="badge pull-right">{{contactStat?.new}}</span>
+                            <i class="fa fa-fw fa-ticket icon-push"></i> <strong>New</strong>
+                        </a>
+                    </li>
+                    <li>
+                        <a (click)="updateTicketList('replies')">
+                            <span class="badge pull-right">{{contactStat?.replies}}</span>
+                            <i class="fa fa-fw fa-exclamation-triangle icon-push"></i> <strong>Replies</strong>
+                        </a>
+                    </li>
+                    <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
+                        <a (click)="updateTicketList('due_today')">
+                            <span class="badge pull-right">{{contactStat?.due_today}}</span>
+                            <i class="fa fa-fw fa-folder-open-o icon-push"></i> <strong>Due Today</strong>
+                        </a>
+                    </li>
+                    <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
+                        <a (click)="updateTicketList('overdue')">
+                            <span class="badge pull-right">{{contactStat?.overdue}}</span>
+                            <i class="fa fa-fw fa-folder-open-o icon-push"></i> <strong>Overdue</strong>
+                        </a>
+                    </li>
+                    <li>
+                        <a (click)="updateTicketList('pending')">
+                            <span class="badge pull-right">{{contactStat?.pending}}</span>
+                            <i class="fa fa-fw fa-folder-open-o icon-push"></i> <strong>Pending</strong>
+                        </a>
+                    </li>
+                    <li>
+                        <a (click)="updateTicketList('closed')">
+                            <span class="badge pull-right">{{contactStat?.closed}}</span>
+                            <i class="fa fa-fw fa-folder-o icon-push"></i> <strong>Closed</strong>
+                        </a>
+                    </li>
+                </ul>
+                <!-- END Menu Content -->
+            </div>
+            <!-- END Menu Block for Tenant's users -->
+        </div>
+        <div class="block" *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
+            <!-- Quick Month Stats Title -->
+            <div class="block-title">
+                <h2>Quick Stats</h2>
+            </div>
+            <!-- END Quick Month Stats Title -->
+
+            <!-- Quick Month Stats Content -->
+            <table class="table table-striped table-borderless table-vcenter">
+                <tbody>
+                <tr>
+                    <td style="width: 60%;">
+                        <strong>Total Requests</strong>
+                    </td>
+                    <td>{{quickStat?.total_tickets}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Total Responses</strong>
+                    </td>
+                    <td>{{quickStat?.total_responses}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Tenant Requests</strong>
+                    </td>
+                    <td>{{quickStat?.tenant_ticket}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Employee Requests</strong>
+                    </td>
+                    <td>{{quickStat?.employee_ticket}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Vendor Requests</strong>
+                    </td>
+                    <td>{{quickStat?.vendor_ticket}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Avg Response Time</strong>
+                    </td>
+                    <td>{{quickStat?.averate_time}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- END Quick Month Stats Content -->
+        </div>
     </div>
 
     <div class="col-md-7 col-lg-9">
-        <ewo-tenant-dashboard *ngIf="tenantContactId" [tenantContactId]="tenantContactId"></ewo-tenant-dashboard>
+        <ewo-tenant-dashboard *ngIf="tenantContactId" [tenantContactId]="tenantContactId"  [tickets]="tickets"></ewo-tenant-dashboard>
         <ewo-vendor-dashboard *ngIf="vendorContactId" [vendorContactId]="vendorContactId"></ewo-vendor-dashboard>
-        <ewo-ticket *ngIf="IsPropertyManager || IsEmployee"></ewo-ticket>
+        <ewo-ticket *ngIf="IsPropertyManager || IsEmployee" [tickets]="tickets"></ewo-ticket>
         <!--ewo-contact-activities *ngIf="tenant" [tenant]="tenant" [isEditable]="false"></ewo-contact-activities-->
     </div>
 </div>

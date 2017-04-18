@@ -13,7 +13,7 @@ export class TruncatePipe implements PipeTransform {
    *  arg[1] - suffix
    * @returns {string}
    */
-  transform(value: string, ...args: string[]): string {
+  transform (value: string, ...args: string[]): string {
     // TODO: should we use suffix when we don't truncate?
     // TODO: should we use 0 value? now 0 value cause default
     let limitTo = parseInt(args[0]) || 15;
@@ -40,7 +40,7 @@ export class PluralizePipe implements PipeTransform {
    *    -> returns '8 items' for 8 and etc
    * @returns {any}
    */
-  transform(value: number, label: string | Object, plural?: string): string {
+  transform (value: number, label: string | Object, plural?: string): string {
     // TODO: some util func for this isObject checking?
     if (typeof label == 'object') {
       let pattern = label[value] ? label[value] : label['other'];
@@ -58,7 +58,7 @@ export class SafePipe implements PipeTransform {
     this.sanitizer = sanitizer;
   }
 
-  transform(value: any) {
+  transform (value: any) {
     return this.sanitizer.bypassSecurityTrustStyle(value);
   }
 }
@@ -68,7 +68,7 @@ export class SafePipe implements PipeTransform {
 })
 export class FilterWithStartLetterPipe implements PipeTransform {
 
-  transform(items: any, filter: any): any {
+  transform (items: any, filter: any): any {
     if (filter && Array.isArray(items)) {
       let filterKeys = Object.keys(filter);
       return items.filter(item =>
@@ -84,7 +84,8 @@ export class FilterWithStartLetterPipe implements PipeTransform {
   name: 'phone'
 })
 export class PhonePipe implements PipeTransform {
-  transform(val) {
+  transform (val) {
+    if (!val) return;
     let viewVal = val.trim().replace(/^\+/, '');
     viewVal = viewVal.replace(/[^0-9]/g, '').slice(0, 10);
     let area, number;
@@ -116,7 +117,23 @@ export class PhonePipe implements PipeTransform {
 @Pipe({ name: 'dateFormat' })
 export class DateFormatPipe implements PipeTransform {
   datePipe = new DatePipe('en-US');
-  transform(value: any) {
+  transform (value: any) {
     return this.datePipe.transform(value, 'MM/dd/yyyy');
+  }
+}
+
+@Pipe({ name: 'ticketListdateFormat' })
+export class TicketListDateFormatPipe implements PipeTransform {
+  datePipe = new DatePipe('en-US');
+  transform (value: any) {
+    return this.datePipe.transform(value, 'hh:mm a, MM/dd/yyyy');
+  }
+}
+
+@Pipe({ name: 'ticketDetailsdateFormat' })
+export class TicketDetailsDateFormatPipe implements PipeTransform {
+  datePipe = new DatePipe('en-US');
+  transform (value: any) {
+    return this.datePipe.transform(value, 'MM/dd/yyyy, hh:mm a');
   }
 }

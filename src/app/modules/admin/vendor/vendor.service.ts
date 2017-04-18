@@ -37,12 +37,10 @@ export class VendorService extends DataService {
             observable = this.http.post('vendor/', data);
 
         observable.subscribe(data => {
-            console.log(data);
             // this.toasterService.pop('success', 'ADD', 'Vendor has been saved successfully');
         },
             error => {
                 this.toasterService.pop('error', operation, 'Sorry! Something went wrong and Vendor could not be saved!!');
-                console.log(error);
             });
 
         return observable;
@@ -78,13 +76,11 @@ export class VendorService extends DataService {
             observable = this.http.post('vendorcontact/', data);
 
         observable.subscribe(data => {
-            console.log('saveVendorContact', data);
 
             // this.toasterService.pop('success', operation, 'Contact has been saved successfully.');
         },
             error => {
                 // this.toasterService.pop('error', operation, 'Sorry! Something went wrong and contact could not be saved!!');
-                console.log('saveVendorContact', error);
 
             });
 
@@ -140,7 +136,6 @@ export class VendorService extends DataService {
     getVendor (url) {
         const observable = this.http.getByFullUrl(url);
         observable.subscribe(data => {
-            console.log(data);
         });
         return observable;
     }
@@ -152,7 +147,6 @@ export class VendorService extends DataService {
     getAllVendors (company_id) {
         const observable = this.http.get('vendorlist/' + company_id + '/'); // this
         observable.subscribe(data => {
-            console.log(data);
         });
         return observable;
     }
@@ -164,7 +158,6 @@ export class VendorService extends DataService {
     getAllActiveVendors (company_id) {
         const observable = this.http.get('vendorlist/' + company_id + '/?active=true');
         observable.subscribe(data => {
-            console.log(data);
         });
         return observable;
     }
@@ -176,7 +169,6 @@ export class VendorService extends DataService {
     getActiveVendorsByProblemType (problemtype_id) {
         const observable = this.http.get('vendorlistbyproblemtype/' + problemtype_id + '/?active=true');
         observable.subscribe(data => {
-            console.log(data);
         });
         return observable;
     }
@@ -184,7 +176,6 @@ export class VendorService extends DataService {
     getContactDetails (contactId) {
         const observable = this.http.get('vendorcontact/' + contactId + '/');
         observable.subscribe(data => {
-            console.log(data);
         });
         return observable;
     }
@@ -197,7 +188,6 @@ export class VendorService extends DataService {
     getInsurances (vendor_id) {
         const observable = this.http.get('vendorinsurance/?vendor_id=' + vendor_id + '&ordering=id');
         observable.subscribe(data => {
-            console.log(data);
         });
         return observable;
     }
@@ -215,7 +205,6 @@ export class VendorService extends DataService {
         const observable = this.http.post('vendorinsurance/', data);
 
         observable.subscribe(data => {
-            // console.log(data);
             this.toasterService.pop('success', 'ADD', 'Vendor insurance has been added successfully');
         },
             error => {
@@ -238,11 +227,9 @@ export class VendorService extends DataService {
 
         observable.subscribe(data => {
             this.toasterService.pop('success', 'UPDATE', 'Vendor insurance has been updated successfully');
-            //console.log(data);
         },
             error => {
                 this.toasterService.pop('error', 'UPDATE', 'Vendor insurance not updated due to API error!!!');
-                console.log(error);
             });
 
         return observable;
@@ -262,7 +249,6 @@ export class VendorService extends DataService {
             observable = this.http.postWithFile('vendorcontact/', formData);
 
         // observable.subscribe(data => {
-        //     console.log(data);
         // });
         return observable;
     }
@@ -343,7 +329,6 @@ export class VendorService extends DataService {
 
         observable.subscribe(
             (data) => {
-                console.log('Vendor Data', data);
 
                 this.toasterService.pop('success', 'SAVED', 'Vendor & Vendor Contact Saved successfully');
             },
@@ -360,11 +345,9 @@ export class VendorService extends DataService {
             let url = 's3filesignature/?name=' + photoFile.name + '&type=' + photoFile.type + '&etype=vc&rid=' + vendor_id;
             observable = this.http.get(url);
             observable.subscribe(s3Data => {
-                console.log('s3Data', s3Data);
                 // return this.uploadToAws(photoFile, s3Data.data, s3Data.url, vendorContact);
             },
                 error => {
-                    console.log('s3Data', error);
                 });
         }
         return observable;
@@ -379,8 +362,6 @@ export class VendorService extends DataService {
         postData.append('file', file);
         observable = this.http.postToS3(s3Data.url, postData);
         observable.subscribe(data => {
-            console.log(data);
-            console.log('Should be accessible through: ' + url);
             // vendorContact.photo = url;
             // observable = this.saveVendorContact(vendorContact);
             // return this.saveVendorContact(vendorContact);

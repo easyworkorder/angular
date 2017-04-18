@@ -41,12 +41,10 @@ export class TenantService extends DataService {
             observable = this.http.post('tenant/', data);
 
         observable.subscribe(data => {
-            console.log(data);
             // this.toasterService.pop('success', 'ADD', 'Tenant has been saved successfully');
         },
             error => {
                 this.toasterService.pop('error', operation, `Sorry! Something went wrong and Tenant could not be saved!!\n${error.detail}`);
-                console.log(error);
             });
 
         return observable;
@@ -62,12 +60,10 @@ export class TenantService extends DataService {
             observable = this.http.post('tenantcontact/', data);
 
         observable.subscribe(data => {
-            console.log('saveTenantContact', data);
             // this.toasterService.pop('success', operation, 'Contact has been saved successfully.');
         },
             error => {
                 // this.toasterService.pop('error', operation, 'Sorry! Something went wrong and contact could not be saved!!');
-                console.log('saveTenantContact', error);
 
             });
 
@@ -77,7 +73,6 @@ export class TenantService extends DataService {
     getTenant (url) {
         const observable = this.http.getByFullUrl(url);
         observable.subscribe(data => {
-            console.log(data);
         });
         return observable;
     }
@@ -86,7 +81,6 @@ export class TenantService extends DataService {
         // const observable = this.http.get('tenant/?building=' + building_id); //can call this or
         const observable = this.http.get('tenantsbybuilding/' + building_id + '/'); // this
         observable.subscribe(data => {
-            console.log(data);
         });
         return observable;
     }
@@ -98,7 +92,6 @@ export class TenantService extends DataService {
     getActiveTenantsByBuilding (building_id) {
         const observable = this.http.get('tenant/', { building_id: building_id, active: true, ordering: 'name' });
         observable.subscribe(data => {
-            console.log(data);
         });
         return observable;
     }
@@ -106,7 +99,6 @@ export class TenantService extends DataService {
     getContactDetails (contactId) {
         const observable = this.http.get('tenantcontact/' + contactId + '/');
         observable.subscribe(data => {
-            console.log(data);
         });
         return observable;
     }
@@ -119,7 +111,6 @@ export class TenantService extends DataService {
     getInsurances (tenant_id) {
         const observable = this.http.get('tenantinsurance/?tenant_id=' + tenant_id + '&ordering=id');
         observable.subscribe(data => {
-            console.log(data);
         });
         return observable;
     }
@@ -137,7 +128,6 @@ export class TenantService extends DataService {
         const observable = this.http.post('tenantinsurance/', data);
 
         observable.subscribe(data => {
-            // console.log(data);
             this.toasterService.pop('success', 'ADD', 'Tenant insurance has been added successfully');
         },
             error => {
@@ -160,11 +150,9 @@ export class TenantService extends DataService {
 
         observable.subscribe(data => {
             this.toasterService.pop('success', 'UPDATE', 'Tenant insurance has been updated successfully');
-            //console.log(data);
         },
             error => {
                 this.toasterService.pop('error', 'UPDATE', 'Tenant insurance not updated due to API error!!!');
-                console.log(error);
             });
 
         return observable;
@@ -183,7 +171,6 @@ export class TenantService extends DataService {
             observable = this.http.postWithFile('tenantcontact/', formData);
 
         observable.subscribe(data => {
-            console.log(data);
         });
         return observable;
     }
@@ -266,7 +253,6 @@ export class TenantService extends DataService {
 
         observable.subscribe(
             (data) => {
-                console.log('Tenant Data', data);
 
                 this.toasterService.pop('success', 'SAVED', 'Tenant & Tenant Contact Saved successfully');
             },
@@ -288,10 +274,8 @@ export class TenantService extends DataService {
             // });
             observable = this.http.get(url);
             observable.subscribe(s3Data => {
-                console.log('s3Data', s3Data);
             },
                 error => {
-                    console.log('s3Data', error);
                 });
         }
         return observable;

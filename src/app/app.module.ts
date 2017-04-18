@@ -47,6 +47,8 @@ import {
     FilterWithStartLetterPipe,
     PhonePipe,
     DateFormatPipe,
+    TicketListDateFormatPipe,
+    TicketDetailsDateFormatPipe
 } from './pipes';
 import { BuildingComponent } from './modules/admin/building/building.component';
 import { AddressComponent } from './modules/address/address.component';
@@ -153,6 +155,10 @@ import { VerifyEmailComponent } from "app/modules/shared/verify-email.component"
 import { VerifyEmailService } from "app/modules/shared/verify-email.service";
 import { TenantFileComponent } from './modules/admin/tenant/tenant-file.component';
 import { FileListComponent } from './modules/shared/file-list/file-list.component';
+import { ConfirmModalComponent } from './modules/shared/confirm-modal/confirm-modal.component';
+import { AssignTicketComponent } from './modules/shared/ticket/assign-ticket.component';
+import { CloseTicketComponent } from "app/modules/shared/ticket/close-ticket.component";
+import { TenantTicketReplyComponent } from "app/modules/ticket/tenant-ticket-reply.component";
 
 export function translateStaticLoaderFactory (Backend, defaultOptions, storage, notificationService) {
     return new AppHttp(Backend, defaultOptions, storage, notificationService);
@@ -179,6 +185,8 @@ export function translateStaticLoaderFactory (Backend, defaultOptions, storage, 
         FilterWithStartLetterPipe,
         PhonePipe,
         DateFormatPipe,
+        TicketListDateFormatPipe,
+        TicketDetailsDateFormatPipe,
         // Directives
         FormControlValidator,
         ActiveDirective,
@@ -269,6 +277,10 @@ export function translateStaticLoaderFactory (Backend, defaultOptions, storage, 
         VerifyEmailComponent,
         TenantFileComponent,
         FileListComponent
+        ConfirmModalComponent,
+        AssignTicketComponent,
+        CloseTicketComponent,
+        TenantTicketReplyComponent
     ],
     imports: [
         BrowserModule,

@@ -27,8 +27,8 @@
             <div class="block-title">
                 <ul class="nav nav-tabs" data-toggle="tabs">
                     <li class="active"><a (click)="switchTab(1)" href="#ticket-activity" data-toggle="tab">Activity</a></li>
-                    <li class=""><a (click)="switchTab(2)" href="#ticket-labor" data-toggle="tab">Labor <span class="badge">$637.50</span></a></li>
-                    <li class=""><a (click)="switchTab(3)" href="#ticket-materials" data-toggle="tab">Materials <span class="badge">$637.50</span></a></li>
+                    <li *ngIf="userInfo?.IsPropertyManager || userInfo?.IsEmployee" class=""><a (click)="switchTab(2)" href="#ticket-labor" data-toggle="tab">Labor <span class="badge">{{ticket?.labor_total | currency:'USD':true}}</span></a></li>
+                    <li *ngIf="userInfo?.IsPropertyManager || userInfo?.IsEmployee" class=""><a (click)="switchTab(3)" href="#ticket-materials" data-toggle="tab">Materials <span class="badge">{{ticket?.material_total | currency:'USD':true}}</span></a></li>
                     <li class=""><a (click)="switchTab(4)" href="#ticket-files" data-toggle="tab">Files <span class="badge">3</span></a></li>
                 </ul>
             </div>
@@ -39,14 +39,15 @@
                 <!-- Tickets List -->
                 <loading-spinner-wave *ngIf="!ticket"></loading-spinner-wave>
                 <div class="tab-pane active" id="ticket-activity">
-                    <ewo-ticket-activity *ngIf="ticket && notes && employees && tenants" [ticket]="ticket" [notes]="notes" [employees]="employees" [tenants]="tenants" (update)="updateNotes($event)" [isAdmin]="true"></ewo-ticket-activity>
+                    <ewo-ticket-activity *ngIf="ticket && notes && tenant_contacts && ticket_submitter_info" [ticket]="ticket" [ticket_submitter_info]="ticket_submitter_info"
+                        [notes]="notes" [tenant_contacts]="tenant_contacts" (update)="updateNotes($event)" [isAdmin]="true"></ewo-ticket-activity>
                 </div>
                 <!-- END Tickets List -->
 
                 <!-- LABOR TAB -->
                 <div class="tab-pane" id="ticket-labor">
                     <!-- Partial Responsive Block -->
-                    <ewo-ticket-labor *ngIf="ticket && labors && employees" [ticket]="ticket" [labors]="labors" [employees]="employees" (update)="updateLaborInfo($event)" ></ewo-ticket-labor>
+                    <ewo-ticket-labor *ngIf="ticket && labors && employees" [ticket]="ticket" [labors]="labors" [employees]="employees" (update)="updateLaborInfo($event)"></ewo-ticket-labor>
                     <!-- END Partial Responsive Content -->
                 </div>
                 <!-- END LABOR TAB -->
@@ -54,7 +55,7 @@
                 <!-- MATERIALS TAB -->
                 <div class="tab-pane" id="ticket-materials">
                     <!-- Partial Responsive Block -->
-                    <ewo-ticket-material [ticket]="ticket" [materials]="materials"  (update)="updateMaterialInfo($event)" ></ewo-ticket-material>
+                    <ewo-ticket-material [ticket]="ticket" [materials]="materials" (update)="updateMaterialInfo($event)"></ewo-ticket-material>
                     <!-- END Partial Responsive Content -->
                 </div>
                 <!-- END MATERIALS TAB -->
@@ -71,7 +72,9 @@
 
                         <!-- Dropzone Content -->
                         <!-- Dropzone.js, You can check out https://github.com/enyo/dropzone/wiki for usage examples -->
-                        <form action="page_forms_components.html" class="dropzone dz-clickable"><div class="dz-default dz-message"><span>Drop files here to upload</span></div></form>
+                        <form action="page_forms_components.html" class="dropzone dz-clickable">
+                            <div class="dz-default dz-message"><span>Drop files here to upload</span></div>
+                        </form>
                         <!-- END Dropzone Content -->
                     </div>
                     <!-- END Dropzone Block -->
@@ -92,14 +95,17 @@
             <!-- Quick Month Stats Title -->
             <div class="block-title">
                 <div class="block-options pull-right">
-                    <a href="javascript:void(0)" class="btn btn-effect-ripple btn-success" data-toggle="tooltip" title="" style="overflow: hidden; position: relative;" data-original-title="Change"><i class="fa fa-pencil"></i></a>
+                    <a *ngIf="userInfo?.IsPropertyManager || userInfo?.IsEmployee" modal-dialog-open="modal-due-date" (click)="onDueDateEdit($event)"
+                        class="btn btn-effect-ripple btn-success" data-toggle="modal" title="" style="overflow: hidden; position: relative;"
+                        data-original-title="Change"><i class="fa fa-pencil"></i></a>
                 </div>
-                <h2>Open</h2><span class="badge">Billable - $40</span>
+                <h2>Open</h2><span class="badge" *ngIf="ticket?.is_billable">Billable - {{(ticket?.billable_total == 0 ? ticket?.estimated_amount : ticket?.billable_total)  | currency:'USD':true}}</span>
             </div>
             <!-- END Due Block -->
 
             <!-- Due Date Information -->
-            Due in 6 days on Tues, 21 Feb at 9:40am
+            <!--Due in 6 days on Tues, 21 Feb at 9:40am-->
+            Due in {{dueDateOn}} days on {{ticket?.due_date | date:'medium'}}
             <!-- END Due date Information -->
         </div>
         <!-- END Organization Block -->
@@ -109,31 +115,99 @@
             <!-- Quick Month Stats Title -->
             <div class="block-title">
                 <div class="block-options pull-right">
-                    <a href="javascript:void(0)" class="btn btn-effect-ripple btn-success" data-toggle="tooltip" title="" style="overflow: hidden; position: relative;" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                    <a *ngIf="userInfo?.IsPropertyManager || userInfo?.IsEmployee" modal-dialog-open="modal-requestor" (click)="onRequestorModalOpen()"
+                        class="btn btn-effect-ripple btn-success" data-toggle="modal" title="" style="overflow: hidden; position: relative;"
+                        data-original-title="Edit"><i class="fa fa-pencil"></i></a>
                 </div>
                 <h2>Requestor</h2>
             </div>
             <!-- END Quick Month Stats Title -->
 
             <!-- Tenant Information -->
-            <address class="m-t-md">
-                <strong>Vicky Pink</strong><br>
+            <address *ngIf="selectedTenant" class="m-t-md">
+                <!--<strong>Vicky Pink</strong><br>
                 <abbr title="Phone">P:</abbr> (123) 456-7890
                 <br>
                 <abbr title="Email">E:</abbr> vicky.pink@twitter.com<br>
-                <strong>Twitter, Inc.</strong><br>
-                795 Folsom Ave, Suite 600<br>
-                San Francisco, CA 94107<br>
+                <strong>Twitter, Inc.</strong><br> 795 Folsom Ave, Suite 600<br> San Francisco, CA 94107<br>-->
+                <strong>{{selectedTenant.tenant_contacts[0].first_name}} {{selectedTenant.tenant_contacts[0].last_name}}</strong><br>
+                <span *ngIf="selectedTenant.tenant_contacts[0].phone"><abbr title="Phone">P:</abbr> {{selectedTenant.tenant_contacts[0].phone | phone}}</span>
+                <span *ngIf="selectedTenant.tenant_contacts[0].email"><br>
+                <abbr title="Email">E:</abbr> {{selectedTenant.tenant_contacts[0].email}}</span><br>
+                <strong>{{selectedTenant.tenant_company_name}}</strong><br>{{selectedTenant.unitno}}
+                <!--795 Folsom Ave, Suite 600<br> San Francisco, CA 94107<br>-->
             </address>
             <!-- END Tenant Information -->
         </div>
         <!-- END Requestor Block -->
 
         <!-- Organization Block -->
-        <div class="block">
+        <div *ngIf="userInfo?.IsPropertyManager || userInfo?.IsEmployee" class="block">
             <ewo-ticket-edit *ngIf="ticket && employees" [ticket]="ticket" [employees]="employees"></ewo-ticket-edit>
         </div>
         <!-- END Organization Block -->
     </div>
 </div>
 <!-- END Tickets Content -->
+
+
+<!-- Due Date -->
+<div id="modal-due-date" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title"><i class="fa fa-plus"></i> <strong>Due Date</strong></h3>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="dueDateForm" (ngSubmit)="onDueDateSubmit()" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-6 col-md-4 col-lg-3 control-label" for="close_note">Note <span class="required">*</span> </label>
+                        <div class="col-sm-6 col-md-8 col-lg-9">
+                            <ewo-calendar [readonlyInput]="true" [showOnFocus]="false" formControlName="dueDate" (onSelect)="onSelectDueDate($event)"
+                                [icon]="fa-calendar" [showIcon]="true" inputStyleClass="form-control"></ewo-calendar>
+                            <div><span *ngIf="!dueDateValid" class="validation-error">This field is required.</span></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-actions">
+                        <div class="col-xs-12 text-right">
+                            <button type="submit" class="btn btn-effect-ripple btn-success" style="overflow: hidden; position: relative;">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Requestor -->
+<div id="modal-requestor" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title"><i class="fa fa-plus"></i> <strong>Change Requestor</strong></h3>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="requestorForm" (ngSubmit)="onRequestorSubmit()" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-6 col-md-4 col-lg-3 control-label" for="close_note">Requestor <span class="required">*</span> </label>
+                        <div class="col-sm-6 col-md-8 col-lg-9">
+                            <ng-select id="requestorList" [multiple]="false" [items]="requestorsList" (selected)="onSelectedRequestor($event)" placeholder="Choose Requestor"
+                                [active]="selectedRequestor"></ng-select>
+                            <span *ngIf="!isRequestorValid" class="validation-error">This field is required</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-actions">
+                        <div class="col-xs-12 text-right">
+                            <button type="submit" class="btn btn-effect-ripple btn-success" style="overflow: hidden; position: relative;">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

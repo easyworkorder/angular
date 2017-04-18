@@ -43,7 +43,7 @@ export class AddressComponent implements OnInit {
         this.getAll();
     }
 
-    getAll(): void {
+    getAll (): void {
         this.addressService.getAll().subscribe(
             data => {
                 this.addresses = data.results;
@@ -51,14 +51,13 @@ export class AddressComponent implements OnInit {
         );
     }
 
-    ngOnInit() {
+    ngOnInit () {
         // this.getAll();
     }
 
-    onSubmit() {
+    onSubmit () {
         // let val = this.addressCreateForm.value;
         // this.addressService.create(this.addressCreateForm.value).subscribe((address: any) => {
-        //     console.log('Address created', address);
         //     this.addresses.push(address);
         //     this.isSuccess = true;
         // });
@@ -66,32 +65,29 @@ export class AddressComponent implements OnInit {
         this.AwsS3Submit();
     }
 
-    fileChange(event) {
+    fileChange (event) {
         let fileList: FileList = event.target.files;
-        if(fileList.length > 0) {
+        if (fileList.length > 0) {
             this.address2File = fileList[0];
         }
     }
 
-    newOnSubmit() {
-        console.log('Inside New On Submit');
-        if(this.address2File) {
-            let formData:FormData = this.dataService.mapToFormData(this.addressCreateForm, ['address2']);
+    newOnSubmit () {
+        if (this.address2File) {
+            let formData: FormData = this.dataService.mapToFormData(this.addressCreateForm, ['address2']);
             formData.append('address2', this.address2File, this.address2File.name);
-            
+
             this.addressService.createWithFile(formData).subscribe((address: any) => {
-                console.log('Address created with file', address);
                 this.addresses.push(address);
                 this.isSuccess = true;
             });
         } else {
-            // Simple Object Posting should go here, and the address2 field needs to be removed 
+            // Simple Object Posting should go here, and the address2 field needs to be removed
             // It is obvious that the user hasn't selected any file
-            if(this.addressCreateForm.contains('address2'))
+            if (this.addressCreateForm.contains('address2'))
                 this.addressCreateForm.removeControl('address2');
-            
+
             this.addressService.create(this.addressCreateForm.value).subscribe((address: any) => {
-                console.log('Address created', address);
                 this.addresses.push(address);
                 this.isSuccess = true;
             });
@@ -99,9 +95,8 @@ export class AddressComponent implements OnInit {
 
     }
 
-    AwsS3Submit() {
+    AwsS3Submit () {
         this.http.get('sign-s3/?name=' + this.address2File.name + '&type=' + this.address2File.type).subscribe(s3Data => {
-            console.log(s3Data);
             // Now we need to upload the file to S3
             this.uploadToAws(this.address2File, s3Data.data, s3Data.url);
 
@@ -109,15 +104,13 @@ export class AddressComponent implements OnInit {
         // this.myHttp.post();
     }
 
-    uploadToAws(file: File, s3Data:any, url:string){
+    uploadToAws (file: File, s3Data: any, url: string) {
         var postData = new FormData();
-        for(let key in s3Data.fields){
+        for (let key in s3Data.fields) {
             postData.append(key, s3Data.fields[key]);
         }
         postData.append('file', this.address2File);
         this.myHttp.post(s3Data.url, postData).subscribe(data => {
-            console.log(data);
-            console.log('Should be accessible through: ' + url);
         })
     }
 }

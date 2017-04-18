@@ -12,7 +12,7 @@ export class AdminDashBoardResolver implements Resolve<any> {
         private authService: AuthenticationService,
         private breadcrumbHeaderService: BreadcrumbHeaderService) {
     }
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    resolve (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         // this.authService.verifyToken();
         // let title = route.data['breadcrumb'];
 
@@ -28,7 +28,7 @@ export class TicketDashBoardResolver implements Resolve<any> {
     constructor(private headerService: HeaderService,
         private authService: AuthenticationService) {
     }
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    resolve (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         // this.authService.verifyToken();
         return this.headerService.setDashBoardTitle({ title: 'TICKETS', link: ['/'] });
     }
@@ -38,11 +38,9 @@ export class TicketDashBoardResolver implements Resolve<any> {
 export class DashBoardResolver implements Resolve<any> {
     constructor(private authService: AuthenticationService) {
     }
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    resolve (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         // return this.authService.verifyToken().map(data => data).take(1).subscribe(data => {
-        //     console.log('data>>>', data);
         // }, error => {
-        //     console.log('error>>>', error);
         // });
         return this.authService.verifyToken();
     }

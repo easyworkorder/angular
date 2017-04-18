@@ -14,13 +14,14 @@ declare var $: any;
     templateUrl: './ticket-material.component.html'
 })
 export class TicketMaterialComponent implements OnInit {
+    toDeletedMaterial: any;
     @Input() ticket: any;
     @Input() materials: any;
     @Input() updateTicketMaterialInfo: any;
     @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
     _submitted = false;
     ticketId: number;
-
+    isMaterialDateValid: boolean = true;
     constructor(
         private ticketService: TicketService,
         private formBuilder: FormBuilder,
@@ -31,17 +32,15 @@ export class TicketMaterialComponent implements OnInit {
 
         this.updateTicketMaterialService.updateMaterialInfo$.subscribe(data => {
             this.updateTicketMaterialInfo = data;
-            this.ticketMaterialForm.setValue(this.updateTicketMaterialInfo);
+            this.ticketMaterialForm.patchValue(this.updateTicketMaterialInfo);
         });
     }
-
-    ngOnInit() {
+    ngOnInit () {
         this.ticketId = this.route.snapshot.params['id'];
-        $('#add-ticket-material').on('hidden.bs.modal', () => {
+        $('#modal-ticket-material').on('hidden.bs.modal', () => {
             this.closeModal();
         });
     }
-
     ticketMaterialForm = new FormGroup({
         id: new FormControl(),
         url: new FormControl(''),
@@ -54,50 +53,71 @@ export class TicketMaterialComponent implements OnInit {
         gl_code: new FormControl(''),
     });
 
-    onSubmit() {
+    onSubmit () {
         this._submitted = true;
+        this.isMaterialDateValid = false;
+
+        if (this.dataService.dateValidation(this.ticketMaterialForm.get('date'))) {
+            this.isMaterialDateValid = true;
+        } else {
+            this.isMaterialDateValid = false;
+            return;
+        }
+
         if (!this.ticketMaterialForm.valid) { return; }
 
         // Update Material
-         if (this.ticketMaterialForm.value.id) {
-             this.ticketService.updateMaterial(this.ticketMaterialForm.value).subscribe((material: any) => {
-                 this.change.emit(true);
-                 this.closeModal();
-             });
-             return;
-         }
+        if (this.ticketMaterialForm.value.id) {
+            this.ticketService.updateMaterial(this.ticketMaterialForm.value).subscribe((material: any) => {
+                this.ticketService.updateTicket(true);
+                this._submitted = false;
+                this.change.emit(true);
+                this.closeModal();
+            });
+            return;
+        }
 
         // Add Material
-         this.ticketMaterialForm.get('workorder').setValue(`${config.api.base}ticket/${this.ticket.id}/`);
-         // let val = this.ticketMaterialForm.value;
-         this.ticketMaterialForm.removeControl('id');
-         this.ticketService.createMaterial(this.ticketMaterialForm.value).subscribe((material: any) => {
-             // console.log('Tenant created', tenant);
-        //     // this.getAllTenantsByBuilding(this.buildingId);
-        //     // this.isSuccess = true;
+        this.ticketMaterialForm.get('workorder').setValue(`${config.api.base}ticket/${this.ticket.id}/`);
+        this.ticketMaterialForm.removeControl('id');
+        if (this.ticketMaterialForm.value.url)
+            delete this.ticketMaterialForm.value.url;
 
-             this.change.emit(true);
-             this.closeModal();
-         });
-         this.ticketMaterialForm.addControl('id', new FormControl());
-
+        this.ticketService.createMaterial(this.ticketMaterialForm.value).subscribe((material: any) => {
+            this.ticketService.updateTicket(true);
+            this._submitted = false;
+            this.closeModal();
+            this.change.emit(true);
+        });
+        this.ticketMaterialForm.addControl('id', new FormControl());
     }
 
 
-    editMaterial(material) {
-        console.log(material);
+    editMaterial (material) {
+        material.date = material.date.toDate();
         this.ticketMaterialForm.patchValue(material);
-        console.log(this.ticketMaterialForm.value);
     }
 
-    closeModal() {
+    closeModal () {
+        $('#modal-ticket-material').modal('hide');
         this.resetForm();
-        $('#add-ticket-material').modal('hide');
     }
 
-    resetForm() {
+    resetForm () {
         this.ticketMaterialForm.reset({
             is_billable: true
         });
+    }
+    onSelectDate (value) {
+        this.isMaterialDateValid = true;
+    }
+    onModalOkButtonClick (event) {
+        if (this.toDeletedMaterial) {
+            this.ticketService.deleteMaterial(this.toDeletedMaterial).subscribe(data => {
+                $('#modal-material-delete-confirm').modal('hide');
+                this.ticketService.updateTicket(true);
+                this.change.emit(true);
+            })
+        }
     }
 }

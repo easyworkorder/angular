@@ -29,7 +29,7 @@ export class SLAPolicyComponent implements OnInit {
     ) {
     }
 
-    ngOnInit() {
+    ngOnInit () {
         this.breadcrumbHeaderService.setBreadcrumbTitle('SLA Policies');
 
         this.slaPolicyForm = this.fb.group({
@@ -42,7 +42,7 @@ export class SLAPolicyComponent implements OnInit {
         this.getSLAPolicy();
     }
 
-    getSLAPolicy() {
+    getSLAPolicy () {
         this.isShowingLoadingSpinner = true;
         const company = this.currentCompanyId;
         this.slaPolicyService.getCompanySLAPolicy(company).map(data => data.results).subscribe(data => {
@@ -82,11 +82,11 @@ export class SLAPolicyComponent implements OnInit {
         });
     }
 
-    get company_sla_policy_targets(): FormArray {
+    get company_sla_policy_targets (): FormArray {
         return <FormArray>this.slaPolicyForm.get('company_sla_policy_targets');
     }
 
-    buildSlaTarget(id: any, sla: string, priority: string, priorespond_withinrity: string, respond_within_unit: string,
+    buildSlaTarget (id: any, sla: string, priority: string, priorespond_withinrity: string, respond_within_unit: string,
         resolve_within: string, resolve_within_unit: string, operational_hours: string, escalation_email: any = false): FormGroup {
         return this.fb.group({
             id: id,
@@ -100,8 +100,7 @@ export class SLAPolicyComponent implements OnInit {
             escalation_email: escalation_email
         });
     }
-    onSubmit() {
-        console.log('Valid?', this.slaPolicyForm.get('company_sla_policy_targets').valid);
+    onSubmit () {
         if (!this.slaPolicyForm.valid) return;
 
         // this.slaPolicyForm.get('company_sla_policy_targets').valid
@@ -121,15 +120,15 @@ export class SLAPolicyComponent implements OnInit {
         this.slaPolicyService.updateSLAPolicy(this.slaPolicyForm.value);
     }
 
-    public onSelectedRespondWithInUnit(index: any, selectedItem: any): void {
+    public onSelectedRespondWithInUnit (index: any, selectedItem: any): void {
         this.selectedRespondWithinUnit[index].selected = [{ id: selectedItem.id, text: selectedItem.text }];
     }
 
-    public onSelectedResolveWithInUnit(index: any, selectedItem: any): void {
+    public onSelectedResolveWithInUnit (index: any, selectedItem: any): void {
         this.selectedResolveWithinUnit[index].selected = [{ id: selectedItem.id, text: selectedItem.text }];
     }
 
-    public onSelectedOperationHours(index: any, selectedItem: any): void {
+    public onSelectedOperationHours (index: any, selectedItem: any): void {
         this.selectedOperationHours[index].selected = [{ id: selectedItem.id, text: selectedItem.text }];
     }
 }
