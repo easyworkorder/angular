@@ -1,0 +1,42 @@
+<!--Modal popup to add file-->
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="closeModal()">&times;</button>
+            <!--<h3 *ngIf="!tenantDocumentForm.get('id').value" class="modal-title"><i class="fa fa-plus"></i> <strong>New Document</strong></h3>
+            <h3 *ngIf="tenantDocumentForm.get('id').value" class="modal-title"><i class="fa fa-pencil"></i> <strong>Edit Document</strong></h3>-->
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="tenantDocumentForm" (ngSubmit)="onSubmit()" id="clickable-wizard" class="form-horizontal form-bordered" novalidate>
+                <div class="form-group">
+                    <label class="col-xs-3 control-label">Type</label>
+                    <label class="col-xs-9" style="padding-top: 7px">{{tenantDocumentForm.get('type').value?.type}}</label>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-3 control-label">Expire Date <span class="required">*</span></label>
+                    <div class="col-xs-9">
+                        <input type="file" id="contact_photo" name="contact_photo" (change)="docSelectionChange($event)" class="hidden" accept="*.doc, *.docx, *.pdf"/>
+                        <i class="fa fa-fw fa-upload"></i> <a href="javascript:void(0)" onclick="$('#contact_photo').click();">Upload New Dcoument</a>
+                        <span>{{ selectedFileName }}</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-3 control-label" for="per_occur">Per Occur <span class="required">*</span></label>
+                    <div class="col-xs-9">
+                        <input [formControlValidator]="tenantDocumentForm.controls.title" formControlName="title" type="text" id="title" class="form-control"
+                               placeholder="Title" />
+                        <!--<span class="validation-error">{{tenantDocumentForm.controls.per_occur.error}}</span>-->
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-3 control-label" for="aggregate">Aggregate <span class="required">*</span></label>
+                    <div class="col-xs-9">
+                        <textarea [formControlValidator]="tenantDocumentForm.controls.description" formControlName="description" id="description" class="form-control"
+                               placeholder="Description"></textarea>
+                        <!--<span class="validation-error">{{tenantDocumentForm.controls.aggregate.error}}</span>-->
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
