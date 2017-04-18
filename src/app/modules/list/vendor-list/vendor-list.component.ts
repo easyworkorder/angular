@@ -4,6 +4,7 @@ import { VendorService } from './../../admin/vendor/vendor.service';
 import { AuthenticationService } from "app/modules/authentication";
 import { DataService } from "app/services";
 import { HeaderService } from "app/modules/shared/header/header.service";
+import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
 
 @Component({
   selector: 'ewo-vendor-list',
@@ -21,6 +22,7 @@ export class VendorListComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthenticationService,
     private headerService: HeaderService,
+    private breadcrumbHeaderService: BreadcrumbHeaderService,
     private dataService: DataService) {
     this.authService.verifyToken().take(1).subscribe(data => {
       this.getAllActiveVendors();
@@ -39,6 +41,8 @@ export class VendorListComponent implements OnInit {
 
   ngOnInit () {
     this.headerService.setDashBoardTitle({ title: 'TICKETS', link: ['/'] });
+    this.breadcrumbHeaderService.setBreadcrumbTitle('Vendors');
+
   }
 
 

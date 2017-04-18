@@ -5,6 +5,7 @@ import { BuildingService } from './../../admin/building/building.service';
 import { AuthenticationService } from "app/modules/authentication";
 import { DataService } from "app/services";
 import { HeaderService } from "app/modules/shared/header/header.service";
+import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
 
 @Component({
   selector: 'ewo-tenant-list',
@@ -25,6 +26,7 @@ export class TenantListComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthenticationService,
     private headerService: HeaderService,
+    private breadcrumbHeaderService: BreadcrumbHeaderService,
     private dataService: DataService) {
     this.authService.verifyToken().take(1).subscribe(data => {
       this.getAllActiveBuildings();
@@ -60,6 +62,7 @@ export class TenantListComponent implements OnInit {
 
   ngOnInit () {
     this.headerService.setDashBoardTitle({ title: 'TICKETS', link: ['/'] });
+    this.breadcrumbHeaderService.setBreadcrumbTitle('Tenants');
   }
 
 

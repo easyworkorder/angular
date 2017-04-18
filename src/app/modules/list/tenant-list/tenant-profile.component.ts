@@ -33,6 +33,7 @@ export class TenantProfileComponent implements OnInit {
         const contactId = this.route.snapshot.params['id'];
         this.getContactDetails(contactId);
         this.headerService.setDashBoardTitle({ title: 'TENANTS', link: ['/tenant'] });
+        this.breadcrumbHeaderService.setBreadcrumbTitle('Tenant Profile');
     }
 
     getContactDetails (contactId) {

@@ -34,7 +34,7 @@ export class EmployeeListComponent implements OnInit {
   ngOnInit () {
     this.breadcrumbHeaderService.setBreadcrumbTitle('Employees');
     this.headerService.setDashBoardTitle({ title: 'TICKETS', link: ['/'] });
-
+    this.breadcrumbHeaderService.setBreadcrumbTitle('Employees');
   }
 
   getAllActiveEmployees (): void {

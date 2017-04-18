@@ -67,14 +67,14 @@ export const appRoutes: Routes = [
             { path: 'employee', component: EmployeeListComponent, pathMatch: 'full' },
             { path: 'tenant', component: TenantListComponent, pathMatch: 'full' },
             {
-                path: 'tenant-profile/:id', component: TenantProfileComponent,
+                path: 'tenant/:id', component: TenantProfileComponent,
                 data: {
                     breadcrumb: "Tenant Profile"
                 },
             },
             { path: 'vendor', component: VendorListComponent, pathMatch: 'full' },
             {
-                path: 'vendor-profile/:id', component: VendorProfileComponent,
+                path: 'vendor/:id', component: VendorProfileComponent,
                 resolve: {
                     admin: AdminDashBoardResolver
                 },

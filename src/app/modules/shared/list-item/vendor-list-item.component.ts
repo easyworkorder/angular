@@ -46,7 +46,7 @@ export class VendorListItemComponent implements OnInit {
             this.router.navigate(['/admin', 'vendor', vendor.contact_id]);
         }
         else {
-            this.router.navigate(['/vendor-profile', vendor.contact_id]);
+            this.router.navigate(['/vendor', vendor.contact_id]);
         }
     }
 }
