@@ -60,7 +60,7 @@ export class TenantDashboardComponent implements OnInit {
                 });
 
                 this.tenant.contacts = tempContact;
-                this.getInsurances(this.tenantContactId);
+                this.getInsurances(this.tenant.id);
             });
     }
 
