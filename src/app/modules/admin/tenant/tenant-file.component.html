@@ -7,7 +7,8 @@
             <h3 *ngIf="tenantDocumentForm.get('id').value" class="modal-title"><i class="fa fa-pencil"></i> <strong>Edit Document</strong></h3>-->
         </div>
         <div class="modal-body">
-            <form [formGroup]="tenantDocumentForm" (ngSubmit)="onSubmit()" id="clickable-wizard" class="form-horizontal form-bordered" novalidate>
+            <!--<form [formGroup]="tenantDocumentForm" (ngSubmit)="onSubmit()" id="clickable-wizard" class="form-horizontal form-bordered" novalidate>-->
+            <form [formGroup]="tenantDocumentForm" (ngSubmit)="onSubmit()" class="form-horizontal form-bordered" onsubmit="return false;">
                 <div class="form-group">
                     <label class="col-xs-3 control-label">Type</label>
                     <label class="col-xs-9" style="padding-top: 7px">{{tenantDocumentForm.get('type').value?.type}}</label>

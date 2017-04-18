@@ -26,6 +26,7 @@ export class TenantFileComponent implements OnInit {
         title: new FormControl(''),
         tenant: new FormControl(null),
         description: new FormControl('', [Validators.required]),
+        type: new FormControl('')
     });
 
     ngOnInit() {
