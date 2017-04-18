@@ -61,6 +61,10 @@ export class TenantContactActivitiesComponent implements OnInit {
         this.change.emit(event);
     }
 
+    updateFile(event){
+        this.change.emit(event);
+    }
+
     updateContactInfo (data) {
         // this.updatePeopleInfo = data;
         this.updatePeopleService.setUpdatePeople(data);
