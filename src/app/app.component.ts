@@ -19,7 +19,7 @@ export class AppComponent {
     //Building
     breadcrumbService.addFriendlyNameForRoute('/admin', 'Administrator Portal');
     breadcrumbService.addFriendlyNameForRoute('/admin/building', 'Buildings');
-    breadcrumbService.addFriendlyNameForRouteRegex('^/admin/building/[0-9]{1,10}$', 'Building Admin');
+    breadcrumbService.addFriendlyNameForRouteRegex('^/admin/building/[0-9]{1,10}$', 'Tenants');
     breadcrumbService.addFriendlyNameForRouteRegex('^/admin/building/[0-9]{1,10}/tenant-profile/[0-9]{1,10}$', 'Tenant Profile');
     breadcrumbService.hideRouteRegex('^/admin/building/[0-9]{1,10}/tenant-profile$');
     //Employee

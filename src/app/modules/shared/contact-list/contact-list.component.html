@@ -1,6 +1,6 @@
 <table class="table table-striped table-borderless table-vcenter remove-margin-bottom">
     <tbody>
-        <tr class="animation-fadeInQuick2" *ngFor="let contact of contactList?.contacts">
+        <tr class="animation-fadeInQuick2" *ngFor="let contact of contactList?.contacts | orderBy : ['+last_name', '+first_name']">
             <td class="text-center" style="width: 100px;">
                 <!--<img [src]="getPhotoUrl(contact)" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">-->
                 <img src="{{ contact.photo }}" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
@@ -11,10 +11,13 @@
                 <span *ngIf="contactList.state"><i class="fa fa-fw fa-map-marker text-info"></i> {{ contactList.state }}</span>
             </td>
             <td class="text-right">
-                <a href="tel:{{ contact.phone }}" (click)="stopPropagation($event)" class="btn btn btn-default" data-toggle="tooltip" title="" data-original-title="Call"><i class="fa fa-phone"></i></a>
-                <a href="mailto:{{ contact.email }}" (click)="stopPropagation($event)" class="btn btn btn-info" data-toggle="tooltip" title="" data-original-title="Email"><i class="fa fa-envelope"></i></a>
+                <a href="tel:{{ contact.phone }}" (click)="stopPropagation($event)" class="btn btn btn-default" data-toggle="tooltip" [title]="contact.phone | phone"
+                    [attr.data-original-title]="contact.phone | phone"><i class="fa fa-phone"></i></a>
+                <a href="mailto:{{ contact.email }}" (click)="stopPropagation($event)" class="btn btn btn-info" data-toggle="tooltip" [title]="contact.email"
+                    [attr.data-original-title]="contact.email"><i class="fa fa-envelope"></i></a>
                 <a href="javascript:void(0)" class="btn btn btn-danger" data-toggle="tooltip" title="" data-original-title="Send Password"><i class="fa fa-share"></i></a>
-                <a *ngIf="isEditable" href="javascript:void(0)" (click)="updateContact(contact)" class="btn btn btn-success" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                <a *ngIf="isEditable" href="javascript:void(0)" (click)="updateContact(contact)" class="btn btn btn-success" data-toggle="tooltip"
+                    title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
             </td>
         </tr>
     </tbody>
