@@ -25,7 +25,7 @@ export class VendorListComponent implements OnInit {
     });
   }
 
-  getAllActiveVendors(): void {
+  getAllActiveVendors (): void {
     this.isShowingLoadingSpinner = true;
     this.vendorService.getAllActiveVendors(this.currentCompanyId).subscribe(
       data => {
@@ -35,29 +35,29 @@ export class VendorListComponent implements OnInit {
     );
   }
 
-  ngOnInit() {
+  ngOnInit () {
   }
 
 
-  onSubmit() {
+  onSubmit () {
 
   }
 
-  buildName(firstName: string, lastName: string) {
+  buildName (firstName: string, lastName: string) {
     return this.dataService.buildName(firstName, lastName);
   }
 
-  buildAddressHtml(vendor: any) {
-    return this.dataService.buildVendorAddressHtml(vendor, vendor.company_name);
+  buildAddressHtml (vendor: any) {
+    return this.dataService.buildVendorAddressHtml(vendor, false);
   }
 
-  getPhotoUrl(tenant) {
+  getPhotoUrl (tenant) {
     if (tenant.photo != null && tenant.photo.length > 0)
       return tenant.photo;
     return 'assets/img/placeholders/avatars/avatar9.jpg';
   }
 
-  stopPropagation(event) {
+  stopPropagation (event) {
     event.stopPropagation()
   }
 

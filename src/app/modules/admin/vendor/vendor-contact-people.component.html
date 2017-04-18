@@ -12,7 +12,7 @@
         <div class="form-group">
           <label class="col-xs-3 control-label text-muted">NO AVATAR</label>
           <div class="col-xs-9">
-            <input type="file" id="contact_photo" name="contact_photo" (change)="photoSelectionChange($event)" class="hidden"  />
+            <input type="file" id="contact_photo" name="contact_photo" (change)="photoSelectionChange($event)" class="hidden" />
             <i class="fa fa-fw fa-upload"></i> <a href="javascript:void(0)" onclick="$('#contact_photo').click();">Upload New Avatar</a>
             <span>{{ selectedPhotoFile }}</span>
             <br/>
@@ -23,16 +23,16 @@
         <div class="form-group">
           <label class="col-xs-3 control-label" for="fname">First Name <span class="required">*</span></label>
           <div class="col-xs-9">
-            <input [formControlValidator]="vendorContactPeopleForm.controls.first_name" formControlName="first_name" type="text" id="fname" class="form-control"
-                   placeholder="First Name">
+            <input [formControlValidator]="vendorContactPeopleForm.controls.first_name" formControlName="first_name" type="text" id="fname"
+              class="form-control" placeholder="First Name">
             <span class="validation-error">{{vendorContactPeopleForm.controls.first_name.error}}</span>
           </div>
         </div>
         <div class="form-group">
           <label class="col-xs-3 control-label" for="lname">Last Name <span class="required">*</span></label>
           <div class="col-xs-9">
-            <input [formControlValidator]="vendorContactPeopleForm.controls.last_name" formControlName="last_name" type="text" id="lname" class="form-control"
-                   placeholder="Last Name" />
+            <input [formControlValidator]="vendorContactPeopleForm.controls.last_name" formControlName="last_name" type="text" id="lname"
+              class="form-control" placeholder="Last Name" />
             <span class="validation-error">{{vendorContactPeopleForm.controls.last_name.error}}</span>
           </div>
         </div>
@@ -46,7 +46,7 @@
           <label class="col-xs-3 control-label" for="email">Email <span class="required">*</span></label>
           <div class="col-xs-9">
             <input [formControlValidator]="vendorContactPeopleForm.controls.email" formControlName="email" type="text" id="email" class="form-control"
-                   placeholder="Email" />
+              placeholder="Email" />
             <span class="validation-error">{{vendorContactPeopleForm.controls.email.error}}</span>
           </div>
         </div>
@@ -57,7 +57,8 @@
           </div>
           <label class="col-xs-3 control-label" for="phone_extension">Extention</label>
           <div class="col-xs-3">
-            <input onlyNumber formControlName="phone_extension" id="phone_extension" type="text" class="form-control" placeholder="Extention"/>
+            <input onlyNumber formControlName="phone_extension" id="phone_extension" type="text" class="form-control" placeholder="Extention"
+            />
           </div>
         </div>
         <div class="form-group">
@@ -75,7 +76,8 @@
         <div class="form-group">
           <label class="col-xs-3 control-label" for="emergencyphone">Emergency Phone</label>
           <div class="col-xs-9">
-            <input phoneNumber formControlName="emergency_phone" type="text" id="emergencyphone" class="form-control" placeholder="Emergency Phone"/>
+            <input phoneNumber formControlName="emergency_phone" type="text" id="emergencyphone" class="form-control" placeholder="Emergency Phone"
+            />
           </div>
         </div>
         <div class="form-group">
@@ -93,7 +95,7 @@
         <div class="form-group form-actions">
           <div class="col-md-12 text-right">
             <button type="submit" class="btn btn-effect-ripple btn-primary ui-wizard-content ui-formwizard-button" id="btnSave" style="overflow: hidden; position: relative;"
-              value="Save">Save
+              value="Save" [disabled]="isSubmit">Save <i *ngIf="isSubmit" class="fa fa-spinner fa-spin"></i>
              </button>
           </div>
         </div>

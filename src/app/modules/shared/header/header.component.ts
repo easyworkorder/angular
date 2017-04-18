@@ -17,11 +17,11 @@ export class HeaderComponent implements OnInit {
     this.headerService.dashboardTitle$.subscribe(data => this.dashboarTitle = data);
   }
 
-  ngOnInit() {
+  ngOnInit () {
     this.headerService.setDashBoardTitle({ title: 'TICKETS', link: ['/'] });
   }
 
-  onLinkClicked(event) {
+  onLinkClicked (event) {
     this.router.url == '/admin' && this.headerService.setDashBoardTitle({ title: 'TICKETS', link: ['/'] });
     this.router.url == '/admin/building' && this.headerService.setDashBoardTitle({ title: 'TICKETS', link: ['/'] });
     this.router.url == '/admin/problem-type' && this.headerService.setDashBoardTitle({ title: 'TICKETS', link: ['/'] });
@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit {
     this.router.url == '/admin/employee' && this.headerService.setDashBoardTitle({ title: 'TICKETS', link: ['/'] });
   }
 
-  logOut() {
+  logOut () {
     this.authService.signout();
   }
 }

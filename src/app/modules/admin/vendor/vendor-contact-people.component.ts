@@ -7,6 +7,7 @@ import { FormBuilder, FormControl, Validators, FormGroup } from "@angular/forms"
 import { ValidationService } from "app/services/validation.service";
 import config from '../../../config';
 import { UpdateVendorPeopleService } from "./vendor-people.service";
+import { HeaderService } from "app/modules/shared/header/header.service";
 declare var $: any;
 
 @Component({
@@ -21,6 +22,7 @@ export class VendorContactPeopleComponent implements OnInit {
 
     photoFile: File
     selectedPhotoFile: string = '';
+    isSubmit: boolean = false;
 
     constructor(
         private vendorService: VendorService,
@@ -97,10 +99,14 @@ export class VendorContactPeopleComponent implements OnInit {
         //     this.closeModal();
         // });
         // this.vendorContactPeopleForm.addControl('id', new FormControl());
-
+        this.isSubmit = true;
         this.vendorService.saveContact(this.photoFile, this.vendorContactPeopleForm, this.vendor, this.contactSaveCallback).subscribe((contact: any) => {
+            this.isSubmit = false;
             this.contactSaveCallback('Vendor Contact Saved successfully.', contact);
-        });
+        },
+            error => {
+                this.isSubmit = false;
+            });
     }
 
     public contactSaveCallback (logMsg: string, obj: any) {
@@ -109,6 +115,7 @@ export class VendorContactPeopleComponent implements OnInit {
     }
 
     closeModal () {
+        this.isSubmit = false;
         this.resetForm();
         $('#add-vendor-cotact-people').modal('hide');
     }
@@ -117,6 +124,7 @@ export class VendorContactPeopleComponent implements OnInit {
         this.photoFile = null;
         this.selectedPhotoFile = '';
         this.vendorContactPeopleForm.reset({
+            title: '',
             isprimary_contact: false,
             active: true
         });
