@@ -24,13 +24,13 @@ export class VendorContactActivitiesComponent implements OnInit {
 
     @Input() vendor: any;
     @Input() insurances: any;
+    @Input() tickets: any;
     @Input() isAdmin: false;
     @Input() isDashboardList: false;
-    @Input() isVendor: false;
+    @Input() isVendor: boolean =  false;
     @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
 
-    tickets: any[] = [];
-
+    currentCompanyId = 1;
 
     tabs = new TabVisibility();
     constructor(
@@ -40,7 +40,9 @@ export class VendorContactActivitiesComponent implements OnInit {
         private ticketService: TicketService) { }
 
     ngOnInit() {
-        this.getAllVendorTickets();
+        if (this.isVendor === false) {
+            this.getAllVendorTickets(this.vendor.id);
+        }
     }
 
     switchTab(tabId: number) {
@@ -52,8 +54,8 @@ export class VendorContactActivitiesComponent implements OnInit {
         this.tabs.selectedTabNo = tabId;
     }
 
-    getAllVendorTickets() {
-        this.ticketService.getAllVendorTickets(this.vendor.id).subscribe(
+    getAllVendorTickets(vendor_id) {
+        this.ticketService.getAllTickets(this.currentCompanyId, 'vendor_profile', vendor_id).subscribe(
             data => {
                 this.tickets = data;
             }
@@ -61,7 +63,12 @@ export class VendorContactActivitiesComponent implements OnInit {
     }
 
     updateTicketList(data) {
-        this.getAllVendorTickets();
+        if ( this.isVendor === false) {
+            this.getAllVendorTickets(this.vendor.id);
+        } else {
+            this.ticketService.updateTicketList(true);
+        }
+
     }
 
     updatePeople(event) {

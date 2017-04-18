@@ -35,11 +35,11 @@ export class TicketService extends DataService {
    * Get All tickets by Company Id
    * @returns {Observable<any>}
    */
-  getAllTickets (company_id, type, tenant_id = '') {
+  getAllTickets (company_id, type, id = '') {
     let _query_param = '';
 
-    if (tenant_id) {
-      _query_param = '?type=' + type + '&tenant_id=' + tenant_id;
+    if (id) {
+      _query_param = '?type=' + type + '&id=' + id;
     } else {
       _query_param = '?type=' + type;
     }
