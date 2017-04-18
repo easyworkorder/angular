@@ -32,7 +32,7 @@ export class VendorContactProfileComponent implements OnInit {
         const contactId = this.route.snapshot.params['id'];
         this.getContactDetails(contactId);
 
-        this.headerService.setDashBoardTitle({ title: 'VENDORS', link: ['/admin/vendor'] })
+        this.headerService.setDashBoardTitle({ title: 'VENDORS', link: ['/admin/vendor'] });
 
     }
 

@@ -5,6 +5,7 @@ import { DataService } from './../../../services/data.service';
 import { Contact } from "app/modules/admin/contact-profile-card/contact";
 import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
 import { AuthenticationService } from "app/modules/authentication";
+import { HeaderService } from "app/modules/shared/header/header.service";
 
 @Component({
     selector: 'ewo-tenant-profile',
@@ -21,7 +22,8 @@ export class TenantProfileComponent implements OnInit {
         private dataService: DataService,
         private route: ActivatedRoute,
         private authService: AuthenticationService,
-        private breadcrumbHeaderService: BreadcrumbHeaderService
+        private breadcrumbHeaderService: BreadcrumbHeaderService,
+        private headerService: HeaderService
     ) {
         this.authService.verifyToken().take(1).subscribe(data => { });
     }
@@ -30,6 +32,7 @@ export class TenantProfileComponent implements OnInit {
         this.breadcrumbHeaderService.setBreadcrumbTitle('Tenant Profile');
         const contactId = this.route.snapshot.params['id'];
         this.getContactDetails(contactId);
+        this.headerService.setDashBoardTitle({ title: 'TENANTS', link: ['/tenant'] });
     }
 
     getContactDetails (contactId) {

@@ -5,6 +5,7 @@ import { EmployeeService } from './../../admin/employee/employee.service';
 import { AuthenticationService } from "app/modules/authentication";
 import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
 import { DataService } from "app/services";
+import { HeaderService } from "app/modules/shared/header/header.service";
 declare var $: any;
 
 @Component({
@@ -22,6 +23,7 @@ export class EmployeeListComponent implements OnInit {
 
   constructor(private employeeService: EmployeeService,
     private authService: AuthenticationService,
+    private headerService: HeaderService,
     private breadcrumbHeaderService: BreadcrumbHeaderService,
     private dataService: DataService) {
     this.authService.verifyToken().take(1).subscribe(data => {
@@ -29,11 +31,13 @@ export class EmployeeListComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  ngOnInit () {
     this.breadcrumbHeaderService.setBreadcrumbTitle('Employees');
+    this.headerService.setDashBoardTitle({ title: 'TICKETS', link: ['/'] });
+
   }
 
-  getAllActiveEmployees(): void {
+  getAllActiveEmployees (): void {
     this.isShowingLoadingSpinner = true;
     this.employeeService.getAllActiveEmployees(this.currentCompanyId).subscribe(
       data => {
@@ -43,17 +47,17 @@ export class EmployeeListComponent implements OnInit {
     );
   }
 
-  buildAddressHtml(employee: any) {
+  buildAddressHtml (employee: any) {
     return this.dataService.buildEmployeedAddressHtml(employee);
   }
 
-  getPhotoUrl(employee) {
+  getPhotoUrl (employee) {
     if (employee.photo != null && employee.photo.length > 0)
       return employee.photo;
     return 'assets/img/placeholders/avatars/avatar9.jpg';
   }
 
-  onSubmit() {
+  onSubmit () {
 
   }
 }

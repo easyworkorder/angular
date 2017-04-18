@@ -4,6 +4,7 @@ import { TenantService } from './../../admin/tenant/tenant.service';
 import { BuildingService } from './../../admin/building/building.service';
 import { AuthenticationService } from "app/modules/authentication";
 import { DataService } from "app/services";
+import { HeaderService } from "app/modules/shared/header/header.service";
 
 @Component({
   selector: 'ewo-tenant-list',
@@ -23,6 +24,7 @@ export class TenantListComponent implements OnInit {
     private buildingService: BuildingService,
     private formBuilder: FormBuilder,
     private authService: AuthenticationService,
+    private headerService: HeaderService,
     private dataService: DataService) {
     this.authService.verifyToken().take(1).subscribe(data => {
       this.getAllActiveBuildings();
@@ -30,7 +32,7 @@ export class TenantListComponent implements OnInit {
     });
   }
 
-  getAllActiveBuildings(): void {
+  getAllActiveBuildings (): void {
     this.isShowingLoadingSpinner = true;
     this.buildingService.getAllActiveBuildings(this.currentCompanyId).subscribe(
       data => {
@@ -44,7 +46,7 @@ export class TenantListComponent implements OnInit {
     );
   }
 
-  getAllTenantsByBuilding(building_id): void {
+  getAllTenantsByBuilding (building_id): void {
     this.isShowingLoadingSpinner = true;
     this.currentBuildingId = building_id;
     // this.selectedBuilding =
@@ -56,23 +58,24 @@ export class TenantListComponent implements OnInit {
     );
   }
 
-  ngOnInit() {
+  ngOnInit () {
+    this.headerService.setDashBoardTitle({ title: 'TICKETS', link: ['/'] });
   }
 
 
-  onSubmit() {
+  onSubmit () {
 
   }
 
-  buildAddressHtml(tenant: any) {
+  buildAddressHtml (tenant: any) {
     return this.dataService.buildAddressHtml(tenant, tenant.tenant_company_name);
   }
 
-  getPhotoUrl(tenant) {
+  getPhotoUrl (tenant) {
     return this.dataService.getPhotoUrl(tenant.photo);
   }
 
-  stopPropagation(event) {
+  stopPropagation (event) {
     event.stopPropagation()
   }
 
