@@ -276,7 +276,7 @@ export function translateStaticLoaderFactory (Backend, defaultOptions, storage, 
         BreadcrumbComponent,
         VerifyEmailComponent,
         TenantFileComponent,
-        FileListComponent
+        FileListComponent,
         ConfirmModalComponent,
         AssignTicketComponent,
         CloseTicketComponent,
