@@ -35,8 +35,15 @@ export class TicketService extends DataService {
    * Get All tickets by Company Id
    * @returns {Observable<any>}
    */
-  getAllTickets (company_id, type) {
-    const observable = this.http.get('workordersbycompany/' + company_id + '/?type=' + type);
+  getAllTickets (company_id, type, tenant_id = '') {
+    let _query_param = '';
+
+    if (tenant_id) {
+      _query_param = '?type=' + type + '&tenant_id=' + tenant_id;
+    } else {
+      _query_param = '?type=' + type;
+    }
+    const observable = this.http.get('workordersbycompany/' + company_id + '/' + _query_param);
     observable.subscribe(data => {
       // console.log(data);
     });

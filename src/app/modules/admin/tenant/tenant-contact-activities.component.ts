@@ -27,13 +27,17 @@ export class TenantContactActivitiesComponent implements OnInit {
     @Input() isTenant: boolean = false;
     @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
 
+    currentCompanyId = 1;
+
     tabs = new TabVisibility();
     constructor(private updatePeopleService: UpdatePeopleService,
         private updateTenantInsuranceService: UpdateTenantInsuranceService,
-        private ticketService: TicketService) { }
+        private ticketService: TicketService) {}
 
     ngOnInit () {
-        // this.getAllTenantTickets();
+        if ( this.isTenant === false && this.tenant) {
+            this.getAllTenantTickets(this.tenant.id);
+        }
     }
 
     switchTab (tabId: number) {
@@ -45,16 +49,20 @@ export class TenantContactActivitiesComponent implements OnInit {
         this.tabs.selectedTabNo = tabId;
     }
 
-    /*getAllTenantTickets () {
-        this.ticketService.getAllTickets(this.tenant.id).subscribe(
+    getAllTenantTickets (tenant_id) {
+        this.ticketService.getAllTickets(this.currentCompanyId, 'tenant_profile', tenant_id).subscribe(
             data => {
                 this.tickets = data;
             }
         );
-    }*/
+    }
 
     updateTicketList (data) {
-        // this.getAllTenantTickets();
+        if ( this.isTenant === false) {
+            this.getAllTenantTickets(this.tenant.id);
+        } else {
+            this.ticketService.updateTicketList(true);
+        }
     }
 
     updatePeople (event) {

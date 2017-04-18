@@ -38,31 +38,31 @@
                             <i class="fa fa-fw fa-ticket icon-push"></i> <strong>New</strong>
                         </a>
                     </li>
-                    <li>
+                    <li [ngClass]="{'active': currentRequestType=='replies'}">
                         <a (click)="updateTicketList('replies')">
                             <span class="badge pull-right">{{contactStat?.replies}}</span>
                             <i class="fa fa-fw fa-exclamation-triangle icon-push"></i> <strong>Replies</strong>
                         </a>
                     </li>
-                    <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
+                    <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager" [ngClass]="{'active': currentRequestType=='due_today'}">
                         <a (click)="updateTicketList('due_today')">
                             <span class="badge pull-right">{{contactStat?.due_today}}</span>
                             <i class="fa fa-fw fa-folder-open-o icon-push"></i> <strong>Due Today</strong>
                         </a>
                     </li>
-                    <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
+                    <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager" [ngClass]="{'active': currentRequestType=='overdue'}">
                         <a (click)="updateTicketList('overdue')">
                             <span class="badge pull-right">{{contactStat?.overdue}}</span>
                             <i class="fa fa-fw fa-folder-open-o icon-push"></i> <strong>Overdue</strong>
                         </a>
                     </li>
-                    <li>
+                    <li [ngClass]="{'active': currentRequestType=='pending'}">
                         <a (click)="updateTicketList('pending')">
                             <span class="badge pull-right">{{contactStat?.pending}}</span>
                             <i class="fa fa-fw fa-folder-open-o icon-push"></i> <strong>Pending</strong>
                         </a>
                     </li>
-                    <li>
+                    <li [ngClass]="{'active': currentRequestType=='closed'}">
                         <a (click)="updateTicketList('closed')">
                             <span class="badge pull-right">{{contactStat?.closed}}</span>
                             <i class="fa fa-fw fa-folder-o icon-push"></i> <strong>Closed</strong>

@@ -35,7 +35,7 @@
                         </td>
                         <td>{{ticket.source}}</td>
                         <td><strong>{{ticket.subject}}</strong><br>
-                            <span class="text-muted">{{ticket.submit_time | ticketListdateFormat}} by <strong>{{ticket.tenant_company_name}}</strong></span>
+                            <span class="text-muted">{{ticket.submit_time | ticketListdateFormat}} by <strong>{{ticket.submitter_name}}</strong></span>
                         </td>
                         <td class="text-center"><img [src]="getPhotoUrl(ticket)" alt="Avatar" class="img-circle ticket-image"></td>
                         <td class="text-center"><span class="badge">{{ticket.note_count}}</span></td>
