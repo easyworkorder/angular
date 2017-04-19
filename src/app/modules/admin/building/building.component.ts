@@ -8,6 +8,7 @@ import { ValidationService } from "../../../services/validation.service";
 import { AuthenticationService } from "app/modules/authentication";
 import { Router, NavigationExtras, ActivatedRoute } from "@angular/router";
 import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
+import { HeaderService } from "app/modules/shared/header/header.service";
 declare var $: any;
 
 export class TabVisibility {
@@ -22,7 +23,7 @@ export class TabVisibility {
   styleUrls: ['./building.component.css']
 })
 export class BuildingComponent implements OnInit {
-  isShowingLoadingSpinner:boolean = true;
+  isShowingLoadingSpinner: boolean = true;
   buildings: any[] = [];
   employees: any[] = [];
   primarycontact_id: any = [];
@@ -64,6 +65,7 @@ export class BuildingComponent implements OnInit {
     private authService: AuthenticationService,
     private router: Router,
     private route: ActivatedRoute,
+    private headerService: HeaderService,
     private breadcrumbHeaderService: BreadcrumbHeaderService) {
     this.authService.verifyToken().take(1).subscribe(data => {
       this.getAllBuildings();
@@ -71,7 +73,7 @@ export class BuildingComponent implements OnInit {
     });
   }
 
-  getAllBuildings(): void {
+  getAllBuildings (): void {
     this.isShowingLoadingSpinner = true;
     this.buildingService.getAllBuildings(this.currentCompanyId).subscribe(
       data => {
@@ -81,7 +83,7 @@ export class BuildingComponent implements OnInit {
     );
   }
 
-  getAllEmployees(company_id): void {
+  getAllEmployees (company_id): void {
     this.employeeService.getAllEmployees(company_id).subscribe(
       data => {
         let _employee: any[] = data.results.map(item => {
@@ -92,14 +94,15 @@ export class BuildingComponent implements OnInit {
     );
   }
 
-  ngOnInit() {
+  ngOnInit () {
     $('#modal-add-building').on('hidden.bs.modal', () => {
       this.closeModal();
     });
     this.breadcrumbHeaderService.setBreadcrumbTitle('Buildings');
+    // this.headerService.setDashBoardTitle({ title: 'TICKETS', link: ['/'] });
   }
 
-  switchTab(tabId: number) {
+  switchTab (tabId: number) {
     if (tabId < 1) // First tabs back button click
       tabId = 1;
     else if (tabId > 2) //This is the last tab's next button click
@@ -109,11 +112,11 @@ export class BuildingComponent implements OnInit {
     this.tabs.selectedTabNo = tabId;
   }
 
-  editBuilding(building) {
+  editBuilding (building) {
     this.router.navigate(['/admin', 'building', building.id]);
   }
 
-  onSubmit() {
+  onSubmit () {
     this._submitted = true;
     this.validationCheck();
     if (!this.buildingForm.valid) return;
@@ -138,22 +141,22 @@ export class BuildingComponent implements OnInit {
     });
   }
 
-  public selectedPrimaryContact(value: any): void {
+  public selectedPrimaryContact (value: any): void {
     this.primarycontact_id = [value];
   }
 
-  public removedPrimaryContact(value: any): void {
+  public removedPrimaryContact (value: any): void {
     this.primarycontact_id = value;
   }
 
-  closeModal() {
+  closeModal () {
     this.resetForm();
     this.primarycontact_id = [];
     this.switchTab(1);
     $('#modal-add-building').modal('hide');
   }
 
-  resetForm() {
+  resetForm () {
     this._submitted = false;
 
     this.buildingForm.reset({
@@ -164,15 +167,15 @@ export class BuildingComponent implements OnInit {
     });
   }
 
-  validationCheck() {
-     if (!this.buildingInfoValidationCheck()) {
+  validationCheck () {
+    if (!this.buildingInfoValidationCheck()) {
       this.switchTab(1);
     } else if (!this.remitInfoValidationCheck()) {
       this.switchTab(2);
     }
   }
 
-  remitInfoValidationCheck() {
+  remitInfoValidationCheck () {
     return this.buildingForm.get('remit_company').valid &&
       this.buildingForm.get('remit_addr').valid &&
       this.buildingForm.get('remit_city').valid &&
@@ -180,7 +183,7 @@ export class BuildingComponent implements OnInit {
       this.buildingForm.get('remit_postal_code').valid
   }
 
-  buildingInfoValidationCheck() {
+  buildingInfoValidationCheck () {
     return this.buildingForm.get('sqfootage').valid &&
       this.buildingForm.get('address').valid &&
       this.buildingForm.get('city').valid &&

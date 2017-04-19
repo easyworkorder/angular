@@ -18,6 +18,7 @@ export class AppComponent {
     private breadcrumbService: BreadcrumbService) {
     // this.authService.verifyToken();
     //Dashboard
+    breadcrumbService.addFriendlyNameForRoute('', 'Desktop');
     breadcrumbService.addFriendlyNameForRoute('/employee', 'Employees');
     breadcrumbService.addFriendlyNameForRoute('/tenant', 'Tenants');
     // breadcrumbService.addFriendlyNameForRoute('/tenant-profile', 'Tenants');
@@ -27,7 +28,19 @@ export class AppComponent {
     breadcrumbService.addFriendlyNameForRoute('/vendor', 'Vendors');
     breadcrumbService.addFriendlyNameForRouteRegex('^/vendor/[0-9]{1,10}$', 'Vendor Profile');
 
+    //Tickets
+    breadcrumbService.addFriendlyNameForRoute('/ticketlist', 'Tickets');
+    breadcrumbService.addFriendlyNameForRoute('/ticket-details', 'Tickets');
+    breadcrumbService.addFriendlyNameForRouteRegex('^/ticket-details/[0-9]{1,10}$', 'Ticket Details');
+    //For Tickets Details april20
+    breadcrumbService.addFriendlyNameForRouteRegex('^/admin/building/[0-9]{1,10}/tenant-profile/[0-9]{1,10}/ticket-details/[0-9]{1,10}$', 'Ticket Details');
+    breadcrumbService.hideRouteRegex('^/ticket-details/[0-9]{1,10}/admin/building/[0-9]{1,10}/tenant-profile/[0-9]{1,10}/ticket-details$');
+    breadcrumbService.hideRouteRegex('^/admin/building/[0-9]{1,10}/tenant-profile/[0-9]{1,10}/ticket-details$');
 
+    breadcrumbService.addFriendlyNameForRouteRegex('^/tenant/[0-9]{1,10}/ticket-details/[0-9]{1,10}$', 'Ticket Details');
+    breadcrumbService.addFriendlyNameForRouteRegex('^/vendor/[0-9]{1,10}/ticket-details/[0-9]{1,10}$', 'Ticket Details');
+    breadcrumbService.hideRouteRegex('^/tenant/[0-9]{1,10}/ticket-details$');
+    breadcrumbService.hideRouteRegex('^/vendor/[0-9]{1,10}/ticket-details$');
 
     //Building
     breadcrumbService.addFriendlyNameForRoute('/admin', 'Administrator Portal');

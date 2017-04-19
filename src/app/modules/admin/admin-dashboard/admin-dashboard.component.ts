@@ -18,7 +18,7 @@ export class AdminDashboardComponent implements OnInit {
 
   ngOnInit () {
     //  this.breadcrumbHeaderService.setBreadcrumbTitle('SLA Policies');
-    // this.headerService.setDashBoardTitle({ title: 'TICKETS', link: [`/`] });
+    this.headerService.setDashBoardTitle({ title: 'TICKETS', link: ['/'] });
 
   }
 }
