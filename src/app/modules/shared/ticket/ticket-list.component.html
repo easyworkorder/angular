@@ -4,7 +4,7 @@
             <!--<button modal-dialog-open="modal-confirm" type="submit" class="btn btn-sm btn-default">Accept</button>-->
             <button *ngIf="currentRequestType == 'new'" (click)="onModalConfirm('modal-confirm')" type="submit" class="btn btn-sm btn-default">Accept</button>
             <button *ngIf="currentRequestType == 'new'" (click)="onModalAssignTicket('modal-assign')" type="button" class="btn btn-sm btn-default">Assign</button>
-            <button *ngIf="currentRequestType != 'new'" (click)="onModalAssignTicket('modal-assign')" type="button" class="btn btn-sm btn-default">ReAssign</button>
+            <button *ngIf="currentRequestType != 'new'" (click)="onModalAssignTicket('modal-assign')" type="button" class="btn btn-sm btn-default">Reassign</button>
             <button *ngIf="currentRequestType != 'closed'" (click)="onModalCloseTicket('modal-close-ticket')" type="button" class="btn btn-sm btn-default">Close</button>
             <!--button type="button" class="btn btn-sm btn-default">Merge</button-->
             <button (click)="onModalDeleteTicket('modal-delete-ticket')" type="button" class="btn btn-sm btn-default">Delete</button>
