@@ -18,6 +18,7 @@ import { ToasterService } from "angular2-toaster/angular2-toaster";
 })
 export class TicketListComponent implements OnInit {
     @Input() employees: any[] = [];
+    @Input() currentRequestType: any;
 
     constructor(
         // private http: ApdpHttp,

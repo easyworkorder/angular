@@ -2,8 +2,9 @@
     <form action="page_forms_components.html" method="post" onsubmit="return false;">
         <div *ngIf="(isAdmin && ticketList.length)" class="form-group form-actions">
             <!--<button modal-dialog-open="modal-confirm" type="submit" class="btn btn-sm btn-default">Accept</button>-->
-            <button (click)="onModalConfirm('modal-confirm')" type="submit" class="btn btn-sm btn-default">Accept</button>
-            <button (click)="onModalAssignTicket('modal-assign')" type="button" class="btn btn-sm btn-default">Assign</button>
+            <button *ngIf="currentRequestType == 'new'" (click)="onModalConfirm('modal-confirm')" type="submit" class="btn btn-sm btn-default">Accept</button>
+            <button *ngIf="currentRequestType == 'new'" (click)="onModalAssignTicket('modal-assign')" type="button" class="btn btn-sm btn-default">Assign</button>
+            <button *ngIf="currentRequestType != 'new'" (click)="onModalAssignTicket('modal-assign')" type="button" class="btn btn-sm btn-default">ReAssign</button>
             <button (click)="onModalCloseTicket('modal-close-ticket')" type="button" class="btn btn-sm btn-default">Close</button>
             <!--button type="button" class="btn btn-sm btn-default">Merge</button-->
             <button (click)="onModalDeleteTicket('modal-delete-ticket')" type="button" class="btn btn-sm btn-default">Delete</button>
@@ -59,7 +60,7 @@
 <ewo-confirm-modal id="modal-confirm" [OkButton]="false" [cancelButtonLabel]="'Continue'" [message]="'At least one request must be selected.'"
     class="modal fade in" tabindex="-1" role="dialog" aria-hidden="true"></ewo-confirm-modal>
 
-<ewo-assign-ticket id="modal-assign" [employees]="employees" [tickets]="ticketList" class="modal fade" tabindex="-1" role="dialog"
+<ewo-assign-ticket id="modal-assign" [employees]="employees" [tickets]="ticketList" [currentRequestType]="currentRequestType" class="modal fade" tabindex="-1" role="dialog"
     aria-hidden="true" style="display: none;">
 </ewo-assign-ticket>
 <ewo-close-ticket id="modal-close-ticket" [tickets]="ticketList" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"
