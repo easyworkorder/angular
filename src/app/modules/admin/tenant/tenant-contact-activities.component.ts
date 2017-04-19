@@ -22,6 +22,7 @@ export class TenantContactActivitiesComponent implements OnInit {
     @Input() tenant: any;
     @Input() insurances: any;
     @Input() tickets: any;
+    @Input() documents: any;
     @Input() isAdmin: boolean = false;
     @Input() isDashboardList: boolean = false;
     @Input() isTenant: boolean = false;
@@ -69,7 +70,7 @@ export class TenantContactActivitiesComponent implements OnInit {
         this.change.emit(event);
     }
 
-    updateFile(event){
+    updateFileList(event){
         this.change.emit(event);
     }
 

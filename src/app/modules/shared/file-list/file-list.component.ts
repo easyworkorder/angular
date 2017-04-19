@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 @Component({
@@ -8,9 +8,13 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 })
 export class FileListComponent implements OnInit {
 
+    @Input()
+    fileList:any[] = [];
+    
     constructor() { }
 
     ngOnInit() {
+        
     }
 
 }

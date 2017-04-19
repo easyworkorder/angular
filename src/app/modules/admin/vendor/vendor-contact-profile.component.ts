@@ -4,7 +4,6 @@ import { VendorService } from './vendor.service';
 import { DataService } from './../../../services/data.service';
 import { VendorContact } from "app/modules/admin/contact-profile-card/vendor-contact";
 import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
-import { HeaderService } from "app/modules/shared/header/header.service";
 
 
 @Component({
@@ -21,22 +20,17 @@ export class VendorContactProfileComponent implements OnInit {
         private vendorService: VendorService,
         private dataService: DataService,
         private route: ActivatedRoute,
-        private breadcrumbHeaderService: BreadcrumbHeaderService,
-        private headerService: HeaderService,
-
+        private breadcrumbHeaderService: BreadcrumbHeaderService
     ) {
     }
 
-    ngOnInit () {
+    ngOnInit() {
         this.breadcrumbHeaderService.setBreadcrumbTitle('Vendor Profile');
         const contactId = this.route.snapshot.params['id'];
         this.getContactDetails(contactId);
-
-        this.headerService.setDashBoardTitle({ title: 'VENDORS', link: ['/admin/vendor'] });
-
     }
 
-    getContactDetails (contactId) {
+    getContactDetails(contactId) {
 
         this.vendorService.getContactDetails(contactId)
             .mergeMap(conact => this.vendorService.getVendor(conact.vendor), (contactInfo, vendorInfo) => ({ contactInfo, vendorInfo }))
@@ -50,9 +44,7 @@ export class VendorContactProfileComponent implements OnInit {
                     title: this.primaryContact.title,
                     phone: this.primaryContact.phone,
                     phone_extension: this.primaryContact.phone_extension,
-                    emergency_phone: this.primaryContact.emergency_phone,
                     mobile: this.primaryContact.mobile,
-                    fax: this.primaryContact.fax,
                     photo: this.primaryContact.photo,
                     email: this.primaryContact.email,
                     companyName: this.vendor.company_name,
@@ -71,22 +63,22 @@ export class VendorContactProfileComponent implements OnInit {
             })
     }
 
-    getPhotoUrl (contact) {
+    getPhotoUrl(contact) {
         return this.dataService.getPhotoUrl(contact.photo);
     }
 
-    buildAddressHtml (contact) {
+    buildAddressHtml(contact) {
         return this.dataService.buildAddressHtml(contact, this.vendor.company_name);
     }
 
-    updateInActivity (event) {
+    updateInActivity(event) {
         this.getContactDetails(this.route.snapshot.params['id']);
     }
 
     /**
      * Get Insurance list by vendor
      */
-    getInsurances (vendor_id) {
+    getInsurances(vendor_id){
         this.vendorService.getInsurances(vendor_id).subscribe(
             data => {
                 this.insurances = data.results;

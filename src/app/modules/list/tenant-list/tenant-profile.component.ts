@@ -14,6 +14,7 @@ import { HeaderService } from "app/modules/shared/header/header.service";
 export class TenantProfileComponent implements OnInit {
     tenant: any;
     insurances: any;
+    documents: any[];
     primaryContact: any;
     contactInfo: Contact;
 
@@ -64,6 +65,7 @@ export class TenantProfileComponent implements OnInit {
 
                 this.tenant.contacts = tempContact;
                 this.getInsurances(this.tenant.id);
+                this.getDocuments(this.tenant.id);
             })
     }
 
@@ -86,6 +88,13 @@ export class TenantProfileComponent implements OnInit {
         this.tenantService.getInsurances(tenant_id).subscribe(
             data => {
                 this.insurances = data.results;
+            }
+        );
+    }
+    getDocuments (tenant_id) {
+        this.tenantService.getDocuments(tenant_id).subscribe(
+            data => {
+                this.documents = data.results;
             }
         );
     }
