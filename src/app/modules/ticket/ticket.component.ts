@@ -17,6 +17,7 @@ declare var $: any;
 export class TicketComponent implements OnInit {
 
     @Input() tickets: any[];
+    @Input() currentRequestType: any;
 
     _submitted = false;
     building: any[] = [];

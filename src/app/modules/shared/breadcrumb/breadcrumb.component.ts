@@ -1,7 +1,7 @@
-import {Component, Input, OnInit, OnChanges} from '@angular/core';
-import {Router, NavigationEnd} from '@angular/router';
-import {BreadcrumbService} from './breadcrumb.service';
-
+import { Component, Input, OnInit, OnChanges } from '@angular/core';
+import { Router, NavigationEnd, NavigationStart } from '@angular/router';
+import { BreadcrumbService } from './breadcrumb.service';
+import 'rxjs/add/operator/pairwise';
 /**
  * This component shows a breadcrumb trail for available routes the router can navigate to.
  * It subscribes to the router in order to update the breadcrumb trail as you navigate to a component.
@@ -22,7 +22,7 @@ import {BreadcrumbService} from './breadcrumb.service';
 })
 export class BreadcrumbComponent implements OnInit, OnChanges {
     @Input() useBootstrap: boolean = true;
-    @Input() prefix:       string  = '';
+    @Input() prefix: string = '';
 
     public _urls: string[];
     public _routerSubscription: any;
@@ -30,22 +30,46 @@ export class BreadcrumbComponent implements OnInit, OnChanges {
     constructor(
         private router: Router,
         private breadcrumbService: BreadcrumbService
-    ) {}
+    ) { }
 
-    ngOnInit(): void {
+    ngOnInit (): void {
         this._urls = new Array();
 
         if (this.prefix.length > 0) {
             this._urls.unshift(this.prefix);
         }
 
-        this._routerSubscription = this.router.events.subscribe((navigationEnd:NavigationEnd) => {
+        this._routerSubscription = this.router.events.subscribe((navigationEnd: NavigationEnd) => {
             this._urls.length = 0; //Fastest way to clear out array
-            this.generateBreadcrumbTrail(navigationEnd.urlAfterRedirects ? navigationEnd.urlAfterRedirects : navigationEnd.url);
+            navigationEnd.id == 1 && this.generateBreadcrumbTrail(navigationEnd.urlAfterRedirects ? navigationEnd.urlAfterRedirects : navigationEnd.url);
         });
+
+        this.router.events
+            .filter(e => e instanceof NavigationEnd)
+            .pairwise().subscribe((data: any) => {
+                this._urls.length = 0; //Fastest way to clear out array
+
+                let concaturl = data.reduce((acc, item) => acc.concat(item.url), []);
+                let constring = concaturl[0].concat(concaturl[1]);
+                let isFromAdmin = false;
+                if ((concaturl[0].toString().match(/^\/admin\/building\/[0-9]{1,10}\/tenant-profile\/[0-9]{1,10}$/) &&
+                    concaturl[1].toString().match(/^\/ticket-details\/[0-9]{1,10}$/)) ||
+                    (concaturl[0].toString().match(/^\/admin\/vendor\/[0-9]{1,10}$/) &&
+                        concaturl[1].toString().match(/^\/ticket-details\/[0-9]{1,10}$/)) ||
+                    (concaturl[0].toString().match(/^\/tenant\/[0-9]{1,10}$/) &&
+                        concaturl[1].toString().match(/^\/ticket-details\/[0-9]{1,10}$/)) ||
+                    (concaturl[0].toString().match(/^\/vendor\/[0-9]{1,10}$/) &&
+                        concaturl[1].toString().match(/^\/ticket-details\/[0-9]{1,10}$/))
+                ) {
+                    isFromAdmin = true;
+                }
+
+                isFromAdmin && this.generateBreadcrumbTrail(constring);
+                !isFromAdmin && this.generateBreadcrumbTrail(data[1].urlAfterRedirects ? data[1].urlAfterRedirects : data[1].url);
+            })
     }
 
-    ngOnChanges(changes: any): void {
+    ngOnChanges (changes: any): void {
         if (!this._urls) {
             return;
         }
@@ -54,7 +78,7 @@ export class BreadcrumbComponent implements OnInit, OnChanges {
         this.generateBreadcrumbTrail(this.router.url);
     }
 
-    generateBreadcrumbTrail(url: string): void {
+    generateBreadcrumbTrail (url: string): void {
         if (!this.breadcrumbService.isRouteHidden(url)) {
             //Add url to beginning of array (since the url is being recursively broken down from full url to its parent)
             this._urls.unshift(url);
@@ -67,15 +91,15 @@ export class BreadcrumbComponent implements OnInit, OnChanges {
         }
     }
 
-    navigateTo(url: string): void {
+    navigateTo (url: string): void {
         this.router.navigateByUrl(url);
     }
 
-    friendlyName(url: string): string {
+    friendlyName (url: string): string {
         return !url ? '' : this.breadcrumbService.getFriendlyNameForRoute(url);
     }
 
-    ngOnDestroy(): void {
+    ngOnDestroy (): void {
         this._routerSubscription.unsubscribe();
     }
 

@@ -15,6 +15,8 @@ declare var $: any;
 export class AssignTicketComponent implements OnInit {
     @Input() employees: any[] = [];
     @Input() tickets: any[] = [];
+    @Input() currentRequestType: any;
+
     selectedEmployee: any[] = [];
     ticketList: any[] = [];
     isEmployeeValid = true;

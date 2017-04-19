@@ -55,6 +55,7 @@ export const appRoutes: Routes = [
             // And form there, user specific views will be loaded by their type(user group)
             { path: '', component: UserDashboardComponent, pathMatch: 'full' },
             { path: 'ticketlist', component: TicketComponent, pathMatch: 'full' },
+            { path: 'ticket-details', redirectTo: '' },
             {
                 path: 'ticket-details/:id', component: TicketDetailsComponent,
                 resolve: {

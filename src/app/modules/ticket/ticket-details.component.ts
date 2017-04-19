@@ -18,6 +18,7 @@ import {
 } from '../../services';
 import { AbstractControl, FormGroup, Validators, FormControl } from "@angular/forms";
 import { ToasterService } from "angular2-toaster/angular2-toaster";
+import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
 
 declare var $: any;
 
@@ -76,6 +77,7 @@ export class TicketDetailsComponent implements OnInit {
         private updateTicketLaborService: UpdateTicketLaborService,
         private updateTicketMaterialService: UpdateTicketMaterialService,
         private toasterService: ToasterService,
+        private breadcrumbHeaderService: BreadcrumbHeaderService,
         private storage: Storage,
     ) {
         this.authService.verifyToken().take(1).subscribe(data => {
@@ -94,6 +96,7 @@ export class TicketDetailsComponent implements OnInit {
         this.getAllMaterials(this.ticketId);
         this.getTicketDetails();
         this.switchTab(1);
+        this.breadcrumbHeaderService.setBreadcrumbTitle('Ticket Details');
 
     }
     getTicketDetails () {
@@ -111,7 +114,7 @@ export class TicketDetailsComponent implements OnInit {
                 this.ticketService.getTicketSubmitterInfo(this.ticket.id).subscribe(
                     data => {
                         this.ticket_submitter_info = data;
-                });
+                    });
                 // this.tenant = this.tenantService.getTenant(this.ticket.tenant);
                 // let _building_id = this.ticket.building.extractIdFromURL();
                 // this.getActiveTenantsByBuilding(_building_id);
