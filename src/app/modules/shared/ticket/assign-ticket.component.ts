@@ -76,6 +76,7 @@ export class AssignTicketComponent implements OnInit {
             ticket.assigned_to = `${config.api.base}employee/${this.selectedEmployee[0].id}/`;
             ticket.url = `${config.api.base}ticket/${ticket.id}/`;
             ticket.status = 'Open';
+            ticket.closed = false;
             this.ticketService.update(ticket, false).subscribe(() => {
                 if (++counter == checkedTicketList.length) {
                     this.ticketService.updateTicketList(true);

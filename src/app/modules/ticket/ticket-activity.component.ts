@@ -55,7 +55,6 @@ export class TicketActivityComponent implements OnInit {
         workorder: new FormControl(''),
         details: new FormControl('', Validators.required),
         tenant_list: new FormControl(''),
-        updated_by_type: new FormControl('E'),
         is_private: new FormControl(false),
         tenant_notified: new FormControl(true),
         tenant_follow_up: new FormControl(false),
@@ -74,7 +73,6 @@ export class TicketActivityComponent implements OnInit {
         workorder: new FormControl(''),
         details: new FormControl('', Validators.required),
         employee_list: new FormControl(''),
-        updated_by_type: new FormControl('E'),
         is_private: new FormControl(true),
         tenant_notified: new FormControl(false),
         tenant_follow_up: new FormControl(false),
@@ -93,8 +91,6 @@ export class TicketActivityComponent implements OnInit {
         workorder: new FormControl(''),
         vendor: new FormControl(''),
         details: new FormControl('', Validators.required),
-        updated_by_id: new FormControl(''),
-        updated_by_type: new FormControl('E'),
         is_private: new FormControl(true),
         tenant_notified: new FormControl(false),
         tenant_follow_up: new FormControl(false),
@@ -117,7 +113,6 @@ export class TicketActivityComponent implements OnInit {
         url: new FormControl(''),
         workorder: new FormControl(''),
         details: new FormControl('', Validators.required),
-        updated_by_type: new FormControl('E'),
         is_private: new FormControl(false),
         tenant_notified: new FormControl(false),
         tenant_follow_up: new FormControl(false),
@@ -204,7 +199,7 @@ export class TicketActivityComponent implements OnInit {
             return;
         }
         this.ticketVendorForm.get('workorder').setValue(`${config.api.base}ticket/${this.ticket.id}/`);
-        this.ticketVendorForm.get('updated_by_id').setValue(this.userInfo.user_id);
+        // this.ticketVendorForm.get('updated_by_id').setValue(this.userInfo.user_id);
         this.ticketService.createNote(this.ticketVendorForm.value, false).subscribe((note: any) => {
             this.ticketVendorRequestForm.get('workordernote').setValue(`${config.api.base}ticketnote/${note.id}/`);
             this.ticketVendorRequestForm.get('send_tenant_info').setValue(this.ticketVendorForm.get('send_tenant_info').value);
