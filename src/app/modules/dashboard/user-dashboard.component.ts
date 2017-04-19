@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService, Storage, AppHttp } from 'app/services';
 import { AuthenticationService } from 'app/modules/authentication';
 import { TicketService } from './../ticket/ticket.service';
+import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
 
 @Component({
     selector: 'ewo-user-dashboard',
@@ -26,6 +27,7 @@ export class UserDashboardComponent implements OnInit {
         private dataService: DataService,
         private storage: Storage,
         private ticketService: TicketService,
+        private breadcrumbHeaderService: BreadcrumbHeaderService,
         private http: AppHttp
     ) {
         this.authService.verifyToken().take(1).subscribe(data => {
@@ -66,7 +68,7 @@ export class UserDashboardComponent implements OnInit {
     }
 
     ngOnInit () {
-
+        this.breadcrumbHeaderService.setBreadcrumbTitle('Desktop');
     }
 
     getAllTickets (type): void {

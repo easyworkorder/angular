@@ -7,6 +7,7 @@ import { BuildingService } from "app/modules/admin/building/building.service";
 import { EmployeeService } from "app/modules/admin/employee/employee.service";
 import { Observable } from 'rxjs/Rx';
 import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
+import { HeaderService } from "app/modules/shared/header/header.service";
 declare var $: any;
 
 @Component({
@@ -33,13 +34,17 @@ export class BuildingAdminComponent implements OnInit {
         // private route: ActivatedRoute,
         // private buildingService: BuildingService,
         // private employeeService: EmployeeService,
+        private headerService: HeaderService
     ) {
     }
 
-    ngOnInit() {
+    ngOnInit () {
         // this._buildingId = this.route.snapshot.params['id'];
         // this.getBuilding(this._buildingId);
         // this.breadcrumbHeaderService.setBreadcrumbTitle('Building Admin');
+        // this.headerService.setDashBoardTitle({ title: 'TICKETS', link: [`/`] });
+        this.headerService.setDashBoardTitle({ title: 'ADMINISTRATION PORTAL', link: ['/', 'admin'] });
+
     }
 
     // getBuilding(id) {

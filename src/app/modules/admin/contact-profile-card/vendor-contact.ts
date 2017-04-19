@@ -11,7 +11,7 @@ export class VendorContact {
         public postal_code: string,
         public photo?: any,
         public email?: any,
-        public emergencyPhone?: any,
+        public emergency_phone?: any,
         public mobile?: any,
         public phone?: any,
         public fax?: any,

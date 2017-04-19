@@ -8,6 +8,7 @@ import { FormBuilder, FormControl, Validators, FormGroup } from "@angular/forms"
 import { ValidationService } from "app/services/validation.service";
 import config from '../../../config';
 import { UpdatePeopleService } from "app/modules/admin/tenant/people.service";
+import { HeaderService } from "app/modules/shared/header/header.service";
 declare var $: any;
 
 @Component({

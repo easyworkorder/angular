@@ -15,38 +15,38 @@ export class VendorListItemComponent implements OnInit {
     ) { }
     /// A List of Contact objects to display
     @Input() vendor: any[];
-    @Input() isAdmin:boolean = false;
+    @Input() isAdmin: boolean = false;
     //@Input() isEditable: boolean = true;
     //@Output('update') change: EventEmitter<any> = new EventEmitter<any>();
 
-    ngOnInit() {
+    ngOnInit () {
 
     }
 
-    buildName(firstName: string, lastName: string) {
+    buildName (firstName: string, lastName: string) {
         return this.dataService.buildName(firstName, lastName);
     }
 
-    buildAddressHtml(vendor: any) {
-        return this.dataService.buildVendorAddressHtml(vendor, vendor.company_name);
+    buildAddressHtml (vendor: any) {
+        return this.dataService.buildVendorAddressHtml(vendor, false);
     }
 
-    getPhotoUrl(vendor) {
+    getPhotoUrl (vendor) {
         if (vendor.photo != null && vendor.photo.length > 0)
             return vendor.photo;
         return 'assets/img/placeholders/avatars/avatar9.jpg';
     }
 
-    stopPropagation(event) {
+    stopPropagation (event) {
         event.stopPropagation()
     }
 
-    vendorDetailsLink(vendor) {
-        if(this.isAdmin){
+    vendorDetailsLink (vendor) {
+        if (this.isAdmin) {
             this.router.navigate(['/admin', 'vendor', vendor.contact_id]);
         }
         else {
-            this.router.navigate(['/vendor-profile', vendor.contact_id]);
+            this.router.navigate(['/vendor', vendor.contact_id]);
         }
     }
 }

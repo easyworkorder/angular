@@ -242,19 +242,27 @@ export class DataService {
         return html;
     }
 
-    buildVendorAddressHtml (contact: any, companyName: string) {
-        let html = '<strong>' + this.buildName(contact.first_name, contact.last_name) + '</strong><br />';
+    buildVendorAddressHtml (contact: any, isVendorProfile: boolean) {
+        let html = '';
+        if (isVendorProfile) {
+            html += '<strong>' + contact.companyName + '</strong><br />';
+        } else {
+            html += '<strong>' + this.buildName(contact.first_name, contact.last_name) + '</strong><br />';
+            if (contact.title)
+                html += contact.title + '<br />';
+        }
+
         html += contact.address + '<br />';
         html += contact.city + ', ' + contact.state + ' ' + contact.postal_code + '<br/>';
         let extension = (contact.phone_extension != null && contact.phone_extension.length > 0) ? (' ext. ' + contact.phone_extension) : '';
         if (contact.phone != null && contact.phone.length > 0) {
             html += 'P: ' + this.phoneNumberFormat(contact.phone) + extension;
         }
-        if (contact.mobile != null && contact.mobile) {
-            html += '<br/>M: ' + this.phoneNumberFormat(contact.mobile);
-        }
         if (contact.fax != null && contact.fax) {
             html += '<br/>F: ' + this.phoneNumberFormat(contact.fax);
+        }
+        if (contact.mobile != null && contact.mobile) {
+            html += '<br/>M: ' + this.phoneNumberFormat(contact.mobile);
         }
 
         return html;

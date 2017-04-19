@@ -20,6 +20,7 @@ export class AdminDashBoardResolver implements Resolve<any> {
 
 
         return this.headerService.setDashBoardTitle({ title: 'ADMINISTRATION PORTAL', link: ['/', 'admin'] });
+        // return this.headerService.setDashBoardTitle({ title: 'TICKETS', link: ['/'] });
     }
 }
 

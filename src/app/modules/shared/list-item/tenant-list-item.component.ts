@@ -19,35 +19,36 @@ export class TenantListItemComponent implements OnInit {
     //@Input() isEditable: boolean = true;
     //@Output('update') change: EventEmitter<any> = new EventEmitter<any>();
 
-    ngOnInit() {
+    ngOnInit () {
 
     }
 
-    buildName(firstName: string, lastName: string) {
+    buildName (firstName: string, lastName: string) {
         return this.dataService.buildName(firstName, lastName);
     }
 
-    buildAddressHtml(tenant: any) {
+    buildAddressHtml (tenant: any) {
         return this.dataService.buildAddressHtml(tenant, tenant.tenant_company_name);
     }
 
-    getPhotoUrl(tenant) {
+    getPhotoUrl (tenant) {
         if (tenant.photo != null && tenant.photo.length > 0)
             return tenant.photo;
         return 'assets/img/placeholders/avatars/avatar9.jpg';
     }
 
-    stopPropagation(event) {
+    stopPropagation (event) {
         event.stopPropagation()
     }
 
-    tenantDetailsLink(tenant) {
+    tenantDetailsLink (tenant) {
         if (this.isAdmin) {
             // this.router.navigate(['admin', 'building-details', tenant.building_id, 'tenant-profile', tenant.contact_id]);
             this.router.navigate(['admin', 'building', tenant.building_id, 'tenant-profile', tenant.contact_id]);
         }
         else {
-            this.router.navigate(['/tenant-profile', tenant.contact_id]);
+            // this.router.navigate(['/tenant-profile', tenant.contact_id]);
+            this.router.navigate(['/tenant', tenant.contact_id]);
         }
     }
 }

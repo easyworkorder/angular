@@ -4,6 +4,7 @@ import { TenantService } from './tenant.service';
 import { DataService } from './../../../services/data.service';
 import { Contact } from "app/modules/admin/contact-profile-card/contact";
 import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
+import { HeaderService } from "app/modules/shared/header/header.service";
 
 
 @Component({
@@ -20,6 +21,8 @@ export class TenantContactProfileComponent implements OnInit {
         private tenantService: TenantService,
         private dataService: DataService,
         private route: ActivatedRoute,
+        private headerService: HeaderService,
+
         private breadcrumbHeaderService: BreadcrumbHeaderService
     ) {
     }
@@ -27,7 +30,9 @@ export class TenantContactProfileComponent implements OnInit {
     ngOnInit () {
         this.breadcrumbHeaderService.setBreadcrumbTitle('Tenant Profile');
         const contactId = this.route.snapshot.params['id'];
+        let parentId = this.route.snapshot.parent.params['id'];
         this.getContactDetails(contactId);
+        this.headerService.setDashBoardTitle({ title: 'TENANTS', link: [`/admin/building/${parentId}`] });
     }
 
     getContactDetails (contactId) {

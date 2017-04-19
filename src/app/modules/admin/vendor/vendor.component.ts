@@ -44,7 +44,9 @@ export class VendorComponent implements OnInit {
         private formBuilder: FormBuilder,
         private authService: AuthenticationService,
         private breadcrumbHeaderService: BreadcrumbHeaderService,
-        private verifyEmailService: VerifyEmailService) {
+        private verifyEmailService: VerifyEmailService,
+
+    ) {
 
     }
 

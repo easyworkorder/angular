@@ -3,6 +3,8 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { VendorService } from './../../admin/vendor/vendor.service';
 import { AuthenticationService } from "app/modules/authentication";
 import { DataService } from "app/services";
+import { HeaderService } from "app/modules/shared/header/header.service";
+import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
 
 @Component({
   selector: 'ewo-vendor-list',
@@ -19,13 +21,15 @@ export class VendorListComponent implements OnInit {
     private vendorService: VendorService,
     private formBuilder: FormBuilder,
     private authService: AuthenticationService,
+    private headerService: HeaderService,
+    private breadcrumbHeaderService: BreadcrumbHeaderService,
     private dataService: DataService) {
     this.authService.verifyToken().take(1).subscribe(data => {
       this.getAllActiveVendors();
     });
   }
 
-  getAllActiveVendors(): void {
+  getAllActiveVendors (): void {
     this.isShowingLoadingSpinner = true;
     this.vendorService.getAllActiveVendors(this.currentCompanyId).subscribe(
       data => {
@@ -35,29 +39,32 @@ export class VendorListComponent implements OnInit {
     );
   }
 
-  ngOnInit() {
-  }
-
-
-  onSubmit() {
+  ngOnInit () {
+    this.headerService.setDashBoardTitle({ title: 'TICKETS', link: ['/'] });
+    this.breadcrumbHeaderService.setBreadcrumbTitle('Vendors');
 
   }
 
-  buildName(firstName: string, lastName: string) {
+
+  onSubmit () {
+
+  }
+
+  buildName (firstName: string, lastName: string) {
     return this.dataService.buildName(firstName, lastName);
   }
 
-  buildAddressHtml(vendor: any) {
-    return this.dataService.buildVendorAddressHtml(vendor, vendor.company_name);
+  buildAddressHtml (vendor: any) {
+    return this.dataService.buildVendorAddressHtml(vendor, false);
   }
 
-  getPhotoUrl(tenant) {
+  getPhotoUrl (tenant) {
     if (tenant.photo != null && tenant.photo.length > 0)
       return tenant.photo;
     return 'assets/img/placeholders/avatars/avatar9.jpg';
   }
 
-  stopPropagation(event) {
+  stopPropagation (event) {
     event.stopPropagation()
   }
 

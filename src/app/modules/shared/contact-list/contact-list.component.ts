@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, AfterViewInit } from '@angular/core';
 import { DataService, AppHttp } from "app/services";
+declare var $: any;
 
 @Component({
     selector: 'ewo-contact-list',
@@ -16,20 +17,24 @@ export class ContactListComponent implements OnInit {
     @Input() isEditable: boolean = true;
     @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
 
-    ngOnInit() {
-
+    ngOnInit () {
+    }
+    ngAfterViewInit () {
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
     }
 
-    getPhotoUrl(contact: any) {
+    getPhotoUrl (contact: any) {
         var photo = this.dataService.getPhotoUrl(contact.photo);
         return photo;
     }
 
-    stopPropagation(event) {
+    stopPropagation (event) {
         event.stopPropagation()
     }
 
-    updateContact(data) {
+    updateContact (data) {
         this.change.emit(data);
     }
 }

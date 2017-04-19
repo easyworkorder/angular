@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Rx';
 import { DataService } from "app/services";
 import { SLAPolicyService } from "app/modules/admin/sla-policy/sla-policy.service";
 import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
+import { HeaderService } from "app/modules/shared/header/header.service";
 declare var $: any;
 
 @Component({
@@ -39,15 +40,19 @@ export class BuildingAdminDetailsComponent implements OnInit {
         private employeeService: EmployeeService,
         private dataService: DataService,
         private slaPolicyService: SLAPolicyService,
-        private breadcrumbHeaderService: BreadcrumbHeaderService
+        private breadcrumbHeaderService: BreadcrumbHeaderService,
+        private headerService: HeaderService,
+
     )
     { }
 
-    ngOnInit() {
+    ngOnInit () {
         this.breadcrumbHeaderService.setBreadcrumbTitle('Building Admin');
         this._buildingId = this.route.snapshot.params['id'];
         this.getBuilding(this._buildingId);
         this.getBuildingSLAPolicy(this._buildingId);
+        this.headerService.setDashBoardTitle({ title: 'BUILDINGS', link: [`/admin/building`] });
+
     }
 
     // getBuilding(id) {
@@ -59,7 +64,7 @@ export class BuildingAdminDetailsComponent implements OnInit {
     //   });
     // }
 
-    getBuilding(id) {
+    getBuilding (id) {
         this.buildingService.getBuilding(id).subscribe(data => {
             this.employeeService.getEmployeeById(data.primarycontact_id).subscribe(emp => {
                 // this.editedBuilding = Object.assign({}, data, { contactPerson: emp.last_name + ' ' + emp.first_name });
@@ -84,7 +89,7 @@ export class BuildingAdminDetailsComponent implements OnInit {
     }
 
 
-    getAllEmployees(company_id): void {
+    getAllEmployees (company_id): void {
         this.employeeService.getAllEmployees(company_id).subscribe(
             data => {
                 let _employee: any[] = data.results.map(item => {
@@ -95,13 +100,13 @@ export class BuildingAdminDetailsComponent implements OnInit {
         );
     }
 
-    getBuildingSLAPolicy(buildingId) {
+    getBuildingSLAPolicy (buildingId) {
         this.slaPolicyService.getBuildingSLAPolicy(buildingId).map(data => data.results).subscribe(data => {
             this.buildingSlaPolicyTargets = data;
         });
     }
 
-    onSubmit() {
+    onSubmit () {
         this.buildingForm.get('primarycontact_id').setValue(this.primarycontact_id[0].id);
         if (!this.buildingForm.valid) return;
 
@@ -113,19 +118,19 @@ export class BuildingAdminDetailsComponent implements OnInit {
         }
     }
 
-    closeModal() {
+    closeModal () {
         $('#modalEditContactInfo').modal('hide');
     }
 
-    public selectedPrimaryContact(value: any): void {
+    public selectedPrimaryContact (value: any): void {
         this.primarycontact_id = [value];
     }
 
-    updateInfo(event) {
+    updateInfo (event) {
         this._buildingId && this.getBuilding(this._buildingId);
     }
 
-    editBuildingContactInfo() {
+    editBuildingContactInfo () {
         this.getAllEmployees(this.currentCompanyId);
         this.primarycontact_id = this.editedBuilding && [{ id: this.editedBuilding.primarycontact_id, text: this.editedBuilding.contactPerson }];
         this.editedBuilding && this.buildingForm.setValue({
@@ -135,14 +140,14 @@ export class BuildingAdminDetailsComponent implements OnInit {
         });
     }
 
-    getPhotoUrl(employee) {
+    getPhotoUrl (employee) {
         // if (employee.photo != null && employee.photo.length > 0)
         //     return employee.photo;
         // return 'assets/img/placeholders/avatars/avatar9.jpg';
         this.photoUrl = this.dataService.getPhotoUrl(employee);
     }
 
-    onUpdateSLAPolicy(val) {
+    onUpdateSLAPolicy (val) {
         this.getBuildingSLAPolicy(this._buildingId);
     }
 }
