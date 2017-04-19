@@ -55,7 +55,7 @@
                 <!-- MATERIALS TAB -->
                 <div class="tab-pane" id="ticket-materials">
                     <!-- Partial Responsive Block -->
-                    <ewo-ticket-material [ticket]="ticket" [materials]="materials" (update)="updateMaterialInfo($event)"></ewo-ticket-material>
+                    <ewo-ticket-material *ngIf="ticket && materials" [ticket]="ticket" [materials]="materials" (update)="updateMaterialInfo($event)"></ewo-ticket-material>
                     <!-- END Partial Responsive Content -->
                 </div>
                 <!-- END MATERIALS TAB -->
@@ -99,13 +99,13 @@
                         class="btn btn-effect-ripple btn-success" data-toggle="modal" title="" style="overflow: hidden; position: relative;"
                         data-original-title="Change"><i class="fa fa-pencil"></i></a>
                 </div>
-                <h2>Open</h2><span class="badge" *ngIf="ticket?.is_billable">Billable - {{(ticket?.billable_total == 0 ? ticket?.estimated_amount : ticket?.billable_total)  | currency:'USD':true}}</span>
+                <h2>Open</h2><span class="badge" *ngIf="ticket?.is_billable">Billable - {{(ticket?.billable_total ? ticket?.billable_total : ticket?.estimated_amount)  | currency:'USD':true}}</span>
             </div>
             <!-- END Due Block -->
 
             <!-- Due Date Information -->
             <!--Due in 6 days on Tues, 21 Feb at 9:40am-->
-            Due in {{dueDateOn}} days on {{ticket?.due_date | date:'medium'}}
+            Due in {{dueDateOn}} days on {{ticket?.due_date | ticketDetailsdateFormat}}
             <!-- END Due date Information -->
         </div>
         <!-- END Organization Block -->
@@ -162,7 +162,7 @@
             <div class="modal-body">
                 <form [formGroup]="dueDateForm" (ngSubmit)="onDueDateSubmit()" class="form-horizontal">
                     <div class="form-group">
-                        <label class="col-sm-6 col-md-4 col-lg-3 control-label" for="close_note">Note <span class="required">*</span> </label>
+                        <label class="col-sm-6 col-md-4 col-lg-3 control-label">Date <span class="required">*</span> </label>
                         <div class="col-sm-6 col-md-8 col-lg-9">
                             <ewo-calendar [readonlyInput]="true" [showOnFocus]="false" formControlName="dueDate" (onSelect)="onSelectDueDate($event)"
                                 [icon]="fa-calendar" [showIcon]="true" inputStyleClass="form-control"></ewo-calendar>
@@ -193,7 +193,7 @@
             <div class="modal-body">
                 <form [formGroup]="requestorForm" (ngSubmit)="onRequestorSubmit()" class="form-horizontal">
                     <div class="form-group">
-                        <label class="col-sm-6 col-md-4 col-lg-3 control-label" for="close_note">Requestor <span class="required">*</span> </label>
+                        <label class="col-sm-6 col-md-4 col-lg-3 control-label" for="requestorList">Requestor <span class="required">*</span> </label>
                         <div class="col-sm-6 col-md-8 col-lg-9">
                             <ng-select id="requestorList" [multiple]="false" [items]="requestorsList" (selected)="onSelectedRequestor($event)" placeholder="Choose Requestor"
                                 [active]="selectedRequestor"></ng-select>

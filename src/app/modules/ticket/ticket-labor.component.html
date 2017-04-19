@@ -21,8 +21,8 @@
             </tr>
         </thead>
         <tbody>
+            <tr *ngIf="labors.length == 0"><td colspan="5">No labors found</td></tr>
             <tr *ngFor="let labor of labors">
-                <!--<td><strong>{{labor.work_date | date: 'MM/dd/yyyy'}}</strong></td>-->
                 <td><strong>{{labor.work_date | dateFormat}}</strong></td>
                 <td class="hidden-xs">{{labor.work_description}}</td>
                 <td class="hidden-xs">{{labor.billable_hours | number}}</td>

@@ -21,6 +21,7 @@
             </tr>
         </thead>
         <tbody>
+            <tr *ngIf="materials.length == 0"><td colspan="6">No materials found</td></tr>
             <tr *ngFor="let material of materials">
                 <td><strong>{{material.date | dateFormat}}</strong></td>
                 <td class="hidden-xs">{{material.description}}</td>
