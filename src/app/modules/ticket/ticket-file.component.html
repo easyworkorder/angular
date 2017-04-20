@@ -1,0 +1,55 @@
+<!--Modal popup to add file-->
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header"> 
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="closeModal()">&times;</button>
+            <!--<h3 *ngIf="!ticketDocumentForm.get('id').value" class="modal-title"><i class="fa fa-plus"></i> <strong>New Document</strong></h3>
+            <h3 *ngIf="ticketDocumentForm.get('id').value" class="modal-title"><i class="fa fa-pencil"></i> <strong>Edit Document</strong></h3>-->
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="ticketDocumentForm" (ngSubmit)="onSubmit()" class="form-horizontal form-bordered" onsubmit="return false;">
+                <div class="form-group">
+                    <label class="col-xs-3 control-label">Document <span class="required">*</span></label>
+                    <div class="col-xs-9">
+                        <input type="file" id="document_file" name="document_file" (change)="docSelectionChange($event)" class="hidden" accept=".doc, .docx, .pdf"/>
+                        <i class="fa fa-fw fa-upload"></i> <a href="javascript:void(0)" onclick="$('#document_file').click();">Upload New Dcoument</a>
+                        <span>{{ selectedFileName }}</span>
+                        <br/>
+                        <span *ngIf="_submitted && (selectedFileName === '')" class="validation-error">Please select a file to upload</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-3 control-label" for="title">Title <span class="required">*</span></label>
+                    <div class="col-xs-9">
+                        <input [formControlValidator]="ticketDocumentForm.controls.title" formControlName="title" type="text" id="title" class="form-control"
+                               placeholder="Title" />
+                        <span class="validation-error">{{ticketDocumentForm.controls.title.error}}</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-3 control-label" for="description">Description <span class="required">*</span></label>
+                    <div class="col-xs-9">
+                        <textarea [formControlValidator]="ticketDocumentForm.controls.description" formControlName="description" id="description" class="form-control"
+                               placeholder="Description"></textarea>
+                        <span class="validation-error">{{ticketDocumentForm.controls.description.error}}</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-3">Tenant View</label>
+                    <div class="col-xs-9">
+                        <label class="switch switch-success">
+                            <input type="checkbox" formControlName="tenant_view" id="tenant_view"
+                                   name="tenant_view"><span></span></label>
+                    </div>
+                </div>
+                <div class="form-group form-actions">
+                    <div class="col-md-12 text-right">
+                        <button type="submit" class="btn btn-effect-ripple btn-primary ui-wizard-content ui-formwizard-button" id="btnSave" style="overflow: hidden; position: relative;"
+                            value="Save" [disabled]="isSubmit">Save <i *ngIf="isSubmit" class="fa fa-spinner fa-spin"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

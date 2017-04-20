@@ -46,6 +46,7 @@ export class TicketDetailsComponent implements OnInit {
     notes: any[] = [];
     labors: any[];
     materials: any[];
+    documents: any[];
     tenant_contacts: any[] = [];
     // tenants: any[] = [];
     employees: any[];
@@ -94,6 +95,7 @@ export class TicketDetailsComponent implements OnInit {
         this.getAllNotes(this.ticketId);
         this.getAllLabors(this.ticketId);
         this.getAllMaterials(this.ticketId);
+        this.getAllDocuments(this.ticketId);
         this.getTicketDetails();
         this.switchTab(1);
         this.breadcrumbHeaderService.setBreadcrumbTitle('Ticket Details');
@@ -145,6 +147,13 @@ export class TicketDetailsComponent implements OnInit {
         });
     }
 
+    getAllDocuments (ticketId) {
+        const observable = this.http.get('ticketdocument/?workorder_id=' + ticketId);
+        observable.subscribe(data => {
+            this.documents = data.results;
+        });
+    }
+
     switchTab (tabId: number) {
         this.tabs.isActivityTabVisible = tabId === 1 ? true : false;
         this.tabs.isLaborTabVisible = tabId === 2 ? true : false;
@@ -184,23 +193,15 @@ export class TicketDetailsComponent implements OnInit {
     }
 
     updateLaborInfo (data) {
-        // this.updatePeopleInfo = data;
-        // this.updateTicketLaborService.setUpdateLabor(data);
-        // $('#modal-add-labor').modal({
-        //     backdrop: 'static',
-        //     show: true
-        // });
-        // console.log(data);
         this.ticketId && this.getAllLabors(this.ticketId);
     }
 
     updateMaterialInfo (data) {
-        // this.updateTicketMaterialService.setUpdateMaterial(data);
-        // $('#modal-add-material').modal({
-        //     backdrop: 'static',
-        //     show: true
-        // });
         this.ticketId && this.getAllMaterials(this.ticketId);
+    }
+
+    updateFileInfo (data) {
+        this.ticketId && this.getAllDocuments(this.ticketId);
     }
 
     onDueDateEdit (event) {

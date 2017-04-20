@@ -3,8 +3,7 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 @Component({
     selector: 'ewo-file-list',
-    templateUrl: './file-list.component.html',
-    styleUrls: ['./file-list.component.css']
+    templateUrl: './file-list.component.html'
 })
 export class FileListComponent implements OnInit {
 

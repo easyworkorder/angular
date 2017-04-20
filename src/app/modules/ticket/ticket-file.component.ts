@@ -1,82 +1,87 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { DataService, AppHttp } from "app/services";
-import { TenantService } from "app/modules/admin/tenant/tenant.service";
+import { TicketService } from './ticket.service';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Observable } from "rxjs/Observable";
 import { ToasterService } from "angular2-toaster/angular2-toaster";
-import config from '../../../config';
+import config from '../../config';
 
 declare var $:any;
 
 @Component({
-    selector: 'ewo-tenant-file',
-    templateUrl: './tenant-file.component.html'
+    selector: 'ewo-ticket-file',
+    templateUrl: './ticket-file.component.html'
 })
-export class TenantFileComponent implements OnInit {
+export class TicketFileComponent implements OnInit {
 
     constructor(
         private dataService: DataService,
-        private tenantService: TenantService,
+        private ticketService: TicketService,
         private toasterService: ToasterService,
         private http: AppHttp
     ) { }
 
-    @Input() tenantDocument: any = null;
-    @Input() tenant: any = null;
+    @Input() ticket: any = null;
     @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
 
     isSubmit: boolean = false;
+    _submitted: boolean = false;
 
-    docFile:File = null;
+    docFile: File = null;
     selectedFileName: string = '';
+    ticketDocument: any;
 
-    tenantDocumentForm = new FormGroup({
-        id: new FormControl('0'),
+    ticketDocumentForm = new FormGroup({
+        id: new FormControl(),
         url: new FormControl(''),
         title: new FormControl('', [Validators.required]),
         description: new FormControl('', [Validators.required]),
         filename: new FormControl(''),
         mimetype: new FormControl(''),
         postdate: new FormControl(''),
-        tenant: new FormControl(null),
+        workorder: new FormControl(null),
         docsize: new FormControl(''),
-        doc_url: new FormControl('')
+        doc_url: new FormControl(''),
+        tenant_view: new FormControl(true)
     });
 
     ngOnInit() {
         this.closeModal();
-        $('#add-tenant-file').on('hidden.bs.modal', () => {
+        $('#add-ticket-file').on('hidden.bs.modal', () => {
             this.closeModal();
         });
-        
-        if(this.tenantDocument == null)
-            this.tenantDocument = {
-                "id":"",
-                "url": "",
-                "title": "",
-                "filename": "",
-                "mimetype": "",
-                "docsize": null,
-                "description": "",
-                "postdate": null,
-                "updatedate": null,
-                "updatedbyid": null,
-                "doc_url": ""
+
+        if (this.ticketDocument == null) {
+            this.ticketDocument = {
+                'id': '',
+                'url': '',
+                'title': '',
+                'filename': '',
+                'mimetype': '',
+                'docsize': null,
+                'description': '',
+                'doc_url': '',
+                'tenant_view': true
             };
-        this.tenantDocumentForm.reset(this.tenantDocument);
-        
+        }
+        this.ticketDocumentForm.reset(this.ticketDocument);
     }
 
     onSubmit() {
+        this._submitted = true;
+        if (!this.ticketDocumentForm.valid || this.selectedFileName === '') {
+            return;
+        }
         this.isSubmit = true;
-        this.tenantDocumentForm.get('tenant').setValue(config.api.base + 'tenant/' + this.tenant.id + '/');
-        let data = this.tenantDocumentForm.value;
-        if(this.docFile) {
+        this.ticketDocumentForm.get('workorder').setValue(config.api.base + 'ticket/' + this.ticket.id + '/');
+        const data = this.ticketDocumentForm.value;
+        if (this.docFile) {
             this.uploadAndSaveDocument(data);
         } else {
-            if(data.id) {
-                if(data.doc_url)
+            if (data.id) {
+                if (data.doc_url) {
                     delete data.doc_url;
+                }
                 this.http.put(data.url, data, null, null).subscribe(tenantDoc => {
                     this.documentSaveCallback('Document without file Updated.', tenantDoc);
                     this.closeModal();
@@ -84,7 +89,7 @@ export class TenantFileComponent implements OnInit {
             } else {
                 delete data.id;
                 delete data.url;
-                this.http.post('tenantdocument/', data, null, null).subscribe(tenantDoc => {
+                this.http.post('ticketdocument/', data, null, null).subscribe(tenantDoc => {
                     this.documentSaveCallback('Document without file Created.', tenantDoc);
                 });
             }
@@ -92,18 +97,17 @@ export class TenantFileComponent implements OnInit {
     }
 
     docSelectionChange(event) {
-        let fileList: FileList = event.target.files;
-        if(fileList.length > 0) {
+        const fileList: FileList = event.target.files;
+        if (fileList.length > 0) {
             this.docFile = fileList[0];
             this.selectedFileName = this.docFile.name;
-            this.tenantDocumentForm.get('filename').setValue(this.docFile.name);
-            this.tenantDocumentForm.get('mimetype').setValue(this.docFile.type);
-            this.tenantDocumentForm.get('docsize').setValue(this.docFile.size);
-            
+            this.ticketDocumentForm.get('filename').setValue(this.docFile.name);
+            this.ticketDocumentForm.get('mimetype').setValue(this.docFile.type);
+            this.ticketDocumentForm.get('docsize').setValue(this.docFile.size);
         }
     }
 
-    documentSaveCallback(msg:string,  document: any) {
+    documentSaveCallback(msg: string,  document: any) {
         console.log(msg, document);
         this.isSubmit = false;
         this.change.emit(true);
@@ -111,7 +115,7 @@ export class TenantFileComponent implements OnInit {
     }
 
 
-    uploadAndSaveDocument (document:any) {
+    uploadAndSaveDocument (document: any) {
         let observable: Observable<any>;
         let creatORUpdateObservable: Observable<any>;
         if (document.id) {
@@ -119,15 +123,17 @@ export class TenantFileComponent implements OnInit {
             console.log('Not Updating');
         } else {
             delete document.id;
-            delete document.url;            
-            if (document.doc_url)
-                delete document.doc_url;
+            delete document.url;
 
-            creatORUpdateObservable = this.http.post('tenantdocument/', document, null, null);
+            if (document.doc_url) {
+                delete document.doc_url;
+            }
+
+            creatORUpdateObservable = this.http.post('ticketdocument/', document, null, null);
         }
 
         if (this.docFile) {
-            let url = 's3filesignature/?name=' + this.docFile.name + '&type=' + this.docFile.type + '&etype=tc&rid=' + this.tenant.id + '&isdoc=True';
+            const url = 's3filesignature/?name=' + this.docFile.name + '&type=' + this.docFile.type + '&etype=tc&rid=' + this.ticket.id + '&isdoc=True';
             observable = Observable.forkJoin(
                 creatORUpdateObservable
                     .switchMap(newDocument => this.http.get(url), (employeeInfo, s3Info) => ({ employeeInfo, s3Info }))
@@ -190,15 +196,17 @@ export class TenantFileComponent implements OnInit {
 
     closeModal() {
         this.resetForm();
-        $('#add-tenant-file').modal('hide');
+        $('#add-ticket-file').modal('hide');
     }
 
     resetForm() {
+        this._submitted = false;
         this.docFile = null;
         this.selectedFileName = '';
-        this.tenantDocumentForm.reset({
+        this.ticketDocumentForm.reset({
             title: '',
-            description: ''
+            description: '',
+            tenant_view: true
         });
     }
 
