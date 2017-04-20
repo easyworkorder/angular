@@ -81,8 +81,10 @@ export class TicketEditComponent implements OnInit {
     ngOnInit () {
         const ticket = this.ticket;
         this.selectPriority.push({ id: ticket.priority, text: ticket.priority });
-        this.selectGroup.push({ id: ticket.group, text: ticket.group });
         this.selectSource.push({ id: ticket.source, text: ticket.source });
+        if (ticket.group) {
+            this.selectGroup.push({id: ticket.group, text: ticket.group});
+        }
 
         // this.problemTypeService.getProblemTypeByUrl(ticket.problemtype).subscribe(data => {
         //     this.selectedProblem_type.push({id: data.id, text: (data.problem_name)});
@@ -113,7 +115,9 @@ export class TicketEditComponent implements OnInit {
 
     onSubmit () {
         this._submitted = true;
-        if (!this.ticketForm.valid) { return; }
+        if (!this.ticketForm.valid || (this.selectEmployee.length === 0) || (this.selectGroup.length === 0)) {
+            return;
+        }
         this.ticketService.update(this.ticketForm.value, true).subscribe((tikcet: any) => {
             this.ticketService.updateTicket(true);
         });

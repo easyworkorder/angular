@@ -34,37 +34,37 @@
                 <ul class="nav nav-pills nav-stacked">
                     <li [ngClass]="{'active': currentRequestType=='new'}">
                         <a (click)="updateTicketList('new')">
-                            <span class="badge pull-right">{{contactStat?.new}}</span>
+                            <span class="badge pull-right">{{contactStat?.new | number}}</span>
                             <i class="fa fa-fw fa-ticket icon-push"></i> <strong>New</strong>
                         </a>
                     </li>
                     <li [ngClass]="{'active': currentRequestType=='replies'}">
                         <a (click)="updateTicketList('replies')">
-                            <span class="badge pull-right">{{contactStat?.replies}}</span>
+                            <span class="badge pull-right">{{contactStat?.replies | number}}</span>
                             <i class="fa fa-fw fa-exclamation-triangle icon-push"></i> <strong>Replies</strong>
                         </a>
                     </li>
                     <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager" [ngClass]="{'active': currentRequestType=='due_today'}">
                         <a (click)="updateTicketList('due_today')">
-                            <span class="badge pull-right">{{contactStat?.due_today}}</span>
+                            <span class="badge pull-right">{{contactStat?.due_today | number}}</span>
                             <i class="fa fa-fw fa-folder-open-o icon-push"></i> <strong>Due Today</strong>
                         </a>
                     </li>
                     <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager" [ngClass]="{'active': currentRequestType=='overdue'}">
                         <a (click)="updateTicketList('overdue')">
-                            <span class="badge pull-right">{{contactStat?.overdue}}</span>
+                            <span class="badge pull-right">{{contactStat?.overdue | number}}</span>
                             <i class="fa fa-fw fa-folder-open-o icon-push"></i> <strong>Overdue</strong>
                         </a>
                     </li>
                     <li [ngClass]="{'active': currentRequestType=='pending'}">
                         <a (click)="updateTicketList('pending')">
-                            <span class="badge pull-right">{{contactStat?.pending}}</span>
+                            <span class="badge pull-right">{{contactStat?.pending | number}}</span>
                             <i class="fa fa-fw fa-folder-open-o icon-push"></i> <strong>Pending</strong>
                         </a>
                     </li>
                     <li [ngClass]="{'active': currentRequestType=='closed'}">
                         <a (click)="updateTicketList('closed')">
-                            <span class="badge pull-right">{{contactStat?.closed}}</span>
+                            <span class="badge pull-right">{{contactStat?.closed | number}}</span>
                             <i class="fa fa-fw fa-folder-o icon-push"></i> <strong>Closed</strong>
                         </a>
                     </li>
@@ -87,37 +87,37 @@
                         <td style="width: 60%;">
                             <strong>Total Requests</strong>
                         </td>
-                        <td>{{quickStat?.total_tickets}}</td>
+                        <td>{{quickStat?.total_tickets | number}}</td>
                     </tr>
                     <tr>
                         <td>
                             <strong>Total Responses</strong>
                         </td>
-                        <td>{{quickStat?.total_responses}}</td>
+                        <td>{{quickStat?.total_responses | number}}</td>
                     </tr>
                     <tr>
                         <td>
                             <strong>Tenant Requests</strong>
                         </td>
-                        <td>{{quickStat?.tenant_ticket}}</td>
+                        <td>{{quickStat?.tenant_ticket | number}}</td>
                     </tr>
                     <tr>
                         <td>
                             <strong>Employee Requests</strong>
                         </td>
-                        <td>{{quickStat?.employee_ticket}}</td>
+                        <td>{{quickStat?.employee_ticket | number}}</td>
                     </tr>
                     <tr>
                         <td>
                             <strong>Vendor Requests</strong>
                         </td>
-                        <td>{{quickStat?.vendor_ticket}}</td>
+                        <td>{{quickStat?.vendor_ticket | number}}</td>
                     </tr>
                     <tr>
                         <td>
                             <strong>Avg Response Time</strong>
                         </td>
-                        <td>{{quickStat?.averate_time}}</td>
+                        <td>{{quickStat?.averate_time | number}}</td>
                     </tr>
                 </tbody>
             </table>
