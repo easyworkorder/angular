@@ -39,11 +39,11 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="col-xs-12" for="source">Source <span class="required">*</span> </label>
-        <div class="col-xs-12">
-            <ng-select id="source" [multiple]="false" [items]="sources" placeholder="Select Source" (selected)="selectedSource($event)"
+        <label class="col-xs-12">Source <span class="required">*</span> </label>
+        <div class="col-xs-12"> {{ticket.source}}
+            <!--<ng-select id="source" [multiple]="false" [items]="sources" placeholder="Select Source" (selected)="selectedSource($event)"
                        [active]="selectSource"></ng-select>
-            <span *ngIf="(_submitted && selectSource.length == 0)" class="validation-error">This field is Required</span>
+            <span *ngIf="(_submitted && selectSource.length == 0)" class="validation-error">This field is Required</span>-->
         </div>
     </div>
     <div class="form-group">

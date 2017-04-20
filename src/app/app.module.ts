@@ -152,14 +152,15 @@ import { BuildingSlaTargetComponent } from './modules/admin/sla-policy/building-
 import { InputValueRestrictionModule } from "app/directives/input-value-restriction.directive";
 import { LoadingSpinnerModule } from "app/modules/shared/loading-spinner/loading-spinner.module";
 import { BreadcrumbComponent, BreadcrumbService } from "app/modules/shared/breadcrumb";
-import { VerifyEmailComponent } from "app/modules/shared/verify-email.component";
-import { VerifyEmailService } from "app/modules/shared/verify-email.service";
+import { VerifyEmailComponent } from 'app/modules/shared/verify-email.component';
+import { VerifyEmailService } from 'app/modules/shared/verify-email.service';
 import { TenantFileComponent } from './modules/admin/tenant/tenant-file.component';
 import { FileListComponent } from './modules/shared/file-list/file-list.component';
 import { ConfirmModalComponent } from './modules/shared/confirm-modal/confirm-modal.component';
 import { AssignTicketComponent } from './modules/shared/ticket/assign-ticket.component';
-import { CloseTicketComponent } from "app/modules/shared/ticket/close-ticket.component";
-import { TenantTicketReplyComponent } from "app/modules/ticket/tenant-ticket-reply.component";
+import { CloseTicketComponent } from 'app/modules/shared/ticket/close-ticket.component';
+import { ReopenTicketComponent } from 'app/modules/shared/ticket/reopen-ticket.component';
+import { TenantTicketReplyComponent } from 'app/modules/ticket/tenant-ticket-reply.component';
 
 export function translateStaticLoaderFactory (Backend, defaultOptions, storage, notificationService) {
     return new AppHttp(Backend, defaultOptions, storage, notificationService);
@@ -282,6 +283,7 @@ export function translateStaticLoaderFactory (Backend, defaultOptions, storage, 
         ConfirmModalComponent,
         AssignTicketComponent,
         CloseTicketComponent,
+        ReopenTicketComponent,
         TenantTicketReplyComponent
     ],
     imports: [

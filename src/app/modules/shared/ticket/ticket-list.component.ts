@@ -163,8 +163,25 @@ export class TicketListComponent implements OnInit {
         $('#' + value).modal({
             show: true,
             backdrop: 'static'
-        })
+        });
     }
+
+    onModalReopenTicket (value) {
+        let checkedOne = this.ticketList.some(item => item.checked);
+        if (!checkedOne) {
+            $('#modal-confirm').modal({
+                show: true,
+                backdrop: 'static'
+            })
+            return;
+        }
+
+        $('#' + value).modal({
+            show: true,
+            backdrop: 'static'
+        });
+    }
+
     onModalDeleteTicket (modalId) {
         let checkedOne = this.ticketList.some(item => item.checked);
         // const modalId = checkedOne ? value : 'modal-confirm';

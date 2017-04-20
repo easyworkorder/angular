@@ -69,9 +69,10 @@ export class AssignTicketComponent implements OnInit {
         const checkedTicketList: any[] = this.ticketList.filter(item => item.checked);
 
 
-        let displayTicketsMsg: any[] = [];
+        const displayTicketsMsg: any[] = [];
         let counter = 0;
-        let _assigned_to = this.selectedEmployee[0].id;
+        const _assigned_to = this.selectedEmployee[0].id;
+
         checkedTicketList && checkedTicketList.forEach(ticket => {
             displayTicketsMsg.push(ticket.ticket_key);
 
@@ -80,11 +81,6 @@ export class AssignTicketComponent implements OnInit {
             ticket.status = 'Open';
             ticket.closed = false;
             this.ticketService.update(ticket, false).subscribe(() => {
-                if (++counter == checkedTicketList.length) {
-                    this.ticketService.updateTicketList(true);
-                    this.toasterService.pop('success', 'Assign', `${displayTicketsMsg.join(', ')} Ticket${checkedTicketList.length == 1 ? '' : '\'s'} has been Assign to ${this.selectedEmployee[0].text}`);
-                    this.closeModal();
-                }
 
                 let note = {
                     workorder: `${config.api.base}ticket/${ticket.id}/`,
@@ -97,9 +93,16 @@ export class AssignTicketComponent implements OnInit {
                     vendor_follow_up: false,
                     employee_list: _assigned_to
                 }
-                this.ticketService.createNote(note, false).subscribe(data => {
-                    // console.log('data>>>', data);
-                });
+                if (this.currentRequestType !== 'new') {
+                    note.action_type = 'reassign';
+                }
+                this.ticketService.createNote(note, false).subscribe(data => {});
+
+                if (++counter === checkedTicketList.length) {
+                    this.ticketService.updateTicketList(true);
+                    this.toasterService.pop('success', 'Assign', `${displayTicketsMsg.join(', ')} Ticket${checkedTicketList.length === 1 ? '' : '\'s'} has been Assign to ${this.selectedEmployee[0].text}`);
+                    this.closeModal();
+                }
             });
         })
 
