@@ -14,6 +14,7 @@ import { HeaderService } from "app/modules/shared/header/header.service";
 export class TenantContactProfileComponent implements OnInit {
     tenant: any;
     insurances: any;
+    documents: any;
     primaryContact: any;
     contactInfo: Contact;
 
@@ -63,7 +64,8 @@ export class TenantContactProfileComponent implements OnInit {
 
                 this.tenant.contacts = this.tenant.tenant_contacts;
                 this.getInsurances(this.tenant.id);
-            })
+                this.getDocuments(this.tenant.id);
+            });
     }
 
     getPhotoUrl (contact) {
@@ -79,12 +81,23 @@ export class TenantContactProfileComponent implements OnInit {
     }
 
     /**
-     * Get Insurance list by vendor
+     * Get Insurance list by tenant
      */
     getInsurances (tenant_id) {
         this.tenantService.getInsurances(tenant_id).subscribe(
             data => {
                 this.insurances = data.results;
+            }
+        );
+    }
+
+    /**
+     * Get Documents list by tenant
+     */
+    getDocuments (tenant_id) {
+        this.tenantService.getDocuments(tenant_id).subscribe(
+            data => {
+                this.documents = data.results;
             }
         );
     }

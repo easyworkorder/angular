@@ -1,5 +1,5 @@
 <!-- Contact Profile Row -->
 <loading-spinner-wave *ngIf="!tenant"></loading-spinner-wave>
-<ewo-tenant-contact-activities *ngIf="tenant" [tenant]="tenant" [insurances]="insurances" [isTenant]="true"  [tickets]="tickets"
+<ewo-tenant-contact-activities *ngIf="tenant" [tenant]="tenant" [insurances]="insurances" [isTenant]="true"  [tickets]="tickets" [documents]="documents"
                                (update)="updateInActivity($event)"></ewo-tenant-contact-activities>
 <!-- END Contact Profile Row -->

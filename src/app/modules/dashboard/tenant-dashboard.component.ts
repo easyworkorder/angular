@@ -16,6 +16,7 @@ export class TenantDashboardComponent implements OnInit {
 
     tenant: any;
     insurances: any;
+    documents: any;
     primaryContact: any;
     contactInfo: Contact;
 
@@ -61,6 +62,7 @@ export class TenantDashboardComponent implements OnInit {
 
                 this.tenant.contacts = tempContact;
                 this.getInsurances(this.tenant.id);
+                this.getDocuments(this.tenant.id);
             });
     }
 
@@ -83,6 +85,16 @@ export class TenantDashboardComponent implements OnInit {
         this.tenantService.getInsurances(tenant_id).subscribe(
             data => {
                 this.insurances = data.results;
+            }
+        );
+    }
+    /**
+     * Get Documents list by tenant
+     */
+    getDocuments (tenant_id) {
+        this.tenantService.getDocuments(tenant_id).subscribe(
+            data => {
+                this.documents = data.results;
             }
         );
     }

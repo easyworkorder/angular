@@ -110,16 +110,14 @@ export class TenantService extends DataService {
      */
     getInsurances (tenant_id) {
         const observable = this.http.get('tenantinsurance/?tenant_id=' + tenant_id + '&ordering=id');
-        observable.subscribe(data => {
-        });
+        // observable.subscribe(data => {});
         return observable;
     }
 
 
     getDocuments (tenant_id) {
         const observable = this.http.get('tenantdocument/?tenant_id=' + tenant_id + '&ordering=id');
-        // observable.subscribe(data => {
-        // });
+        // observable.subscribe(data => {});
         return observable;
     }
 
