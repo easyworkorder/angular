@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angu
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Storage } from 'app/services';
 import { ToasterService } from 'angular2-toaster';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 
 import config from '../../config';
 import { TicketService } from './ticket.service';
@@ -57,6 +57,9 @@ export class TicketActivityComponent implements OnInit {
     showPrevLoadingIcon: boolean = false;
     showNextLoadingIcon: boolean = false;
 
+    isFromAdminPanel: boolean = false;
+
+    showAcceptButton = false;
     /**
      * Note Reply form
      * @param ticketService
@@ -181,6 +184,7 @@ export class TicketActivityComponent implements OnInit {
             this.showPrevLoadingIcon = show;
             this.showNextLoadingIcon = show;
         });
+
     }
 
 
@@ -205,6 +209,8 @@ export class TicketActivityComponent implements OnInit {
         } else {
             this.disabledButtons();
         }
+
+        this.checkUnassignedAndAdminPanel();
     }
 
 
@@ -212,8 +218,11 @@ export class TicketActivityComponent implements OnInit {
         if (changes['ticket']) {
             if (changes['ticket'].currentValue) {
                 this.ticket = changes['ticket'].currentValue;
+                this.showAcceptButton = (this.ticketService.ticketFromTenantAdmin && this.ticket.status.toLowerCase() == 'unassigned');
                 this.ticketForm.patchValue(this.ticket);
                 this.getProblemTypes();
+                this.isFromAdminPanel = this.ticketService.ticketFromTenantAdmin;
+                // this.checkUnassignedAndAdminPanel();
             } else {
                 this.ticket = [];
             }
@@ -517,7 +526,7 @@ export class TicketActivityComponent implements OnInit {
 
             let id = +allTicketIds[ticketIndex - 1];
             // let id = +allTicketIds[ticketIndex + 1];
-
+            if (Number.isNaN(id)) return;
             //new tickets
             let _ticket = tickets.find(item => item.id == id);
             this.ticket = _ticket;
@@ -533,6 +542,7 @@ export class TicketActivityComponent implements OnInit {
             this.showNextLoadingIcon = true;
             let id = +allTicketIds[ticketIndex + 1];
             // let id = +allTicketIds[ticketIndex - 1];
+            if (Number.isNaN(id)) return;
 
             //new tickets
             let _ticket = tickets.find(item => item.id == id);
@@ -569,5 +579,86 @@ export class TicketActivityComponent implements OnInit {
         } else if (length > 1 && (ticketIndex + 1) == length) {
             this.nextDisabled = true;
         }
+    }
+
+    // Accept ticket
+    onAcceptModalOkButtonClick (event) {
+        if (!this.ticket) return;
+
+        const user = this.storage.getUserInfo();
+
+        const ticket = this.ticket;
+
+        if (user.employee_id) {
+            ticket.assigned_to = `${config.api.base}employee/${user.employee_id}/`;
+        }
+        ticket.url = `${config.api.base}ticket/${ticket.id}/`;
+        ticket.status = 'Open';
+        this.ticketService.update(ticket, false).subscribe(() => {
+            $('#modal-accept-ticket-confirm').modal('hide');
+            this.showAcceptButton = false;
+            this.ticketService.updateTicketList(true);
+            this.toasterService.pop('success', 'Accept', `${ticket.ticket_key} has been accepted successfully`);
+
+            let note = {
+                workorder: `${config.api.base}ticket/${ticket.id}/`,
+                details: `${ticket.ticket_key} accepted`,
+                action_type: 'accept',
+                is_private: true,
+                tenant_notified: false,
+                tenant_follow_up: false,
+                vendor_notified: false,
+                vendor_follow_up: false
+            }
+            this.ticketService.createNote(note, false);
+        }, error => {
+            this.toasterService.pop('error', 'Accept', 'Ticket has not been accepted due to server error!!!');
+        });
+    }
+
+    checkUnassignedAndAdminPanel () {
+        this.router.events
+            .filter(e => e instanceof NavigationEnd)
+            .pairwise().subscribe((data: any) => {
+
+
+                let concaturl = data.reduce((acc, item) => acc.concat(item.url), []);
+                let constring = concaturl[0].concat(concaturl[1]);
+
+                if (concaturl[0].toString().match(/^\/ticket-details\/[0-9]{1,10}$/) &&
+                    concaturl[1].toString().match(/^\/ticket-details\/[0-9]{1,10}$/)
+                ) {
+                    return;
+                }
+                // this._urls.length = 0; //Fastest way to clear out array
+
+                // let isFromAdmin = false;
+                // if ((concaturl[0].toString().match(/^\/admin\/building\/[0-9]{1,10}\/tenant-profile\/[0-9]{1,10}$/) &&
+                //     concaturl[1].toString().match(/^\/ticket-details\/[0-9]{1,10}$/)) ||
+                //     (concaturl[0].toString().match(/^\/admin\/vendor\/[0-9]{1,10}$/) &&
+                //         concaturl[1].toString().match(/^\/ticket-details\/[0-9]{1,10}$/)) ||
+                //     (concaturl[0].toString().match(/^\/tenant\/[0-9]{1,10}$/) &&
+                //         concaturl[1].toString().match(/^\/ticket-details\/[0-9]{1,10}$/)) ||
+                //     (concaturl[0].toString().match(/^\/vendor\/[0-9]{1,10}$/) &&
+                //         concaturl[1].toString().match(/^\/ticket-details\/[0-9]{1,10}$/))
+                // ) {
+                //     isFromAdmin = true;
+                // }
+
+                if ((concaturl[0].toString().match(/^\/admin\/building\/[0-9]{1,10}\/tenant-profile\/[0-9]{1,10}$/) &&
+                    concaturl[1].toString().match(/^\/ticket-details\/[0-9]{1,10}$/)) ||
+                    (concaturl[0].toString().match(/^\/tenant\/[0-9]{1,10}$/) &&
+                        concaturl[1].toString().match(/^\/ticket-details\/[0-9]{1,10}$/))
+                ) {
+                    // isFromAdmin = true;
+                    // this.isFromAdminPanel = true;
+                    this.ticketService.ticketFromTenantAdmin = true;
+                    return;
+                }
+                // this.isFromAdminPanel = false;
+                this.ticketService.ticketFromTenantAdmin = false;
+
+
+            });
     }
 }

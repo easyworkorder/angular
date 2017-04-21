@@ -379,5 +379,4 @@ export class TicketDetailsComponent implements OnInit {
             })
         }
     }
-
 }

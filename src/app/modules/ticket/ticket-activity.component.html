@@ -1,6 +1,8 @@
 <span *ngIf="(userInfo?.IsPropertyManager || userInfo?.IsEmployee)">
     <a *ngIf="ticket.is_safety_issue" href="javascript:void(0)" class="btn btn-sm btn-danger"><i class="fa fa-life-ring"></i> Saftey Issue</a>
-    <a  modal-dialog-open="modal-add-public" class="btn btn-sm btn-default" data-toggle="modal"><i class="fa fa-reply"></i> Reply</a>
+    <!--<a *ngIf="(ticket.status.toLowerCase() ==='unassigned' && isFromAdminPanel)" modal-dialog-open="modal-accept-ticket-confirm" class="btn btn-sm btn-default"><i class="fa fa-forward"></i> Accept</a>-->
+    <a *ngIf="showAcceptButton" modal-dialog-open="modal-accept-ticket-confirm" class="btn btn-sm btn-default"><i class="fa fa-forward"></i> Accept</a>
+    <a modal-dialog-open="modal-add-public" class="btn btn-sm btn-default" data-toggle="modal"><i class="fa fa-reply"></i> Reply</a>
     <a *ngIf="isAdmin" modal-dialog-open="modal-add-private" class="btn btn-sm btn-default" data-toggle="modal"><i
             class="fa fa-sticky-note"></i> Add
         Note</a>
@@ -227,3 +229,8 @@
 <div id="modal-tenant-ticket-reply" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
     <ewo-tenant-ticket-reply *ngIf="ticket" [ticket]="ticket"></ewo-tenant-ticket-reply>
 </div>
+
+<!-- Accept Ticket -->
+<ewo-confirm-modal id="modal-accept-ticket-confirm" [OkButton]="true" [okButtonLabel]="'Continue'" [cancelButtonLabel]="'Cancel'"
+    [message]="'Do you want to accept?'" (okButtonClick)="onAcceptModalOkButtonClick($event)" class="modal fade in" tabindex="-1"
+    role="dialog" aria-hidden="true"></ewo-confirm-modal>

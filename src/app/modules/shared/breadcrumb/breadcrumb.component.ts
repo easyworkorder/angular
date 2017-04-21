@@ -77,7 +77,7 @@ export class BreadcrumbComponent implements OnInit, OnChanges {
 
                 isFromAdmin && this.generateBreadcrumbTrail(constring);
                 !isFromAdmin && this.generateBreadcrumbTrail(data[1].urlAfterRedirects ? data[1].urlAfterRedirects : data[1].url);
-            })
+            });
     }
 
     ngOnChanges (changes: any): void {

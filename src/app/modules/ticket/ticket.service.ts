@@ -35,6 +35,8 @@ export class TicketService extends DataService {
   private showLoadingIconSource = new Subject<boolean>()
   showNextPrevLoadingIcon$ = this.showLoadingIconSource.asObservable();
 
+  ticketFromTenantAdmin = false;
+
   constructor(
     protected http: AppHttp,
     protected events: EventService,
