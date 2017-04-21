@@ -49,7 +49,8 @@ import {
     DateFormatPipe,
     TicketListDateFormatPipe,
     TicketDetailsDateFormatPipe,
-    OrderByPipe
+    OrderByPipe,
+    FileSizePipe
 } from './pipes';
 import { BuildingComponent } from './modules/admin/building/building.component';
 import { AddressComponent } from './modules/address/address.component';
@@ -191,6 +192,7 @@ export function translateStaticLoaderFactory (Backend, defaultOptions, storage, 
         TicketListDateFormatPipe,
         TicketDetailsDateFormatPipe,
         OrderByPipe,
+        FileSizePipe,
         // Directives
         FormControlValidator,
         ActiveDirective,

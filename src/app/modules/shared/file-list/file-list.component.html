@@ -160,5 +160,5 @@
   </div>-->
 
   <ul>
-      <li *ngFor="let file of fileList"><a href="{{file.doc_url}}" title="{{file.title}}">{{file.title}}</a></li>
+      <li *ngFor="let file of fileList"><a href="{{file.doc_url}}" title="{{file.title}}">{{file.title}}</a> {{file.docsize | fileSize}}</li>
   </ul>
