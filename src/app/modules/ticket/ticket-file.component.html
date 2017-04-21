@@ -8,6 +8,7 @@
             <i class="fa fa-upload"></i></a>
     </div>
     <div class="row media-filter-items" style="margin: 0 -10px;">
+        <div class="col-xs-12" *ngIf="documents.length == 0">No files uploaded.</div>
         <div class="col-sm-6 col-md-4 col-lg-4" *ngFor="let file of documents">
             <div class="media-items animation-fadeInQuick2" data-category="pdf" *ngIf="file.mimetype == 'application/pdf'">
                 <div class="media-items-options text-right">
