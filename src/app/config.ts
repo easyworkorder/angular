@@ -19,6 +19,7 @@ const config = {
         user: 'user', // storage key for user data
         token: 'token', // storage key for token (lets keep it separately)
         preferences: 'preferences',
+        ticketRequestType: 'ticketRequestType'
     },
     preferences: {
     },
@@ -109,7 +110,7 @@ const config = {
     Mask: {
         phone: ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
         phoneWithCountryCode: ['+', '1', ' ', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
-        date:[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/],
+        date: [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/],
         zipCode: [/[1-9]/, /\d/, /\d/, /\d/, /\d/],
     }
 }

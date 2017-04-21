@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnChanges } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { EmployeeService } from './../admin/employee/employee.service';
 import { TenantService } from './../admin/tenant/tenant.service';
@@ -80,31 +80,99 @@ export class TicketDetailsComponent implements OnInit {
         private toasterService: ToasterService,
         private breadcrumbHeaderService: BreadcrumbHeaderService,
         private storage: Storage,
+        private router: Router
     ) {
         this.authService.verifyToken().take(1).subscribe(data => {
             this.userInfo = this.storage.getUserInfo();
-            this.getAllActiveEmployees();
-            this.ticketService.ticketRefresh$.subscribe(status => {
-                this.getTicketDetails();
-            })
+            // this.getAllActiveEmployees();
+            // this.ticketService.ticketRefresh$.subscribe(status => {
+            //     this.getTicketDetails();
+            // });
+
+            // this.route.params.subscribe((params: any) => {
+            //     // this.ticketId = params['id'];
+            //     this.ticketId = +params.id;
+            //     this.setTicketDetails();
+            // })
+            this.initializeTicketDetails();
         });
     }
 
     ngOnInit () {
-        this.ticketId = this.route.snapshot.params['id'];
+        // this.ticketId = this.route.snapshot.params['id'];
+
+        // this.route.params.subscribe((params: any) => {
+        //     // this.ticketId = params['id'];
+        //     this.ticketId = +params.id;
+        //     this.setTicketDetails();
+        // })
+        //  this.ticketService.prevTicket$.subscribe(id => {
+        //     this.getTicketDetails(id);
+        // });
+        // this.ticketService.nextTicket$.subscribe(id => {
+        //     this.getTicketDetails(id);
+        // });
+
+        // Moved to funcion april 21
+        // this.getAllNotes(this.ticketId);
+        // this.getAllLabors(this.ticketId);
+        // this.getAllMaterials(this.ticketId);
+        // this.getAllDocuments(this.ticketId);
+        // this.getTicketDetails();
+        // this.switchTab(1);
+        // this.breadcrumbHeaderService.setBreadcrumbTitle('Ticket Details');
+
+
+        // this.queryParams.subscribe(data => {
+        //     let _data = data;
+        //     console.log(data);
+        // })
+        // let data = this.router.events.subscribe(data => {
+        //     let _data = data;
+        // });
+
+    }
+    // April21-2017
+    ngOnChanges (changes) {
+        if (changes['ticket']) {
+            if (changes['ticket'].currentValue) {
+                this.ticket = changes['ticket'].currentValue;
+                this.initializeTicketDetails();
+            } else {
+                this.ticket = [];
+            }
+        }
+    }
+    initializeTicketDetails () {
+        this.breadcrumbHeaderService.setBreadcrumbTitle('');
+        this.getAllActiveEmployees();
+        this.ticketService.ticketRefresh$.subscribe(status => {
+            this.getTicketDetails();
+        });
+
+        this.route.params.subscribe((params: any) => {
+            // this.ticketId = params['id'];
+            this.ticketId = +params.id;
+            this.setTicketDetails();
+        })
+    }
+
+    setTicketDetails () {
         this.getAllNotes(this.ticketId);
         this.getAllLabors(this.ticketId);
         this.getAllMaterials(this.ticketId);
         this.getAllDocuments(this.ticketId);
         this.getTicketDetails();
         this.switchTab(1);
-        this.breadcrumbHeaderService.setBreadcrumbTitle('Ticket Details');
-
+        // this.breadcrumbHeaderService.setBreadcrumbTitle('Ticket Details');
     }
     getTicketDetails () {
         this.ticketService.getTicketDetails(this.ticketId).subscribe(
             data => {
                 this.ticket = data;
+                //Set Ticket title
+                this.breadcrumbHeaderService.setBreadcrumbTitle(this.ticket.ticket_key);
+
                 this.tenantService.getTenant(this.ticket.tenant).subscribe(
                     data => {
                         let _tenant_contact: any[] = data.tenant_contacts.map(item => {
@@ -122,6 +190,10 @@ export class TicketDetailsComponent implements OnInit {
                 // this.getActiveTenantsByBuilding(_building_id);
                 this.dueDateCalcutate();
                 this.getSelectedTenants();
+                this.ticketService.setShowLoadingIcon(false);
+            },
+            error => {
+                this.ticketService.setShowLoadingIcon(false);
             }
         );
     }

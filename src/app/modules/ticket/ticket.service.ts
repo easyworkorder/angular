@@ -22,6 +22,19 @@ export class TicketService extends DataService {
   private ticketUpdateSource = new ReplaySubject<boolean>();
   ticketRefresh$ = this.ticketUpdateSource.asObservable();
 
+  //All tickets for navigate
+  private ticketsSource = new ReplaySubject<boolean>();
+  tickets$ = this.ticketsSource.asObservable();
+  _tickets: any;
+
+  private prevTicket = new Subject<string>();
+  prevTicket$ = this.prevTicket.asObservable();
+  private nextTicket = new Subject<string>();
+  nextTicket$ = this.nextTicket.asObservable();
+
+  private showLoadingIconSource = new Subject<boolean>()
+  showNextPrevLoadingIcon$ = this.showLoadingIconSource.asObservable();
+
   constructor(
     protected http: AppHttp,
     protected events: EventService,
@@ -29,6 +42,9 @@ export class TicketService extends DataService {
     private toasterService: ToasterService
   ) {
     super(events);
+    this.tickets$.subscribe(data => {
+      this._tickets = data;
+    })
   }
 
   /**
@@ -280,5 +296,25 @@ export class TicketService extends DataService {
 
   updateTicket (status) {
     this.ticketUpdateSource.next(status);
+  }
+
+  setTickets (tickets) {
+    this.ticketsSource.next(tickets);
+  }
+
+  getTickets () {
+    return this._tickets;
+  }
+
+  //Next Prev Ticket
+  setPrevTicket (ticketId) {
+    this.prevTicket.next(ticketId);
+  }
+  setNextTicket (ticketId) {
+    this.nextTicket.next(ticketId);
+  }
+
+  setShowLoadingIcon (show) {
+    this.showLoadingIconSource.next(show);
   }
 }

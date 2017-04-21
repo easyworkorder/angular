@@ -71,20 +71,21 @@ export class TicketEditComponent implements OnInit {
         private authService: AuthenticationService) {
         this.authService.verifyToken().take(1).subscribe(data => {
             // console.log('Ticket ---- ' + this.ticket);
-            this.ticketForm.patchValue(this.ticket);
-            // this.getAllTickets();
-            this.getAllActiveBuildings();
-            this.getAllActiveProblemTypes();
+            // this.ticketForm.patchValue(this.ticket);
+            // // this.getAllTickets();
+            // this.getAllActiveBuildings();
+            // this.getAllActiveProblemTypes();
         });
     }
 
     ngOnInit () {
-        const ticket = this.ticket;
-        this.selectPriority.push({ id: ticket.priority, text: ticket.priority });
-        this.selectSource.push({ id: ticket.source, text: ticket.source });
-        if (ticket.group) {
-            this.selectGroup.push({id: ticket.group, text: ticket.group});
-        }
+        //TeMP
+        // const ticket = this.ticket;
+        // this.selectPriority.push({ id: ticket.priority, text: ticket.priority });
+        // this.selectSource.push({ id: ticket.source, text: ticket.source });
+        // if (ticket.group) {
+        //     this.selectGroup.push({id: ticket.group, text: ticket.group});
+        // }
 
         // this.problemTypeService.getProblemTypeByUrl(ticket.problemtype).subscribe(data => {
         //     this.selectedProblem_type.push({id: data.id, text: (data.problem_name)});
@@ -93,10 +94,47 @@ export class TicketEditComponent implements OnInit {
         // this.employeeService.getEmployeeByIdByUrl(ticket.employee).subscribe(data => {
         //     this.selectedProblem_type.push({id: data.id, text: (data.first_name + ' ' + data.last_name) });
         // });
+
+        //Temp
+        // this.getSelectProblemType();
+        // this.getSelectEmployee();
+    }
+
+    ngOnChanges (changes) {
+        if (changes['ticket']) {
+            if (changes['ticket'].currentValue) {
+                this.ticket = changes['ticket'].currentValue;
+                this.initializeTicketEdit();
+            } else {
+                this.ticket = [];
+            }
+        }
+    }
+
+    initializeTicketEdit () {
+        this.resetDropDowns();
+        const ticket = this.ticket;
+
+        this.ticketForm.patchValue(this.ticket);
+        // this.getAllTickets();
+        this.getAllActiveBuildings();
+        this.getAllActiveProblemTypes();
+
+        //init block
+
+        // this.selectPriority.push({ id: ticket.priority, text: ticket.priority });
+        // this.selectSource.push({ id: ticket.source, text: ticket.source });
+
+        this.selectPriority = [{ id: ticket.priority, text: ticket.priority }];
+        this.selectSource = [{ id: ticket.source, text: ticket.source }];
+        if (ticket.group) {
+            // this.selectGroup.push({ id: ticket.group, text: ticket.group });
+            this.selectGroup = [{ id: ticket.group, text: ticket.group }];
+        }
+
         this.getSelectProblemType();
         this.getSelectEmployee();
     }
-
     getSelectProblemType () {
         this.problemTypeService.getProblemTypeByUrl(this.ticket.problemtype).subscribe(data => {
             // this.selectedProblem_type.push({id: data.id, text: (data.problem_name)});
@@ -199,5 +237,13 @@ export class TicketEditComponent implements OnInit {
     public selectedGroup (value: any): void {
         this.selectGroup = [value];
         this.ticketForm.get('group').setValue(this.selectGroup[0].id);
+    }
+
+    resetDropDowns () {
+        this.selectedProblem_type = [];
+        this.selectPriority = [];
+        this.selectEmployee = [];
+        this.selectGroup = [];
+        this.selectSource = [];
     }
 }

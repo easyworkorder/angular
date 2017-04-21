@@ -3,6 +3,8 @@ import { DataService, Storage, AppHttp } from 'app/services';
 import { AuthenticationService } from 'app/modules/authentication';
 import { TicketService } from './../ticket/ticket.service';
 import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
+import config from '../../config';
+import { HeaderService } from "app/modules/shared/header/header.service";
 
 @Component({
     selector: 'ewo-user-dashboard',
@@ -28,6 +30,7 @@ export class UserDashboardComponent implements OnInit {
         private storage: Storage,
         private ticketService: TicketService,
         private breadcrumbHeaderService: BreadcrumbHeaderService,
+        private headerService: HeaderService,
         private http: AppHttp
     ) {
         this.authService.verifyToken().take(1).subscribe(data => {
@@ -69,6 +72,9 @@ export class UserDashboardComponent implements OnInit {
 
     ngOnInit () {
         this.breadcrumbHeaderService.setBreadcrumbTitle('Desktop');
+        this.headerService.setDashBoardTitle({ title: 'DESKTOP', link: ['/'] });
+
+        this.storage.set(config.storage.ticketRequestType, this.currentRequestType);
     }
 
     getAllTickets (type): void {
@@ -82,6 +88,9 @@ export class UserDashboardComponent implements OnInit {
     updateTicketList (type) {
 
         this.currentRequestType = type;
+
+        //For Temp
+        this.storage.set(config.storage.ticketRequestType, type);
 
         switch (type) {
             case 'new':

@@ -19,7 +19,7 @@ export class AdminDashBoardResolver implements Resolve<any> {
         // this.breadcrumbHeaderService.setBreadcrumbTitle(title);
 
 
-        return this.headerService.setDashBoardTitle({ title: 'ADMINISTRATION PORTAL', link: ['/', 'admin'] });
+        return this.headerService.setDashBoardTitle({ title: 'ADMINISTRATOR PORTAL', link: ['/', 'admin'] });
         // return this.headerService.setDashBoardTitle({ title: 'TICKETS', link: ['/'] });
     }
 }

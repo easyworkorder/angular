@@ -43,7 +43,7 @@ export class BuildingAdminComponent implements OnInit {
         // this.getBuilding(this._buildingId);
         // this.breadcrumbHeaderService.setBreadcrumbTitle('Building Admin');
         // this.headerService.setDashBoardTitle({ title: 'TICKETS', link: [`/`] });
-        this.headerService.setDashBoardTitle({ title: 'ADMINISTRATION PORTAL', link: ['/', 'admin'] });
+        this.headerService.setDashBoardTitle({ title: 'ADMINISTRATOR PORTAL', link: ['/', 'admin'] });
 
     }
 

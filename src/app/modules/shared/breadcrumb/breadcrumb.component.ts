@@ -40,17 +40,28 @@ export class BreadcrumbComponent implements OnInit, OnChanges {
         }
 
         this._routerSubscription = this.router.events.subscribe((navigationEnd: NavigationEnd) => {
-            this._urls.length = 0; //Fastest way to clear out array
+            if (navigationEnd.id == 1) {
+                this._urls.length = 0; //Fastest way to clear out array
+            }
+            // this._urls.length = 0; //Fastest way to clear out array
             navigationEnd.id == 1 && this.generateBreadcrumbTrail(navigationEnd.urlAfterRedirects ? navigationEnd.urlAfterRedirects : navigationEnd.url);
         });
 
         this.router.events
             .filter(e => e instanceof NavigationEnd)
             .pairwise().subscribe((data: any) => {
-                this._urls.length = 0; //Fastest way to clear out array
+
 
                 let concaturl = data.reduce((acc, item) => acc.concat(item.url), []);
                 let constring = concaturl[0].concat(concaturl[1]);
+
+                if (concaturl[0].toString().match(/^\/ticket-details\/[0-9]{1,10}$/) &&
+                    concaturl[1].toString().match(/^\/ticket-details\/[0-9]{1,10}$/)
+                ) {
+                    return;
+                }
+                this._urls.length = 0; //Fastest way to clear out array
+
                 let isFromAdmin = false;
                 if ((concaturl[0].toString().match(/^\/admin\/building\/[0-9]{1,10}\/tenant-profile\/[0-9]{1,10}$/) &&
                     concaturl[1].toString().match(/^\/ticket-details\/[0-9]{1,10}$/)) ||

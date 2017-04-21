@@ -16,7 +16,7 @@ export class AdminSetupComponent implements OnInit {
     ) { }
 
     ngOnInit () {
-        this.breadcrumbHeaderService.setBreadcrumbTitle('Administration Portal');
+        this.breadcrumbHeaderService.setBreadcrumbTitle('Administrator Portal');
         this.headerService.setDashBoardTitle({ title: 'TICKETS', link: ['/'] });
 
     }

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output, OnChanges } from '@angular/core';
 import { DataService, AppHttp } from "app/services";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { FormControl } from "@angular/forms";
 import { TicketService } from "app/modules/ticket/ticket.service";
 declare var $: any;
@@ -24,10 +24,15 @@ export class TicketListComponent implements OnInit {
         // private http: ApdpHttp,
         private dataService: DataService,
         private router: Router,
+        private activateRoute: ActivatedRoute,
         private storage: Storage,
         private ticketService: TicketService,
         private toasterService: ToasterService
-    ) { }
+    ) {
+        this.router.events.subscribe(data => {
+            console.log('router event', data);
+        })
+    }
     /// A List of Contact objects to display
     @Input() tickets: any[];
     @Input() isAdmin: boolean = false;
@@ -40,6 +45,13 @@ export class TicketListComponent implements OnInit {
         this.allCheckbox.valueChanges.subscribe(value => {
             this.ticketList.map(item => item.checked = value)
         });
+
+        // this.ticketService.prevTicket$.subscribe(id => {
+        //     this.getTicketDetails(id);
+        // });
+        // this.ticketService.nextTicket$.subscribe(id => {
+        //     this.getTicketDetails(id);
+        // });
     }
     ngOnChanges (changes) {
         if (changes['tickets']) {
@@ -59,8 +71,10 @@ export class TicketListComponent implements OnInit {
         this.change.emit(data);
     }
 
-    getTicketDetails (ticket) {
-        this.router.navigate(['/ticket-details', ticket.id]);
+    getTicketDetails (ticketId) {
+        this.ticketService.setTickets(this.ticketList);
+        // this.router.navigate(['/', 'ticket-details', ticketId], { relativeTo: this.activateRoute, skipLocationChange: false });
+        this.router.navigate(['/', 'ticket-details', ticketId]);
     }
 
     getPhotoUrl (ticket) {

@@ -17,8 +17,10 @@
 <a *ngIf="(userInfo?.IsContact)" modal-dialog-open="modal-tenant-ticket-reply" class="btn btn-sm btn-default" data-toggle="modal"><i class="fa fa-reply"></i> Reply</a>
 
 <div class="pull-right">
-    <a href="javascript:void(0)" class="btn btn-sm btn-primary"><i class="fa fa-arrow-left"></i> Prev</a>
-    <a href="javascript:void(0)" class="btn btn-sm btn-primary">Next <i class="fa fa-arrow-right"></i></a>
+    <!--<button (click)="btnPrevClick($event)" [disabled]="prevDisabled" class="btn btn-sm btn-primary"><i class="fa fa-arrow-left"></i> Prev <i *ngIf="showLoadingIcon" class="fa fa-spinner fa-spin"></i></button>
+    <button (click)="btnNexClick($event)" [disabled]="nextDisabled" class="btn btn-sm btn-primary"><i *ngIf="showLoadingIcon" class="fa fa-spinner fa-spin"></i> Next <i class="fa fa-arrow-right"></i></button>-->
+    <button (click)="btnPrevClick($event)" [disabled]="prevDisabled || showPrevLoadingIcon || showNextLoadingIcon" class="btn btn-sm btn-primary"><i class="fa fa-arrow-left"></i> Prev <i *ngIf="showPrevLoadingIcon" class="fa fa-spinner fa-spin"></i></button>
+    <button (click)="btnNexClick($event)" [disabled]="nextDisabled || showNextLoadingIcon || showPrevLoadingIcon" class="btn btn-sm btn-primary"><i *ngIf="showNextLoadingIcon" class="fa fa-spinner fa-spin"></i> Next <i class="fa fa-arrow-right"></i></button>
 </div>
 <hr>
 <div>

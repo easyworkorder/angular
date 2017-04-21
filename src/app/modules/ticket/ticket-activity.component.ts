@@ -1,16 +1,21 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Storage } from 'app/services';
 import { ToasterService } from 'angular2-toaster';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import config from '../../config';
 import { TicketService } from './ticket.service';
 import { VendorService } from './../admin/vendor/vendor.service';
 import { EmployeeService } from './../admin/employee/employee.service';
 import { AuthenticationService } from "app/modules/authentication";
+import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
 declare var $: any;
 
+const enum Page {
+    prev,
+    next
+}
 
 @Component({
     selector: 'ewo-ticket-activity',
@@ -21,6 +26,7 @@ export class TicketActivityComponent implements OnInit {
     currentCompanyId = 1;
 
     @Input() ticket: any;
+    // @Input() ticketList: any;
     @Input() ticket_submitter_info: any;
     @Input() notes: any;
     // @Input() employees: any;
@@ -43,6 +49,13 @@ export class TicketActivityComponent implements OnInit {
     selectedFile: string = '';
 
     userInfo: any;
+    allTickets: any;
+
+    prevDisabled: boolean = false;
+    nextDisabled: boolean = false;
+
+    showPrevLoadingIcon: boolean = false;
+    showNextLoadingIcon: boolean = false;
 
     /**
      * Note Reply form
@@ -139,33 +152,99 @@ export class TicketActivityComponent implements OnInit {
         private employeeService: EmployeeService,
         private authService: AuthenticationService,
         private storage: Storage,
-        private toasterService: ToasterService
+        private toasterService: ToasterService,
+        private router: Router,
+        private activatedRoute: ActivatedRoute,
+        private breadcrumbHeaderService: BreadcrumbHeaderService,
     ) {
         this.authService.verifyToken().take(1).subscribe(data => {
             this.userInfo = this.storage.getUserInfo();
 
 
-            let _problemtype_id = this.ticket.problemtype.extractIdFromURL();
-            /**
-             * Get All Vendors by problem type
-             */
-            this.vendorService.getActiveVendorsByProblemType(_problemtype_id).subscribe(
-                data => {
-                    let _vendor: any[] = data.map(item => {
-                        return { id: item.id, text: (item.company_name) };
-                    })
-                    this.vendors = _vendor;
-                }
-            );
+            // let _problemtype_id = this.ticket.problemtype.extractIdFromURL();
+            // /**
+            //  * Get All Vendors by problem type
+            //  */
+            // this.vendorService.getActiveVendorsByProblemType(_problemtype_id).subscribe(
+            //     data => {
+            //         let _vendor: any[] = data.map(item => {
+            //             return { id: item.id, text: (item.company_name) };
+            //         })
+            //         this.vendors = _vendor;
+            //     }
+            // );
 
-            this.getEmployeesByTicketBuildingProblemType(_problemtype_id);
+            // this.getEmployeesByTicketBuildingProblemType(_problemtype_id);
 
+        });
+        this.ticketService.showNextPrevLoadingIcon$.subscribe(show => {
+            this.showPrevLoadingIcon = show;
+            this.showNextLoadingIcon = show;
         });
     }
 
 
     ngOnInit () {
-        this.ticketForm.patchValue(this.ticket);
+        // this.ticketForm.patchValue(this.ticket);
+        //for next prev
+        // this.ticketService.tickets$.subscribe(data => {
+        //     const ticketId = this.ticket.id;
+        //     this.allTickets = data;
+        //     const allTicketIds = this.allTickets.map(item => item.id);
+        // });
+
+        console.log('this.storage.get(config.storage.ticketRequestType)', this.storage.get(config.storage.ticketRequestType));
+
+
+        if (!this.ticketService.getTickets()) {
+            let ticketRequestType = this.storage.get(config.storage.ticketRequestType);
+            // this.ticketService.updateTicketList(true);
+
+            this.getAllTickets(ticketRequestType);
+
+        } else {
+            this.disabledButtons();
+        }
+    }
+
+
+    ngOnChanges (changes) {
+        if (changes['ticket']) {
+            if (changes['ticket'].currentValue) {
+                this.ticket = changes['ticket'].currentValue;
+                this.ticketForm.patchValue(this.ticket);
+                this.getProblemTypes();
+            } else {
+                this.ticket = [];
+            }
+        }
+    }
+    getAllTickets (type): void {
+        this.ticketService.getAllTickets(this.currentCompanyId, type).subscribe(
+            data => {
+                // this.tickets = data;
+                this.ticketService.setTickets(data);
+                this.disabledButtons();
+
+            }
+        );
+    }
+    getProblemTypes () {
+        let _problemtype_id = this.ticket.problemtype.extractIdFromURL();
+        /**
+         * Get All Vendors by problem type
+         */
+        this.vendorService.getActiveVendorsByProblemType(_problemtype_id).subscribe(
+            data => {
+                let _vendor: any[] = data.map(item => {
+                    return { id: item.id, text: (item.company_name) };
+                })
+                this.vendors = _vendor;
+            }
+        );
+
+        this.getEmployeesByTicketBuildingProblemType(_problemtype_id);
+
     }
 
     onPublicSubmit () {
@@ -388,5 +467,107 @@ export class TicketActivityComponent implements OnInit {
 
         this._vendorSubmitted = false;
         this._publicFormSubmitted = false;
+    }
+
+    btnPrevClick (event) {
+        this.getNextPrevTicket(Page.prev);
+        this.disabledButtons();
+
+        // let tickets = this.ticketService.getTickets();
+        // const allTicketIds: any[] = tickets.map(item => item.id);
+        // const length = allTicketIds.length;
+        // const ticketIndex = allTicketIds.indexOf(this.ticket.id);
+
+        // this.router.navigate(['/ticket-details', allTicketIds[ticketIndex - 1]]);
+
+
+        // if (length > 1 && ticketIndex == 0) {
+        //     this.prevDisabled = true;
+        // } else if (length > 1 && ticketIndex > 0) {
+        //     this.router.navigate(['/ticket-details', allTicketIds[ticketIndex - 1]]);
+        // } else if (length > 1 && ticketIndex == length) {
+        //     this.nextDisabled = true;
+        //     this.router.navigate(['/ticket-details', allTicketIds[ticketIndex - 1]]);
+        // }
+
+
+
+
+        // else if (length > 1 && ticketIndex > 0) {
+        //     this.router.navigate(['/ticket-details', allTicketIds[ticketIndex - 1]]);
+        // }
+
+    }
+    btnNexClick (event) {
+        this.getNextPrevTicket(Page.next);
+        this.disabledButtons();
+    }
+
+    getNextPrevTicket (page) {
+        let tickets: any[] = this.ticketService.getTickets();
+        if (!tickets) return;
+        const allTicketIds: any[] = tickets.map(item => item.id).reverse();
+        const length = allTicketIds.length;
+        const ticketIndex = allTicketIds.indexOf(this.ticket.id);
+
+        //Set tickets
+        this.ticketService.setTickets(tickets);
+        if (page == Page.prev) {
+            this.showPrevLoadingIcon = true;
+
+            let id = +allTicketIds[ticketIndex - 1];
+            // let id = +allTicketIds[ticketIndex + 1];
+
+            //new tickets
+            let _ticket = tickets.find(item => item.id == id);
+            this.ticket = _ticket;
+            // this.breadcrumbHeaderService.setBreadcrumbTitle('');
+            this.router.navigate(['/ticket-details', id], { replaceUrl: true });
+
+            // this.router.navigate(['/ticket-details', id], { replaceUrl: true, relativeTo: this.activatedRoute });
+            // this.ticketService.setPrevTicket(allTicketIds[ticketIndex - 1]);
+            // this.ticketService.setPrevTicket(id);
+
+        }
+        else if (page == Page.next) {
+            this.showNextLoadingIcon = true;
+            let id = +allTicketIds[ticketIndex + 1];
+            // let id = +allTicketIds[ticketIndex - 1];
+
+            //new tickets
+            let _ticket = tickets.find(item => item.id == id);
+            this.ticket = _ticket;
+            // this.breadcrumbHeaderService.setBreadcrumbTitle('');
+            this.router.navigate(['/ticket-details', id], { replaceUrl: true });
+
+            // this.router.navigate(['/ticket-details', allTicketIds[ticketIndex + 1]], {replaceUrl: true});
+            // this.router.navigate(['/ticket-details', id], { replaceUrl: true, relativeTo: this.activatedRoute, skipLocationChange: false });
+
+            // this.ticketService.setNextTicket(allTicketIds[ticketIndex + 1]);
+            // this.ticketService.setNextTicket(id);
+
+        }
+    }
+
+    disabledButtons () {
+        this.prevDisabled = false;
+        this.nextDisabled = false;
+        let tickets = this.ticketService.getTickets();
+        if (!tickets) return;
+        const allTicketIds: any[] = tickets.map(item => item.id).reverse();
+        const length = allTicketIds.length;
+        const ticketIndex = allTicketIds.indexOf(this.ticket.id);
+
+        if (length == 1) {
+            this.prevDisabled = true;
+            this.nextDisabled = true;
+            return;
+        }
+
+        if (length > 1 && ticketIndex == 0) {
+            this.prevDisabled = true;
+        } else if (length > 1 && (ticketIndex + 1) == length) {
+            this.nextDisabled = true;
+        }
     }
 }
