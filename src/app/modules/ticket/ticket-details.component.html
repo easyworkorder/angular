@@ -42,25 +42,8 @@
 
                 <!-- FILES TAB -->
                 <div class="tab-pane" id="ticket-files">
-                    <!-- Dropzone Block -->
-                    <div class="block full">
-                        <!-- Dropzone Title -->
-                        <div class="block-title">
-                            <h2>FILES</h2>
-                            <a modal-dialog-open="add-ticket-file"
-                               class="btn btn-effect-ripple btn-default pull-right"
-                               data-toggle="modal"
-                               title="" style="overflow: hidden; position: relative;" data-original-title="Add File">
-                                <i class="fa fa-upload"></i></a>
-                        </div>
-                        <!-- END Dropzone Title -->
-                        <ewo-file-list [fileList]="documents"></ewo-file-list>
                         <!-- Add File-->
-                        <ewo-ticket-file *ngIf="ticket" id="add-ticket-file" [ticket]="ticket"
-                                         (update)="updateFileInfo($event)"
-                                         class="modal fade"
-                                         role="dialog" aria-hidden="true"></ewo-ticket-file>
-                    </div>
+                    <ewo-ticket-file *ngIf="ticket && documents" [ticket]="ticket" [documents]="documents" (update)="updateFileInfo($event)"></ewo-ticket-file>
                     <!-- END Dropzone Block -->
                 </div>
                 <!-- END LABOR TAB -->

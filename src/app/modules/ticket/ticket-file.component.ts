@@ -21,7 +21,8 @@ export class TicketFileComponent implements OnInit {
         private http: AppHttp
     ) { }
 
-    @Input() ticket: any = null;
+    @Input() ticket: any;
+    @Input() documents: any;
     @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
 
     isSubmit: boolean = false;
@@ -30,6 +31,7 @@ export class TicketFileComponent implements OnInit {
     docFile: File = null;
     selectedFileName: string = '';
     ticketDocument: any;
+    toDeletedFile: any;
 
     ticketDocumentForm = new FormGroup({
         id: new FormControl(),
@@ -82,15 +84,15 @@ export class TicketFileComponent implements OnInit {
                 if (data.doc_url) {
                     delete data.doc_url;
                 }
-                this.http.put(data.url, data, null, null).subscribe(tenantDoc => {
-                    this.documentSaveCallback('Document without file Updated.', tenantDoc);
+                this.http.put(data.url, data, null, null).subscribe(doc => {
+                    this.documentSaveCallback('Document without file Updated.', doc);
                     this.closeModal();
                 });
             } else {
                 delete data.id;
                 delete data.url;
-                this.http.post('ticketdocument/', data, null, null).subscribe(tenantDoc => {
-                    this.documentSaveCallback('Document without file Created.', tenantDoc);
+                this.http.post('ticketdocument/', data, null, null).subscribe(doc => {
+                    this.documentSaveCallback('Document without file Created.', doc);
                 });
             }
         }
@@ -108,7 +110,6 @@ export class TicketFileComponent implements OnInit {
     }
 
     documentSaveCallback(msg: string,  document: any) {
-        console.log(msg, document);
         this.isSubmit = false;
         this.change.emit(true);
         this.closeModal();
@@ -120,6 +121,7 @@ export class TicketFileComponent implements OnInit {
         let creatORUpdateObservable: Observable<any>;
         if (document.id) {
             // creatORUpdateObservable = this.employeeService.update(boundEmployee);
+            creatORUpdateObservable = this.http.patch(document.url, document);
             console.log('Not Updating');
         } else {
             delete document.id;
@@ -194,6 +196,15 @@ export class TicketFileComponent implements OnInit {
         return observable;
     }
 
+    editFile (file) {
+        this.selectedFileName = file.filename;
+        this.ticketDocumentForm.patchValue(file);
+    }
+
+    deleteFile (file) {
+        this.toDeletedFile = file;
+    }
+
     closeModal() {
         this.resetForm();
         $('#add-ticket-file').modal('hide');
@@ -208,6 +219,31 @@ export class TicketFileComponent implements OnInit {
             description: '',
             tenant_view: true
         });
+    }
+
+    onModalOkButtonClick (event) {
+
+        if (this.toDeletedFile) {
+
+            const observable = this.http.delete(this.toDeletedFile.url, this.toDeletedFile);
+            observable.subscribe(data => {
+            this.toasterService.pop('success', 'DELETE', 'File has been deleted successfully');
+                this.change.emit(true);
+            },
+            error => {
+                this.toasterService.pop('error', 'DELETE', 'File not deleted due to API error!!!');
+            });
+            $('#modal-delete-confirm').modal('hide');
+
+
+            return observable;
+
+            /*this.ticketService.deleteLabor(this.toDeletedLabor).subscribe(data => {
+                $('#modal-labor-delete-confirm').modal('hide');
+                this.ticketService.updateTicket(true);
+                this.change.emit(true);
+            })*/
+        }
     }
 
 }

@@ -7,13 +7,11 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 })
 export class FileListComponent implements OnInit {
 
-    @Input()
-    fileList:any[] = [];
-    
+    @Input() fileList: any;
+    @Input() modal_popup_name: any;
+
     constructor() { }
 
-    ngOnInit() {
-        
-    }
+    ngOnInit() {}
 
 }
