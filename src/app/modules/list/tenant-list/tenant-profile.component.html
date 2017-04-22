@@ -7,7 +7,7 @@
         <loading-spinner-wave *ngIf="!tenant"></loading-spinner-wave>
         <ewo-tenant-contact-activities *ngIf="tenant" [tenant]="tenant" 
             [insurances]="insurances"
-            [documents]="documents"
+            [files]="files"
             [isDashboardList]="true"
             (update)="updateInActivity($event)"></ewo-tenant-contact-activities>
     </div>

@@ -151,6 +151,11 @@ import { TenantListItemComponent } from './modules/shared/list-item/tenant-list-
 import { EmployeeListItemComponent } from './modules/shared/list-item/employee-list-item.component';
 import { BuildingSlaTargetComponent } from './modules/admin/sla-policy/building-sla-target.component';
 
+/**
+ * File
+ */
+import { FileComponent } from './modules/shared/file-list/file.component';
+
 import { InputValueRestrictionModule } from "app/directives/input-value-restriction.directive";
 import { LoadingSpinnerModule } from "app/modules/shared/loading-spinner/loading-spinner.module";
 import { BreadcrumbComponent, BreadcrumbService } from "app/modules/shared/breadcrumb";
@@ -288,7 +293,9 @@ export function translateStaticLoaderFactory (Backend, defaultOptions, storage, 
         AssignTicketComponent,
         CloseTicketComponent,
         ReopenTicketComponent,
-        TenantTicketReplyComponent
+        TenantTicketReplyComponent,
+
+        FileComponent
     ],
     imports: [
         BrowserModule,

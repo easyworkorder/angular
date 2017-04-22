@@ -22,7 +22,7 @@ export class TenantContactActivitiesComponent implements OnInit {
     @Input() tenant: any;
     @Input() insurances: any;
     @Input() tickets: any;
-    @Input() documents: any;
+    @Input() files: any;
     @Input() isAdmin: boolean = false;
     @Input() isDashboardList: boolean = false;
     @Input() isTenant: boolean = false;
