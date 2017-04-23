@@ -20,6 +20,7 @@ export class BuildingAdminDetailsComponent implements OnInit {
 
     currentCompanyId = 1;
     employees: any[] = [];
+    files: any[] = [];
     primarycontact_id: any = [];
 
     editedBuilding: any;
@@ -50,6 +51,7 @@ export class BuildingAdminDetailsComponent implements OnInit {
         this.breadcrumbHeaderService.setBreadcrumbTitle('Building Admin');
         this._buildingId = this.route.snapshot.params['id'];
         this.getBuilding(this._buildingId);
+        this.getFiles(this._buildingId);
         this.getBuildingSLAPolicy(this._buildingId);
         this.headerService.setDashBoardTitle({ title: 'BUILDINGS', link: [`/admin/building`] });
 
@@ -149,5 +151,20 @@ export class BuildingAdminDetailsComponent implements OnInit {
 
     onUpdateSLAPolicy (val) {
         this.getBuildingSLAPolicy(this._buildingId);
+    }
+
+    updateFileList(event) {
+        this.getFiles(this._buildingId);
+    }
+
+    /**
+     * Get Files list by tenant
+     */
+    getFiles (building_id) {
+        this.buildingService.getDocuments(building_id).subscribe(
+            data => {
+                this.files = data.results;
+            }
+        );
     }
 }

@@ -70,7 +70,7 @@ export class TenantContactActivitiesComponent implements OnInit {
         this.change.emit(event);
     }
 
-    updateFileList(event){
+    updateFileList(event) {
         this.change.emit(event);
     }
 

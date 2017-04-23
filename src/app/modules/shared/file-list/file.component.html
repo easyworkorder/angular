@@ -1,5 +1,5 @@
-<div ngClass="{'block': parent_object_type == 'ticket'}">
-    <div class="block-title" *ngIf="parent_object_type == 'ticket'">
+<div [ngClass]="{'block': (parent_object_type == 'building' || parent_object_type == 'ticket')}">
+    <div class="block-title" *ngIf="parent_object_type == 'ticket' || parent_object_type == 'building'">
         <h2>FILES</h2>
         <a modal-dialog-open="add-file"
            class="btn btn-effect-ripple btn-default pull-right"

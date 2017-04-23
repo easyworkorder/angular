@@ -91,4 +91,10 @@ export class BuildingService extends DataService {
       this._editedBuilding = val;
     }
   }
+
+  getDocuments (building_id) {
+    const observable = this.http.get('buildingdocument/?building_id=' + building_id + '&ordering=id');
+    // observable.subscribe(data => {});
+    return observable;
+  }
 }
