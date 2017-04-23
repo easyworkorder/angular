@@ -11,6 +11,7 @@ import {
     Storage
 } from './../../../services/index';
 import { ToasterService } from "angular2-toaster/angular2-toaster";
+import { PagerService } from "app/services/pager.service";
 
 @Component({
     selector: 'ewo-ticket-list',
@@ -20,6 +21,12 @@ export class TicketListComponent implements OnInit {
     @Input() employees: any[] = [];
     @Input() currentRequestType: any;
 
+    // Paginations
+    // pager object
+    pager: any = {};
+    // paged items
+    pagedItems: any[];
+
     constructor(
         // private http: ApdpHttp,
         private dataService: DataService,
@@ -27,7 +34,8 @@ export class TicketListComponent implements OnInit {
         private activateRoute: ActivatedRoute,
         private storage: Storage,
         private ticketService: TicketService,
-        private toasterService: ToasterService
+        private toasterService: ToasterService,
+        private pagerService: PagerService
     ) {
         this.router.events.subscribe(data => {
             console.log('router event', data);
@@ -57,6 +65,7 @@ export class TicketListComponent implements OnInit {
         if (changes['tickets']) {
             if (changes['tickets'].currentValue.length > 0) {
                 this.ticketList = changes['tickets'].currentValue.map(item => Object.assign({}, item, { checked: false }));
+                this.setPage(1);
             } else {
                 this.ticketList = [];
             }
@@ -272,5 +281,17 @@ export class TicketListComponent implements OnInit {
                 });
             });
         });
+    }
+
+    setPage (page: number) {
+        if (page < 1 || page > this.pager.totalPages) {
+            return;
+        }
+
+        // get pager object from service
+        this.pager = this.pagerService.getPager(this.ticketList.length, page, 5);
+
+        // get current page of items
+        this.pagedItems = this.ticketList.slice(this.pager.startIndex, this.pager.endIndex + 1);
     }
 }

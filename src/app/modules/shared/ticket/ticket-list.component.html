@@ -30,7 +30,7 @@
                     <tr *ngIf="ticketList.length == 0">
                         <td colspan="7"> No Tickets Found.</td>
                     </tr>
-                    <tr *ngFor="let ticket of ticketList">
+                    <tr *ngFor="let ticket of pagedItems">
                         <td *ngIf="isAdmin" class="text-center"><label class="csscheckbox csscheckbox-primary"><input
                             type="checkbox" [checked]="ticket.checked" (change)="ticket.checked = !ticket.checked; onChangeCheckbox(ticket.checked)"><span></span></label></td>
                         <td class="text-center"><a (click)="getTicketDetails(ticket.id)">#{{ticket.ticket_key}}</a></td>
@@ -45,6 +45,20 @@
                     </tr>
                 </tbody>
             </table>
+            <!-- pager -->
+            <div class="text-center">
+                <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                    <li [ngClass]="{disabled:pager.currentPage === 1}">
+                        <a (click)="setPage(pager.currentPage - 1)"><i class="fa fa-chevron-left"></i></a>
+                    </li>
+                    <li [ngClass]="{active:pager.currentPage}">
+                        <a (click)="setPage(pager.currentPage)">{{pager.currentPage}}</a>
+                    </li>
+                    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                        <a (click)="setPage(pager.currentPage + 1)"><i class="fa fa-chevron-right"></i></a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </form>
 

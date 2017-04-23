@@ -168,6 +168,7 @@ import { AssignTicketComponent } from './modules/shared/ticket/assign-ticket.com
 import { CloseTicketComponent } from 'app/modules/shared/ticket/close-ticket.component';
 import { ReopenTicketComponent } from 'app/modules/shared/ticket/reopen-ticket.component';
 import { TenantTicketReplyComponent } from 'app/modules/ticket/tenant-ticket-reply.component';
+import { PagerService } from "app/services/pager.service";
 
 export function translateStaticLoaderFactory (Backend, defaultOptions, storage, notificationService) {
     return new AppHttp(Backend, defaultOptions, storage, notificationService);
@@ -347,7 +348,8 @@ export function translateStaticLoaderFactory (Backend, defaultOptions, storage, 
         UpdateTenantInsuranceService,
         SLAPolicyService,
         BreadcrumbService,
-        VerifyEmailService
+        VerifyEmailService,
+        PagerService
 
         // { provide: XSRFStrategy, useValue: new      CookieXSRFStrategy('token', 'x-csrftoken')
         // },
