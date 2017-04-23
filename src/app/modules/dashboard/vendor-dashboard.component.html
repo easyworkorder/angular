@@ -1,5 +1,5 @@
 <!-- Contact Profile Row -->
 <loading-spinner-wave *ngIf="!vendor"></loading-spinner-wave>
-<ewo-vendor-contact-activities *ngIf="vendor" [vendor]="vendor" [insurances]="insurances" [isVendor]="true"
+<ewo-vendor-contact-activities *ngIf="vendor" [vendor]="vendor" [insurances]="insurances" [isVendor]="true" [files]="files"
                                (update)="updateInActivity($event)"></ewo-vendor-contact-activities>
 <!-- END Contact Profile Row -->

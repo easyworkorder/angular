@@ -8,8 +8,11 @@
         title="" style="overflow: hidden; position: relative;" data-original-title="Add Contact"><i class="fa fa-plus"></i></a>
       <!--<a *ngIf="tabs.isInsuranceTabVisible" href="#add-vendor-insurance" class="btn btn-effect-ripple btn-default" data-toggle="modal"
         title="" style="overflow: hidden; position: relative;" data-original-title="Add Contact"><i class="fa fa-plus"></i></a>-->
-      <a *ngIf="tabs.isFilesTabVisible" href="#add-vendor-files" class="btn btn-effect-ripple btn-default" data-toggle="modal"
-        title="" style="overflow: hidden; position: relative;" data-original-title="Add Contact"><i class="fa fa-plus"></i></a>
+      <a *ngIf="isAdmin && tabs.isFilesTabVisible" modal-dialog-open="add-file"
+         class="btn btn-effect-ripple btn-default"
+         data-toggle="modal"
+         title="" style="overflow: hidden; position: relative;" data-original-title="Add File">
+        <i class="fa fa-upload"></i></a>
     </div>
     <ul class="nav nav-tabs" data-toggle="tabs">
       <li class="active"><a (click)="switchTab(2)" href="#profile-tickets" data-toggle="tab">Tickets</a></li>
@@ -48,127 +51,7 @@
 
     <!-- Files -->
     <div class="tab-pane" id="profile-files">
-      <h3 class="sub-header"><i class="fa fa-picture-o"></i> <strong>2014</strong></h3>
-      <div class="row gallery" data-toggle="lightbox-gallery">
-        <div class="col-lg-4">
-          <div class="gallery-image-container animation-fadeInQuick2Inv">
-            <img src="assets/img/placeholders/photos/photo5.jpg" alt="Image">
-            <a href="assets/img/placeholders/photos/photo5.jpg" class="gallery-image-options" title="Image Info">
-              <i class="fa fa-search-plus fa-3x text-light"></i>
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="gallery-image-container animation-fadeInQuick2Inv">
-            <img src="assets/img/placeholders/photos/photo6.jpg" alt="Image">
-            <a href="assets/img/placeholders/photos/photo6.jpg" class="gallery-image-options" title="Image Info">
-              <i class="fa fa-search-plus fa-3x text-light"></i>
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="gallery-image-container animation-fadeInQuick2Inv">
-            <img src="assets/img/placeholders/photos/photo7.jpg" alt="Image">
-            <a href="assets/img/placeholders/photos/photo7.jpg" class="gallery-image-options" title="Image Info">
-              <i class="fa fa-search-plus fa-3x text-light"></i>
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-3">
-          <div class="gallery-image-container animation-fadeInQuick2">
-            <img src="assets/img/placeholders/photos/photo8.jpg" alt="Image">
-            <a href="assets/img/placeholders/photos/photo8.jpg" class="gallery-image-options" title="Image Info">
-              <i class="fa fa-search-plus fa-3x text-light"></i>
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-3">
-          <div class="gallery-image-container animation-fadeInQuick2">
-            <img src="assets/img/placeholders/photos/photo9.jpg" alt="Image">
-            <a href="assets/img/placeholders/photos/photo9.jpg" class="gallery-image-options" title="Image Info">
-              <i class="fa fa-search-plus fa-3x text-light"></i>
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-3">
-          <div class="gallery-image-container animation-fadeInQuick2">
-            <img src="assets/img/placeholders/photos/photo10.jpg" alt="Image">
-            <a href="assets/img/placeholders/photos/photo10.jpg" class="gallery-image-options" title="Image Info">
-              <i class="fa fa-search-plus fa-3x text-light"></i>
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-3">
-          <div class="gallery-image-container animation-fadeInQuick2">
-            <img src="assets/img/placeholders/photos/photo11.jpg" alt="Image">
-            <a href="assets/img/placeholders/photos/photo11.jpg" class="gallery-image-options" title="Image Info">
-              <i class="fa fa-search-plus fa-3x text-light"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-      <h3 class="sub-header"><i class="fa fa-picture-o"></i> <strong>2013</strong></h3>
-      <div class="row gallery" data-toggle="lightbox-gallery">
-        <div class="col-lg-4">
-          <div class="gallery-image-container animation-fadeInQuick2Inv">
-            <img src="assets/img/placeholders/photos/photo12.jpg" alt="Image">
-            <a href="assets/img/placeholders/photos/photo12.jpg" class="gallery-image-options" title="Image Info">
-              <i class="fa fa-search-plus fa-3x text-light"></i>
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="gallery-image-container animation-fadeInQuick2Inv">
-            <img src="assets/img/placeholders/photos/photo13.jpg" alt="Image">
-            <a href="assets/img/placeholders/photos/photo13.jpg" class="gallery-image-options" title="Image Info">
-              <i class="fa fa-search-plus fa-3x text-light"></i>
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="gallery-image-container animation-fadeInQuick2Inv">
-            <img src="assets/img/placeholders/photos/photo14.jpg" alt="Image">
-            <a href="assets/img/placeholders/photos/photo14.jpg" class="gallery-image-options" title="Image Info">
-              <i class="fa fa-search-plus fa-3x text-light"></i>
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-3">
-          <div class="gallery-image-container animation-fadeInQuick2">
-            <img src="assets/img/placeholders/photos/photo15.jpg" alt="Image">
-            <a href="assets/img/placeholders/photos/photo15.jpg" class="gallery-image-options" title="Image Info">
-              <i class="fa fa-search-plus fa-3x text-light"></i>
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-3">
-          <div class="gallery-image-container animation-fadeInQuick2">
-            <img src="assets/img/placeholders/photos/photo16.jpg" alt="Image">
-            <a href="assets/img/placeholders/photos/photo16.jpg" class="gallery-image-options" title="Image Info">
-              <i class="fa fa-search-plus fa-3x text-light"></i>
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-3">
-          <div class="gallery-image-container animation-fadeInQuick2">
-            <img src="assets/img/placeholders/photos/photo17.jpg" alt="Image">
-            <a href="assets/img/placeholders/photos/photo17.jpg" class="gallery-image-options" title="Image Info">
-              <i class="fa fa-search-plus fa-3x text-light"></i>
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-3">
-          <div class="gallery-image-container animation-fadeInQuick2">
-            <img src="assets/img/placeholders/photos/photo18.jpg" alt="Image">
-            <a href="assets/img/placeholders/photos/photo18.jpg" class="gallery-image-options" title="Image Info">
-              <i class="fa fa-search-plus fa-3x text-light"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="text-center push-bit-top-bottom">
-        <a href="javascript:void(0)" class="btn btn-sm btn-primary">Show More</a>
-      </div>
+      <ewo-file *ngIf="vendor && files" [files]="files" [parent_object_id]="vendor.id" [parent_object_type]="'vendor'" (update)="updateFileList($event)"></ewo-file>
     </div>
     <!-- END Files -->
   </div>

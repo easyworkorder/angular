@@ -192,6 +192,17 @@ export class VendorService extends DataService {
         return observable;
     }
 
+    /**
+     * Get All files by vendor id
+     * @param vendor_id
+     * @returns {Observable<any>}
+     */
+    getDocuments (vendor_id) {
+        const observable = this.http.get('vendordocument/?vendor_id=' + vendor_id + '&ordering=id');
+        // observable.subscribe(data => {});
+        return observable;
+    }
+
 
     /**
      * Add vendor Insurance

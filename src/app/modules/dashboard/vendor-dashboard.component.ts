@@ -15,6 +15,7 @@ export class VendorDashboardComponent implements OnInit {
 
     vendor: any;
     insurances: any;
+    files: any;
     primaryContact: any;
     contactInfo: VendorContact;
 
@@ -60,6 +61,7 @@ export class VendorDashboardComponent implements OnInit {
 
                 this.vendor.contacts = this.vendor.vendor_contacts;
                 this.getInsurances(this.vendor.id);
+                this.getFiles(this.vendor.id);
             });
     }
 
@@ -76,12 +78,23 @@ export class VendorDashboardComponent implements OnInit {
     }
 
     /**
-     * Get Insurance list by tenant
+     * Get Insurance list by vendor
      */
     getInsurances(vendor_id) {
         this.vendorService.getInsurances(vendor_id).subscribe(
             data => {
                 this.insurances = data.results;
+            }
+        );
+    }
+
+    /**
+     * Get Files list by vednor
+     */
+    getFiles (vendor_id) {
+        this.vendorService.getDocuments(vendor_id).subscribe(
+            data => {
+                this.files = data.results;
             }
         );
     }

@@ -24,6 +24,7 @@ export class VendorContactActivitiesComponent implements OnInit {
 
     @Input() vendor: any;
     @Input() insurances: any;
+    @Input() files: any;
     @Input() tickets: any;
     @Input() isAdmin: false;
     @Input() isDashboardList: false;
@@ -85,6 +86,10 @@ export class VendorContactActivitiesComponent implements OnInit {
     }
 
     updateInsurance(event) {
+        this.change.emit(event);
+    }
+
+    updateFileList(event){
         this.change.emit(event);
     }
 

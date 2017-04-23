@@ -14,6 +14,7 @@ import { HeaderService } from "app/modules/shared/header/header.service";
 export class VendorProfileComponent implements OnInit {
     vendor: any;
     insurances: any;
+    files: any;
     primaryContact: any;
     contactInfo: VendorContact;
 
@@ -58,13 +59,14 @@ export class VendorProfileComponent implements OnInit {
                     postal_code: this.vendor.postal_code,
                 }
 
-                let tempContact = this.vendor.vendor_contacts.filter(data => {
+                const tempContact = this.vendor.vendor_contacts.filter(data => {
                     return data.active;
                 });
 
                 this.vendor.contacts = tempContact;
                 this.getInsurances(this.vendor.id);
-            })
+                this.getFiles(this.vendor.id);
+            });
     }
 
     getPhotoUrl (contact) {
@@ -86,6 +88,17 @@ export class VendorProfileComponent implements OnInit {
         this.vendorService.getInsurances(vendor_id).subscribe(
             data => {
                 this.insurances = data.results;
+            }
+        );
+    }
+
+    /**
+     * Get Files list by vendor
+     */
+    getFiles (vendor_id) {
+        this.vendorService.getDocuments(vendor_id).subscribe(
+            data => {
+                this.files = data.results;
             }
         );
     }
