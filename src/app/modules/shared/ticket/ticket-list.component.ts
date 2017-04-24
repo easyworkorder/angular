@@ -65,9 +65,12 @@ export class TicketListComponent implements OnInit {
         if (changes['tickets']) {
             if (changes['tickets'].currentValue.length > 0) {
                 this.ticketList = changes['tickets'].currentValue.map(item => Object.assign({}, item, { checked: false }));
+                this.pager = {};
                 this.setPage(1);
             } else {
                 this.ticketList = [];
+                this.pager = {};
+                this.setPage(1);
             }
         }
     }
@@ -284,6 +287,7 @@ export class TicketListComponent implements OnInit {
     }
 
     setPage (page: number) {
+        // this.pagedItems && (this.pagedItems.length = 0);
         if (page < 1 || page > this.pager.totalPages) {
             return;
         }

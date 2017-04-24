@@ -51,9 +51,20 @@
                     <li [ngClass]="{disabled:pager.currentPage === 1}">
                         <a (click)="setPage(pager.currentPage - 1)"><i class="fa fa-chevron-left"></i></a>
                     </li>
-                    <li [ngClass]="{active:pager.currentPage}">
+                    <!--<li [ngClass]="{active:pager.currentPage}">
                         <a (click)="setPage(pager.currentPage)">{{pager.currentPage}}</a>
+                    </li>-->
+                    <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                        <a (click)="setPage(page)">{{page}}</a>
                     </li>
+
+                    <li *ngIf="(pager.totalPages - pager.startPage) > 5 ">
+                        <a (click)="setPage(pager.startPage + 5)">...</a>
+                    </li>
+                    <li *ngIf="(pager.totalPages - pager.startPage) > 5">
+                        <a (click)="setPage(pager.totalPages)">{{pager.totalPages}}</a>
+                    </li>
+
                     <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
                         <a (click)="setPage(pager.currentPage + 1)"><i class="fa fa-chevron-right"></i></a>
                     </li>
