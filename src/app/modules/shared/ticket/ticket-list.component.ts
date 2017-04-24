@@ -289,7 +289,7 @@ export class TicketListComponent implements OnInit {
         }
 
         // get pager object from service
-        this.pager = this.pagerService.getPager(this.ticketList.length, page, 5);
+        this.pager = this.pagerService.getPager(this.ticketList.length, page, 15);
 
         // get current page of items
         this.pagedItems = this.ticketList.slice(this.pager.startIndex, this.pager.endIndex + 1);
