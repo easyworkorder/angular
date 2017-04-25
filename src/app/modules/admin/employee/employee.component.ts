@@ -41,6 +41,7 @@ export class EmployeeComponent implements OnInit {
     selectedPhoto: string = '';
     isShowingLoadingSpinner: boolean = true;
     showSaveSpinner: boolean = false;
+    toDeletedEmployee: any;
 
     employeeForm = new FormGroup({
         id: new FormControl(),
@@ -420,6 +421,19 @@ export class EmployeeComponent implements OnInit {
         if (employee.photo != null && employee.photo.length > 0)
             return employee.photo;
         return 'assets/img/placeholders/avatars/avatar9.jpg';
+    }
+
+    deleteEmployee (employee) {
+        this.toDeletedEmployee = employee;
+    }
+
+    onModalOkButtonClick (event) {
+        if (this.toDeletedEmployee) {
+            this.employeeService.delete(this.toDeletedEmployee).subscribe(data => {
+                $('#modal-employee-delete-confirm').modal('hide');
+                this.refreshEditor('Employee deleted', data);
+            });
+        }
     }
 
     closeModal () {
