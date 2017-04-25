@@ -7,8 +7,7 @@ declare var $: any;
 
 @Component({
     selector: 'ewo-tenant-edit',
-    templateUrl: './tenant-edit.component.html',
-    styleUrls: ['./tenant-edit.component.css']
+    templateUrl: './tenant-edit.component.html'
 })
 export class TenantEditComponent implements OnInit {
 
