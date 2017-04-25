@@ -27,7 +27,7 @@
                 <!-- LABOR TAB -->
                 <div class="tab-pane" id="ticket-labor">
                     <!-- Partial Responsive Block -->
-                    <ewo-ticket-labor *ngIf="ticket && labors && employees" [ticket]="ticket" [labors]="labors" [employees]="employees" (update)="updateLaborInfo($event)"></ewo-ticket-labor>
+                    <ewo-ticket-labor *ngIf="ticket && labors && employees" [ticket]="ticket" [isClosedTicket]="isClosedTicket" [labors]="labors" [employees]="employees" (update)="updateLaborInfo($event)"></ewo-ticket-labor>
                     <!-- END Partial Responsive Content -->
                 </div>
                 <!-- END LABOR TAB -->
@@ -35,7 +35,7 @@
                 <!-- MATERIALS TAB -->
                 <div class="tab-pane" id="ticket-materials">
                     <!-- Partial Responsive Block -->
-                    <ewo-ticket-material *ngIf="ticket && materials" [ticket]="ticket" [materials]="materials" (update)="updateMaterialInfo($event)"></ewo-ticket-material>
+                    <ewo-ticket-material *ngIf="ticket && materials" [ticket]="ticket" [isClosedTicket]="isClosedTicket" [materials]="materials" (update)="updateMaterialInfo($event)"></ewo-ticket-material>
                     <!-- END Partial Responsive Content -->
                 </div>
                 <!-- END MATERIALS TAB -->
@@ -43,7 +43,7 @@
                 <!-- FILES TAB -->
                 <div class="tab-pane" id="ticket-files">
                     <!-- Add File-->
-                    <ewo-file *ngIf="ticket && files" [files]="files" [parent_object_id]="ticket.id" [parent_object_type]="'ticket'" (update)="updateFileInfo($event)"></ewo-file>
+                    <ewo-file *ngIf="ticket && files" [files]="files" [isClosedTicket]="isClosedTicket" [parent_object_id]="ticket.id" [parent_object_type]="'ticket'" (update)="updateFileInfo($event)"></ewo-file>
                     <!-- END Dropzone Block -->
                 </div>
                 <!-- END LABOR TAB -->
@@ -62,7 +62,7 @@
             <!-- Quick Month Stats Title -->
             <div class="block-title">
                 <div class="block-options pull-right">
-                    <a *ngIf="userInfo?.IsPropertyManager || userInfo?.IsEmployee" modal-dialog-open="modal-due-date" (click)="onDueDateEdit($event)"
+                    <a *ngIf="(!isClosedTicket) && (userInfo?.IsPropertyManager || userInfo?.IsEmployee)" modal-dialog-open="modal-due-date" (click)="onDueDateEdit($event)"
                         class="btn btn-effect-ripple btn-success" data-toggle="modal" title="" style="overflow: hidden; position: relative;"
                         data-original-title="Change"><i class="fa fa-pencil"></i></a>
                 </div>
@@ -82,7 +82,7 @@
             <!-- Quick Month Stats Title -->
             <div class="block-title">
                 <div class="block-options pull-right">
-                    <a *ngIf="userInfo?.IsPropertyManager || userInfo?.IsEmployee" modal-dialog-open="modal-requestor" (click)="onRequestorModalOpen()"
+                    <a *ngIf="(!isClosedTicket) && (userInfo?.IsPropertyManager || userInfo?.IsEmployee)" modal-dialog-open="modal-requestor" (click)="onRequestorModalOpen()"
                         class="btn btn-effect-ripple btn-success" data-toggle="modal" title="" style="overflow: hidden; position: relative;"
                         data-original-title="Edit"><i class="fa fa-pencil"></i></a>
                 </div>
@@ -110,7 +110,7 @@
 
         <!-- Organization Block -->
         <div *ngIf="userInfo?.IsPropertyManager || userInfo?.IsEmployee" class="block">
-            <ewo-ticket-edit *ngIf="ticket && employees" [ticket]="ticket" [employees]="employees"></ewo-ticket-edit>
+            <ewo-ticket-edit *ngIf="ticket && employees" [ticket]="ticket" [isClosedTicket]="isClosedTicket" [employees]="employees"></ewo-ticket-edit>
         </div>
         <!-- END Organization Block -->
     </div>
@@ -119,7 +119,7 @@
 
 
 <!-- Due Date -->
-<div id="modal-due-date" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+<div *ngIf="(!isClosedTicket) && (userInfo?.IsPropertyManager || userInfo?.IsEmployee)" id="modal-due-date" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -150,7 +150,7 @@
 
 
 <!-- Requestor -->
-<div id="modal-requestor" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+<div *ngIf="(!isClosedTicket) && (userInfo?.IsPropertyManager || userInfo?.IsEmployee)" id="modal-requestor" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

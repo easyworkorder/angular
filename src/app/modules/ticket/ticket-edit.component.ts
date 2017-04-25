@@ -20,6 +20,7 @@ export class TicketEditComponent implements OnInit {
 
     @Input() ticket: any;
     @Input() employees: any;
+    @Input() isClosedTicket = false;
 
     _submitted = false;
     building: any[] = [];

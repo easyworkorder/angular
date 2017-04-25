@@ -16,6 +16,7 @@ declare var $: any;
 export class TicketMaterialComponent implements OnInit {
     toDeletedMaterial: any;
     @Input() ticket: any;
+    @Input() isClosedTicket = false;
     @Input() materials: any;
     @Input() updateTicketMaterialInfo: any;
     @Output('update') change: EventEmitter<any> = new EventEmitter<any>();

@@ -18,6 +18,7 @@ export class FileComponent implements OnInit {
         private http: AppHttp
     ) { }
 
+    @Input() isClosedTicket: boolean = false;
     @Input() parent_object_id: number;
     @Input() parent_object_type: string;
     @Input() files: any;

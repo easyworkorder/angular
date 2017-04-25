@@ -1,7 +1,7 @@
 <div [ngClass]="{'block': (parent_object_type == 'building' || parent_object_type == 'ticket')}">
     <div class="block-title" *ngIf="parent_object_type == 'ticket' || parent_object_type == 'building'">
         <h2>FILES</h2>
-        <a modal-dialog-open="add-file"
+        <a *ngIf="!isClosedTicket" modal-dialog-open="add-file"
            class="btn btn-effect-ripple btn-default pull-right"
            data-toggle="modal"
            title="" style="overflow: hidden; position: relative;" data-original-title="Add File">
@@ -13,8 +13,8 @@
             <div class="media-items animation-fadeInQuick2" data-category="pdf" *ngIf="file.mimetype == 'application/pdf'">
                 <div class="media-items-options text-right">
                     <a href="{{file.doc_url}}" class="btn btn-xs btn-info" target="_blank">View</a>
-                    <a modal-dialog-open="add-file" (click)="_submitted = false;editFile(file)" class="btn btn-xs btn-success" data-original-title="Edit File"><i class="fa fa-pencil"></i></a>
-                    <a modal-dialog-open="modal-delete-confirm" (click)="deleteFile(file)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-danger"
+                    <a *ngIf="!isClosedTicket" modal-dialog-open="add-file" (click)="_submitted = false;editFile(file)" class="btn btn-xs btn-success" data-original-title="Edit File"><i class="fa fa-pencil"></i></a>
+                    <a *ngIf="!isClosedTicket" modal-dialog-open="modal-delete-confirm" (click)="deleteFile(file)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-danger"
                        style="overflow: hidden; position: relative;" data-original-title="Delete File"><i class="fa fa-times"></i></a>
                 </div>
                 <div class="media-items-content">
@@ -28,8 +28,8 @@
             <div class="media-items animation-fadeInQuick2" data-category="image" *ngIf="file.mimetype == 'image/png' || file.mimetype == 'image/jpg' || file.mimetype == 'image/jpeg' || file.mimetype == 'image/gif' ">
                 <div class="media-items-options text-right">
                     <a href="{{file.doc_url}}" class="btn btn-xs btn-info" data-toggle="lightbox-image">View</a>
-                    <a modal-dialog-open="add-file" (click)="_submitted = false;editFile(file)" class="btn btn-xs btn-success" data-original-title="Edit File"><i class="fa fa-pencil"></i></a>
-                    <a modal-dialog-open="modal-delete-confirm" (click)="deleteFile(file)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-danger"
+                    <a *ngIf="!isClosedTicket" modal-dialog-open="add-file" (click)="_submitted = false;editFile(file)" class="btn btn-xs btn-success" data-original-title="Edit File"><i class="fa fa-pencil"></i></a>
+                    <a *ngIf="!isClosedTicket" modal-dialog-open="modal-delete-confirm" (click)="deleteFile(file)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-danger"
                        style="overflow: hidden; position: relative;" data-original-title="Delete File"><i class="fa fa-times"></i></a>
                 </div>
                 <div class="media-items-content">
@@ -43,8 +43,8 @@
             <div class="media-items animation-fadeInQuick2" data-category="word" *ngIf="file.mimetype == 'application/vnd.ms-excel' || file.mimetype == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' || file.mimetype == 'application/msword' || file.mimetype == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ">
                 <div class="media-items-options text-right">
                     <a href="{{file.doc_url}}" class="btn btn-xs btn-info" target="_blank">View</a>
-                    <a modal-dialog-open="add-file" (click)="_submitted = false;editFile(file)" class="btn btn-xs btn-success" data-original-title="Edit File"><i class="fa fa-pencil"></i></a>
-                    <a modal-dialog-open="modal-delete-confirm" (click)="deleteFile(file)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-danger"
+                    <a *ngIf="!isClosedTicket" modal-dialog-open="add-file" (click)="_submitted = false;editFile(file)" class="btn btn-xs btn-success" data-original-title="Edit File"><i class="fa fa-pencil"></i></a>
+                    <a *ngIf="!isClosedTicket" modal-dialog-open="modal-delete-confirm" (click)="deleteFile(file)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-danger"
                        style="overflow: hidden; position: relative;" data-original-title="Delete File"><i class="fa fa-times"></i></a>
                 </div>
                 <div class="media-items-content">
@@ -61,7 +61,7 @@
 </div>
 
 <!--Modal popup to add file-->
-<div id="add-file" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+<div *ngIf="!isClosedTicket" id="add-file" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -118,7 +118,7 @@
     </div>
 </div>
 
-<ewo-confirm-modal id="modal-delete-confirm" [OkButton]="true" [okButtonLabel]="'Continue'" (okButtonClick)="onModalOkButtonClick($event)"
+<ewo-confirm-modal *ngIf="!isClosedTicket" id="modal-delete-confirm" [OkButton]="true" [okButtonLabel]="'Continue'" (okButtonClick)="onModalOkButtonClick($event)"
                    [cancelButtonLabel]="'Cancel'" [message]="'Are you sure want to delete?'" class="modal fade in" tabindex="-1" role="dialog"
                    aria-hidden="true">
 </ewo-confirm-modal>

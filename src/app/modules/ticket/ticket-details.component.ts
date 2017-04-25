@@ -55,6 +55,7 @@ export class TicketDetailsComponent implements OnInit {
 
     tabs = new TabVisibility();
     ticketId: any;
+    isClosedTicket = false;
 
     isRequestorValid: boolean = true;
 
@@ -170,7 +171,10 @@ export class TicketDetailsComponent implements OnInit {
         this.ticketService.getTicketDetails(this.ticketId).subscribe(
             data => {
                 this.ticket = data;
-                //Set Ticket title
+                if (this.ticket.status === 'Closed') {
+                   this.isClosedTicket = true;
+                }
+                // Set Ticket title
                 this.breadcrumbHeaderService.setBreadcrumbTitle(this.ticket.ticket_key);
 
                 this.tenantService.getTenant(this.ticket.tenant).subscribe(

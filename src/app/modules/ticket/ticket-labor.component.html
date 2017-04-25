@@ -1,7 +1,7 @@
 <div class="block">
     <div class="block-title clearfix">
         <div class="block-options pull-right">
-            <a modal-dialog-open="modal-add-labor" (click)="_submitted = false;" class="btn btn-effect-ripple btn-success" data-toggle="modal"
+            <a *ngIf="!isClosedTicket" modal-dialog-open="modal-add-labor" (click)="_submitted = false;" class="btn btn-effect-ripple btn-success" data-toggle="modal"
                 title="Edit" style="overflow: hidden; position: relative;"><span class="btn-ripple animate" style="height: 34px; width: 34px; top: 10px; left: 0.34375px;"></span><i class="fa fa-plus"></i></a>
         </div>
         <!--<h2>LABOR</h2><span class="badge">$637.50</span>-->
@@ -27,7 +27,7 @@
                 <td class="hidden-xs">{{labor.work_description}}</td>
                 <td class="hidden-xs">{{labor.billable_hours | number}}</td>
                 <td class="hidden-sm hidden-xs">{{labor.billing_amount | currency:'USD':true}}</td>
-                <td class="text-center">
+                <td class="text-center" *ngIf="!isClosedTicket">
                     <a modal-dialog-open="modal-add-labor" (click)="_submitted = false;editLabor(labor)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-success"
                         style="overflow: hidden; position: relative;" data-original-title="Edit User"><i class="fa fa-pencil"></i></a>
                     <a modal-dialog-open="modal-labor-delete-confirm" (click)="deleteLabor(labor)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-danger"
@@ -38,7 +38,7 @@
     </table>
 </div>
 <!-- END Partial Responsive Content -->
-<div id="modal-add-labor" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+<div  *ngIf="!isClosedTicket" id="modal-add-labor" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -122,7 +122,7 @@
     </div>
 </div>
 
-<ewo-confirm-modal id="modal-labor-delete-confirm" [OkButton]="true" [okButtonLabel]="'Continue'" (okButtonClick)="onModalOkButtonClick($event)"
+<ewo-confirm-modal *ngIf="!isClosedTicket" id="modal-labor-delete-confirm" [OkButton]="true" [okButtonLabel]="'Continue'" (okButtonClick)="onModalOkButtonClick($event)"
     [cancelButtonLabel]="'Cancel'" [message]="'Are you sure want to delete?'" class="modal fade in" tabindex="-1" role="dialog"
     aria-hidden="true">
 </ewo-confirm-modal>

@@ -16,6 +16,7 @@ declare var $: any;
 })
 export class TicketLaborComponent implements OnInit {
     @Input() ticket: any;
+    @Input() isClosedTicket = false;
     @Input() labors: any;
     @Input() employees: any;
     @Input() updateTicketLaborInfo: any;
