@@ -38,7 +38,7 @@
                 <input formControlName="respond_within" type="text" id="{{'example-input2-group3' + i}}" name="{{'example-input2-group3' + i}}"
                   class="form-control" style="width: 40%;">
                 <ng-select id="{{'respond_within_unit' + i}}" [multiple]="false" [items]="respondWithInUnit" placeholder="" (selected)="onSelectedRespondWithInUnit(i, $event)"
-                  [active]="selectedRespondWithinUnit[i].selected" style="width: 60%;"></ng-select>
+                  [active]="selectedRespondWithinUnit[i].selected" style="width: 60%;" class="pull-left"></ng-select>
               </div>
             </td>
 
@@ -56,7 +56,7 @@
                 <input formControlName="resolve_within" type="text" id="{{'example-input2-group33' + i}}" name="{{'example-input2-group33' + i}}"
                   class="form-control" style="width: 40%;">
                 <ng-select id="{{'resolve_within_unit' + i}}" [multiple]="false" [items]="resolveWithinUnit" placeholder="" (selected)="onSelectedResolveWithInUnit(i, $event)"
-                  [active]="selectedResolveWithinUnit[i].selected" style="width: 60%;" aria-hidden="true"></ng-select>
+                  [active]="selectedResolveWithinUnit[i].selected" style="width: 60%;" aria-hidden="true" class="pull-left"></ng-select>
               </div>
 
             </td>
@@ -70,7 +70,7 @@
                                 <option value="CSS">Calendar Hours</option>
                             </select>-->
                 <ng-select id="{{'resolve_within_unit'+ i}}" [multiple]="false" [items]="OperationHours" placeholder="" (selected)="onSelectedOperationHours(i, $event)"
-                  [active]="selectedOperationHours[i].selected" class="operation-hour1" style="width: 100%;" aria-hidden="true"></ng-select>
+                  [active]="selectedOperationHours[i].selected" class="operation-hour1" style="width: 100%;" aria-hidden="true" class="pull-left"></ng-select>
               </div>
             </td>
             <td>

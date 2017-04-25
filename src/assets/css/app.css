@@ -111,3 +111,7 @@ no-content {
     justify-content: center;
     align-items: center;
 }
+
+.modal.modal-wide .modal-dialog {
+    width: 90%;
+}
