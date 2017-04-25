@@ -1,5 +1,5 @@
 export class ValidationService {
-    static getValidatorErrorMessage(validatorName: string, validatorValue?: any) {
+    static getValidatorErrorMessage (validatorName: string, validatorValue?: any) {
         let config = {
             'required': 'This field is Required',
             'invalidCreditCard': 'Is invalid credit card number',
@@ -13,7 +13,7 @@ export class ValidationService {
         return config[validatorName];
     }
 
-    static creditCardValidator(control) {
+    static creditCardValidator (control) {
         // Visa, MasterCard, American Express, Diners Club, Discover, JCB
         if (control.value && control.value.match(/^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/)) {
             return null;
@@ -22,9 +22,9 @@ export class ValidationService {
         }
     }
 
-    static emailValidator(control) {
+    static emailValidator (control) {
         // RFC 2822 compliant regex
-        if(control.value == ''){
+        if (control.value == '' || control.value == null) {
             return null;
         }
         else if (control.value && control.value.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)) {
@@ -34,7 +34,7 @@ export class ValidationService {
         }
     }
 
-    static passwordValidator(control) {
+    static passwordValidator (control) {
         // {6,100}           - Assert password is between 6 and 100 characters
         // (?=.*[0-9])       - Assert a string has at least one number
         if (control.value && control.value.match(/^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{6,100}$/)) {
@@ -44,8 +44,8 @@ export class ValidationService {
         }
     }
 
-    static numericValidator(control) {
-        if(control.value == ''){
+    static numericValidator (control) {
+        if (control.value == '') {
             return null;
         }
         else if (control.value && control.value.toString().match(/^[0-9]*$/)) {
@@ -55,8 +55,8 @@ export class ValidationService {
         }
     }
 
-    static percentValidator(control) {
-        if(control.value == ''){
+    static percentValidator (control) {
+        if (control.value == '') {
             return null;
         }
         else if (control.value && control.value.match(/^[1-9][0-9]?$|^100$/)) {
