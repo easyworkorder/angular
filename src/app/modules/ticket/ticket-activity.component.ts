@@ -149,6 +149,19 @@ export class TicketActivityComponent implements OnInit {
         url: new FormControl()
     });
 
+    ticketReopenForm = new FormGroup({
+        id: new FormControl(),
+        url: new FormControl(''),
+        workorder: new FormControl(''),
+        details: new FormControl('', Validators.required),
+        is_private: new FormControl(true),
+        tenant_notified: new FormControl(false),
+        tenant_follow_up: new FormControl(false),
+        vendor_notified: new FormControl(false),
+        vendor_follow_up: new FormControl(false),
+        action_type: new FormControl('reopen')
+    });
+
     constructor(
         private ticketService: TicketService,
         private vendorService: VendorService,
@@ -315,6 +328,24 @@ export class TicketActivityComponent implements OnInit {
         });
     }
 
+    onReopenSubmit () {
+
+        this.isSubmit = true;
+
+        this.ticketReopenForm.get('workorder').setValue(`${config.api.base}ticket/${this.ticket.id}/`);
+        this.ticketService.createNote(this.ticketReopenForm.value, false).subscribe((note: any) => {
+
+            this.ticketForm.get('status').setValue('Open');
+            this.ticketForm.get('closed').setValue(false);
+
+            this.ticketService.update(this.ticketForm.value, false).subscribe((tikcet: any) => { });
+            this.toasterService.pop('success', 'UPDATE', 'Ticket has been Reopen successfully');
+            this.isSubmit = false;
+            this.change.emit(true);
+            this.closeModal();
+        });
+    }
+
     fileSelectionChange (event) {
         let fileList: FileList = event.target.files;
         if (fileList.length > 0) {
@@ -425,12 +456,12 @@ export class TicketActivityComponent implements OnInit {
         $('#modal-add-private').modal('hide');
         $('#modal-send-vendor').modal('hide');
         $('#modal-close-wo').modal('hide');
+        $('#modal-reopen-wo').modal('hide');
     }
 
     resetForm () {
         this.ticketPublicForm.reset({
             details: '',
-            updated_by_type: 'E',
             is_private: false,
             tenant_notified: true,
             tenant_follow_up: false,
@@ -441,7 +472,6 @@ export class TicketActivityComponent implements OnInit {
 
         this.ticketPrivateForm.reset({
             details: '',
-            updated_by_type: 'E',
             is_private: true,
             tenant_notified: false,
             tenant_follow_up: false,
@@ -452,7 +482,6 @@ export class TicketActivityComponent implements OnInit {
 
         this.ticketVendorForm.reset({
             details: '',
-            updated_by_type: 'E',
             is_private: true,
             tenant_notified: false,
             tenant_follow_up: false,
@@ -464,13 +493,22 @@ export class TicketActivityComponent implements OnInit {
 
         this.ticketCloseForm.reset({
             details: '',
-            updated_by_type: 'E',
             is_private: false,
             tenant_notified: false,
             tenant_follow_up: false,
             vendor_notified: false,
             vendor_follow_up: false,
             action_type: 'close'
+        });
+
+        this.ticketReopenForm.reset({
+            details: '',
+            is_private: false,
+            tenant_notified: false,
+            tenant_follow_up: false,
+            vendor_notified: false,
+            vendor_follow_up: false,
+            action_type: 'reopen'
         });
 
 

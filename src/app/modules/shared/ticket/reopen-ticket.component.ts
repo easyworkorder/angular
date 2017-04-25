@@ -105,7 +105,7 @@ export class ReopenTicketComponent implements OnInit {
             error => {
                 this.toasterService.pop('error', 'Reopen', `${displayTicketsMsg.join(', ')} not reopen`);
             });
-        })
+        });
 
     }
 

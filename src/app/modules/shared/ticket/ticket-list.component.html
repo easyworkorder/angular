@@ -9,7 +9,7 @@
             <button *ngIf="currentRequestType == 'closed'" (click)="onModalReopenTicket('modal-reopen-ticket')" type="button" class="btn btn-sm btn-default">Reopen</button>
             <button *ngIf="currentRequestType != 'closed'" (click)="onModalCloseTicket('modal-close-ticket')" type="button" class="btn btn-sm btn-default">Close</button>
             <!--button type="button" class="btn btn-sm btn-default">Merge</button-->
-            <button (click)="onModalDeleteTicket('modal-delete-ticket')" type="button" class="btn btn-sm btn-default">Delete</button>
+            <button *ngIf="currentRequestType != 'closed'" (click)="onModalDeleteTicket('modal-delete-ticket')" type="button" class="btn btn-sm btn-default">Delete</button>
         </div>
 
         <div class="table-responsive remove-margin-bottom">
