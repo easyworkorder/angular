@@ -162,7 +162,6 @@ import { BreadcrumbComponent, BreadcrumbService } from "app/modules/shared/bread
 import { VerifyEmailComponent } from 'app/modules/shared/verify-email.component';
 import { VerifyEmailService } from 'app/modules/shared/verify-email.service';
 import { TenantFileComponent } from './modules/admin/tenant/tenant-file.component';
-import { FileListComponent } from './modules/shared/file-list/file-list.component';
 import { ConfirmModalComponent } from './modules/shared/confirm-modal/confirm-modal.component';
 import { AssignTicketComponent } from './modules/shared/ticket/assign-ticket.component';
 import { CloseTicketComponent } from 'app/modules/shared/ticket/close-ticket.component';
@@ -289,7 +288,6 @@ export function translateStaticLoaderFactory (Backend, defaultOptions, storage, 
         BreadcrumbComponent,
         VerifyEmailComponent,
         TenantFileComponent,
-        FileListComponent,
         ConfirmModalComponent,
         AssignTicketComponent,
         CloseTicketComponent,

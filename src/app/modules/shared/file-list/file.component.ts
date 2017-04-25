@@ -79,7 +79,7 @@ export class FileComponent implements OnInit {
         this.isSubmit = true;
 
         if (this.parent_object_type === 'ticket') {
-            this.fileForm.get('workorder').setValue(config.api.base + 'workorder/'  + this.parent_object_id + '/');
+            this.fileForm.get('workorder').setValue(config.api.base + 'ticket/'  + this.parent_object_id + '/');
         }else if (this.parent_object_type === 'tenant') {
             this.fileForm.get('tenant').setValue(config.api.base + 'tenant/'  + this.parent_object_id + '/');
         }else if (this.parent_object_type === 'vendor') {

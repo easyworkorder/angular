@@ -46,7 +46,7 @@ export class TicketDetailsComponent implements OnInit {
     notes: any[] = [];
     labors: any[];
     materials: any[];
-    documents: any[];
+    files: any[];
     tenant_contacts: any[] = [];
     // tenants: any[] = [];
     employees: any[];
@@ -161,7 +161,7 @@ export class TicketDetailsComponent implements OnInit {
         this.getAllNotes(this.ticketId);
         this.getAllLabors(this.ticketId);
         this.getAllMaterials(this.ticketId);
-        this.getAllDocuments(this.ticketId);
+        this.getAllFiles(this.ticketId);
         this.getTicketDetails();
         this.switchTab(1);
         // this.breadcrumbHeaderService.setBreadcrumbTitle('Ticket Details');
@@ -219,10 +219,10 @@ export class TicketDetailsComponent implements OnInit {
         });
     }
 
-    getAllDocuments (ticketId) {
+    getAllFiles (ticketId) {
         const observable = this.http.get('ticketdocument/?workorder_id=' + ticketId);
         observable.subscribe(data => {
-            this.documents = data.results;
+            this.files = data.results;
         });
     }
 
@@ -273,7 +273,7 @@ export class TicketDetailsComponent implements OnInit {
     }
 
     updateFileInfo (data) {
-        this.ticketId && this.getAllDocuments(this.ticketId);
+        this.ticketId && this.getAllFiles(this.ticketId);
     }
 
     onDueDateEdit (event) {

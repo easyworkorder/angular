@@ -43,7 +43,7 @@
                 <!-- FILES TAB -->
                 <div class="tab-pane" id="ticket-files">
                     <!-- Add File-->
-                    <ewo-ticket-file *ngIf="ticket && documents" [ticket]="ticket" [documents]="documents" (update)="updateFileInfo($event)"></ewo-ticket-file>
+                    <ewo-file *ngIf="ticket && files" [files]="files" [parent_object_id]="ticket.id" [parent_object_type]="'ticket'" (update)="updateFileInfo($event)"></ewo-file>
                     <!-- END Dropzone Block -->
                 </div>
                 <!-- END LABOR TAB -->

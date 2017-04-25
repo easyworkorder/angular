@@ -12,6 +12,7 @@
         <div class="col-sm-6 col-md-4 col-lg-4" *ngFor="let file of files">
             <div class="media-items animation-fadeInQuick2" data-category="pdf" *ngIf="file.mimetype == 'application/pdf'">
                 <div class="media-items-options text-right">
+                    <a href="{{file.doc_url}}" class="btn btn-xs btn-info" target="_blank">View</a>
                     <a modal-dialog-open="add-file" (click)="_submitted = false;editFile(file)" class="btn btn-xs btn-success" data-original-title="Edit File"><i class="fa fa-pencil"></i></a>
                     <a modal-dialog-open="modal-delete-confirm" (click)="deleteFile(file)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-danger"
                        style="overflow: hidden; position: relative;" data-original-title="Delete File"><i class="fa fa-times"></i></a>
@@ -41,6 +42,7 @@
             </div>
             <div class="media-items animation-fadeInQuick2" data-category="word" *ngIf="file.mimetype == 'application/msword' || file.mimetype == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ">
                 <div class="media-items-options text-right">
+                    <a href="{{file.doc_url}}" class="btn btn-xs btn-info" target="_blank">View</a>
                     <a modal-dialog-open="add-file" (click)="_submitted = false;editFile(file)" class="btn btn-xs btn-success" data-original-title="Edit File"><i class="fa fa-pencil"></i></a>
                     <a modal-dialog-open="modal-delete-confirm" (click)="deleteFile(file)" data-toggle="tooltip" title="" class="btn btn-effect-ripple btn-xs btn-danger"
                        style="overflow: hidden; position: relative;" data-original-title="Delete File"><i class="fa fa-times"></i></a>
