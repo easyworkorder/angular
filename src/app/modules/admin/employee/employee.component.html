@@ -16,7 +16,7 @@
                     <a modal-dialog-open="modal-add-employee" (click)="isSubmit = false;editEmployee(employee)" data-toggle="modal" title=""
                         class="btn btn-effect-ripple btn-xs btn-success" style="overflow: hidden; position: relative;" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
                     <a modal-dialog-open="modal-employee-delete-confirm" (click)="deleteEmployee(employee)" data-toggle="modal" title=""
-                        class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;" data-original-title="Edit"><i class="fa fa-times"></i></a>
+                        class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;" data-original-title="Delete"><i class="fa fa-times"></i></a>
                 </div>
                 <img [src]="getPhotoUrl(employee)" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
                 <h2 class="widget-heading h3 text-muted">{{employee.first_name}} {{employee.last_name}}</h2>
