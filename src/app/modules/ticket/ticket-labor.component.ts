@@ -129,7 +129,7 @@ export class TicketLaborComponent implements OnInit {
                 $('#modal-labor-delete-confirm').modal('hide');
                 this.ticketService.updateTicket(true);
                 this.change.emit(true);
-            })
+            });
         }
     }
 }
