@@ -71,7 +71,6 @@ import { UpdateTicketLaborService } from './modules/ticket/ticket-labor.service'
 import { TicketLaborComponent } from './modules/ticket/ticket-labor.component';
 import { UpdateTicketMaterialService } from './modules/ticket/ticket-material.service';
 import { TicketMaterialComponent } from './modules/ticket/ticket-material.component';
-import { TicketFileComponent } from './modules/ticket/ticket-file.component';
 import { TicketListComponent } from './modules/shared/ticket/ticket-list.component';
 import { TicketService } from './modules/ticket/ticket.service';
 
@@ -218,7 +217,6 @@ export function translateStaticLoaderFactory (Backend, defaultOptions, storage, 
         TicketActivityComponent,
         TicketLaborComponent,
         TicketMaterialComponent,
-        TicketFileComponent,
         TicketListComponent,
 
         /**

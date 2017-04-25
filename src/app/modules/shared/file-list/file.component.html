@@ -40,7 +40,7 @@
                     <small>{{file.docsize}}</small>
                 </h4>
             </div>
-            <div class="media-items animation-fadeInQuick2" data-category="word" *ngIf="file.mimetype == 'application/msword' || file.mimetype == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ">
+            <div class="media-items animation-fadeInQuick2" data-category="word" *ngIf="file.mimetype == 'application/vnd.ms-excel' || file.mimetype == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' || file.mimetype == 'application/msword' || file.mimetype == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ">
                 <div class="media-items-options text-right">
                     <a href="{{file.doc_url}}" class="btn btn-xs btn-info" target="_blank">View</a>
                     <a modal-dialog-open="add-file" (click)="_submitted = false;editFile(file)" class="btn btn-xs btn-success" data-original-title="Edit File"><i class="fa fa-pencil"></i></a>
