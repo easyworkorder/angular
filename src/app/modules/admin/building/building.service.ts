@@ -60,6 +60,23 @@ export class BuildingService extends DataService {
     return observable;
   }
 
+  delete(data?: any) {
+    data = Object.assign({}, data);
+
+    // PUT '/employee'
+    const observable = this.http.delete(data.url, data);
+
+    observable.subscribe(data => {
+          this.toasterService.pop('success', 'DELETE', 'Building has been deleted successfully');
+          // console.log(data);
+        },
+        error => {
+          this.toasterService.pop('error', 'DELETE', 'Employee not deleted due to API error!!!');
+        });
+
+    return observable;
+  }
+
   getAllBuildings (company_id) {
 
     const observable = this.http.get('buildinglist/' + company_id + '/');

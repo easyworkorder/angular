@@ -31,6 +31,7 @@ export class BuildingComponent implements OnInit {
   tabs = new TabVisibility();
   currentCompanyId = 1;
   date_added = new Date().toJSON().slice(0, 10);
+  toDeletedBuilding: any;
 
   buildingForm = new FormGroup({
     id: new FormControl(),
@@ -122,8 +123,7 @@ export class BuildingComponent implements OnInit {
     if (!this.buildingForm.valid) return;
     if (this.primarycontact_id.length) {
       this.buildingForm.get('primarycontact_id').setValue(this.primarycontact_id[0].id);
-    }
-    else {
+    } else {
       return;
     }
 
@@ -180,7 +180,7 @@ export class BuildingComponent implements OnInit {
       this.buildingForm.get('remit_addr').valid &&
       this.buildingForm.get('remit_city').valid &&
       this.buildingForm.get('remit_state').valid &&
-      this.buildingForm.get('remit_postal_code').valid
+      this.buildingForm.get('remit_postal_code').valid;
   }
 
   buildingInfoValidationCheck () {
@@ -189,6 +189,21 @@ export class BuildingComponent implements OnInit {
       this.buildingForm.get('city').valid &&
       this.buildingForm.get('state').valid &&
       this.buildingForm.get('postal_code').valid &&
-      this.buildingForm.get('mgt_fee_percent').valid
+      this.buildingForm.get('mgt_fee_percent').valid;
+  }
+
+  deleteBuilding (building) {
+    this.toDeletedBuilding = building;
+  }
+
+  onModalOkButtonClick (event) {
+    if (this.toDeletedBuilding) {
+      this.buildingService.getBuilding(this.toDeletedBuilding.id).subscribe(data => {
+        this.buildingService.delete(data).subscribe(deleteData => {
+          $('#modal-building-delete-confirm').modal('hide');
+          this.getAllBuildings();
+        });
+      });
+    }
   }
 }
