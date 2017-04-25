@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { DataService } from "app/services";
 import { TenantService } from "app/modules/admin/tenant/tenant.service";
 import { Contact } from "app/modules/admin/contact-profile-card/contact";
+declare var $: any;
 
 @Component({
     selector: 'ewo-contact-profile-card',
@@ -10,11 +11,15 @@ import { Contact } from "app/modules/admin/contact-profile-card/contact";
 })
 export class ContactProfileCardComponent implements OnInit {
     @Input() contactInfo: Contact;
+    @Input() tenant: any;
+    @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
+
     contact: Contact;
     address: any;
     fullName: string;
     photo: string;
 
+    tenantInfo: any;
     constructor(private tenantService: TenantService,
         private dataService: DataService,
         private route: ActivatedRoute) {
@@ -34,5 +39,22 @@ export class ContactProfileCardComponent implements OnInit {
 
             }
         }
+        if (changes['tenant']) {
+            if (changes['tenant'].currentValue) {
+                this.tenantInfo = changes['tenant'].currentValue;
+            }
+        }
+
+    }
+
+    editTenant (contact) {
+        // this.tenantService.getTenant(contact.tenant).subscribe(tenant => {
+        $('#edit-tenant-modal').modal({
+            modal: 'show',
+            backdrop: 'static'
+        });
+    }
+    updateTenant (tenant) {
+        this.change.emit(tenant);
     }
 }

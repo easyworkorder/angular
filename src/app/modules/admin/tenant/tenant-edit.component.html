@@ -1,0 +1,63 @@
+<!--<div id="modal-add-tenant" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">-->
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h3 class="modal-title"><i class="fa fa-pencil"></i> <strong>Edit Tenant</strong></h3>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="tenantForm" (ngSubmit)="onSubmit()" id="clickable-wizard" class="form-horizontal form-bordered" novalidate>
+        <div class="form-group">
+          <label class="col-xs-3 control-label" for="tenant_company_name">Company Name <span class="required">*</span></label>
+          <div class="col-xs-9">
+            <input #tcn formControlName="tenant_company_name" type="text" id="tenant_company_name" name="tenant_company_name" class="form-control"
+              placeholder="Tenant's Company Name">
+            <!-- Validation Way 1 -->
+            <validation-messages [el]="tcn" [control]="tenantForm.controls.tenant_company_name"></validation-messages>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label" for="mgtfeepercent">Management Fee<span class="required">*</span></label>
+          <!--<div class="col-xs-9" data-style="display: flex; -js-display:flex;">-->
+          <div class="col-xs-9">
+            <div class="input-group">
+              <input percentage [formControlValidator]="tenantForm.controls.mgtfeepercent" formControlName="mgtfeepercent" type="text"
+                id="mgtfeepercent" name="mgtfeepercent" class="form-control input-sm" placeholder="Management Fee Percent"
+                size="20">
+              <div class="input-group-addon help-text help-text--custom-size"> % (Do not enter a decimal point)</div>
+            </div>
+            <span class="validation-error">{{tenantForm.controls.mgtfeepercent.error}}</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label" for="unitno">Unit Number <span class="required">*</span></label>
+          <div class="col-xs-9">
+            <input [formControlValidator]="tenantForm.controls.unitno" formControlName="unitno" type="text" id="unitno" name="unitno"
+              class="form-control" placeholder="Unit Number">
+            <span class="validation-error">{{tenantForm.controls.unitno.error}}</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label" for="inscertdate">Ins Cert exp date<span class="required">*</span></label>
+          <div class="col-xs-9">
+            <ewo-calendar [readonlyInput]="true" [showOnFocus]="false" formControlName="inscertdate" (onSelect)="onSelectDate($event)"
+              [icon]="fa-calendar" [showIcon]="true" inputStyleClass="form-control"></ewo-calendar>
+            <!--<span class="validation-error">{{tenantForm.controls.inscertdate.error}}</span>-->
+            <span *ngIf="!isInscertdateValid" class="validation-error" style="display: block">
+                                        This field is Required
+                                </span>
+          </div>
+        </div>
+
+        <div class="form-group form-actions">
+          <div class="col-md-12 text-right">
+            <button type="submit" class="btn btn-effect-ripple btn-primary ui-wizard-content ui-formwizard-button" id="btnSave" style="overflow: hidden; position: relative;"
+              value="Save" [disabled]="isSubmit">Save <i *ngIf="isSubmit" class="fa fa-spinner fa-spin"></i>
+                            </button>
+            <!--<loading-spinner-wave *ngIf="isSubmit" style="display: inline-block"></loading-spinner-wave>-->
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

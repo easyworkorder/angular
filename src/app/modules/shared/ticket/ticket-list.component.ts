@@ -38,7 +38,7 @@ export class TicketListComponent implements OnInit {
         private pagerService: PagerService
     ) {
         this.router.events.subscribe(data => {
-            console.log('router event', data);
+            // console.log('router event', data);
         })
     }
     /// A List of Contact objects to display

@@ -101,4 +101,8 @@ export class TenantContactProfileComponent implements OnInit {
             }
         );
     }
+
+    updateProfile (tenant) {
+        this.getContactDetails(this.route.snapshot.params['id']);
+    }
 }

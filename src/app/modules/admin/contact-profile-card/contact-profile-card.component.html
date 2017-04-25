@@ -9,7 +9,7 @@
   </div>
   <div class="widget-content themed-background-muted text-center">
     <div class="btn-group">
-      <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default"><i class="fa fa-pencil"></i> Edit</a>
+      <a (click)="editTenant(contact)" class="btn btn-effect-ripple btn-default"><i class="fa fa-pencil"></i> Edit</a>
       <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default"><i class="fa fa-share"></i> Send Password</a>
       <a href="mailto:{{ contact.email }}" class="btn btn-effect-ripple btn-default"><i class="fa fa-envelope"></i> Email</a>
       <a href="tel:{{contact.phone}}" class="btn btn-effect-ripple btn-default"><i class="fa fa-phone"></i> Call</a>
@@ -25,3 +25,6 @@
     </div>
   </div>
 </div>
+
+<ewo-tenant-edit *ngIf="tenantInfo" id="edit-tenant-modal" [tenant]="tenantInfo" (update)="updateTenant($event)" class="modal fade"
+  role="dialog" aria-hidden="true"></ewo-tenant-edit>
