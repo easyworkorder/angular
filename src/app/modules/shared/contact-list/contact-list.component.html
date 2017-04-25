@@ -18,8 +18,8 @@
                 <a href="javascript:void(0)" class="btn btn btn-danger" data-toggle="tooltip" title="" data-original-title="Send Password"><i class="fa fa-share"></i></a>
                 <a *ngIf="isEditable" href="javascript:void(0)" (click)="updateContact(contact)" class="btn btn-success" data-toggle="tooltip"
                     title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
-                <a *ngIf="isEditable" href="javascript:void(0)" (click)="updateContact(contact)" class="btn btn-danger" data-toggle="tooltip"
-                    title="" data-original-title="Edit"><i class="fa fa-times"></i></a>
+                <a *ngIf="isEditable" href="javascript:void(0)" (click)="deleteContact(contact)" class="btn btn-danger" data-toggle="tooltip"
+                    title="" data-original-title="Delete"><i class="fa fa-times"></i></a>
             </td>
         </tr>
     </tbody>

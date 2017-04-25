@@ -93,7 +93,7 @@
         <!-- People -->
         <div class="tab-pane" id="profile-people">
             <div class="block-content-full">
-                <ewo-contact-list [contactList]="tenant" [isEditable]="isAdmin" (update)="updateContactInfo($event)"></ewo-contact-list>
+                <ewo-contact-list [contactList]="tenant" [isEditable]="isAdmin" (update)="updateContactInfo($event)" (delete)="deleteContactInfo($event)"></ewo-contact-list>
             </div>
         </div>
         <!-- END People -->
@@ -124,3 +124,8 @@
 
 <ewo-tenant-insurance *ngIf="isAdmin && tenant" id="add-tenant-insurance" [tenant]="tenant" (update)="updateInsurance($event)"
     class="modal fade" role="dialog" aria-hidden="true"></ewo-tenant-insurance>
+
+<ewo-confirm-modal id="modal-tenant-people-delete-confirm" [OkButton]="true" [okButtonLabel]="'Continue'" (okButtonClick)="onModalOkButtonClick($event)"
+    [cancelButtonLabel]="'Cancel'" [showDangerIcon]="true" [message]="'DANGER YOU WILL LOSE ALL INFORMATION ASSOCIATED, DO YOU WANT TO PROCEED?'"
+    class="modal fade in" tabindex="-1" role="dialog" aria-hidden="true">
+</ewo-confirm-modal>

@@ -328,4 +328,23 @@ export class TenantService extends DataService {
         else if (!contactForm.get('tenant').value)
             contactForm.get('tenant').setValue(tenant.url);
     }
+
+    deleteContact (data?: any) {
+        data = Object.assign({}, data);
+
+        // PUT '/employee'
+        const observable = this.http.delete(data.url, data);
+
+        observable.subscribe(data => {
+            this.toasterService.pop('success', 'DELETE', 'Tenant contact has been deleted successfully');
+            // console.log(data);
+        },
+            error => {
+                this.toasterService.pop('error', 'DELETE', 'Tenant contact not deleted due to API error!!!');
+                // console.log(error);
+            });
+
+        return observable;
+    }
+
 }

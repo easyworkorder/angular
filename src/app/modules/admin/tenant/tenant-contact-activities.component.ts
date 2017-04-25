@@ -3,6 +3,7 @@ import { Subject } from "rxjs/Subject";
 import { UpdatePeopleService } from "app/modules/admin/tenant/people.service";
 import { UpdateTenantInsuranceService } from "./tenant-insurance.service";
 import { TicketService } from './../../ticket/ticket.service';
+import { TenantService } from "app/modules/admin/tenant/tenant.service";
 declare var $: any;
 
 export class TabVisibility {
@@ -19,6 +20,7 @@ export class TabVisibility {
     templateUrl: './tenant-contact-activities.component.html'
 })
 export class TenantContactActivitiesComponent implements OnInit {
+    toDeletedPeople: any;
     @Input() tenant: any;
     @Input() insurances: any;
     @Input() tickets: any;
@@ -33,10 +35,12 @@ export class TenantContactActivitiesComponent implements OnInit {
     tabs = new TabVisibility();
     constructor(private updatePeopleService: UpdatePeopleService,
         private updateTenantInsuranceService: UpdateTenantInsuranceService,
-        private ticketService: TicketService) {}
+        private ticketService: TicketService,
+        private tenantService: TenantService
+    ) { }
 
     ngOnInit () {
-        if ( this.isTenant === false && this.tenant) {
+        if (this.isTenant === false && this.tenant) {
             this.getAllTenantTickets(this.tenant.id);
         }
     }
@@ -59,7 +63,7 @@ export class TenantContactActivitiesComponent implements OnInit {
     }
 
     updateTicketList (data) {
-        if ( this.isTenant === false) {
+        if (this.isTenant === false) {
             this.getAllTenantTickets(this.tenant.id);
         } else {
             this.ticketService.updateTicketList(true);
@@ -70,7 +74,7 @@ export class TenantContactActivitiesComponent implements OnInit {
         this.change.emit(event);
     }
 
-    updateFileList(event) {
+    updateFileList (event) {
         this.change.emit(event);
     }
 
@@ -94,5 +98,23 @@ export class TenantContactActivitiesComponent implements OnInit {
             show: true,
             backdrop: 'static'
         });
+    }
+    deleteContactInfo (data) {
+        // this.updatePeopleInfo = data;
+        // this.updatePeopleService.setUpdatePeople(data);
+        $('#modal-tenant-people-delete-confirm').modal({
+            show: true,
+            backdrop: 'static'
+        });
+        this.toDeletedPeople = data;
+    }
+
+    onModalOkButtonClick (event) {
+        if (this.toDeletedPeople) {
+            this.tenantService.deleteContact(this.toDeletedPeople).subscribe(() => {
+                this.change.emit(event);
+                $('#modal-tenant-people-delete-confirm').modal('hide');
+            });
+        }
     }
 }
