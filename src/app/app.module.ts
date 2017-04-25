@@ -160,7 +160,6 @@ import { LoadingSpinnerModule } from "app/modules/shared/loading-spinner/loading
 import { BreadcrumbComponent, BreadcrumbService } from "app/modules/shared/breadcrumb";
 import { VerifyEmailComponent } from 'app/modules/shared/verify-email.component';
 import { VerifyEmailService } from 'app/modules/shared/verify-email.service';
-import { TenantFileComponent } from './modules/admin/tenant/tenant-file.component';
 import { ConfirmModalComponent } from './modules/shared/confirm-modal/confirm-modal.component';
 import { AssignTicketComponent } from './modules/shared/ticket/assign-ticket.component';
 import { CloseTicketComponent } from 'app/modules/shared/ticket/close-ticket.component';
@@ -285,7 +284,6 @@ export function translateStaticLoaderFactory (Backend, defaultOptions, storage, 
         ModalDialogDirective,
         BreadcrumbComponent,
         VerifyEmailComponent,
-        TenantFileComponent,
         ConfirmModalComponent,
         AssignTicketComponent,
         CloseTicketComponent,
