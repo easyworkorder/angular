@@ -105,3 +105,9 @@ no-content {
 .ticket-image{
     width: 60px;
 }
+
+.confirm-modal-icon-holder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

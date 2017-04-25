@@ -1,9 +1,9 @@
 <div class="modal-dialog">
   <div class="modal-content">
     <form class="form-horizontal">
-      <div class="modal-body">
-        <div class="col-xs-12">
-          {{message}}
+      <div class="modal-body" style="height: 6em;">
+        <div class="col-xs-12 confirm-modal-icon-holder">
+          <i *ngIf="showDangerIcon == true" class="fa fa-exclamation-triangle fa-2x" style="color: red; padding-right: 8px;" aria-hidden="true"></i>          {{message}}
         </div>
         <div class="col-xs-12"></div>
       </div>

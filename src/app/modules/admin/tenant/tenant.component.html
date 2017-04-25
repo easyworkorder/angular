@@ -7,7 +7,7 @@
 <!-- END CONTACTS ALPHABET FILTER -->
 <loading-spinner-wave *ngIf="isShowingLoadingSpinner"></loading-spinner-wave>
 <div *ngFor="let tenant of tenants  | filterWithStartLetter: { tenant_company_name: searchControl.value }" class="col-sm-6 col-md-4 col-lg-3">
-    <ewo-tenant-list-item [isAdmin]="true" [tenant]="tenant"></ewo-tenant-list-item>
+    <ewo-tenant-list-item [isAdmin]="true" [tenant]="tenant" (delete)="deleteTenant($event)"></ewo-tenant-list-item>
 </div>
 
 <!-- Add Tenant Modal -->
@@ -195,3 +195,8 @@
     </div>
 </div>
 <!-- END Add Contact Modal -->
+
+<ewo-confirm-modal id="modal-tenant-delete-confirm" [OkButton]="true" [okButtonLabel]="'Continue'" (okButtonClick)="onModalOkButtonClick($event)"
+    [cancelButtonLabel]="'Cancel'" [showDangerIcon]="true" [message]="'YOU WILL LOSE ALL INFORMATION ASSOCIATED, DO YOU WANT TO PROCEED?'"
+    class="modal fade in" tabindex="-1" role="dialog" aria-hidden="true">
+</ewo-confirm-modal>

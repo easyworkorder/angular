@@ -50,6 +50,24 @@ export class TenantService extends DataService {
         return observable;
     }
 
+    deleteTenant (data?: any) {
+        data = Object.assign({}, data);
+
+        // PUT '/employee'
+        const observable = this.http.delete(data.url, data);
+
+        observable.subscribe(data => {
+            this.toasterService.pop('success', 'DELETE', 'Tenant has been deleted successfully');
+            // console.log(data);
+        },
+            error => {
+                this.toasterService.pop('error', 'DELETE', 'Tenant not deleted due to API error!!!');
+                // console.log(error);
+            });
+
+        return observable;
+    }
+
     saveTenantContact (data?: any): Observable<any> {
         data = Object.assign({}, data);
         let observable: any;

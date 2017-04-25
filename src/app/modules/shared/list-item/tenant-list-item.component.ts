@@ -1,21 +1,23 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { DataService } from "app/services";
 import { Router } from "@angular/router";
+import { TenantService } from "app/modules/admin/tenant/tenant.service";
 
 @Component({
     selector: 'ewo-tenant-list-item',
     templateUrl: './tenant-list-item.component.html'
 })
 export class TenantListItemComponent implements OnInit {
-
     constructor(
         // private http: ApdpHttp,
         private dataService: DataService,
-        private router: Router
+        private router: Router,
     ) { }
     /// A List of Contact objects to display
     @Input() tenant: any[];
     @Input() isAdmin: boolean = false;
+    @Output('delete') delete: EventEmitter<any> = new EventEmitter<any>();
+
     //@Input() isEditable: boolean = true;
     //@Output('update') change: EventEmitter<any> = new EventEmitter<any>();
 
@@ -50,5 +52,10 @@ export class TenantListItemComponent implements OnInit {
             // this.router.navigate(['/tenant-profile', tenant.contact_id]);
             this.router.navigate(['/tenant', tenant.contact_id]);
         }
+    }
+
+    deleteTenant (event, tenant) {
+        event.stopPropagation();
+        this.delete.emit(tenant);
     }
 }

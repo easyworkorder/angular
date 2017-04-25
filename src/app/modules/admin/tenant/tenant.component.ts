@@ -21,6 +21,7 @@ export class TabVisibility {
     templateUrl: './tenant.component.html',
 })
 export class TenantComponent implements OnInit {
+    toDeletedTenant: any;
     isShowingLoadingSpinner: boolean = true;
     isSubmit: boolean = false;
     currentCompanyId = 1;
@@ -299,6 +300,24 @@ export class TenantComponent implements OnInit {
     }
     onSelectDate (value) {
         this.isInscertdateValid = true;
+    }
+    deleteTenant (tenant) {
+        $('#modal-tenant-delete-confirm').modal({
+            modal: 'show',
+            backdrop: 'static'
+        });
+        this.toDeletedTenant = tenant;
+    }
+    onModalOkButtonClick (event) {
+        if (this.toDeletedTenant) {
+            this.toDeletedTenant.url = config.api.base + 'tenant/' + this.toDeletedTenant.id + '/';
+            this.tenantService.getTenant(this.toDeletedTenant.url).subscribe(data => {
+                this.tenantService.deleteTenant(data).subscribe(() => {
+                    $('#modal-tenant-delete-confirm').modal('hide');
+                    this.getAllTenantsByBuilding(this.buildingId);
+                });
+            });
+        }
     }
 }
 

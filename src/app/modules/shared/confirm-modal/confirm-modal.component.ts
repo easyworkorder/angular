@@ -19,9 +19,8 @@ export class ConfirmModalComponent implements OnInit {
   @Input() okButtonLabel: string = 'Delete';
   @Input() cancelButton: boolean = true;
   @Input() cancelButtonLabel: string = 'Cancel';
+  @Input() showDangerIcon: boolean = false;
   @Output('okButtonClick') okButtonClicked: EventEmitter<any> = new EventEmitter<any>();
-
-
 
   constructor() { }
 
