@@ -18,9 +18,6 @@ export class TenantListItemComponent implements OnInit {
     @Input() isAdmin: boolean = false;
     @Output('delete') delete: EventEmitter<any> = new EventEmitter<any>();
 
-    //@Input() isEditable: boolean = true;
-    //@Output('update') change: EventEmitter<any> = new EventEmitter<any>();
-
     ngOnInit () {
 
     }

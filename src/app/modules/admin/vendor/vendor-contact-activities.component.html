@@ -36,7 +36,7 @@
     <div class="tab-pane" id="profile-people">
       <div class="block-content-full">
         <loading-spinner-wave *ngIf="!vendor"></loading-spinner-wave>
-        <ewo-contact-list [contactList]="vendor" [isEditable]="isAdmin" (update)="updateContactInfo($event)" (sendPassword)="sendNewPassword($event)"></ewo-contact-list>
+        <ewo-contact-list [contactList]="vendor" [isEditable]="isAdmin" (update)="updateContactInfo($event)" (delete)="deleteContactInfo($event)" (sendPassword)="sendNewPassword($event)"></ewo-contact-list>
       </div>
     </div>
     <!-- END People -->
@@ -65,6 +65,11 @@
   <ewo-vendor-insurance id="add-vendor-insurance" [vendor]="vendor" (update)="updateInsurance($event)" class="modal fade"
                              role="dialog" aria-hidden="true"></ewo-vendor-insurance>
 </div>
+
+<ewo-confirm-modal id="modal-vendor-people-delete-confirm" [OkButton]="true" [okButtonLabel]="'Continue'" (okButtonClick)="onModalOkButtonClick($event)"
+                   [cancelButtonLabel]="'Cancel'" [showDangerIcon]="true" [message]="'DANGER YOU WILL LOSE ALL INFORMATION ASSOCIATED, DO YOU WANT TO PROCEED?'"
+                   class="modal fade in" tabindex="-1" role="dialog" aria-hidden="true">
+</ewo-confirm-modal>
 
 <ewo-confirm-modal id="modal-send-password-confirm-list" [OkButton]="true" [okButtonLabel]="'Continue'" (okButtonClick)="onModalOkButtonClickToSendPassword($event)"
                    [cancelButtonLabel]="'Cancel'" [showDangerIcon]="false" [message]="'Do you want to reset password?'"

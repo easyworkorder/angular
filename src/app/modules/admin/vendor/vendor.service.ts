@@ -45,6 +45,25 @@ export class VendorService extends DataService {
 
         return observable;
     }
+
+    deleteVendor (data?: any) {
+        data = Object.assign({}, data);
+
+        // PUT '/employee'
+        const observable = this.http.delete(data.url, data);
+
+        observable.subscribe(data => {
+                this.toasterService.pop('success', 'DELETE', 'Vendor has been deleted successfully');
+                // console.log(data);
+            },
+            error => {
+                this.toasterService.pop('error', 'DELETE', 'Vendor not deleted due to API error!!!');
+                // console.log(error);
+            });
+
+        return observable;
+    }
+
     // create(data?: any): Observable<IVendor> {
     //     data = Object.assign({}, data);
 
@@ -82,6 +101,24 @@ export class VendorService extends DataService {
             error => {
                 // this.toasterService.pop('error', operation, 'Sorry! Something went wrong and contact could not be saved!!');
 
+            });
+
+        return observable;
+    }
+
+    deleteContact (data?: any) {
+        data = Object.assign({}, data);
+
+        // PUT '/employee'
+        const observable = this.http.delete(data.url, data);
+
+        observable.subscribe(data => {
+                this.toasterService.pop('success', 'DELETE', 'Vendor contact has been deleted successfully');
+                // console.log(data);
+            },
+            error => {
+                this.toasterService.pop('error', 'DELETE', 'Vendor contact not deleted due to API error!!!');
+                // console.log(error);
             });
 
         return observable;

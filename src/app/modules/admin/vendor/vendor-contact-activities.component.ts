@@ -34,6 +34,8 @@ export class VendorContactActivitiesComponent implements OnInit {
     @Input() isVendor: boolean =  false;
     @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
 
+    toDeletedPeople: any;
+
     currentCompanyId = 1;
 
     tabs = new TabVisibility();
@@ -105,6 +107,25 @@ export class VendorContactActivitiesComponent implements OnInit {
             backdrop: 'static',
             show: true
         });
+    }
+
+    deleteContactInfo (data) {
+        // this.updatePeopleInfo = data;
+        // this.updatePeopleService.setUpdatePeople(data);
+        $('#modal-vendor-people-delete-confirm').modal({
+            show: true,
+            backdrop: 'static'
+        });
+        this.toDeletedPeople = data;
+    }
+
+    onModalOkButtonClick (event) {
+        if (this.toDeletedPeople) {
+            this.vendorService.deleteContact(this.toDeletedPeople).subscribe(() => {
+                this.change.emit(event);
+                $('#modal-vendor-people-delete-confirm').modal('hide');
+            });
+        }
     }
 
     sendNewPassword (contact) {

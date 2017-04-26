@@ -36,6 +36,8 @@ export class VendorComponent implements OnInit {
 
     isExpireDateValid: boolean = true;
 
+    toDeletedVendor: any;
+
     tabs = new TabVisibility();
 
     constructor(
@@ -335,6 +337,25 @@ export class VendorComponent implements OnInit {
     }
     onSelectDate (value) {
         this.isExpireDateValid = true;
+    }
+
+    deleteVendor (vendor) {
+        $('#modal-vendor-delete-confirm').modal({
+            modal: 'show',
+            backdrop: 'static'
+        });
+        this.toDeletedVendor = vendor;
+    }
+    onModalOkButtonClick (event) {
+        if (this.toDeletedVendor) {
+            this.toDeletedVendor.url = config.api.base + 'vendor/' + this.toDeletedVendor.id + '/';
+            this.vendorService.getVendor(this.toDeletedVendor.url).subscribe(data => {
+                this.vendorService.deleteVendor(data).subscribe(() => {
+                    $('#modal-vendor-delete-confirm').modal('hide');
+                    this.getAllVendors();
+                });
+            });
+        }
     }
 }
 

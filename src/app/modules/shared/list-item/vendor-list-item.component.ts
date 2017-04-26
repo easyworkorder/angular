@@ -16,8 +16,7 @@ export class VendorListItemComponent implements OnInit {
     /// A List of Contact objects to display
     @Input() vendor: any[];
     @Input() isAdmin: boolean = false;
-    //@Input() isEditable: boolean = true;
-    //@Output('update') change: EventEmitter<any> = new EventEmitter<any>();
+    @Output('delete') delete: EventEmitter<any> = new EventEmitter<any>();
 
     ngOnInit () {
 
@@ -44,9 +43,13 @@ export class VendorListItemComponent implements OnInit {
     vendorDetailsLink (vendor) {
         if (this.isAdmin) {
             this.router.navigate(['/admin', 'vendor', vendor.contact_id]);
-        }
-        else {
+        } else {
             this.router.navigate(['/vendor', vendor.contact_id]);
         }
+    }
+
+    deleteVendor (event, vendor) {
+        event.stopPropagation();
+        this.delete.emit(vendor);
     }
 }

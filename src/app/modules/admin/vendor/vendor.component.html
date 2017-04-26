@@ -1,13 +1,13 @@
 <!-- START CONTACTS ALPHABET FILTER -->
 <div class="text-center border-top push-inner-top-bottom">
-    <a modal-dialog-open class="btn btn-sm btn-success" data-toggle="modal" style="overflow: hidden; position: relative;"><i class="fa fa-plus"></i></a>
+    <a modal-dialog-open="modal-add-vendor" class="btn btn-sm btn-success" data-toggle="modal" style="overflow: hidden; position: relative;"><i class="fa fa-plus"></i></a>
     <ewo-alphabetical-sort [isWhiteBackground]="false" [searchControl]="searchControl" [isNumericSearch]="true"></ewo-alphabetical-sort>
 </div>
 <!-- END CONTACTS ALPHABET FILTER -->
 <div class="row">
     <loading-spinner-wave *ngIf="isShowingLoadingSpinner"></loading-spinner-wave>
     <div *ngFor="let vendor of vendors  | filterWithStartLetter: { company_name: searchControl.value }" class="col-sm-6 col-md-4 col-lg-3">
-        <ewo-vendor-list-item [vendor]="vendor" [isAdmin]="true"></ewo-vendor-list-item>
+        <ewo-vendor-list-item [vendor]="vendor" [isAdmin]="true" (delete)="deleteVendor($event)"></ewo-vendor-list-item>
     </div>
 </div>
 <!-- Add Vendor Modal -->
@@ -212,3 +212,8 @@
     </div>
 </div>
 <!-- END Add Contact Modal -->
+
+<ewo-confirm-modal id="modal-vendor-delete-confirm" [OkButton]="true" [okButtonLabel]="'Continue'" (okButtonClick)="onModalOkButtonClick($event)"
+                   [cancelButtonLabel]="'Cancel'" [showDangerIcon]="true" [message]="'DANGER YOU WILL LOSE ALL INFORMATION ASSOCIATED, DO YOU WANT TO PROCEED?'"
+                   class="modal fade in" tabindex="-1" role="dialog" aria-hidden="true">
+</ewo-confirm-modal>

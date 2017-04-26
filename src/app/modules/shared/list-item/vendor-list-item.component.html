@@ -1,5 +1,9 @@
 <a (click)="vendorDetailsLink(vendor)" class="widget list-block-item vendor">
     <div class="widget-content text-center">
+        <div *ngIf="isAdmin" class="col-sm-4 text-right" style="position: absolute; right: 0;">
+            <a (click)="deleteVendor($event, vendor)" data-toggle="modal" title="" class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;"
+               data-original-title="Delete"><i class="fa fa-times"></i></a>
+        </div>
         <img [src]="getPhotoUrl(vendor)" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
         <h2 class="widget-heading h3 text-muted">{{vendor.company_name}}</h2>
     </div>
