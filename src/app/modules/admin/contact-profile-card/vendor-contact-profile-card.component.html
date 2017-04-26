@@ -9,6 +9,7 @@
   </div>
   <div class="widget-content themed-background-muted text-center">
     <div class="btn-group">
+      <a *ngIf="isAdmin" (click)="editVendor(contact)" class="btn btn-effect-ripple btn-default"><i class="fa fa-pencil"></i> Edit</a>
       <a modal-dialog-open="modal-send-password-confirm" class="btn btn-effect-ripple btn-default"><i class="fa fa-share"></i> Send Password</a>
       <a href="mailto:{{ contact.email }}" class="btn btn-effect-ripple btn-default"><i class="fa fa-envelope"></i> Email</a>
       <a href="tel:{{contact.phone}}" class="btn btn-effect-ripple btn-default"><i class="fa fa-phone"></i> Call</a>
@@ -26,6 +27,10 @@
 </div>
 
 <ewo-confirm-modal id="modal-send-password-confirm" [OkButton]="true" [okButtonLabel]="'Continue'" (okButtonClick)="onModalOkButtonClick($event)"
-                   [cancelButtonLabel]="'Cancel'" [showDangerIcon]="false" [message]="'Do you want to reset password?'"
-                   class="modal fade in" tabindex="-1" role="dialog" aria-hidden="true">
+  [cancelButtonLabel]="'Cancel'" [showDangerIcon]="false" [message]="'Do you want to reset password?'" class="modal fade in"
+  tabindex="-1" role="dialog" aria-hidden="true">
 </ewo-confirm-modal>
+
+<ewo-vendor-edit id="edit-vendor-modal" [edit]="editClicked" (update)="updateVendor($event)" class="modal fade" role="dialog"
+  aria-hidden="true">
+</ewo-vendor-edit>

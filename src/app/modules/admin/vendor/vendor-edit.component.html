@@ -1,0 +1,86 @@
+<!--<div id="modal-add-tenant" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">-->
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h3 class="modal-title"><i class="fa fa-pencil"></i> <strong>Edit Vendor</strong></h3>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="vendorForm" (ngSubmit)="onSubmit()" id="clickable-wizard" class="form-horizontal form-bordered" novalidate>
+        <div class="form-group">
+          <label class="col-xs-3 control-label" for="company_name">Company Name <span
+                                    class="required">*</span></label>
+          <div class="col-xs-9">
+            <input #tcn formControlName="company_name" type="text" id="company_name" name="company_name" class="form-control" placeholder="Company Name">
+            <!-- Validation Way 1 -->
+            <validation-messages [el]="tcn" [control]="vendorForm.controls.company_name"></validation-messages>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-3 control-label">Problem Types <span class="required">*</span></label>
+          <div class="col-xs-9">
+            <ng-select [multiple]="true" [items]="problemTypes" (selected)="selectedProblemType($event)" (removed)="removedProblemType($event)"
+              placeholder="Select Problem types" [active]="selectedProblemTypes"></ng-select>
+            <span *ngIf="_submitted && (selectedProblemTypes.length == 0)" class="validation-error">This field is Required</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-3 control-label" for="address">Address <span class="required">*</span></label>
+          <div class="col-xs-9">
+            <input [formControlValidator]="vendorForm.controls.address" formControlName="address" type="text" id="address" name="address"
+              class="form-control" placeholder="Address">
+            <span class="validation-error">{{vendorForm.controls.address.error}}</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-3 control-label" for="city">City <span
+                                    class="required">*</span></label>
+          <div class="col-xs-9">
+            <input [formControlValidator]="vendorForm.controls.city" formControlName="city" type="text" id="city" name="city" class="form-control"
+              placeholder="City">
+            <span class="validation-error">{{vendorForm.controls.city.error}}</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-3 control-label" for="state">State <span
+                                    class="required">*</span></label>
+          <div class="col-xs-9">
+            <input [formControlValidator]="vendorForm.controls.state" formControlName="state" type="text" id="state" name="state" class="form-control"
+              placeholder="State">
+            <span class="validation-error">{{vendorForm.controls.state.error}}</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-3 control-label" for="postal_code">Postal Code <span
+                                    class="required">*</span></label>
+          <div class="col-xs-9">
+            <input postalCode [formControlValidator]="vendorForm.controls.postal_code" formControlName="postal_code" type="text" id="postal_code"
+              name="postal_code" class="form-control" placeholder="Postal Code">
+            <span class="validation-error">{{vendorForm.controls.postal_code.error}}</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-3 control-label">GL expiration date<span
+                                    class="required">*</span></label>
+          <div class="col-xs-9">
+            <ewo-calendar [readonlyInput]="true" [showOnFocus]="false" formControlName="gl_expire_date" (onSelect)="onSelectDate($event)"
+              [icon]="fa-calendar" [showIcon]="true" inputStyleClass="form-control"></ewo-calendar>
+            <!--<span *ngIf="exp_date_not_valid" class="validation-error">This field is required.</span>-->
+            <span *ngIf="!isExpireDateValid" class="validation-error" style="display: block">
+                                        This field is Required
+                                </span>
+          </div>
+        </div>
+
+        <div class="form-group form-actions">
+          <div class="col-md-12 text-right">
+            <button type="submit" class="btn btn-effect-ripple btn-primary ui-wizard-content ui-formwizard-button" id="btnSave" style="overflow: hidden; position: relative;"
+              value="Save" [disabled]="isSubmit">Save <i *ngIf="isSubmit" class="fa fa-spinner fa-spin"></i>
+                            </button>
+            <!--<loading-spinner-wave *ngIf="isSubmit" style="display: inline-block"></loading-spinner-wave>-->
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

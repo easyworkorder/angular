@@ -25,13 +25,13 @@ export class VendorContactProfileComponent implements OnInit {
     ) {
     }
 
-    ngOnInit() {
+    ngOnInit () {
         this.breadcrumbHeaderService.setBreadcrumbTitle('Vendor Profile');
         const contactId = this.route.snapshot.params['id'];
         this.getContactDetails(contactId);
     }
 
-    getContactDetails(contactId) {
+    getContactDetails (contactId) {
 
         this.vendorService.getContactDetails(contactId)
             .mergeMap(conact => this.vendorService.getVendor(conact.vendor), (contactInfo, vendorInfo) => ({ contactInfo, vendorInfo }))
@@ -65,22 +65,22 @@ export class VendorContactProfileComponent implements OnInit {
             });
     }
 
-    getPhotoUrl(contact) {
+    getPhotoUrl (contact) {
         return this.dataService.getPhotoUrl(contact.photo);
     }
 
-    buildAddressHtml(contact) {
+    buildAddressHtml (contact) {
         return this.dataService.buildAddressHtml(contact, this.vendor.company_name);
     }
 
-    updateInActivity(event) {
+    updateInActivity (event) {
         this.getContactDetails(this.route.snapshot.params['id']);
     }
 
     /**
      * Get Insurance list by vendor
      */
-    getInsurances(vendor_id) {
+    getInsurances (vendor_id) {
         this.vendorService.getInsurances(vendor_id).subscribe(
             data => {
                 this.insurances = data.results;
@@ -97,5 +97,9 @@ export class VendorContactProfileComponent implements OnInit {
                 this.files = data.results;
             }
         );
+    }
+
+    updateProfile (tenant) {
+        this.getContactDetails(this.route.snapshot.params['id']);
     }
 }

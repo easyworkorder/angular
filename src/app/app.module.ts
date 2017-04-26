@@ -168,6 +168,7 @@ import { ReopenTicketComponent } from 'app/modules/shared/ticket/reopen-ticket.c
 import { TenantTicketReplyComponent } from 'app/modules/ticket/tenant-ticket-reply.component';
 import { PagerService } from "app/services/pager.service";
 import { TenantEditComponent } from './modules/admin/tenant/tenant-edit.component';
+import { VendorEditComponent } from './modules/admin/vendor/vendor-edit.component';
 
 export function translateStaticLoaderFactory (Backend, defaultOptions, storage, notificationService) {
     return new AppHttp(Backend, defaultOptions, storage, notificationService);
@@ -295,7 +296,9 @@ export function translateStaticLoaderFactory (Backend, defaultOptions, storage, 
 
         FileComponent,
 
-        TenantEditComponent
+        TenantEditComponent,
+
+        VendorEditComponent
     ],
     imports: [
         BrowserModule,
