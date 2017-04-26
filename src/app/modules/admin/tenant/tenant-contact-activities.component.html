@@ -93,7 +93,7 @@
         <!-- People -->
         <div class="tab-pane" id="profile-people">
             <div class="block-content-full">
-                <ewo-contact-list [contactList]="tenant" [isEditable]="isAdmin" (update)="updateContactInfo($event)" (delete)="deleteContactInfo($event)"></ewo-contact-list>
+                <ewo-contact-list [contactList]="tenant" [isEditable]="isAdmin" (update)="updateContactInfo($event)" (delete)="deleteContactInfo($event)" (sendPassword)="sendNewPassword($event)"></ewo-contact-list>
             </div>
         </div>
         <!-- END People -->
@@ -128,4 +128,9 @@
 <ewo-confirm-modal id="modal-tenant-people-delete-confirm" [OkButton]="true" [okButtonLabel]="'Continue'" (okButtonClick)="onModalOkButtonClick($event)"
     [cancelButtonLabel]="'Cancel'" [showDangerIcon]="true" [message]="'DANGER YOU WILL LOSE ALL INFORMATION ASSOCIATED, DO YOU WANT TO PROCEED?'"
     class="modal fade in" tabindex="-1" role="dialog" aria-hidden="true">
+</ewo-confirm-modal>
+
+<ewo-confirm-modal id="modal-send-password-confirm-list" [OkButton]="true" [okButtonLabel]="'Continue'" (okButtonClick)="onModalOkButtonClickToSendPassword($event)"
+                   [cancelButtonLabel]="'Cancel'" [showDangerIcon]="false" [message]="'Do you want to reset password?'"
+                   class="modal fade in" tabindex="-1" role="dialog" aria-hidden="true">
 </ewo-confirm-modal>

@@ -17,6 +17,7 @@ export class ContactListComponent implements OnInit {
     @Input() isEditable: boolean = true;
     @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
     @Output('delete') deleteChange: EventEmitter<any> = new EventEmitter<any>();
+    @Output('sendPassword') sendNewPassword: EventEmitter<any> = new EventEmitter<any>();
 
     ngOnInit () {
     }
@@ -40,5 +41,9 @@ export class ContactListComponent implements OnInit {
     }
     deleteContact (data) {
         this.deleteChange.emit(data);
+    }
+
+    sendPassword (data) {
+        this.sendNewPassword.emit(data);
     }
 }

@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
-import { DataService } from "app/services";
-import { TenantService } from "app/modules/admin/tenant/tenant.service";
-import { Contact } from "app/modules/admin/contact-profile-card/contact";
+import { ActivatedRoute } from '@angular/router';
+import { DataService, AppHttp } from 'app/services';
+import { ToasterService } from 'angular2-toaster';
+import { TenantService } from 'app/modules/admin/tenant/tenant.service';
+import { Contact } from 'app/modules/admin/contact-profile-card/contact';
 declare var $: any;
 
 @Component({
@@ -22,12 +23,15 @@ export class ContactProfileCardComponent implements OnInit {
     tenantInfo: any;
     constructor(private tenantService: TenantService,
         private dataService: DataService,
-        private route: ActivatedRoute) {
+        protected http: AppHttp,
+        private route: ActivatedRoute,
+        private toasterService: ToasterService) {
     }
 
     ngOnInit () {
         this.contactInfo = new Contact('', '', '', '', '', '', '', '', '', '', '', '', '');
     }
+
     ngOnChanges (changes) {
         if (changes['contactInfo']) {
             if (changes['contactInfo'].currentValue) {
@@ -56,5 +60,16 @@ export class ContactProfileCardComponent implements OnInit {
     }
     updateTenant (tenant) {
         this.change.emit(tenant);
+    }
+
+    onModalOkButtonClick (event) {
+        const observable = this.http.get('sendpassword/' + this.contact.id + '/?type=tenant');
+        observable.subscribe(data => {
+            this.toasterService.pop('success', 'SEND', 'Password has been send successfully');
+        },
+        error => {
+            this.toasterService.pop('error', 'SEND', 'Password not send due to API error!!!');
+        });
+        $('#modal-send-password-confirm').modal('hide');
     }
 }

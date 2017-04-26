@@ -1,9 +1,10 @@
 import { Component, OnInit, Input, EventEmitter, Output, Injectable } from '@angular/core';
-import { Subject } from "rxjs/Subject";
-import { UpdatePeopleService } from "app/modules/admin/tenant/people.service";
-import { UpdateTenantInsuranceService } from "./tenant-insurance.service";
+import { AppHttp } from 'app/services';
+import { ToasterService } from 'angular2-toaster';
+import { UpdatePeopleService } from 'app/modules/admin/tenant/people.service';
+import { UpdateTenantInsuranceService } from './tenant-insurance.service';
 import { TicketService } from './../../ticket/ticket.service';
-import { TenantService } from "app/modules/admin/tenant/tenant.service";
+import { TenantService } from 'app/modules/admin/tenant/tenant.service';
 declare var $: any;
 
 export class TabVisibility {
@@ -21,6 +22,8 @@ export class TabVisibility {
 })
 export class TenantContactActivitiesComponent implements OnInit {
     toDeletedPeople: any;
+    toSendPassword: any;
+
     @Input() tenant: any;
     @Input() insurances: any;
     @Input() tickets: any;
@@ -36,7 +39,9 @@ export class TenantContactActivitiesComponent implements OnInit {
     constructor(private updatePeopleService: UpdatePeopleService,
         private updateTenantInsuranceService: UpdateTenantInsuranceService,
         private ticketService: TicketService,
-        private tenantService: TenantService
+        private tenantService: TenantService,
+        protected http: AppHttp,
+        private toasterService: ToasterService
     ) { }
 
     ngOnInit () {
@@ -116,5 +121,24 @@ export class TenantContactActivitiesComponent implements OnInit {
                 $('#modal-tenant-people-delete-confirm').modal('hide');
             });
         }
+    }
+
+    sendNewPassword (contact) {
+        $('#modal-send-password-confirm-list').modal({
+            show: true,
+            backdrop: 'static'
+        });
+        this.toSendPassword = contact;
+    }
+
+    onModalOkButtonClickToSendPassword (event) {
+        const observable = this.http.get('sendpassword/' + this.toSendPassword.id + '/?type=tenant');
+        observable.subscribe(data => {
+                this.toasterService.pop('success', 'SEND', 'Password has been send successfully');
+            },
+            error => {
+                this.toasterService.pop('error', 'SEND', 'Password not send due to API error!!!');
+            });
+        $('#modal-send-password-confirm-list').modal('hide');
     }
 }
