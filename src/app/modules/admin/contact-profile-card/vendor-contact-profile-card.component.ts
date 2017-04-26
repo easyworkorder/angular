@@ -1,8 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
-import { DataService } from "app/services";
-import { VendorService } from "app/modules/admin/vendor/vendor.service";
-import { VendorContact } from "app/modules/admin/contact-profile-card/vendor-contact";
+import { ActivatedRoute } from '@angular/router';
+import { DataService, AppHttp } from 'app/services';
+import { ToasterService } from 'angular2-toaster';
+import { VendorService } from 'app/modules/admin/vendor/vendor.service';
+import { VendorContact } from 'app/modules/admin/contact-profile-card/vendor-contact';
+declare var $: any;
 
 @Component({
     selector: 'ewo-vendor-contact-profile-card',
@@ -16,6 +18,8 @@ export class VendorContactProfileCardComponent implements OnInit {
     photo: string;
 
     constructor(private vendorService: VendorService,
+        protected http: AppHttp,
+        private toasterService: ToasterService,
         private dataService: DataService,
         private route: ActivatedRoute) {
     }
@@ -33,5 +37,16 @@ export class VendorContactProfileCardComponent implements OnInit {
                 this.photo = this.dataService.getPhotoUrl(this.contact.photo);
             }
         }
+    }
+
+    onModalOkButtonClick (event) {
+        const observable = this.http.get('sendpassword/' + this.contact.id + '/?type=vendor');
+        observable.subscribe(data => {
+                this.toasterService.pop('success', 'SEND', 'Password has been send successfully');
+            },
+            error => {
+                this.toasterService.pop('error', 'SEND', 'Password not send due to API error!!!');
+            });
+        $('#modal-send-password-confirm').modal('hide');
     }
 }

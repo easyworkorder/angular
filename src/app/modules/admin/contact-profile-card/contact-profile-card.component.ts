@@ -13,6 +13,7 @@ declare var $: any;
 export class ContactProfileCardComponent implements OnInit {
     @Input() contactInfo: Contact;
     @Input() tenant: any;
+    @Input() isAdmin: boolean = false;
     @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
 
     contact: Contact;

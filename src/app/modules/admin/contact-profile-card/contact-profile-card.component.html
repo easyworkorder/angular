@@ -9,8 +9,8 @@
   </div>
   <div class="widget-content themed-background-muted text-center">
     <div class="btn-group">
-      <a (click)="editTenant(contact)" class="btn btn-effect-ripple btn-default"><i class="fa fa-pencil"></i> Edit</a>
-      <a  modal-dialog-open="modal-send-password-confirm" class="btn btn-effect-ripple btn-default"><i class="fa fa-share"></i> Send Password</a>
+      <a *ngIf="isAdmin" (click)="editTenant(contact)" class="btn btn-effect-ripple btn-default"><i class="fa fa-pencil"></i> Edit</a>
+      <a modal-dialog-open="modal-send-password-confirm" class="btn btn-effect-ripple btn-default"><i class="fa fa-share"></i> Send Password</a>
       <a href="mailto:{{ contact.email }}" class="btn btn-effect-ripple btn-default"><i class="fa fa-envelope"></i> Email</a>
       <a href="tel:{{contact.phone}}" class="btn btn-effect-ripple btn-default"><i class="fa fa-phone"></i> Call</a>
     </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output, Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { AppHttp } from 'app/services';
+import { ToasterService } from 'angular2-toaster';
 import { VendorService } from './vendor.service';
 import { UpdateVendorPeopleService } from './vendor-people.service';
 import { UpdateVendorInsuranceService } from './vendor-insurance.service';
@@ -22,6 +23,8 @@ export class TabVisibility {
 })
 export class VendorContactActivitiesComponent implements OnInit {
 
+    toSendPassword: any;
+
     @Input() vendor: any;
     @Input() insurances: any;
     @Input() files: any;
@@ -38,7 +41,9 @@ export class VendorContactActivitiesComponent implements OnInit {
         private vendorService: VendorService,
         private updateVendorPeopleService: UpdateVendorPeopleService,
         private updateVendorInsuranceService: UpdateVendorInsuranceService,
-        private ticketService: TicketService) { }
+        private ticketService: TicketService,
+        protected http: AppHttp,
+        private toasterService: ToasterService) { }
 
     ngOnInit() {
         if (this.isVendor === false) {
@@ -100,5 +105,24 @@ export class VendorContactActivitiesComponent implements OnInit {
             backdrop: 'static',
             show: true
         });
+    }
+
+    sendNewPassword (contact) {
+        $('#modal-send-password-confirm-list').modal({
+            show: true,
+            backdrop: 'static'
+        });
+        this.toSendPassword = contact;
+    }
+
+    onModalOkButtonClickToSendPassword (event) {
+        const observable = this.http.get('sendpassword/' + this.toSendPassword.id + '/?type=vendor');
+        observable.subscribe(data => {
+                this.toasterService.pop('success', 'SEND', 'Password has been send successfully');
+            },
+            error => {
+                this.toasterService.pop('error', 'SEND', 'Password not send due to API error!!!');
+            });
+        $('#modal-send-password-confirm-list').modal('hide');
     }
 }

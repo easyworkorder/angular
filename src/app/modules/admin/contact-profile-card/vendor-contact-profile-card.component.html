@@ -9,7 +9,7 @@
   </div>
   <div class="widget-content themed-background-muted text-center">
     <div class="btn-group">
-      <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default"><i class="fa fa-share"></i> Send Password</a>
+      <a modal-dialog-open="modal-send-password-confirm" class="btn btn-effect-ripple btn-default"><i class="fa fa-share"></i> Send Password</a>
       <a href="mailto:{{ contact.email }}" class="btn btn-effect-ripple btn-default"><i class="fa fa-envelope"></i> Email</a>
       <a href="tel:{{contact.phone}}" class="btn btn-effect-ripple btn-default"><i class="fa fa-phone"></i> Call</a>
     </div>
@@ -24,3 +24,8 @@
     </div>
   </div>
 </div>
+
+<ewo-confirm-modal id="modal-send-password-confirm" [OkButton]="true" [okButtonLabel]="'Continue'" (okButtonClick)="onModalOkButtonClick($event)"
+                   [cancelButtonLabel]="'Cancel'" [showDangerIcon]="false" [message]="'Do you want to reset password?'"
+                   class="modal fade in" tabindex="-1" role="dialog" aria-hidden="true">
+</ewo-confirm-modal>
