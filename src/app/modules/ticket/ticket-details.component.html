@@ -109,7 +109,7 @@
         <!-- END Requestor Block -->
 
         <!-- Organization Block -->
-        <div *ngIf="userInfo?.IsPropertyManager || userInfo?.IsEmployee" class="block">
+        <div class="block">
             <ewo-ticket-edit *ngIf="ticket && employees" [ticket]="ticket" [isClosedTicket]="isClosedTicket" [employees]="employees"></ewo-ticket-edit>
         </div>
         <!-- END Organization Block -->

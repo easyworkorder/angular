@@ -85,6 +85,9 @@ export class TicketDetailsComponent implements OnInit {
     ) {
         this.authService.verifyToken().take(1).subscribe(data => {
             this.userInfo = this.storage.getUserInfo();
+            if (!this.userInfo.IsPropertyManager && !this.userInfo.IsEmployee) {
+                this.isClosedTicket = true; // Non admin will get view only
+            }
             // this.getAllActiveEmployees();
             // this.ticketService.ticketRefresh$.subscribe(status => {
             //     this.getTicketDetails();
