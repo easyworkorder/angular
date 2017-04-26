@@ -67,7 +67,7 @@
         </li>
         <li class="divider">
           <li>
-            <li>
+            <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
               <a [routerLink]="['/admin']">
                 <i class="gi gi-settings fa-fw pull-right"></i> Administrator Portal
               </a>

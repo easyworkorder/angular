@@ -1,20 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { HeaderService } from './header.service';
+import { Storage } from 'app/services';
 import { AuthenticationService } from "app/modules/authentication";
 import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  templateUrl: './header.component.html'
 })
 export class HeaderComponent implements OnInit {
+
   dashboarTitle: any;
+  userInfo: any;
+
   constructor(
     private authService: AuthenticationService,
     private headerService: HeaderService,
-    private router: Router) {
-    this.headerService.dashboardTitle$.subscribe(data => this.dashboarTitle = data);
+    private router: Router,
+    private storage: Storage) {
+      this.authService.verifyToken().take(1).subscribe(data => {
+        this.userInfo = this.storage.getUserInfo();
+      });
+      this.headerService.dashboardTitle$.subscribe(data => this.dashboarTitle = data);
   }
 
   ngOnInit () {
