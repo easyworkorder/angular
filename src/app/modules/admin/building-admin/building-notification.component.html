@@ -1,0 +1,39 @@
+<div class="content-header">
+    <div class="text-center border-top push-inner-top-bottom">
+        <ewo-alphabetical-sort [isWhiteBackground]="true" [searchControl]="searchControl" [isNumericSearch]="false"></ewo-alphabetical-sort>
+    </div>
+</div>
+
+
+<div class="row">
+    <loading-spinner-wave *ngIf="isShowingLoadingSpinner"></loading-spinner-wave>
+    <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let employee of employees | filterWithStartLetter: { last_name: searchControl.value }">
+        <a class="widget">
+            <div class="widget-content text-center">
+                <img [src]="getPhotoUrl(employee)" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar">
+                <h2 class="widget-heading h3 text-muted">{{employee.first_name}} {{employee.last_name}}</h2>
+            </div>
+            <div class="widget-content themed-background-muted text-dark text-center">
+                <address class="m-t-md" [innerHTML]="buildAddressHtml(employee)"></address>
+            </div>
+            <div class="widget-content">
+                <div class="row text-center">
+                    <div class="col-xs-6">
+                        <label class="switch switch-success">
+                            <input checked="" type="checkbox"><span></span></label><br>
+                        <h3>
+                            <small>Access</small>
+                        </h3>
+                    </div>
+                    <div class="col-xs-6">
+                        <label class="switch switch-success">
+                            <input checked="" type="checkbox"><span></span></label><br>
+                        <h3>
+                            <small>Notify</small>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>

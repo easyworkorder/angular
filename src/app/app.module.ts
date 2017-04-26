@@ -131,6 +131,7 @@ import { BuildingInformationComponent } from './modules/admin/building-admin/bui
 import { RemitInformationComponent } from './modules/admin/building-admin/remit-information.component';
 import { BreadcrumbHeaderComponent } from './modules/shared/breadcrumb-header/breadcrumb-header.component';
 import { BuildingAdminDetailsComponent } from './modules/admin/building-admin/building-admin-details.component';
+import { BuildingNotificationComponent } from './modules/admin/building-admin/building-notification.component';
 import { UserDashboardComponent } from './modules/dashboard/user-dashboard.component';
 import { ContactProfileCardComponent } from './modules/admin/contact-profile-card/contact-profile-card.component';
 import { ContactActivitiesComponent } from './modules/admin/contact-activities/contact-activities.component';
@@ -267,6 +268,7 @@ export function translateStaticLoaderFactory (Backend, defaultOptions, storage, 
         RemitInformationComponent,
         BreadcrumbHeaderComponent,
         BuildingAdminDetailsComponent,
+        BuildingNotificationComponent,
         UserDashboardComponent,
         ContactProfileCardComponent,
         ContactActivitiesComponent,
