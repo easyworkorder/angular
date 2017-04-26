@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { HeaderService } from './header.service';
 import { Storage } from 'app/services';
 import { AuthenticationService } from "app/modules/authentication";
@@ -10,17 +10,14 @@ import { ActivatedRoute, Router } from "@angular/router";
 })
 export class HeaderComponent implements OnInit {
 
+  @Input() userInfo: any;
   dashboarTitle: any;
-  userInfo: any;
 
   constructor(
     private authService: AuthenticationService,
     private headerService: HeaderService,
     private router: Router,
     private storage: Storage) {
-      this.authService.verifyToken().take(1).subscribe(data => {
-        this.userInfo = this.storage.getUserInfo();
-      });
       this.headerService.dashboardTitle$.subscribe(data => this.dashboarTitle = data);
   }
 

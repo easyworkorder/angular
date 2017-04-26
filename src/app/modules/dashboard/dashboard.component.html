@@ -110,33 +110,33 @@
           <li>
             <a href="#" class="sidebar-nav-menu"><i class="fa fa-chevron-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="gi gi-airplane sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Reservations</span></a>
             <ul>
-              <li>
+              <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
                 <a href="conferencerooms.html">Conference Rooms</a>
               </li>
-              <li>
+              <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
                 <a href="loadingdocks.html">Loading Dock</a>
               </li>
-              <li>
+              <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
                 <a href="freightelevators.html">Freight Elevator</a>
               </li>
             </ul>
           </li>
-          <li>
+          <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
             <a href="page_app_email.html"><i class="gi gi-inbox sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Messages</span></a>
           </li>
-          <li>
+          <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
             <a href="page_ready_tickets.html"><i class="gi gi-inbox sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Projects</span></a>
           </li>
-          <li>
+          <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
             <a href="page_app_email.html"><i class="gi gi-inbox sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">PM Workload</span></a>
           </li>
-          <li>
+          <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
             <a href="page_app_social.html"><i class="fa fa-share-alt sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Insurance</span></a>
           </li>
-          <li>
+          <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
             <a href="page_app_media.html"><i class="gi gi-picture sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Billing</span></a>
           </li>
-          <li>
+          <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
             <a href="page_app_estore.html"><i class="gi gi-shopping_cart sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Reports</span></a>
           </li>
         </ul>
@@ -148,7 +148,7 @@
 
     <!-- Sidebar Extra Info -->
     <div id="sidebar-extra-info" class="sidebar-content sidebar-nav-mini-hide">
-      <div class="push-bit">
+      <div class="push-bit" style="display: none">
         <span class="pull-right">
                                 <a href="javascript:void(0)" class="text-muted"><i class="fa fa-plus"></i></a>
                             </span>
@@ -160,7 +160,7 @@
       </div>
       <div class="text-center">
 
-        <small><span id="year-copy"></span> &copy; <a href="http://goo.gl/RcsdAh" target="_blank">Easyworkorder.com</a></small>
+        <small><span id="year-copy"></span> &copy; <a href="http://www.easyworkorder.com" target="_blank">Easyworkorder.com</a></small>
       </div>
     </div>
     <!-- END Sidebar Extra Info -->
@@ -180,7 +180,7 @@
                         'navbar-fixed-bottom'       for a bottom fixed header (fixed main sidebar with scroll will be auto initialized, functionality can be found in js/app.js - handleSidebar()))
                             'header-fixed-bottom'   has to be added on #page-container only if the class 'navbar-fixed-bottom' was added
                     -->
-    <app-header></app-header>
+    <app-header [userInfo]="userInfo"></app-header>
     <!-- END Header -->
 
     <!-- Page content -->
