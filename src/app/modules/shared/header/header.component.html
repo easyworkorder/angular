@@ -47,20 +47,20 @@
         <img src="assets/img/placeholders/avatars/avatar9.jpg" alt="avatar">
       </a>
       <ul class="dropdown-menu dropdown-menu-right">
-        <li class="dropdown-header">
-          <strong>ADMINISTRATOR</strong>
+        <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager" class="dropdown-header">
+          <strong></strong>
         </li>
-        <li>
+        <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
           <a href="page_app_email.html">
             <i class="fa fa-inbox fa-fw pull-right"></i> Inbox
           </a>
         </li>
-        <li>
+        <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
           <a href="page_app_social.html">
             <i class="fa fa-pencil-square fa-fw pull-right"></i> Profile
           </a>
         </li>
-        <li>
+        <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
           <a href="page_app_media.html">
             <i class="fa fa-picture-o fa-fw pull-right"></i> Media Manager
           </a>
