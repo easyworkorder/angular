@@ -60,19 +60,19 @@ export class BuildingService extends DataService {
     return observable;
   }
 
-  delete(data?: any) {
+  delete (data?: any) {
     data = Object.assign({}, data);
 
     // PUT '/employee'
     const observable = this.http.delete(data.url, data);
 
     observable.subscribe(data => {
-          this.toasterService.pop('success', 'DELETE', 'Building has been deleted successfully');
-          // console.log(data);
-        },
-        error => {
-          this.toasterService.pop('error', 'DELETE', 'Employee not deleted due to API error!!!');
-        });
+      this.toasterService.pop('success', 'DELETE', 'Building has been deleted successfully');
+      // console.log(data);
+    },
+      error => {
+        this.toasterService.pop('error', 'DELETE', 'Employee not deleted due to API error!!!');
+      });
 
     return observable;
   }
@@ -112,6 +112,30 @@ export class BuildingService extends DataService {
   getDocuments (building_id) {
     const observable = this.http.get('buildingdocument/?building_id=' + building_id + '&ordering=id');
     // observable.subscribe(data => {});
+    return observable;
+  }
+
+  getEmployeeBuilding (buildingId) {
+    const observable = this.http.get('employeebuilding/?building_id=' + buildingId);
+    observable.subscribe(data => {
+    });
+    return observable;
+  }
+
+  updateEmployeeBuildingNotification (data?: any): Observable<any> {
+    data = Object.assign({}, data);
+
+    // PUT '/employee'
+    // const observable = this.http.put(data.url, data);
+    const observable = this.http.patch(data.url, data);
+
+    observable.subscribe(data => {
+      // this.toasterService.pop('success', 'UPDATE', 'Building information has been updated successfully');
+    },
+      error => {
+        // this.toasterService.pop('error', 'UPDATE', 'Building information not updated due to API error!!!');
+      });
+
     return observable;
   }
 }
