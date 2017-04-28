@@ -4,6 +4,7 @@ import { DataService, AppHttp } from 'app/services';
 import { ToasterService } from 'angular2-toaster';
 import { TenantService } from 'app/modules/admin/tenant/tenant.service';
 import { Contact } from 'app/modules/admin/contact-profile-card/contact';
+import { Subject } from "rxjs/Subject";
 declare var $: any;
 
 @Component({
@@ -15,7 +16,7 @@ export class ContactProfileCardComponent implements OnInit {
     @Input() tenant: any;
     @Input() isAdmin: boolean = false;
     @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
-
+    editClicked: Subject<any> = new Subject<any>();
     contact: Contact;
     address: any;
     fullName: string;
@@ -53,7 +54,7 @@ export class ContactProfileCardComponent implements OnInit {
     }
 
     editTenant (contact) {
-        // this.tenantService.getTenant(contact.tenant).subscribe(tenant => {
+        this.editClicked.next(this.tenant);
         $('#edit-tenant-modal').modal({
             modal: 'show',
             backdrop: 'static'
@@ -68,9 +69,9 @@ export class ContactProfileCardComponent implements OnInit {
         observable.subscribe(data => {
             this.toasterService.pop('success', 'SEND', 'Password has been send successfully');
         },
-        error => {
-            this.toasterService.pop('error', 'SEND', 'Password not send due to API error!!!');
-        });
+            error => {
+                this.toasterService.pop('error', 'SEND', 'Password not send due to API error!!!');
+            });
         $('#modal-send-password-confirm').modal('hide');
     }
 }

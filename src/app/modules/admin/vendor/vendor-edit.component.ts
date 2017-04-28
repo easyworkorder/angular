@@ -58,7 +58,6 @@ export class VendorEditComponent implements OnInit {
 
     ngOnInit () {
         this.editClicked.subscribe(() => {
-            console.log('EDITED');
             this.getEditedVendorInfo();
         });
     }
@@ -72,7 +71,6 @@ export class VendorEditComponent implements OnInit {
             this.problemTypeService.getAllActiveProblemTypes(this.currentCompanyId)
         );
         this.observable.subscribe(datas => {
-            console.log(datas);
             this.editedVendorInfo = datas[0];
             this.populateProblemTypes(datas[1]);
             this.setEditedInfo();

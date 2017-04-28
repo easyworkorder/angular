@@ -3,7 +3,11 @@ import { FormBuilder, FormControl, Validators } from "@angular/forms";
 import { DataService } from "app/services";
 import { TenantService } from "app/modules/admin/tenant/tenant.service";
 import { ToasterService } from "angular2-toaster/angular2-toaster";
+import { ActivatedRoute } from "@angular/router";
+import config from '../../../config';
 declare var $: any;
+
+import { Subject } from "rxjs/Subject";
 
 @Component({
     selector: 'ewo-tenant-edit',
@@ -11,22 +15,19 @@ declare var $: any;
 })
 export class TenantEditComponent implements OnInit {
 
-    @Input() tenant: any;
+    @Input('edit') editClicked: Subject<any>;
     @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
 
     isSubmit: boolean = false;
     isInscertdateValid: boolean = true;
-
     editedTenantInfo: any;
+
     tenantForm = this.formBuilder.group({
-        // building: new FormControl('http://localhost:8080/api/building/6/'),
         building: new FormControl(),
         tenant_company_name: new FormControl('', Validators.required),
         inscertdate: new FormControl(''),
         mgtfeepercent: new FormControl('', [Validators.required]),
-        // gl_notify: new FormControl(true),
         unitno: new FormControl('', Validators.required),
-        // isactive: new FormControl(true)
         id: new FormControl(),
         url: new FormControl(),
     })
@@ -34,21 +35,23 @@ export class TenantEditComponent implements OnInit {
         private formBuilder: FormBuilder,
         private dataService: DataService,
         private tenantService: TenantService,
-        private toasterService: ToasterService
+        private toasterService: ToasterService,
+        private route: ActivatedRoute
 
     ) { }
 
     ngOnInit () {
+        this.editClicked.subscribe((tenant) => {
+            this.setEditedTenantInfo(tenant);
+        });
     }
-    ngOnChanges (changes) {
-        if (changes['tenant']) {
-            if (changes['tenant'].currentValue) {
-                this.editedTenantInfo = changes['tenant'].currentValue;
-                this.editedTenantInfo.inscertdate = this.editedTenantInfo.inscertdate.toDate();
-                this.tenantForm.patchValue(this.editedTenantInfo);
-            }
-        }
+
+    setEditedTenantInfo (tenant) {
+        this.editedTenantInfo = tenant;
+        this.editedTenantInfo.inscertdate = this.editedTenantInfo && this.editedTenantInfo.inscertdate.toDate();
+        this.tenantForm.patchValue(this.editedTenantInfo);
     }
+
     onSubmit () {
         this.isInscertdateValid = false;
 
@@ -58,12 +61,8 @@ export class TenantEditComponent implements OnInit {
             this.isInscertdateValid = false;
             return;
         }
-        //isInscertdateInValid
 
-        // this.verifyEmailService.isEmailDuplicate
         if (!this.tenantForm.valid) { return; }
-
-        // material.date.toDate()
 
         let tenantData = this.tenantForm.value;
         if (tenantData.inscertdate)
