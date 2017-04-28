@@ -43,7 +43,7 @@ export class AuthenticationService {
     this._data['observable'] = observable;
 
     // init token expiration
-    Observable.interval(10 * 60 * 1000).subscribe(() => { // 10 minutes
+    Observable.interval(120 * 60 * 1000).subscribe(() => { // 10 minutes
       const token = this.storage.get(config.storage.token);
       token && token.expires < Date.now() / 1000 && this.signout();
     });
