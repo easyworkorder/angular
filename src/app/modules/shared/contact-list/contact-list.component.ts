@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, AfterViewChecked } from '@angular/core';
 import { DataService, AppHttp } from "app/services";
 declare var $: any;
 
@@ -21,7 +21,8 @@ export class ContactListComponent implements OnInit {
 
     ngOnInit () {
     }
-    ngAfterViewInit () {
+
+    ngAfterViewChecked () {
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
         })
