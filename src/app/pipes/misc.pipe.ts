@@ -107,7 +107,7 @@ export class PhonePipe implements PipeTransform {
       } else {
         number = number;
       }
-      return ('(' + area + ') ' + number).trim().slice(0, 13);
+      return ('(' + area + ') ' + number).trim().slice(0, 14);
     } else {
       return '(' + area + ')';
     }
