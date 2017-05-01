@@ -22,7 +22,7 @@
                 </div>
                 <h4>
                     <strong>{{file.title}}</strong><br>
-                    <small>{{file.docsize}}</small>
+                    <small>{{file.docsize | fileSize}}</small>
                 </h4>
             </div>
             <div class="media-items animation-fadeInQuick2" data-category="image" *ngIf="file.mimetype == 'image/png' || file.mimetype == 'image/jpg' || file.mimetype == 'image/jpeg' || file.mimetype == 'image/gif' ">
@@ -37,7 +37,7 @@
                 </div>
                 <h4>
                     <strong>{{file.title}}</strong><br>
-                    <small>{{file.docsize}}</small>
+                    <small>{{file.docsize | fileSize}}</small>
                 </h4>
             </div>
             <div class="media-items animation-fadeInQuick2" data-category="word" *ngIf="file.mimetype == 'application/vnd.ms-excel' || file.mimetype == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' || file.mimetype == 'application/msword' || file.mimetype == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ">
@@ -52,7 +52,7 @@
                 </div>
                 <h4>
                     <strong>{{file.title}}</strong><br>
-                    <small>{{file.docsize}} kb</small>
+                    <small>{{file.docsize | fileSize}}</small>
                 </h4>
             </div>
         </div>

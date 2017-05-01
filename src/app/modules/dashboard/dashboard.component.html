@@ -1,177 +1,190 @@
 <!-- New dashboard-->
 <div id="page-container" class="header-fixed-top sidebar-light">
-  <!-- Alternative Sidebar -->
-  <div id="sidebar-alt" tabindex="-1" aria-hidden="true">
-    <!-- Toggle Alternative Sidebar Button (visible only in static layout) -->
-    <a href="javascript:void(0)" id="sidebar-alt-close" onclick="App.sidebar('toggle-sidebar-alt');"><i class="fa fa-times"></i></a>
+    <!-- Alternative Sidebar -->
+    <div id="sidebar-alt" tabindex="-1" aria-hidden="true">
+        <!-- Toggle Alternative Sidebar Button (visible only in static layout) -->
+        <a href="javascript:void(0)" id="sidebar-alt-close" onclick="App.sidebar('toggle-sidebar-alt');"><i class="fa fa-times"></i></a>
 
-    <!-- Wrapper for scrolling functionality -->
-    <div id="sidebar-scroll-alt">
-      <!-- Sidebar Content -->
-      <div class="sidebar-content">
-        <!-- Profile -->
-        <div class="sidebar-section">
-          <h2 class="text-light">Profile</h2>
-          <form action="index.html" method="post" class="form-control-borderless" onsubmit="return false;">
-            <div class="form-group">
-              <label for="side-profile-name">Name</label>
-              <input type="text" id="side-profile-name" name="side-profile-name" class="form-control" value="John Doe">
+        <!-- Wrapper for scrolling functionality -->
+        <div id="sidebar-scroll-alt">
+            <!-- Sidebar Content -->
+            <div class="sidebar-content">
+                <!-- Profile -->
+                <div class="sidebar-section">
+                    <h2 class="text-light">Profile</h2>
+                    <!--<form action="index.html" method="post" class="form-control-borderless" onsubmit="return false;">-->
+                    <form [formGroup]="userInfoForm" (ngSubmit)="onSubmit()" class="form-control-borderless" onsubmit="return false;">
+                        <div class="form-group">
+                            <label for="side-profile-name">First Name</label>
+                            <!--<input type="text" id="side-profile-name" name="side-profile-name" class="form-control" value="John Doe">-->
+
+                            <input [formControlValidator]="userInfoForm.controls.first_name" formControlName="first_name" type="text" id="first_name" class="form-control" placeholder="First Name" />
+                            <span class="validation-error">{{userInfoForm.controls.first_name.error}}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="side-profile-name">Last Name</label>
+                            <input [formControlValidator]="userInfoForm.controls.last_name" formControlName="last_name" type="text" id="last_name" class="form-control" placeholder="Last Name" />
+                            <span class="validation-error">{{userInfoForm.controls.last_name.error}}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="side-profile-email">Email</label>
+                            <!--<input type="email" id="side-profile-email" name="side-profile-email" class="form-control" value="john.doe@example.com">-->
+                            <input [formControlValidator]="userInfoForm.controls.email" formControlName="email" type="text" id="email" class="form-control" placeholder="Email: john.doe@example.com" />
+                            <span class="validation-error">{{userInfoForm.controls.email.error}}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="side-profile-password">New Password</label>
+                            <!--<input type="password" id="side-profile-password" name="side-profile-password" class="form-control">-->
+                            <input [formControlValidator]="userInfoForm.controls.new_password" formControlName="new_password" type="password" id="new_password" class="form-control" placeholder="New Password" />
+                        </div>
+                        <div class="form-group">
+                            <label for="side-profile-password-confirm">Confirm New Password</label>
+                            <!--<input type="password" id="side-profile-password-confirm" name="side-profile-password-confirm" class="form-control">-->
+                            <input [formControlValidator]="userInfoForm.controls.confirm_password" formControlName="confirm_password" type="password" id="confirm_password" class="form-control" placeholder="Confirm Password" />
+                        </div>
+                        <div class="form-group remove-margin">
+                            <button type="submit" class="btn btn-effect-ripple btn-primary" onclick="">Save</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- END Profile -->
+
+                <!-- Settings -->
+                <div class="sidebar-section hidden">
+                    <h2 class="text-light">Settings</h2>
+                    <form action="index.html" method="post" class="form-horizontal form-control-borderless" onsubmit="return false;">
+                        <div class="form-group">
+                            <label class="col-xs-7 control-label-fixed">Notifications</label>
+                            <div class="col-xs-5">
+                                <label class="switch switch-success"><input type="checkbox" checked><span></span></label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-7 control-label-fixed">Public Profile</label>
+                            <div class="col-xs-5">
+                                <label class="switch switch-success"><input type="checkbox" checked><span></span></label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-7 control-label-fixed">Enable API</label>
+                            <div class="col-xs-5">
+                                <label class="switch switch-success"><input type="checkbox"><span></span></label>
+                            </div>
+                        </div>
+                        <div class="form-group remove-margin">
+                            <button type="submit" class="btn btn-effect-ripple btn-primary" onclick="App.sidebar('close-sidebar-alt');">Save</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- END Settings -->
             </div>
-            <div class="form-group">
-              <label for="side-profile-email">Email</label>
-              <input type="email" id="side-profile-email" name="side-profile-email" class="form-control" value="john.doe@example.com">
-            </div>
-            <div class="form-group">
-              <label for="side-profile-password">New Password</label>
-              <input type="password" id="side-profile-password" name="side-profile-password" class="form-control">
-            </div>
-            <div class="form-group">
-              <label for="side-profile-password-confirm">Confirm New Password</label>
-              <input type="password" id="side-profile-password-confirm" name="side-profile-password-confirm" class="form-control">
-            </div>
-            <div class="form-group remove-margin">
-              <button type="submit" class="btn btn-effect-ripple btn-primary" onclick="App.sidebar('close-sidebar-alt');">Save</button>
-            </div>
-          </form>
+            <!-- END Sidebar Content -->
         </div>
-        <!-- END Profile -->
+        <!-- END Wrapper for scrolling functionality -->
+    </div>
+    <!-- END Alternative Sidebar -->
 
-        <!-- Settings -->
-        <div class="sidebar-section hidden">
-          <h2 class="text-light">Settings</h2>
-          <form action="index.html" method="post" class="form-horizontal form-control-borderless" onsubmit="return false;">
-            <div class="form-group">
-              <label class="col-xs-7 control-label-fixed">Notifications</label>
-              <div class="col-xs-5">
-                <label class="switch switch-success"><input type="checkbox" checked><span></span></label>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-xs-7 control-label-fixed">Public Profile</label>
-              <div class="col-xs-5">
-                <label class="switch switch-success"><input type="checkbox" checked><span></span></label>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-xs-7 control-label-fixed">Enable API</label>
-              <div class="col-xs-5">
-                <label class="switch switch-success"><input type="checkbox"><span></span></label>
-              </div>
-            </div>
-            <div class="form-group remove-margin">
-              <button type="submit" class="btn btn-effect-ripple btn-primary" onclick="App.sidebar('close-sidebar-alt');">Save</button>
-            </div>
-          </form>
+    <!-- Main Sidebar -->
+    <div id="sidebar">
+        <!-- Sidebar Brand -->
+        <div id="sidebar-brand" class="themed-background">
+            <a [routerLink]="['/']" class="sidebar-title">
+                <i class="fa fa-cube"></i> <span class="sidebar-nav-mini-hide logo">easy(<strong>workorder</strong>)</span>
+            </a>
         </div>
-        <!-- END Settings -->
-      </div>
-      <!-- END Sidebar Content -->
-    </div>
-    <!-- END Wrapper for scrolling functionality -->
-  </div>
-  <!-- END Alternative Sidebar -->
+        <!-- END Sidebar Brand -->
 
-  <!-- Main Sidebar -->
-  <div id="sidebar">
-    <!-- Sidebar Brand -->
-    <div id="sidebar-brand" class="themed-background">
-      <a [routerLink]="['/']" class="sidebar-title">
-        <i class="fa fa-cube"></i> <span class="sidebar-nav-mini-hide logo">easy(<strong>workorder</strong>)</span>
-      </a>
-    </div>
-    <!-- END Sidebar Brand -->
+        <!-- Wrapper for scrolling functionality -->
+        <div id="sidebar-scroll">
+            <!-- Sidebar Content -->
+            <div class="sidebar-content">
+                <!-- Sidebar Navigation -->
+                <ul class="sidebar-nav">
+                    <li>
+                        <a [routerLink]="['/']" onclick="App.sidebar('toggle-sidebar');"><i class="gi gi-compass sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Dashboard</span></a>
+                    </li>
+                    <li class="sidebar-separator">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </li>
+                    <li>
+                        <a href="#" class="sidebar-nav-menu"><i class="fa fa-chevron-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="fa fa-rocket sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Contacts</span></a>
+                        <ul>
+                            <li>
+                                <a [routerLink]="['/', 'tenant']" onclick="App.sidebar('toggle-sidebar');">Tenants</a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['/', 'employee']" onclick="App.sidebar('toggle-sidebar');">Employees</a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['/', 'vendor']" onclick="App.sidebar('toggle-sidebar');">Vendors</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="sidebar-nav-menu"><i class="fa fa-chevron-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="gi gi-airplane sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Reservations</span></a>
+                        <ul>
+                            <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
+                                <a href="conferencerooms.html">Conference Rooms</a>
+                            </li>
+                            <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
+                                <a href="loadingdocks.html">Loading Dock</a>
+                            </li>
+                            <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
+                                <a href="freightelevators.html">Freight Elevator</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
+                        <a href="page_app_email.html"><i class="gi gi-inbox sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Messages</span></a>
+                    </li>
+                    <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
+                        <a href="page_ready_tickets.html"><i class="gi gi-inbox sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Projects</span></a>
+                    </li>
+                    <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
+                        <a href="page_app_email.html"><i class="gi gi-inbox sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">PM Workload</span></a>
+                    </li>
+                    <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
+                        <a href="page_app_social.html"><i class="fa fa-share-alt sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Insurance</span></a>
+                    </li>
+                    <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
+                        <a href="page_app_media.html"><i class="gi gi-picture sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Billing</span></a>
+                    </li>
+                    <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
+                        <a href="page_app_estore.html"><i class="gi gi-shopping_cart sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Reports</span></a>
+                    </li>
+                </ul>
+                <!-- END Sidebar Navigation -->
+            </div>
+            <!-- END Sidebar Content -->
+        </div>
+        <!-- END Wrapper for scrolling functionality -->
 
-    <!-- Wrapper for scrolling functionality -->
-    <div id="sidebar-scroll">
-      <!-- Sidebar Content -->
-      <div class="sidebar-content">
-        <!-- Sidebar Navigation -->
-        <ul class="sidebar-nav">
-          <li>
-            <a [routerLink]="['/']" onclick="App.sidebar('toggle-sidebar');"><i class="gi gi-compass sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Dashboard</span></a>
-          </li>
-          <li class="sidebar-separator">
-            <i class="fa fa-ellipsis-h"></i>
-          </li>
-          <li>
-            <a href="#" class="sidebar-nav-menu"><i class="fa fa-chevron-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="fa fa-rocket sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Contacts</span></a>
-            <ul>
-              <li>
-                <a [routerLink]="['/', 'tenant']" onclick="App.sidebar('toggle-sidebar');">Tenants</a>
-              </li>
-              <li>
-                <a [routerLink]="['/', 'employee']" onclick="App.sidebar('toggle-sidebar');">Employees</a>
-              </li>
-              <li>
-                <a [routerLink]="['/', 'vendor']" onclick="App.sidebar('toggle-sidebar');">Vendors</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href="#" class="sidebar-nav-menu"><i class="fa fa-chevron-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="gi gi-airplane sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Reservations</span></a>
-            <ul>
-              <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
-                <a href="conferencerooms.html">Conference Rooms</a>
-              </li>
-              <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
-                <a href="loadingdocks.html">Loading Dock</a>
-              </li>
-              <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
-                <a href="freightelevators.html">Freight Elevator</a>
-              </li>
-            </ul>
-          </li>
-          <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
-            <a href="page_app_email.html"><i class="gi gi-inbox sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Messages</span></a>
-          </li>
-          <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
-            <a href="page_ready_tickets.html"><i class="gi gi-inbox sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Projects</span></a>
-          </li>
-          <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
-            <a href="page_app_email.html"><i class="gi gi-inbox sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">PM Workload</span></a>
-          </li>
-          <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
-            <a href="page_app_social.html"><i class="fa fa-share-alt sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Insurance</span></a>
-          </li>
-          <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
-            <a href="page_app_media.html"><i class="gi gi-picture sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Billing</span></a>
-          </li>
-          <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
-            <a href="page_app_estore.html"><i class="gi gi-shopping_cart sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Reports</span></a>
-          </li>
-        </ul>
-        <!-- END Sidebar Navigation -->
-      </div>
-      <!-- END Sidebar Content -->
-    </div>
-    <!-- END Wrapper for scrolling functionality -->
-
-    <!-- Sidebar Extra Info -->
-    <div id="sidebar-extra-info" class="sidebar-content sidebar-nav-mini-hide">
-      <div class="push-bit" style="display: none">
-        <span class="pull-right">
+        <!-- Sidebar Extra Info -->
+        <div id="sidebar-extra-info" class="sidebar-content sidebar-nav-mini-hide">
+            <div class="push-bit" style="display: none">
+                <span class="pull-right">
                                 <a href="javascript:void(0)" class="text-muted"><i class="fa fa-plus"></i></a>
                             </span>
-        <small><strong>78 GB</strong> / 100 GB</small>
-      </div>
-      <div class="progress progress-mini push-bit">
-        <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100"
-          style="width: 78%"></div>
-      </div>
-      <div class="text-center">
+                <small><strong>78 GB</strong> / 100 GB</small>
+            </div>
+            <div class="progress progress-mini push-bit">
+                <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100"
+                    style="width: 78%"></div>
+            </div>
+            <div class="text-center">
 
-        <small><span id="year-copy"></span> &copy; <a href="http://www.easyworkorder.com" target="_blank">Easyworkorder.com</a></small>
-      </div>
+                <small><span id="year-copy"></span> &copy; <a href="http://www.easyworkorder.com" target="_blank">Easyworkorder.com</a></small>
+            </div>
+        </div>
+        <!-- END Sidebar Extra Info -->
     </div>
-    <!-- END Sidebar Extra Info -->
-  </div>
-  <!-- END Main Sidebar -->
+    <!-- END Main Sidebar -->
 
-  <!-- Main Container -->
-  <div id="main-container">
-    <!-- Header -->
-    <!-- In the PHP version you can set the following options from inc/config file -->
-    <!--
+    <!-- Main Container -->
+    <div id="main-container">
+        <!-- Header -->
+        <!-- In the PHP version you can set the following options from inc/config file -->
+        <!--
                         Available header.navbar classes:
                         'navbar-default'            for the default light header
                         'navbar-inverse'            for an alternative dark header
@@ -180,20 +193,20 @@
                         'navbar-fixed-bottom'       for a bottom fixed header (fixed main sidebar with scroll will be auto initialized, functionality can be found in js/app.js - handleSidebar()))
                             'header-fixed-bottom'   has to be added on #page-container only if the class 'navbar-fixed-bottom' was added
                     -->
-    <app-header [userInfo]="userInfo"></app-header>
-    <!-- END Header -->
+        <app-header [userInfo]="userInfo"></app-header>
+        <!-- END Header -->
 
-    <!-- Page content -->
-    <div id="page-content">
-      <!-- Ticket Component -->
-      <ewo-breadcrumb-header></ewo-breadcrumb-header>
-      <router-outlet></router-outlet>
-      <!--<ewo-ticket></ewo-ticket>-->
-      <!-- End Ticket Component -->
+        <!-- Page content -->
+        <div id="page-content">
+            <!-- Ticket Component -->
+            <ewo-breadcrumb-header></ewo-breadcrumb-header>
+            <router-outlet></router-outlet>
+            <!--<ewo-ticket></ewo-ticket>-->
+            <!-- End Ticket Component -->
+        </div>
+        <!-- END Page Content -->
     </div>
-    <!-- END Page Content -->
-  </div>
-  <!-- END Main Container -->
+    <!-- END Main Container -->
 </div>
 <!-- END Page Container -->
 <!-- End New dashboard -->
