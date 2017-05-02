@@ -46,14 +46,20 @@ export class ProblemTypeComponent implements OnInit {
         });
     }
 
-    ngOnInit() {
+    ngOnInit () {
         $('#modal-add-problem-type').on('hidden.bs.modal', () => {
             this.closeModal();
         });
         this.breadcrumbHeaderService.setBreadcrumbTitle('Problem Types');
     }
 
-    getAllProblemTypes(company_id): void {
+    ngAfterViewChecked () {
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    }
+
+    getAllProblemTypes (company_id): void {
         this.isShowingLoadingSpinner = true;
         this.problemTypeService.getAllActiveProblemTypes(company_id).subscribe(
             data => {
@@ -75,17 +81,17 @@ export class ProblemTypeComponent implements OnInit {
         );
     }
 
-    editProblemType(problemType) {
+    editProblemType (problemType) {
         this.problemTypeForm.setValue(problemType);
     }
 
-    removeProblemType(problemType) {
+    removeProblemType (problemType) {
         problemType.active = false;
         this.problemTypeForm.setValue(problemType);
         this.isDeleted = true;
     }
 
-    onSubmit() {
+    onSubmit () {
         if (this.problemTypeForm.value.id) {
             this.problemTypeService.update(this.problemTypeForm.value, this.isDeleted).subscribe((problemType: any) => {
                 this.getAllProblemTypes(this.currentCompanyId);
@@ -100,14 +106,14 @@ export class ProblemTypeComponent implements OnInit {
         });
     }
 
-    closeModal() {
+    closeModal () {
         this.resetForm();
         this.isDeleted = false;
         $('#modal-add-problem-type').modal('hide');
         $('#modal-remove-problem-type').modal('hide');
     }
 
-    resetForm() {
+    resetForm () {
         this.problemTypeForm.reset({
             company: config.api.base + 'company/' + this.currentCompanyId + '/',
             problem_name: '',

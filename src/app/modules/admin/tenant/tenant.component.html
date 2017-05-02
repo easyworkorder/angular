@@ -1,7 +1,7 @@
 <!-- START CONTACTS ALPHABET FILTER -->
 <div class="text-center border-top push-inner-top-bottom">
-    <a [modal-dialog-open]="'modal-add-tenant'" (click)="isSubmit = false;" class="btn btn-sm btn-success" data-toggle="modal"
-        style="overflow: hidden; position: relative;"><i class="fa fa-plus"></i></a>
+    <a [modal-dialog-open]="'modal-add-tenant'" (click)="isSubmit = false;" class="btn btn-sm btn-success" data-toggle="tooltip"
+        style="overflow: hidden; position: relative;" title="Add Tenant" data-original-title="Add Tenant"><i class="fa fa-plus"></i></a>
     <ewo-alphabetical-sort [searchControl]="searchControl"></ewo-alphabetical-sort>
 </div>
 <!-- END CONTACTS ALPHABET FILTER -->

@@ -97,6 +97,12 @@ export class EmployeeComponent implements OnInit {
         this.setProblemTypeLsit();
     }
 
+    ngAfterViewChecked () {
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip({ container: 'body' })
+        })
+    }
+
     switchTab (tabId: number) {
         if (tabId < 1) // First tabs back button click
             tabId = 1;

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { DataService } from "app/services";
 import { Router } from "@angular/router";
+declare var $: any;
 
 @Component({
     selector: 'ewo-vendor-list-item',
@@ -22,6 +23,11 @@ export class VendorListItemComponent implements OnInit {
 
     }
 
+    ngAfterViewChecked () {
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip({ container: 'body' })
+        })
+    }
     buildName (firstName: string, lastName: string) {
         return this.dataService.buildName(firstName, lastName);
     }

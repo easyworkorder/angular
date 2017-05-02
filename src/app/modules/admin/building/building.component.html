@@ -26,8 +26,8 @@
             <!--<a href="#modal-add-building" class="btn btn-effect-ripple btn-success" data-toggle="modal" title="" style="overflow: hidden; position: relative;"
                 data-original-title="Add Building"><i
                 class="fa fa-plus"></i></a>-->
-            <a modal-dialog-open="modal-add-building" class="btn btn-effect-ripple btn-success" data-toggle="modal" title="" style="overflow: hidden; position: relative;"
-                data-original-title="Add Building"><i
+            <a modal-dialog-open="modal-add-building" class="btn btn-effect-ripple btn-success" data-toggle="tooltip" title="Add Building"
+                style="overflow: hidden; position: relative;" data-original-title="Add Building"><i
                 class="fa fa-plus"></i></a>
         </div>
         <h2>Buildings</h2>
@@ -42,10 +42,9 @@
             <div class="widget list-block-item building">
                 <div class="widget-content widget-content-mini themed-background-default">
                     <div class="block-options pull-right">
-                        <a (click)="editBuilding(building)" class="btn btn-effect-ripple btn-xs btn-success" data-toggle="tooltip" title="Edit Building"
-                            data-original-title="Edit"><i class="fa fa-pencil"></i></a>
-                        <a modal-dialog-open="modal-building-delete-confirm" (click)="deleteBuilding(building)" data-toggle="modal" title=""
-                           class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;" data-original-title="Delete"><i class="fa fa-times"></i></a>
+                        <a (click)="editBuilding(building)" class="btn btn-effect-ripple btn-xs btn-success" data-toggle="tooltip" title="Edit" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                        <a modal-dialog-open="modal-building-delete-confirm" (click)="deleteBuilding(building)" data-toggle="tooltip" title="Delete"
+                            class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;" data-original-title="Delete"><i class="fa fa-times"></i></a>
                     </div>
 
                     <div class="widget-content themed-background-default clearfix">
@@ -288,6 +287,6 @@
 <!-- END Add Building Modal -->
 
 <ewo-confirm-modal id="modal-building-delete-confirm" [OkButton]="true" [okButtonLabel]="'Continue'" (okButtonClick)="onModalOkButtonClick($event)"
-                   [cancelButtonLabel]="'Cancel'" [message]="'DANGER YOU WILL LOSE ALL INFORMATION ASSOCIATED, DO YOU WANT TO PROCEED?'" class="modal fade in" tabindex="-1" role="dialog"
-                   aria-hidden="true">
+    [cancelButtonLabel]="'Cancel'" [message]="'DANGER YOU WILL LOSE ALL INFORMATION ASSOCIATED, DO YOU WANT TO PROCEED?'" class="modal fade in"
+    tabindex="-1" role="dialog" aria-hidden="true">
 </ewo-confirm-modal>

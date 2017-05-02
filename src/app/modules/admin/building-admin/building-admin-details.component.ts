@@ -57,6 +57,12 @@ export class BuildingAdminDetailsComponent implements OnInit {
 
     }
 
+    ngAfterViewChecked () {
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip({ container: 'body' })
+        })
+    }
+
     // getBuilding(id) {
     //   this.buildingService.getBuilding(id).subscribe(data => {
     //     this.employeeService.getEmployeeById(data.primarycontact_id).subscribe(emp => {
@@ -153,7 +159,7 @@ export class BuildingAdminDetailsComponent implements OnInit {
         this.getBuildingSLAPolicy(this._buildingId);
     }
 
-    updateFileList(event) {
+    updateFileList (event) {
         this.getFiles(this._buildingId);
     }
 

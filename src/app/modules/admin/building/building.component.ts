@@ -102,6 +102,11 @@ export class BuildingComponent implements OnInit {
     this.breadcrumbHeaderService.setBreadcrumbTitle('Buildings');
     // this.headerService.setDashBoardTitle({ title: 'TICKETS', link: ['/'] });
   }
+  ngAfterViewChecked () {
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
+  }
 
   switchTab (tabId: number) {
     if (tabId < 1) // First tabs back button click

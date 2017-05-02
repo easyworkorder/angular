@@ -1,6 +1,7 @@
 <!-- START CONTACTS ALPHABET FILTER -->
 <div class="text-center border-top push-inner-top-bottom">
-    <a modal-dialog-open="modal-add-vendor" class="btn btn-sm btn-success" data-toggle="modal" style="overflow: hidden; position: relative;"><i class="fa fa-plus"></i></a>
+    <a modal-dialog-open="modal-add-vendor" class="btn btn-sm btn-success" data-toggle="tooltip" style="overflow: hidden; position: relative;"
+        title="Add Vendor" data-original-title="Add Vendor"><i class="fa fa-plus"></i></a>
     <ewo-alphabetical-sort [isWhiteBackground]="false" [searchControl]="searchControl" [isNumericSearch]="true"></ewo-alphabetical-sort>
 </div>
 <!-- END CONTACTS ALPHABET FILTER -->
@@ -214,6 +215,6 @@
 <!-- END Add Contact Modal -->
 
 <ewo-confirm-modal id="modal-vendor-delete-confirm" [OkButton]="true" [okButtonLabel]="'Continue'" (okButtonClick)="onModalOkButtonClick($event)"
-                   [cancelButtonLabel]="'Cancel'" [showDangerIcon]="true" [message]="'DANGER YOU WILL LOSE ALL INFORMATION ASSOCIATED, DO YOU WANT TO PROCEED?'"
-                   class="modal fade in" tabindex="-1" role="dialog" aria-hidden="true">
+    [cancelButtonLabel]="'Cancel'" [showDangerIcon]="true" [message]="'DANGER YOU WILL LOSE ALL INFORMATION ASSOCIATED, DO YOU WANT TO PROCEED?'"
+    class="modal fade in" tabindex="-1" role="dialog" aria-hidden="true">
 </ewo-confirm-modal>
