@@ -26,8 +26,8 @@ export class DashboardComponent implements OnInit {
     userInfo: any;
     
     userInfoForm = new FormGroup({
-        // id: new FormControl(),
-        // url: new FormControl(''),
+        id: new FormControl(),
+        url: new FormControl(''),
         first_name: new FormControl('', [Validators.required]),
         last_name: new FormControl('', [Validators.required]),
         username: new FormControl('', [Validators.required]),
@@ -47,15 +47,16 @@ export class DashboardComponent implements OnInit {
             App.init();
             ReadyDashboard.init();
         });
-
-        let storedUserInfo = this.storage.getUserInfo();
-        this.http.get('user/' + storedUserInfo.user_id + '/', null, null).subscribe(data => {
-            this.userInfo = data;
+        this.userInfo = this.storage.getUserInfo();
+        // let storedUserInfo:any = null;
+        this.http.get('user/' + this.userInfo.user_id + '/', null, null).subscribe(data => {
+            // this.userInfo = data;
             // this.userInfoForm.get('first_name').setValue(this.userInfo.first_name);
             // this.userInfoForm.get('last_name').setValue(this.userInfo.last_name);
             // this.userInfoForm.get('username').setValue(this.userInfo.username);
             // this.userInfoForm.get('email').setValue(this.userInfo.email);
-            this.userInfoForm.reset(this.userInfo);
+            // this.userInfoForm.reset(this.userInfo);
+            this.userInfoForm.reset(data);
         });
     }
 
@@ -69,12 +70,16 @@ export class DashboardComponent implements OnInit {
         data.first_name = data.first_name + '+' + password;
         // let url = this.userInfo.url + 'update_userinfo/';
         // let url = 'updateuser_info/'
-        let url = this.userInfo.url;
+        // let url = this.userInfo.url;
+        let url = data.url;
         this.http.put(url, data).subscribe(info => {
         // this.http.post(url, data).subscribe(info => {
             console.log('Userinfo patched successfully', info);
-            this.userInfo = info;
-            this.userInfoForm.reset(this.userInfo);
+            this.userInfo.first_name = info.first_name;
+            this.userInfo.last_name = info.last_name;
+            this.userInfo.email = info.email.
+            this.userInfoForm.reset(info);
+            this.storage.set(config.storage.user, this.userInfo);
             App.sidebar('close-sidebar-alt');
         });
     }
