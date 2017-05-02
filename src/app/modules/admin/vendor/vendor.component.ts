@@ -65,6 +65,12 @@ export class VendorComponent implements OnInit {
         this.breadcrumbHeaderService.setBreadcrumbTitle('Vendors');
     }
 
+    ngAfterViewChecked () {
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip({ container: 'body' })
+        })
+    }
+
     vendorForm = this.formBuilder.group({
         // building: new FormControl('http://localhost:8080/api/building/6/'),
         id: new FormControl(),

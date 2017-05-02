@@ -3,6 +3,7 @@ import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/br
 import { FormBuilder, FormGroup, FormArray, Validators } from "@angular/forms";
 import { SLAPolicyService } from "app/modules/admin/sla-policy/sla-policy.service";
 import config from '../../../config';
+declare var $: any;
 
 @Component({
     selector: 'ewo-sla-policy',
@@ -40,6 +41,12 @@ export class SLAPolicyComponent implements OnInit {
             company_sla_policy_targets: this.fb.array([])
         });
         this.getSLAPolicy();
+    }
+
+    ngAfterViewChecked () {
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
     }
 
     getSLAPolicy () {

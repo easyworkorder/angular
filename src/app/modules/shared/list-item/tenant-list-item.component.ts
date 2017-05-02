@@ -2,6 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { DataService } from "app/services";
 import { Router } from "@angular/router";
 import { TenantService } from "app/modules/admin/tenant/tenant.service";
+declare var $: any;
 
 @Component({
     selector: 'ewo-tenant-list-item',
@@ -20,6 +21,12 @@ export class TenantListItemComponent implements OnInit {
 
     ngOnInit () {
 
+    }
+
+    ngAfterViewChecked () {
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
     }
 
     buildName (firstName: string, lastName: string) {

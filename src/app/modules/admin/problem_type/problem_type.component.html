@@ -41,8 +41,8 @@
     <!-- Get Started Title -->
     <div class="block-title">
         <div class="block-options pull-right">
-            <a modal-dialog-open="modal-add-problem-type" class="btn btn-effect-ripple btn-success" data-toggle="modal" title="" style="overflow: hidden; position: relative;"
-                data-original-title="Add Problem Type"><i class="fa fa-plus"></i></a>
+            <a modal-dialog-open="modal-add-problem-type" class="btn btn-effect-ripple btn-success" data-toggle="tooltip" title="Add Problem Type"
+                style="overflow: hidden; position: relative;" data-original-title="Add Problem Type"><i class="fa fa-plus"></i></a>
         </div>
         <h2>Problem Types</h2>
     </div>
@@ -57,12 +57,13 @@
                     <tr *ngFor="let problemType of problemTypesList1 | filterWithStartLetter: { problem_name: searchControl.value };" class="animation-fadeInQuickInv">
                         <td class="hidden-xs">{{problemType.problem_name}}</td>
                         <td class="text-center" style="width: 100px;">
-                            <a modal-dialog-open="modal-add-problem-type" (click)="editProblemType(problemType)" data-toggle="modal" title="" class="btn btn-effect-ripple btn-xs btn-success"
+                            <a modal-dialog-open="modal-add-problem-type" (click)="editProblemType(problemType)" data-toggle="tooltip" title="Edit" class="btn btn-effect-ripple btn-xs btn-success"
                                 style="overflow: hidden; position: relative;" data-original-title="Edit"><span class="btn-ripple animate"
                                                             style="height: 22px; width: 22px; top: -2.60001px; left: -10.9875px;"></span><i
                                 class="fa fa-pencil"></i></a>
-                            <a modal-dialog-open="modal-remove-problem-type" (click)="removeProblemType(problemType)" data-toggle="modal" title="" class="btn btn-effect-ripple btn-xs btn-danger"
-                                style="overflow: hidden; position: relative;" data-original-title="Delete"><i class="fa fa-times"></i></a>
+                            <a modal-dialog-open="modal-remove-problem-type" (click)="removeProblemType(problemType)" data-toggle="tooltip" title="Delete"
+                                class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;"
+                                data-original-title="Delete"><i class="fa fa-times"></i></a>
                         </td>
                     </tr>
                 </tbody>
@@ -74,12 +75,13 @@
                     <tr *ngFor="let problemType of problemTypesList2 | filterWithStartLetter: { problem_name: searchControl.value };" class="animation-fadeInQuickInv">
                         <td class="hidden-xs">{{problemType.problem_name}}</td>
                         <td class="text-center" style="width: 100px;">
-                            <a modal-dialog-open="modal-add-problem-type" (click)="editProblemType(problemType)" data-toggle="modal" title="" class="btn btn-effect-ripple btn-xs btn-success"
+                            <a modal-dialog-open="modal-add-problem-type" (click)="editProblemType(problemType)" data-toggle="tooltip" title="Edit" class="btn btn-effect-ripple btn-xs btn-success"
                                 style="overflow: hidden; position: relative;" data-original-title="Edit"><span class="btn-ripple animate"
                                                             style="height: 22px; width: 22px; top: -2.60001px; left: -10.9875px;"></span><i
                                 class="fa fa-pencil"></i></a>
-                            <a modal-dialog-open="modal-remove-problem-type" (click)="removeProblemType(problemType)" data-toggle="modal" title="" class="btn btn-effect-ripple btn-xs btn-danger"
-                                style="overflow: hidden; position: relative;" data-original-title="Delete"><i class="fa fa-times"></i></a>
+                            <a modal-dialog-open="modal-remove-problem-type" (click)="removeProblemType(problemType)" data-toggle="tooltip" title="Delete"
+                                class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;"
+                                data-original-title="Delete"><i class="fa fa-times"></i></a>
                         </td>
                     </tr>
                 </tbody>
@@ -113,7 +115,8 @@
                     <div class="form-group">
                         <label class="col-xs-5 control-label" for="problem_name">Name<span class="required">*</span></label>
                         <div class="col-xs-7">
-                            <input [formControlValidator]="problemTypeForm.controls.problem_name" formControlName="problem_name" type="text" id="problem_name" name="problem_name" class="form-control" placeholder="Problem Name">
+                            <input [formControlValidator]="problemTypeForm.controls.problem_name" formControlName="problem_name" type="text" id="problem_name"
+                                name="problem_name" class="form-control" placeholder="Problem Name">
                             <!--<validation-messages [control]="problemTypeForm.controls.problem_name"></validation-messages>-->
                             <span class="validation-error">{{problemTypeForm.controls.problem_name.error}}</span>
                         </div>
