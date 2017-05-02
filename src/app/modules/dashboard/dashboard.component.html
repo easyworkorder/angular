@@ -33,6 +33,26 @@
                             <span class="validation-error">{{userInfoForm.controls.email.error}}</span>
                         </div>
                         <div class="form-group">
+                            <label for="side-profile-email">Phone</label>
+                            <input phoneNumber [formControlValidator]="userInfoForm.controls.phone" formControlName="phone" type="text" id="phone"
+                                    name="phone" class="form-control" placeholder="Phone">
+                                <span class="validation-error">{{userInfoForm.controls.phone.error}}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="side-profile-email">Fax</label>
+                            <input phoneNumber [formControlValidator]="userInfoForm.controls.fax" formControlName="fax" type="text" id="fax"
+                                    name="fax" class="form-control" placeholder="Fax">
+                                <span class="validation-error">{{userInfoForm.controls.fax.error}}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="side-profile-email">Mobile</label>
+                            <input phoneNumber [formControlValidator]="userInfoForm.controls.mobile" formControlName="mobile" type="text" id="mobile"
+                                    name="mobile" class="form-control" placeholder="Mobile Number">
+                                <span class="validation-error">{{userInfoForm.controls.mobile.error}}</span>
+                        </div>
+
+
+                        <div class="form-group">
                             <label for="side-profile-password">New Password</label>
                             <!--<input type="password" id="side-profile-password" name="side-profile-password" class="form-control">-->
                             <input [formControlValidator]="userInfoForm.controls.new_password" formControlName="new_password" type="password" id="new_password" class="form-control" placeholder="New Password" />

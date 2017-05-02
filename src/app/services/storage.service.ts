@@ -17,7 +17,13 @@ export class Storage {
     }
   }
 
+  hasItem(key: string) {
+      return localStorage.getItem(key) !== null;
+  }
+
   set(key: string, value: any): void {
+    if(this.hasItem(key))
+      this.remove(key);
     localStorage.setItem(key, JSON.stringify(value));
   }
 
@@ -29,11 +35,12 @@ export class Storage {
     localStorage.clear();
   }
 
-  private _userInfo: any;
+  // private _userInfo: any;
   getUserInfo() {
-    if(!this._userInfo) {
-      this._userInfo = this.get(config.storage.user)
-    }
-    return this._userInfo;
+    // if(!this._userInfo) {
+    //   this._userInfo = this.get(config.storage.user)
+    // }
+    // return this._userInfo;
+    return this.get(config.storage.user);
   }
 }
