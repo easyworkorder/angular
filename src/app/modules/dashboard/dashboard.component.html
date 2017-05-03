@@ -13,54 +13,54 @@
                 <div class="sidebar-section">
                     <h2 class="text-light">Profile</h2>
                     <!--<form action="index.html" method="post" class="form-control-borderless" onsubmit="return false;">-->
-                    <form [formGroup]="userInfoForm" (ngSubmit)="onSubmit()" class="form-control-borderless" onsubmit="return false;">
+                    <form [formGroup]="userProfileForm" (ngSubmit)="onSubmit()" class="form-control-borderless" onsubmit="return false;">
                         <div class="form-group">
                             <label for="side-profile-name">First Name</label>
                             <!--<input type="text" id="side-profile-name" name="side-profile-name" class="form-control" value="John Doe">-->
 
-                            <input [formControlValidator]="userInfoForm.controls.first_name" formControlName="first_name" type="text" id="first_name" class="form-control" placeholder="First Name" />
-                            <span class="validation-error">{{userInfoForm.controls.first_name.error}}</span>
+                            <input [formControlValidator]="userProfileForm.controls.first_name" formControlName="first_name" type="text" id="first_name" class="form-control" placeholder="First Name" />
+                            <span class="validation-error">{{userProfileForm.controls.first_name.error}}</span>
                         </div>
                         <div class="form-group">
                             <label for="side-profile-name">Last Name</label>
-                            <input [formControlValidator]="userInfoForm.controls.last_name" formControlName="last_name" type="text" id="last_name" class="form-control" placeholder="Last Name" />
-                            <span class="validation-error">{{userInfoForm.controls.last_name.error}}</span>
+                            <input [formControlValidator]="userProfileForm.controls.last_name" formControlName="last_name" type="text" id="last_name" class="form-control" placeholder="Last Name" />
+                            <span class="validation-error">{{userProfileForm.controls.last_name.error}}</span>
                         </div>
                         <div class="form-group">
                             <label for="side-profile-email">Email</label>
                             <!--<input type="email" id="side-profile-email" name="side-profile-email" class="form-control" value="john.doe@example.com">-->
-                            <input [formControlValidator]="userInfoForm.controls.email" formControlName="email" type="text" id="email" class="form-control" placeholder="Email: john.doe@example.com" />
-                            <span class="validation-error">{{userInfoForm.controls.email.error}}</span>
+                            <input [formControlValidator]="userProfileForm.controls.email" formControlName="email" type="text" id="email" class="form-control" placeholder="Email: john.doe@example.com" />
+                            <span class="validation-error">{{userProfileForm.controls.email.error}}</span>
                         </div>
                         <div class="form-group">
                             <label for="side-profile-email">Phone</label>
-                            <input phoneNumber [formControlValidator]="userInfoForm.controls.phone" formControlName="phone" type="text" id="phone"
+                            <input phoneNumber [formControlValidator]="userProfileForm.controls.phone" formControlName="phone" type="text" id="phone"
                                     name="phone" class="form-control" placeholder="Phone">
-                                <span class="validation-error">{{userInfoForm.controls.phone.error}}</span>
+                                <span class="validation-error">{{userProfileForm.controls.phone.error}}</span>
                         </div>
                         <div class="form-group">
                             <label for="side-profile-email">Fax</label>
-                            <input phoneNumber [formControlValidator]="userInfoForm.controls.fax" formControlName="fax" type="text" id="fax"
+                            <input phoneNumber [formControlValidator]="userProfileForm.controls.fax" formControlName="fax" type="text" id="fax"
                                     name="fax" class="form-control" placeholder="Fax">
-                                <span class="validation-error">{{userInfoForm.controls.fax.error}}</span>
+                                <span class="validation-error">{{userProfileForm.controls.fax.error}}</span>
                         </div>
                         <div class="form-group">
                             <label for="side-profile-email">Mobile</label>
-                            <input phoneNumber [formControlValidator]="userInfoForm.controls.mobile" formControlName="mobile" type="text" id="mobile"
+                            <input phoneNumber [formControlValidator]="userProfileForm.controls.mobile" formControlName="mobile" type="text" id="mobile"
                                     name="mobile" class="form-control" placeholder="Mobile Number">
-                                <span class="validation-error">{{userInfoForm.controls.mobile.error}}</span>
+                                <span class="validation-error">{{userProfileForm.controls.mobile.error}}</span>
                         </div>
 
 
                         <div class="form-group">
                             <label for="side-profile-password">New Password</label>
                             <!--<input type="password" id="side-profile-password" name="side-profile-password" class="form-control">-->
-                            <input [formControlValidator]="userInfoForm.controls.new_password" formControlName="new_password" type="password" id="new_password" class="form-control" placeholder="New Password" />
+                            <input [formControlValidator]="userProfileForm.controls.password" formControlName="password" type="password" id="password" class="form-control" placeholder="New Password" />
                         </div>
                         <div class="form-group">
                             <label for="side-profile-password-confirm">Confirm New Password</label>
                             <!--<input type="password" id="side-profile-password-confirm" name="side-profile-password-confirm" class="form-control">-->
-                            <input [formControlValidator]="userInfoForm.controls.confirm_password" formControlName="confirm_password" type="password" id="confirm_password" class="form-control" placeholder="Confirm Password" />
+                            <input [formControlValidator]="userProfileForm.controls.confirm_password" formControlName="confirm_password" type="password" id="confirm_password" class="form-control" placeholder="Confirm Password" />
                         </div>
                         <div class="form-group remove-margin">
                             <button type="submit" class="btn btn-effect-ripple btn-primary" onclick="">Save</button>
