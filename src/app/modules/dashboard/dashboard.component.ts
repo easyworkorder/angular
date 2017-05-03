@@ -1,3 +1,4 @@
+import { ToasterService } from 'angular2-toaster';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { AuthenticationService } from "app/modules/authentication";
 import config from './../../config';
@@ -21,7 +22,8 @@ export class DashboardComponent implements OnInit {
     constructor(
         private authService: AuthenticationService,
         private storage: Storage,
-        private http: AppHttp) {
+        private http: AppHttp,
+        private toasterService: ToasterService) {
         //  this.authService.verifyToken();
      }
 
@@ -73,6 +75,7 @@ export class DashboardComponent implements OnInit {
             console.log('Userinfo patched successfully', userProfile);
             this.userProfileForm.reset(userProfile);
             App.sidebar('close-sidebar-alt');
+            this.toasterService.pop('Info', 'Profile Saved', 'Your profile saved successfully.')
         });
     }
 
