@@ -39,10 +39,13 @@ import { TenantProfileComponent } from "./modules/list/tenant-list/tenant-profil
 
 import { SLAPolicyComponent } from "app/modules/admin/sla-policy/sla-policy.component";
 
+import { AuthGuardService } from './auth-guard.service';
+
 
 export const appRoutes: Routes = [
     {
         path: '', component: DashboardComponent,
+        canActivate: [AuthGuardService],
         // resolve: {
         //   token: DashBoardResolver
         // },

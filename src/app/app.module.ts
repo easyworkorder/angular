@@ -169,6 +169,7 @@ import { TenantTicketReplyComponent } from 'app/modules/ticket/tenant-ticket-rep
 import { PagerService } from "app/services/pager.service";
 import { TenantEditComponent } from './modules/admin/tenant/tenant-edit.component';
 import { VendorEditComponent } from './modules/admin/vendor/vendor-edit.component';
+import { AuthGuardService } from "app/auth-guard.service";
 
 export function translateStaticLoaderFactory (Backend, defaultOptions, storage, notificationService) {
     return new AppHttp(Backend, defaultOptions, storage, notificationService);
@@ -351,7 +352,8 @@ export function translateStaticLoaderFactory (Backend, defaultOptions, storage, 
         SLAPolicyService,
         BreadcrumbService,
         VerifyEmailService,
-        PagerService
+        PagerService,
+        AuthGuardService
 
         // { provide: XSRFStrategy, useValue: new      CookieXSRFStrategy('token', 'x-csrftoken')
         // },

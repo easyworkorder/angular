@@ -4,6 +4,8 @@ import { ToasterService } from 'angular2-toaster';
 import { Observable } from 'rxjs/Observable';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 
+import 'rxjs/add/operator/toPromise';
+
 import config from './../../config';
 import { NotificationService } from './../../services/notification.service';
 // import * as jQuery from 'jquery';
@@ -315,5 +317,20 @@ export class AuthenticationService {
         this.router.navigate([config.routes.signin]);
       });
     return observable;
+  }
+
+  verifyTokenPromise (): Promise<boolean> {
+    const token = this.storage.get(config.storage.token);
+    if (token == '' || token == undefined || token == null) {
+      this.router.navigate([config.routes.signin]);
+      return Promise.resolve(false);
+    }
+    return this.http.post('api-token-verify/', token)
+      .toPromise()
+      .then(response => true)
+      .catch((error) => {
+        this.router.navigate([config.routes.signin]);
+        return Promise.resolve(false);
+      });
   }
 }
