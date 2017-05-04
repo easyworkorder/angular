@@ -46,18 +46,18 @@ export class FileComponent implements OnInit {
         tenant_view: new FormControl(true)
     });
 
-    ngOnInit() {
+    ngOnInit () {
 
         if (this.parent_object_type === 'ticket') {
             this.apiURLName = 'ticketdocument';
             this.fileForm.addControl('workorder', new FormControl(''));
-        }else if (this.parent_object_type === 'tenant') {
+        } else if (this.parent_object_type === 'tenant') {
             this.apiURLName = 'tenantdocument';
             this.fileForm.addControl('tenant', new FormControl(''));
-        }else if (this.parent_object_type === 'vendor') {
+        } else if (this.parent_object_type === 'vendor') {
             this.apiURLName = 'vendordocument';
             this.fileForm.addControl('vendor', new FormControl(''));
-        }else if (this.parent_object_type === 'building') {
+        } else if (this.parent_object_type === 'building') {
             this.apiURLName = 'buildingdocument';
             this.fileForm.addControl('building', new FormControl(''));
         }
@@ -69,7 +69,13 @@ export class FileComponent implements OnInit {
         });
     }
 
-    onSubmit() {
+    ngAfterViewChecked () {
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    }
+
+    onSubmit () {
 
         this._submitted = true;
 
@@ -80,13 +86,13 @@ export class FileComponent implements OnInit {
         this.isSubmit = true;
 
         if (this.parent_object_type === 'ticket') {
-            this.fileForm.get('workorder').setValue(config.api.base + 'ticket/'  + this.parent_object_id + '/');
-        }else if (this.parent_object_type === 'tenant') {
-            this.fileForm.get('tenant').setValue(config.api.base + 'tenant/'  + this.parent_object_id + '/');
-        }else if (this.parent_object_type === 'vendor') {
-            this.fileForm.get('vendor').setValue(config.api.base + 'vendor/'  + this.parent_object_id + '/');
-        }else if (this.parent_object_type === 'building') {
-            this.fileForm.get('building').setValue(config.api.base + 'building/'  + this.parent_object_id + '/');
+            this.fileForm.get('workorder').setValue(config.api.base + 'ticket/' + this.parent_object_id + '/');
+        } else if (this.parent_object_type === 'tenant') {
+            this.fileForm.get('tenant').setValue(config.api.base + 'tenant/' + this.parent_object_id + '/');
+        } else if (this.parent_object_type === 'vendor') {
+            this.fileForm.get('vendor').setValue(config.api.base + 'vendor/' + this.parent_object_id + '/');
+        } else if (this.parent_object_type === 'building') {
+            this.fileForm.get('building').setValue(config.api.base + 'building/' + this.parent_object_id + '/');
         }
 
 
@@ -113,7 +119,7 @@ export class FileComponent implements OnInit {
         }
     }
 
-    docSelectionChange(event) {
+    docSelectionChange (event) {
         const fileList: FileList = event.target.files;
         if (fileList.length > 0) {
             this.docFile = fileList[0];
@@ -124,7 +130,7 @@ export class FileComponent implements OnInit {
         }
     }
 
-    fileSaveCallback(msg: string,  file: any) {
+    fileSaveCallback (msg: string, file: any) {
         this.isSubmit = false;
         this.change.emit(true);
         this.closeModal();
@@ -220,12 +226,12 @@ export class FileComponent implements OnInit {
         this.toDeletedFile = file;
     }
 
-    closeModal() {
+    closeModal () {
         this.resetForm();
         $('#add-file').modal('hide');
     }
 
-    resetForm() {
+    resetForm () {
         this._submitted = false;
         this.docFile = null;
         this.selectedFileName = '';
@@ -244,12 +250,12 @@ export class FileComponent implements OnInit {
 
             const observable = this.http.delete(this.toDeletedFile.url, this.toDeletedFile);
             observable.subscribe(data => {
-            this.toasterService.pop('success', 'DELETE', 'File has been deleted successfully');
+                this.toasterService.pop('success', 'DELETE', 'File has been deleted successfully');
                 this.change.emit(true);
             },
-            error => {
-                this.toasterService.pop('error', 'DELETE', 'File not deleted due to API error!!!');
-            });
+                error => {
+                    this.toasterService.pop('error', 'DELETE', 'File not deleted due to API error!!!');
+                });
             $('#modal-delete-confirm').modal('hide');
 
 

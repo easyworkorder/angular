@@ -42,6 +42,13 @@ export class TicketMaterialComponent implements OnInit {
             this.closeModal();
         });
     }
+
+    ngAfterViewChecked () {
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    }
+
     ticketMaterialForm = new FormGroup({
         id: new FormControl(),
         url: new FormControl(''),

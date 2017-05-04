@@ -3,13 +3,13 @@
     <div class="block-title">
         <div class="block-options pull-right">
             <a *ngIf="tabs.isTicketTabVisible && (isTenant || isDashboardList || isAdmin)" modal-dialog-open="modal-add-tenant-ticket"
-                class="btn btn-effect-ripple btn-default" data-toggle="modal" title="" style="overflow: hidden; position: relative;"
-                data-original-title="Add Contact"><i
+                class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="" style="overflow: hidden; position: relative;"
+                data-original-title="Add Ticket"><i
                     class="fa fa-plus"></i></a>
             <!--a *ngIf="tabs.isInvoiceTabVisible" href="#add-tenant-invoice" class="btn btn-effect-ripple btn-default" data-toggle="modal"
               title="" style="overflow: hidden; position: relative;" data-original-title="Add Contact"><i class="fa fa-plus"></i></a>-->
             <a *ngIf="isAdmin && tabs.isPeopleTabVisible" modal-dialog-open="add-tenant-cotact-people" class="btn btn-effect-ripple btn-default"
-                data-toggle="modal" title="" style="overflow: hidden; position: relative;" data-original-title="Add Contact"><i class="fa fa-plus"></i></a>
+                data-toggle="tooltip" title="" style="overflow: hidden; position: relative;" data-original-title="Add Contact"><i class="fa fa-plus"></i></a>
             <!--<a *ngIf="isAdmin && tabs.isInsuranceTabVisible" modal-dialog-open="add-tenant-insurance"
                class="btn btn-effect-ripple btn-default"
                data-toggle="modal"
@@ -18,7 +18,7 @@
             <!--<a *ngIf="isAdmin && tabs.isFilesTabVisible" href="#add-tenant-files" class="btn btn-effect-ripple btn-default" data-toggle="modal"
                 title="" style="overflow: hidden; position: relative;" data-original-title="Add Contact"><i
                     class="fa fa-plus"></i></a>-->
-            <a *ngIf="isAdmin && tabs.isFilesTabVisible" modal-dialog-open="add-file" class="btn btn-effect-ripple btn-default" data-toggle="modal"
+            <a *ngIf="isAdmin && tabs.isFilesTabVisible" modal-dialog-open="add-file" class="btn btn-effect-ripple btn-default" data-toggle="tooltip"
                 title="" style="overflow: hidden; position: relative;" data-original-title="Add File">
                 <i class="fa fa-upload"></i></a>
         </div>
@@ -93,7 +93,8 @@
         <!-- People -->
         <div class="tab-pane" id="profile-people">
             <div class="block-content-full">
-                <ewo-contact-list [contactList]="tenant" [isEditable]="isAdmin" (update)="updateContactInfo($event)" (delete)="deleteContactInfo($event)" (sendPassword)="sendNewPassword($event)"></ewo-contact-list>
+                <ewo-contact-list [contactList]="tenant" [isEditable]="isAdmin" (update)="updateContactInfo($event)" (delete)="deleteContactInfo($event)"
+                    (sendPassword)="sendNewPassword($event)"></ewo-contact-list>
             </div>
         </div>
         <!-- END People -->
@@ -131,6 +132,6 @@
 </ewo-confirm-modal>
 
 <ewo-confirm-modal id="modal-send-password-confirm-list" [OkButton]="true" [okButtonLabel]="'Continue'" (okButtonClick)="onModalOkButtonClickToSendPassword($event)"
-                   [cancelButtonLabel]="'Cancel'" [showDangerIcon]="false" [message]="'Do you want to reset password?'"
-                   class="modal fade in" tabindex="-1" role="dialog" aria-hidden="true">
+    [cancelButtonLabel]="'Cancel'" [showDangerIcon]="false" [message]="'Do you want to reset password?'" class="modal fade in"
+    tabindex="-1" role="dialog" aria-hidden="true">
 </ewo-confirm-modal>

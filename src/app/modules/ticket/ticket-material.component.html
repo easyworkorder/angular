@@ -1,8 +1,8 @@
 <div class="block">
     <div class="block-title clearfix">
         <div class="block-options pull-right">
-            <a *ngIf="!isClosedTicket" modal-dialog-open="modal-ticket-material" (click)="_submitted = false" class="btn btn-effect-ripple btn-success" data-toggle="modal"
-                title="Edit" style="overflow: hidden; position: relative;"><span class="btn-ripple animate" style="height: 34px; width: 34px; top: 10px; left: 0.34375px;"></span><i class="fa fa-plus"></i></a>
+            <a *ngIf="!isClosedTicket" modal-dialog-open="modal-ticket-material" (click)="_submitted = false" class="btn btn-effect-ripple btn-success"
+                data-toggle="tooltip" title="Add Material" data-original-title="Add Material" style="overflow: hidden; position: relative;"><span class="btn-ripple animate" style="height: 34px; width: 34px; top: 10px; left: 0.34375px;"></span><i class="fa fa-plus"></i></a>
         </div>
         <h2>MATERIALS</h2><span class="badge">{{ticket?.material_total | currency:'USD':true}}</span>
     </div>
@@ -21,7 +21,9 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngIf="materials.length == 0"><td colspan="6">No materials found</td></tr>
+            <tr *ngIf="materials.length == 0">
+                <td colspan="6">No materials found</td>
+            </tr>
             <tr *ngFor="let material of materials">
                 <td><strong>{{material.date | dateFormat}}</strong></td>
                 <td class="hidden-xs">{{material.description}}</td>
@@ -30,9 +32,9 @@
                 <td class="hidden-sm hidden-xs"> {{material.cost_each * material.quantity | currency:'USD':true}}</td>
                 <td class="text-center" *ngIf="!isClosedTicket">
                     <a modal-dialog-open="modal-ticket-material" (click)="_submitted = false; editMaterial(material)" data-toggle="tooltip" title=""
-                        class="btn btn-effect-ripple btn-xs btn-success" style="overflow: hidden; position: relative;" data-original-title="Edit User"><i class="fa fa-pencil"></i></a>
+                        class="btn btn-effect-ripple btn-xs btn-success" style="overflow: hidden; position: relative;" data-original-title="Edit Material"><i class="fa fa-pencil"></i></a>
                     <a modal-dialog-open="modal-material-delete-confirm" (click)="toDeletedMaterial = material" data-toggle="tooltip" title=""
-                        class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;" data-original-title="Delete User"><i class="fa fa-times"></i></a>
+                        class="btn btn-effect-ripple btn-xs btn-danger" style="overflow: hidden; position: relative;" data-original-title="Delete Material"><i class="fa fa-times"></i></a>
                 </td>
             </tr>
         </tbody>
@@ -116,7 +118,7 @@
     </div>
 </div>
 
-<ewo-confirm-modal *ngIf="!isClosedTicket" id="modal-material-delete-confirm" [OkButton]="true" [okButtonLabel]="'Continue'" (okButtonClick)="onModalOkButtonClick($event)"
-    [cancelButtonLabel]="'Cancel'" [message]="'Are you sure want to delete?'" class="modal fade in" tabindex="-1" role="dialog"
-    aria-hidden="true">
+<ewo-confirm-modal *ngIf="!isClosedTicket" id="modal-material-delete-confirm" [OkButton]="true" [okButtonLabel]="'Continue'"
+    (okButtonClick)="onModalOkButtonClick($event)" [cancelButtonLabel]="'Cancel'" [message]="'Are you sure want to delete?'"
+    class="modal fade in" tabindex="-1" role="dialog" aria-hidden="true">
 </ewo-confirm-modal>

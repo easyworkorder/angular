@@ -49,6 +49,13 @@ export class TicketLaborComponent implements OnInit {
             this.closeModal();
         });
     }
+
+    ngAfterViewChecked () {
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    }
+
     ticketLaborForm = new FormGroup({
         id: new FormControl(),
         url: new FormControl(''),

@@ -4,7 +4,7 @@ import { ToasterService } from 'angular2-toaster';
 import { VendorService } from './vendor.service';
 import { UpdateVendorPeopleService } from './vendor-people.service';
 import { UpdateVendorInsuranceService } from './vendor-insurance.service';
-import {TicketService} from './../../ticket/ticket.service';
+import { TicketService } from './../../ticket/ticket.service';
 
 declare var $: any;
 
@@ -31,7 +31,7 @@ export class VendorContactActivitiesComponent implements OnInit {
     @Input() tickets: any;
     @Input() isAdmin: false;
     @Input() isDashboardList: false;
-    @Input() isVendor: boolean =  false;
+    @Input() isVendor: boolean = false;
     @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
 
     toDeletedPeople: any;
@@ -47,13 +47,19 @@ export class VendorContactActivitiesComponent implements OnInit {
         protected http: AppHttp,
         private toasterService: ToasterService) { }
 
-    ngOnInit() {
+    ngOnInit () {
         if (this.isVendor === false) {
             this.getAllVendorTickets(this.vendor.id);
         }
     }
 
-    switchTab(tabId: number) {
+    ngAfterViewChecked () {
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    }
+
+    switchTab (tabId: number) {
         this.tabs.isTicketTabVisible = tabId === 1 ? true : false;
         this.tabs.isInvoiceTabVisible = tabId === 2 ? true : false;
         this.tabs.isPeopleTabVisible = tabId === 3 ? true : false;
@@ -62,7 +68,7 @@ export class VendorContactActivitiesComponent implements OnInit {
         this.tabs.selectedTabNo = tabId;
     }
 
-    getAllVendorTickets(vendor_id) {
+    getAllVendorTickets (vendor_id) {
         this.ticketService.getAllTickets(this.currentCompanyId, 'vendor_profile', vendor_id).subscribe(
             data => {
                 this.tickets = data;
@@ -70,8 +76,8 @@ export class VendorContactActivitiesComponent implements OnInit {
         );
     }
 
-    updateTicketList(data) {
-        if ( this.isVendor === false) {
+    updateTicketList (data) {
+        if (this.isVendor === false) {
             this.getAllVendorTickets(this.vendor.id);
         } else {
             this.ticketService.updateTicketList(true);
@@ -79,11 +85,11 @@ export class VendorContactActivitiesComponent implements OnInit {
 
     }
 
-    updatePeople(event) {
+    updatePeople (event) {
         this.change.emit(event);
     }
 
-    updateContactInfo(data) {
+    updateContactInfo (data) {
         // this.updatePeopleInfo = data;
         this.updateVendorPeopleService.setUpdatePeople(data);
         $('#add-vendor-cotact-people').modal({
@@ -92,15 +98,15 @@ export class VendorContactActivitiesComponent implements OnInit {
         });
     }
 
-    updateInsurance(event) {
+    updateInsurance (event) {
         this.change.emit(event);
     }
 
-    updateFileList(event){
+    updateFileList (event) {
         this.change.emit(event);
     }
 
-    updateInsuranceInfo(data) {
+    updateInsuranceInfo (data) {
         // this.updatePeopleInfo = data;
         this.updateVendorInsuranceService.setUpdateInsurance(data);
         $('#add-vendor-insurance').modal({
@@ -139,8 +145,8 @@ export class VendorContactActivitiesComponent implements OnInit {
     onModalOkButtonClickToSendPassword (event) {
         const observable = this.http.get('sendpassword/' + this.toSendPassword.id + '/?type=vendor');
         observable.subscribe(data => {
-                this.toasterService.pop('success', 'SEND', 'Password has been send successfully');
-            },
+            this.toasterService.pop('success', 'SEND', 'Password has been send successfully');
+        },
             error => {
                 this.toasterService.pop('error', 'SEND', 'Password not send due to API error!!!');
             });

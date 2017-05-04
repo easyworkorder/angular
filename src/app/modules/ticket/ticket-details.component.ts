@@ -136,6 +136,13 @@ export class TicketDetailsComponent implements OnInit {
         // });
 
     }
+
+    ngAfterViewChecked () {
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    }
+
     // April21-2017
     ngOnChanges (changes) {
         if (changes['ticket']) {
@@ -175,7 +182,7 @@ export class TicketDetailsComponent implements OnInit {
             data => {
                 this.ticket = data;
                 if (this.ticket.status === 'Closed') {
-                   this.isClosedTicket = true;
+                    this.isClosedTicket = true;
                 }
                 // Set Ticket title
                 this.breadcrumbHeaderService.setBreadcrumbTitle(this.ticket.ticket_key);

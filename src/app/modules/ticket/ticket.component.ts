@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import config from '../../config';
@@ -115,6 +115,11 @@ export class TicketComponent implements OnInit {
 
     }
 
+    ngAfterViewChecked () {
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    }
     onSubmit () {
         this._submitted = true;
         if (!this.ticketForm.valid) { return; }

@@ -50,6 +50,12 @@ export class TenantContactActivitiesComponent implements OnInit {
         }
     }
 
+    ngAfterViewChecked () {
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    }
+
     switchTab (tabId: number) {
         this.tabs.isTicketTabVisible = tabId == 1 ? true : false;
         this.tabs.isInvoiceTabVisible = tabId == 2 ? true : false;
@@ -134,8 +140,8 @@ export class TenantContactActivitiesComponent implements OnInit {
     onModalOkButtonClickToSendPassword (event) {
         const observable = this.http.get('sendpassword/' + this.toSendPassword.id + '/?type=tenant');
         observable.subscribe(data => {
-                this.toasterService.pop('success', 'SEND', 'Password has been send successfully');
-            },
+            this.toasterService.pop('success', 'SEND', 'Password has been send successfully');
+        },
             error => {
                 this.toasterService.pop('error', 'SEND', 'Password not send due to API error!!!');
             });
