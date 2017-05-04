@@ -61,6 +61,7 @@ export class TicketEditComponent implements OnInit {
         group: new FormControl('', Validators.required),
         estimated_amount: new FormControl(0, ValidationService.numericValidator),
         is_billable: new FormControl(false),
+        status: new FormControl('Open'),
         url: new FormControl()
     });
 
@@ -157,6 +158,7 @@ export class TicketEditComponent implements OnInit {
         if (!this.ticketForm.valid || (this.selectEmployee.length === 0) || (this.selectGroup.length === 0)) {
             return;
         }
+        this.ticketForm.get('status').setValue('Open');
         this.ticketService.update(this.ticketForm.value, true).subscribe((tikcet: any) => {
             this.ticketService.updateTicket(true);
         });
