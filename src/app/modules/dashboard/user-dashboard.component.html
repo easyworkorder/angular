@@ -41,7 +41,7 @@
                     <li [ngClass]="{'active': currentRequestType=='replies'}">
                         <a (click)="updateTicketList('replies')">
                             <span class="badge pull-right">{{contactStat?.replies | number}}</span>
-                            <i class="fa fa-fw fa-exclamation-triangle icon-push"></i> <strong>Replies</strong>
+                            <i class="fa fa-fw fa-exclamation-triangle icon-push"></i> <strong>Notifications</strong>
                         </a>
                     </li>
                     <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager" [ngClass]="{'active': currentRequestType=='due_today'}">
