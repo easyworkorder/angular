@@ -57,9 +57,25 @@ export class UserDashboardComponent implements OnInit {
                 this.IsPropertyManager = true;
             }
 
-            this.getWorkOrderStatistics();
+            this.getWorkOrderStatistics().subscribe(() => {
+                let statFlag: string[] = ['new', 'replies', 'due_today', 'overdue', 'pending', 'closed'];
+                if (this.userInfo && !(this.userInfo.IsEmployee || this.userInfo.IsPropertyManager)) {
+                    statFlag.length = 0;
+                    statFlag = ['new', 'replies', 'pending', 'closed'];
+                }
+
+                statFlag.some(val => {
+                    if (+this.contactStat[val] > 0) {
+                        this.currentRequestType = val;
+                        return true;
+                    }
+                });
+
+                this.getAllTickets(this.currentRequestType);
+            });
+
             this.getWorkOrderQuickStats();
-            this.getAllTickets(this.currentRequestType);
+            // this.getAllTickets(this.currentRequestType);
 
             this.ticketService.tickettListRefresh$.subscribe(status => {
                 this.getWorkOrderStatistics();
