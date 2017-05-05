@@ -62,6 +62,7 @@ export class VendorContactPeopleComponent implements OnInit {
         vendor: new FormControl(''),
         active: new FormControl(true),
         photo: new FormControl(),
+        notifications: new FormControl(false),
         user_id: new FormControl()
     });
 

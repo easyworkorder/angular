@@ -5,3 +5,6 @@
 .log-out:hover {
     cursor: pointer;
 }
+label.hover-hand {
+    cursor: pointer;
+}

@@ -53,14 +53,20 @@
 
 
                         <div class="form-group">
-                            <label for="side-profile-password">New Password</label>
+                            <label for="password">New Password</label>
                             <!--<input type="password" id="side-profile-password" name="side-profile-password" class="form-control">-->
                             <input [formControlValidator]="userProfileForm.controls.password" formControlName="password" type="password" id="password" class="form-control" placeholder="New Password" />
                         </div>
                         <div class="form-group">
-                            <label for="side-profile-password-confirm">Confirm New Password</label>
+                            <label for="confirm_password">Confirm New Password</label>
                             <!--<input type="password" id="side-profile-password-confirm" name="side-profile-password-confirm" class="form-control">-->
                             <input [formControlValidator]="userProfileForm.controls.confirm_password" formControlName="confirm_password" type="password" id="confirm_password" class="form-control" placeholder="Confirm Password" />
+                        </div>
+                        <div class="form-group">
+                            <label for="notifications" class="hover-hand">Notifications </label>
+                            <label class="switch switch-success">
+                                <input formControlName="notifications" type="checkbox" id="notifications" name="notifications" class=""><span></span>
+                            </label>
                         </div>
                         <div class="form-group remove-margin">
                             <button type="submit" class="btn btn-effect-ripple btn-primary" onclick="">Save</button>

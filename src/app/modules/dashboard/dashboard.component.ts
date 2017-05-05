@@ -39,6 +39,7 @@ export class DashboardComponent implements OnInit {
         fax: new FormControl(''),
         mobile: new FormControl(''),
         password: new FormControl(''),
+        notifications: new FormControl(false),
         confirm_password: new FormControl('')
     });
 
@@ -62,6 +63,7 @@ export class DashboardComponent implements OnInit {
         // Get user profile information
         this.http.get('userprofile/', null, null).subscribe(userProfile => {
             this.userProfileForm.reset(userProfile);
+            this.userInfo.photo = userProfile.photo;
         });
     }
 

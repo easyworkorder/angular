@@ -213,7 +213,7 @@ export class AuthenticationService {
     observable.subscribe(
       data => {
         let userInfo = <any>data;
-        userInfo = Object.assign({}, userInfo, { IsContact: false, IsPropertyManager: false, IsEmployee: false, IsVendor: false });
+        userInfo = Object.assign({}, userInfo, { IsContact: false, IsPropertyManager: false, IsEmployee: false, IsVendor: false, photo: '' });
         if (userInfo.group_name == config.userGroup.CONTACT)
           userInfo.IsContact = true;
         else if (userInfo.group_name == config.userGroup.PROPERTY_MANAGER)
