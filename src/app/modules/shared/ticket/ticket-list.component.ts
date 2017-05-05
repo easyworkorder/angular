@@ -20,6 +20,10 @@ import { PagerService } from "app/services/pager.service";
 export class TicketListComponent implements OnInit {
     @Input() employees: any[] = [];
     @Input() currentRequestType: any;
+    @Input() tickets: any[];
+    @Input() isAdmin: boolean = false;
+    @Input() isDesktop: boolean = false;
+    @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
 
     // Paginations
     // pager object
@@ -41,10 +45,6 @@ export class TicketListComponent implements OnInit {
             // console.log('router event', data);
         })
     }
-    /// A List of Contact objects to display
-    @Input() tickets: any[];
-    @Input() isAdmin: boolean = false;
-    @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
 
     ticketList: any[] = [];
 
