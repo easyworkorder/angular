@@ -34,8 +34,10 @@ export class AppComponent {
     breadcrumbService.addFriendlyNameForRouteRegex('^/ticket-details/[0-9]{1,10}$', 'Ticket Details');
     //For Tickets Details april20
     breadcrumbService.addFriendlyNameForRouteRegex('^/admin/building/[0-9]{1,10}/tenant-profile/[0-9]{1,10}/ticket-details/[0-9]{1,10}$', 'Ticket Details');
+    breadcrumbService.addFriendlyNameForRouteRegex('^/admin/vendor/[0-9]{1,10}/ticket-details/[0-9]{1,10}$', 'Ticket Details');
     breadcrumbService.hideRouteRegex('^/ticket-details/[0-9]{1,10}/admin/building/[0-9]{1,10}/tenant-profile/[0-9]{1,10}/ticket-details$');
     breadcrumbService.hideRouteRegex('^/admin/building/[0-9]{1,10}/tenant-profile/[0-9]{1,10}/ticket-details$');
+    breadcrumbService.hideRouteRegex('^/admin/vendor/[0-9]{1,10}/ticket-details$');
 
     breadcrumbService.addFriendlyNameForRouteRegex('^/tenant/[0-9]{1,10}/ticket-details/[0-9]{1,10}$', 'Ticket Details');
     breadcrumbService.addFriendlyNameForRouteRegex('^/vendor/[0-9]{1,10}/ticket-details/[0-9]{1,10}$', 'Ticket Details');
