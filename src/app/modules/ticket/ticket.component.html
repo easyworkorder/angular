@@ -263,7 +263,7 @@
                         <label class="col-xs-3 control-label" for="source">Source <span class="required">*</span> </label>
                         <div class="col-xs-9">
                             <ng-select id="source" [multiple]="false" [items]="sources" placeholder="Select Source" (selected)="selectedSource($event)"
-                                [active]="selectSource"></ng-select>
+                                [active]="selectSource" [disabled]="true"></ng-select>
                             <span *ngIf="(_submitted && selectSource.length == 0)" class="validation-error">This field is Required</span>
                         </div>
                     </div>

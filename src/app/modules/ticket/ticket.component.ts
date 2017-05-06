@@ -112,7 +112,9 @@ export class TicketComponent implements OnInit {
     }
 
     ngOnInit () {
-
+        // Default source selection
+        this.selectSource = [{ id: 'Portal', text: 'Portal' }]
+        this.ticketForm.get('source').setValue(this.selectSource[0].id);
     }
 
     ngAfterViewChecked () {
