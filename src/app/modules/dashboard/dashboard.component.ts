@@ -7,10 +7,11 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { AppHttp } from "app/services/http.service";
 import { ValidationService } from "app/services/validation.service";
 import { Observable } from "rxjs/Observable";
+import { Subject } from "rxjs/Subject";
 
 declare var App: any;
 declare var ReadyDashboard: any;
-declare var $:any;
+declare var $: any;
 
 @Component({
     selector: 'app-dashboard',
@@ -18,6 +19,7 @@ declare var $:any;
     styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+    userInformation: Subject<any> = new Subject<any>();
 
     constructor(
         private authService: AuthenticationService,
@@ -25,10 +27,10 @@ export class DashboardComponent implements OnInit {
         private http: AppHttp,
         private toasterService: ToasterService) {
         //  this.authService.verifyToken();
-     }
+    }
 
     userInfo: any;
-    
+
     userProfileForm = new FormGroup({
         rel_id: new FormControl(''),
         url: new FormControl(''),
@@ -47,7 +49,7 @@ export class DashboardComponent implements OnInit {
     tenant_contact: any = null;
     vendor_contact: any = null;
 
-    ngOnInit() {
+    ngOnInit () {
         App.init();
         ReadyDashboard.init();
         $(document).ready(function () {
@@ -59,6 +61,7 @@ export class DashboardComponent implements OnInit {
             ReadyDashboard.init();
         });
         this.userInfo = this.storage.getUserInfo();
+        this.userInformation.next(this.userInfo);
 
         // Get user profile information
         this.http.get('userprofile/', null, null).subscribe(userProfile => {
@@ -66,10 +69,11 @@ export class DashboardComponent implements OnInit {
             this.userInfo.photo = userProfile.photo;
             this.userInfo.first_name = userProfile.first_name;
             this.userInfo.last_name = userProfile.last_name;
+            this.userInformation.next(this.userInfo);
         });
     }
 
-    onSubmit() {
+    onSubmit () {
         // FIXME: Validation needs to be corrected
         // if (! this.userInfoForm.valid) return;
         let data = this.userProfileForm.value;
@@ -83,9 +87,13 @@ export class DashboardComponent implements OnInit {
         });
     }
 
-    ngAfterViewInit() {
+    ngAfterViewInit () {
         App.init();
         ReadyDashboard.init();
+    }
+
+    ngOnDestroy () {
+        this.userInformation.unsubscribe();
     }
 
 }

@@ -1,8 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { HeaderService } from './header.service';
 import { Storage } from 'app/services';
 import { AuthenticationService } from "app/modules/authentication";
 import { ActivatedRoute, Router } from "@angular/router";
+import { Subject } from "rxjs/Subject";
 
 @Component({
     selector: 'app-header',
@@ -10,10 +11,11 @@ import { ActivatedRoute, Router } from "@angular/router";
 })
 export class HeaderComponent implements OnInit {
 
-    @Input() userInfo: any;
+    @Input() userInformation: Subject<any>;
     dashboarTitle: any;
     profilePhoto: string;
 
+    private userInfo: any;
 
     constructor(
         private authService: AuthenticationService,
@@ -23,12 +25,21 @@ export class HeaderComponent implements OnInit {
         this.headerService.dashboardTitle$.subscribe(data => this.dashboarTitle = data);
     }
 
-    ngOnInit() {
+    ngOnInit () {
         this.headerService.setDashBoardTitle({ title: 'TICKETS', link: ['/'] });
-        this.profilePhoto = this.userInfo.photo || 'assets/img/placeholders/avatars/avatar9.jpg';
+        this.profilePhoto = 'assets/img/placeholders/avatars/avatar9.jpg';
+
+        this.userInformation.subscribe(info => {
+            this.userInfo = info;
+            this.profilePhoto = this.userInfo.photo || 'assets/img/placeholders/avatars/avatar9.jpg';
+        })
     }
 
-    onLinkClicked(event) {
+    ngOnDestroy () {
+        this.userInformation.unsubscribe();
+    }
+
+    onLinkClicked (event) {
         this.router.url == '/admin' && this.headerService.setDashBoardTitle({ title: 'TICKETS', link: ['/'] });
         this.router.url == '/admin/building' && this.headerService.setDashBoardTitle({ title: 'TICKETS', link: ['/'] });
         this.router.url == '/admin/problem-type' && this.headerService.setDashBoardTitle({ title: 'TICKETS', link: ['/'] });
@@ -36,7 +47,7 @@ export class HeaderComponent implements OnInit {
         this.router.url == '/admin/employee' && this.headerService.setDashBoardTitle({ title: 'TICKETS', link: ['/'] });
     }
 
-    logOut() {
+    logOut () {
         this.authService.signout();
     }
 }

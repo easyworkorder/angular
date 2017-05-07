@@ -44,11 +44,12 @@
     <!-- User Dropdown -->
     <li class="dropdown">
       <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
-        <img src="{{profilePhoto}}" alt="avatar"/>
+        <img [src]="profilePhoto" alt="avatar"/>
       </a>
       <ul class="dropdown-menu dropdown-menu-right">
-        <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager" class="dropdown-header">
-          <strong>{{userInfo?.first_name}} {{userInfo?.last_name}}</strong>
+        <!--<li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager" class="dropdown-header">-->
+        <li class="dropdown-header">
+          <strong>{{userInfo?.first_name | uppercase}} {{userInfo?.last_name | uppercase}}</strong>
         </li>
         <!--<li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
           <a href="page_app_email.html">

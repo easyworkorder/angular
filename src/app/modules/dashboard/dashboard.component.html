@@ -18,49 +18,54 @@
                             <label for="side-profile-name">First Name</label>
                             <!--<input type="text" id="side-profile-name" name="side-profile-name" class="form-control" value="John Doe">-->
 
-                            <input [formControlValidator]="userProfileForm.controls.first_name" formControlName="first_name" type="text" id="first_name" class="form-control" placeholder="First Name" />
+                            <input [formControlValidator]="userProfileForm.controls.first_name" formControlName="first_name" type="text" id="first_name"
+                                class="form-control" placeholder="First Name" />
                             <span class="validation-error">{{userProfileForm.controls.first_name.error}}</span>
                         </div>
                         <div class="form-group">
                             <label for="side-profile-name">Last Name</label>
-                            <input [formControlValidator]="userProfileForm.controls.last_name" formControlName="last_name" type="text" id="last_name" class="form-control" placeholder="Last Name" />
+                            <input [formControlValidator]="userProfileForm.controls.last_name" formControlName="last_name" type="text" id="last_name"
+                                class="form-control" placeholder="Last Name" />
                             <span class="validation-error">{{userProfileForm.controls.last_name.error}}</span>
                         </div>
                         <div class="form-group">
                             <label for="side-profile-email">Email</label>
                             <!--<input type="email" id="side-profile-email" name="side-profile-email" class="form-control" value="john.doe@example.com">-->
-                            <input [formControlValidator]="userProfileForm.controls.email" formControlName="email" type="text" id="email" class="form-control" placeholder="Email: john.doe@example.com" />
+                            <input [formControlValidator]="userProfileForm.controls.email" formControlName="email" type="text" id="email" class="form-control"
+                                placeholder="Email: john.doe@example.com" />
                             <span class="validation-error">{{userProfileForm.controls.email.error}}</span>
                         </div>
                         <div class="form-group">
                             <label for="side-profile-email">Phone</label>
                             <input phoneNumber [formControlValidator]="userProfileForm.controls.phone" formControlName="phone" type="text" id="phone"
-                                    name="phone" class="form-control" placeholder="Phone">
-                                <span class="validation-error">{{userProfileForm.controls.phone.error}}</span>
+                                name="phone" class="form-control" placeholder="Phone">
+                            <span class="validation-error">{{userProfileForm.controls.phone.error}}</span>
                         </div>
                         <div class="form-group">
                             <label for="side-profile-email">Fax</label>
-                            <input phoneNumber [formControlValidator]="userProfileForm.controls.fax" formControlName="fax" type="text" id="fax"
-                                    name="fax" class="form-control" placeholder="Fax">
-                                <span class="validation-error">{{userProfileForm.controls.fax.error}}</span>
+                            <input phoneNumber [formControlValidator]="userProfileForm.controls.fax" formControlName="fax" type="text" id="fax" name="fax"
+                                class="form-control" placeholder="Fax">
+                            <span class="validation-error">{{userProfileForm.controls.fax.error}}</span>
                         </div>
                         <div class="form-group">
                             <label for="side-profile-email">Mobile</label>
                             <input phoneNumber [formControlValidator]="userProfileForm.controls.mobile" formControlName="mobile" type="text" id="mobile"
-                                    name="mobile" class="form-control" placeholder="Mobile Number">
-                                <span class="validation-error">{{userProfileForm.controls.mobile.error}}</span>
+                                name="mobile" class="form-control" placeholder="Mobile Number">
+                            <span class="validation-error">{{userProfileForm.controls.mobile.error}}</span>
                         </div>
 
 
                         <div class="form-group">
                             <label for="password">New Password</label>
                             <!--<input type="password" id="side-profile-password" name="side-profile-password" class="form-control">-->
-                            <input [formControlValidator]="userProfileForm.controls.password" formControlName="password" type="password" id="password" class="form-control" placeholder="New Password" />
+                            <input [formControlValidator]="userProfileForm.controls.password" formControlName="password" type="password" id="password"
+                                class="form-control" placeholder="New Password" />
                         </div>
                         <div class="form-group">
                             <label for="confirm_password">Confirm New Password</label>
                             <!--<input type="password" id="side-profile-password-confirm" name="side-profile-password-confirm" class="form-control">-->
-                            <input [formControlValidator]="userProfileForm.controls.confirm_password" formControlName="confirm_password" type="password" id="confirm_password" class="form-control" placeholder="Confirm Password" />
+                            <input [formControlValidator]="userProfileForm.controls.confirm_password" formControlName="confirm_password" type="password"
+                                id="confirm_password" class="form-control" placeholder="Confirm Password" />
                         </div>
                         <div class="form-group">
                             <label for="notifications" class="hover-hand">Notifications </label>
@@ -219,7 +224,7 @@
                         'navbar-fixed-bottom'       for a bottom fixed header (fixed main sidebar with scroll will be auto initialized, functionality can be found in js/app.js - handleSidebar()))
                             'header-fixed-bottom'   has to be added on #page-container only if the class 'navbar-fixed-bottom' was added
                     -->
-        <app-header *ngIf="userInfo" [userInfo]="userInfo"></app-header>
+        <app-header [userInformation]="userInformation"></app-header>
         <!-- END Header -->
 
         <!-- Page content -->
