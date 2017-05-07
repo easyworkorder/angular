@@ -219,7 +219,7 @@
                         'navbar-fixed-bottom'       for a bottom fixed header (fixed main sidebar with scroll will be auto initialized, functionality can be found in js/app.js - handleSidebar()))
                             'header-fixed-bottom'   has to be added on #page-container only if the class 'navbar-fixed-bottom' was added
                     -->
-        <app-header [userInfo]="userInfo"></app-header>
+        <app-header *ngIf="userInfo" [userInfo]="userInfo"></app-header>
         <!-- END Header -->
 
         <!-- Page content -->

@@ -64,6 +64,8 @@ export class DashboardComponent implements OnInit {
         this.http.get('userprofile/', null, null).subscribe(userProfile => {
             this.userProfileForm.reset(userProfile);
             this.userInfo.photo = userProfile.photo;
+            this.userInfo.first_name = userProfile.first_name;
+            this.userInfo.last_name = userProfile.last_name;
         });
     }
 

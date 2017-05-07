@@ -3,6 +3,7 @@ import { HeaderService } from './header.service';
 import { Storage } from 'app/services';
 import { AuthenticationService } from "app/modules/authentication";
 import { ActivatedRoute, Router } from "@angular/router";
+import {userInfo} from "os";
 
 @Component({
     selector: 'app-header',
@@ -24,6 +25,7 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log(userInfo);
         this.headerService.setDashBoardTitle({ title: 'TICKETS', link: ['/'] });
         this.profilePhoto = this.userInfo.photo || 'assets/img/placeholders/avatars/avatar9.jpg';
     }

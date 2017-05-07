@@ -48,9 +48,9 @@
       </a>
       <ul class="dropdown-menu dropdown-menu-right">
         <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager" class="dropdown-header">
-          <strong></strong>
+          <strong>{{userInfo?.first_name}} {{userInfo?.last_name}}</strong>
         </li>
-        <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
+        <!--<li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
           <a href="page_app_email.html">
             <i class="fa fa-inbox fa-fw pull-right"></i> Inbox
           </a>
@@ -64,7 +64,7 @@
           <a href="page_app_media.html">
             <i class="fa fa-picture-o fa-fw pull-right"></i> Media Manager
           </a>
-        </li>
+        </li>-->
         <li class="divider">
           <li>
             <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
