@@ -52,6 +52,8 @@ export class TicketComponent implements OnInit {
     { id: 'Agent', text: 'Agent' }];
     currentCompanyId = 1;
 
+    disabledTenant: boolean = true;
+
     ticketForm = new FormGroup({
         id: new FormControl(),
         building: new FormControl(''),
@@ -171,17 +173,22 @@ export class TicketComponent implements OnInit {
     }
 
     getActiveTenantsByBuilding (building_id): void {
+
         this.tenantService.getActiveTenantsByBuilding(building_id).subscribe(
             data => {
                 let _tenant: any[] = data.results.map(item => {
                     return { id: item.id, text: (item.unitno + ' ' + item.tenant_company_name) };
                 })
                 this.tenants = _tenant;
+                this.disabledTenant = false;
             }
         );
     }
 
     public selectedBuilding (value: any): void {
+        this.tenant = [];
+        this.tenants = [];
+        this.disabledTenant = true;
         this.building = [value];
         this.getActiveTenantsByBuilding(this.building[0].id);
         this.ticketForm.get('building').setValue(config.api.base + 'building/' + this.building[0].id + '/');
@@ -266,12 +273,7 @@ export class TicketComponent implements OnInit {
 
     closeModal () {
         this.resetForm();
-        this.building = [];
-        this.tenant = [];
-        this.problem_type = [];
-        this.priority = [];
-        this.assigned_to = [];
-        this.group = [];
+        this.resetSelectFields();
         $('#modal-add-ticket').modal('hide');
     }
 
@@ -301,5 +303,16 @@ export class TicketComponent implements OnInit {
             vendor_follow_up: false,
             action_type: 'employee_message'
         });
+    }
+
+    resetSelectFields () {
+        this.disabledTenant = true;
+        this.building = [];
+        this.tenant = [];
+        this.problem_type = [];
+        this.priority = [];
+        this.assigned_to = [];
+        this.group = [];
+        this.selectedNotified = [];
     }
 }

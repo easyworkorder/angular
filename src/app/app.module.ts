@@ -4,7 +4,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, BaseRequestOptions, XHRBackend, XSRFStrategy, CookieXSRFStrategy } from '@angular/http';
 import { ToasterModule, ToasterService } from 'angular2-toaster';
-import { SelectModule } from 'ng2-select';
+// import { SelectModule } from 'ng2-select';
 
 import { routing } from './app.routes';
 
@@ -170,6 +170,7 @@ import { PagerService } from "app/services/pager.service";
 import { TenantEditComponent } from './modules/admin/tenant/tenant-edit.component';
 import { VendorEditComponent } from './modules/admin/vendor/vendor-edit.component';
 import { AuthGuardService } from "app/auth-guard.service";
+import { SelectModule } from "app/modules/shared/select/select.module";
 
 export function translateStaticLoaderFactory (Backend, defaultOptions, storage, notificationService) {
     return new AppHttp(Backend, defaultOptions, storage, notificationService);

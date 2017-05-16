@@ -213,7 +213,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="closeModal()">×</button>
                 <h3 class="modal-title"><i class="fa fa-plus"></i> <strong>New Request</strong></h3>
             </div>
             <!-- this is a new comment  -->
@@ -231,7 +231,7 @@
                         <label class="col-xs-3 control-label" for="tenant">Tenant <span class="required">*</span> </label>
                         <div class="col-xs-9">
                             <ng-select id="tenant" [multiple]="false" [items]="tenants" placeholder="Select Tenant" (selected)="selectedTenant($event)"
-                                [active]="tenant"></ng-select>
+                                [active]="tenant" [disabled]="disabledTenant"></ng-select>
                             <span *ngIf="(_submitted && tenant.length == 0)" class="validation-error">This field is Required</span>
                         </div>
                     </div>
