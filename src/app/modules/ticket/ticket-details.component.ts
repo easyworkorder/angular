@@ -35,6 +35,7 @@ export class TabVisibility {
     templateUrl: './ticket-details.component.html'
 })
 export class TicketDetailsComponent implements OnInit {
+    overDue: string;
     selectedTenant: any;
     selectedRequestor: any = [];
     requestorsList: any[] = [];
@@ -320,7 +321,6 @@ export class TicketDetailsComponent implements OnInit {
             error => {
                 this.toasterService.pop('error', 'Due Date', `Due date not Updated`);
             })
-
     }
 
     dateValidation (control: AbstractControl): boolean {
@@ -335,7 +335,31 @@ export class TicketDetailsComponent implements OnInit {
         let toDate = new Date(this.ticket.due_date);
         let one_day = 1000 * 60 * 60 * 24;
         // let dateDiff = Math.ceil((today.getTime() - toDate.getTime()) / (one_day));
-        this.dueDateOn = Math.ceil((toDate.getTime() - today.getTime()) / (one_day));
+        // this.dueDateOn = Math.ceil((toDate.getTime() - today.getTime()) / (one_day));
+
+        // get total seconds between the times
+        let delta = Math.floor(toDate.getTime() - today.getTime()) / 1000;
+
+        // calculate (and subtract) whole days
+        const days = Math.floor(delta / 86400);
+        delta -= days * 86400;
+
+        // calculate (and subtract) whole hours
+        const hours = Math.floor(delta / 3600) % 24;
+        delta -= hours * 3600;
+
+        // calculate (and subtract) whole minutes
+        const minutes = Math.floor(delta / 60) % 60;
+        delta -= minutes * 60;
+
+        // what's left is seconds
+        const seconds = delta % 60;
+
+        this.overDue = days != 0 ? (days == 1 ? `${days} Day` : `${days} Days`) : '';
+        this.overDue += days != 0 ? ',' : '';
+        this.overDue += hours != 0 ? (hours == 1 ? ` ${hours} Hour` : ` ${hours} Hours`) : '';
+        this.overDue += hours != 0 ? ',' : '';
+        this.overDue += minutes != 0 ? (minutes == 1 ? ` ${minutes} Minute` : ` ${minutes} Minutes`) : '';
     }
 
     onRequestorSubmit () {
