@@ -18,6 +18,7 @@ import {
 @Injectable()
 export class BuildingService extends DataService {
   private _editedBuilding: any;
+  isFromProfile: boolean = false;
 
   constructor(
     protected http: AppHttp,

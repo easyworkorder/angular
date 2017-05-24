@@ -2,8 +2,8 @@
     <div class="block-full">
         <div class="block-title">
             <ul class="nav nav-tabs" style="height: 60px;" data-toggle="tabs">
-                <li class="active"><a href="#bldg1-overview" data-toggle="tab" aria-expanded="true">Overview</a></li>
-                <li class=""><a href="#bldg1-tenants" data-toggle="tab" aria-expanded="false">Tenants</a></li>
+                <li [class.active]="buildingService.isFromProfile == false"><a href="#bldg1-overview" data-toggle="tab" aria-expanded="true">Overview</a></li>
+                <li [class.active]="buildingService.isFromProfile == true"><a href="#bldg1-tenants" data-toggle="tab" aria-expanded="false">Tenants</a></li>
                 <li class=""><a href="#bldg1-notifications" data-toggle="tab" aria-expanded="false">Notifications</a>
                 </li>
                 <li><a href="#bldg1-files" data-toggle="tab">Files</a></li>
@@ -14,7 +14,7 @@
         </div>
         <loading-spinner-wave *ngIf="!editedBuilding"></loading-spinner-wave>
         <div *ngIf="editedBuilding" class="tab-content">
-            <div class="tab-pane active" id="bldg1-overview">
+            <div class="tab-pane" id="bldg1-overview" [class.active]="buildingService.isFromProfile == false">
                 <!-- Tickets Content -->
                 <div class="row" style="margin: 0 -10px;">
                     <div class="col-md-4 col-lg-4">
@@ -222,7 +222,7 @@
                 <!-- END Tickets Content -->
             </div>
             <!-- Tenants LIST-->
-            <div class="tab-pane" id="bldg1-tenants">
+            <div class="tab-pane" id="bldg1-tenants" [class.active]="buildingService.isFromProfile == true">
                 <ewo-tenant></ewo-tenant>
             </div>
             <!-- End Tenants LIST-->

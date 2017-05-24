@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { BuildingInformationComponent } from "app/modules/admin/building-admin/building-information.component";
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { ActivatedRoute, Params } from "@angular/router";
+import { ActivatedRoute, Params, Router, NavigationEnd } from "@angular/router";
 import { BuildingService } from "app/modules/admin/building/building.service";
 import { EmployeeService } from "app/modules/admin/employee/employee.service";
 import { Observable } from 'rxjs/Rx';
@@ -43,7 +43,7 @@ export class BuildingAdminDetailsComponent implements OnInit {
         private slaPolicyService: SLAPolicyService,
         private breadcrumbHeaderService: BreadcrumbHeaderService,
         private headerService: HeaderService,
-
+        private router: Router,
     )
     { }
 
@@ -55,6 +55,30 @@ export class BuildingAdminDetailsComponent implements OnInit {
         this.getBuildingSLAPolicy(this._buildingId);
         this.headerService.setDashBoardTitle({ title: 'BUILDINGS', link: [`/admin/building`] });
 
+        //ewo-114
+        this.router.events
+            .filter(e => e instanceof NavigationEnd)
+            .pairwise()
+            .subscribe((data: any) => {
+                let navigate = data;
+
+                let concaturl = data.reduce((acc, item) => acc.concat(item.url), []);
+                let constring = concaturl[0].concat(concaturl[1]);
+
+                // if (concaturl[0].toString().match(/^\/admin\/building\/[0-9]{1,10}$/) &&
+                //     concaturl[1].toString().match(/^\/admin\/building\/[0-9]{1,10}$/)
+                // ) {
+                //     return;
+                // }
+
+                this.buildingService.isFromProfile = false;
+
+                if ((concaturl[0].toString().match(/^\/admin\/building\/[0-9]{1,10}\/tenant-profile\/[0-9]{1,10}$/) &&
+                    concaturl[1].toString().match(/^\/admin\/building\/[0-9]{1,10}$/))
+                ) {
+                    this.buildingService.isFromProfile = true;
+                }
+            });
     }
 
     ngAfterViewChecked () {
