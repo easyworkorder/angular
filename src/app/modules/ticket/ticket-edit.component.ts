@@ -81,25 +81,10 @@ export class TicketEditComponent implements OnInit {
     }
 
     ngOnInit () {
-        //TeMP
-        // const ticket = this.ticket;
-        // this.selectPriority.push({ id: ticket.priority, text: ticket.priority });
-        // this.selectSource.push({ id: ticket.source, text: ticket.source });
-        // if (ticket.group) {
-        //     this.selectGroup.push({id: ticket.group, text: ticket.group});
-        // }
-
-        // this.problemTypeService.getProblemTypeByUrl(ticket.problemtype).subscribe(data => {
-        //     this.selectedProblem_type.push({id: data.id, text: (data.problem_name)});
-        // });
-
-        // this.employeeService.getEmployeeByIdByUrl(ticket.employee).subscribe(data => {
-        //     this.selectedProblem_type.push({id: data.id, text: (data.first_name + ' ' + data.last_name) });
-        // });
-
-        //Temp
-        // this.getSelectProblemType();
-        // this.getSelectEmployee();
+        if (this.isClosedTicket) {
+            this.ticketForm.get('estimated_amount').disable(true);
+            this.ticketForm.get('is_billable').disable(true);
+        }
     }
 
     ngOnChanges (changes) {
@@ -248,5 +233,9 @@ export class TicketEditComponent implements OnInit {
         this.selectEmployee = [];
         this.selectGroup = [];
         this.selectSource = [];
+    }
+
+    isDisabled() {
+        return this.isClosedTicket;
     }
 }
