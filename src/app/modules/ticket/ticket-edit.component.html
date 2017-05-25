@@ -10,62 +10,56 @@
     </div>
     <div class="form-group">
         <label class="col-xs-12" for="problem_type">Type <span *ngIf="!isClosedTicket" class="required">*</span> </label>
-        <div class="col-xs-12" *ngIf="!isClosedTicket">
+        <div class="col-xs-12">
             <ng-select id="problem_type" [multiple]="false" [items]="problem_types" placeholder="Select Type" (selected)="selectedProblemType($event)"
-                [active]="selectedProblem_type"></ng-select>
+                [active]="selectedProblem_type" [disabled]="isClosedTicket?true: false"></ng-select>
             <span *ngIf="(_submitted && selectedProblem_type.length == 0)" class="validation-error">This field is Required</span>
         </div>
-        <div class="col-xs-12" *ngIf="isClosedTicket">{{selectedProblem_type[0]?.text}}</div>
     </div>
     <div class="form-group">
         <label class="col-xs-12" for="priority">Priority <span *ngIf="!isClosedTicket" class="required">*</span> </label>
-        <div class="col-xs-12" *ngIf="!isClosedTicket">
+        <div class="col-xs-12">
             <ng-select id="priority" [multiple]="false" [items]="priorities" placeholder="Select Priority" (selected)="selectedPriority($event)"
-                [active]="selectPriority"></ng-select>
+                [active]="selectPriority" [disabled]="isClosedTicket?true: false"></ng-select>
             <span *ngIf="(_submitted && selectPriority.length == 0)" class="validation-error">This field is Required</span>
         </div>
-        <div class="col-xs-12" *ngIf="isClosedTicket">{{selectPriority[0]?.text}}</div>
     </div>
     <div class="form-group">
         <label class="col-xs-12" for="employee">Assigned to <span *ngIf="!isClosedTicket" class="required">*</span> </label>
-        <div class="col-xs-12" *ngIf="!isClosedTicket">
+        <div class="col-xs-12">
             <ng-select id="employee" [multiple]="false" [items]="employees" placeholder="Select Employee" (selected)="selectedEmployee($event)"
-                [active]="selectEmployee"></ng-select>
+                [active]="selectEmployee" [disabled]="isClosedTicket?true: false"></ng-select>
             <span *ngIf="(_submitted && selectEmployee.length == 0)" class="validation-error">This field is Required</span>
         </div>
-        <div class="col-xs-12" *ngIf="isClosedTicket">{{selectEmployee[0]?.text}}</div>
     </div>
     <div class="form-group">
         <label class="col-xs-12">Source</label>
-        <!--<div class="col-xs-12"> {{ticket.source}}
-        </div>-->
         <div class="col-xs-12">
             <ng-select id="source" [multiple]="false" [items]="sources" placeholder="Select Source" [active]="selectSource" [disabled]="true"></ng-select>
         </div>
     </div>
     <div class="form-group">
         <label class="col-xs-12" for="group">Group <span *ngIf="!isClosedTicket" class="required">*</span> </label>
-        <div class="col-xs-12" *ngIf="!isClosedTicket">
-            <ng-select id="group" [multiple]="false" [items]="groups" placeholder="Select Group" (selected)="selectedGroup($event)" [active]="selectGroup"></ng-select>
+        <div class="col-xs-12">
+            <ng-select id="group" [multiple]="false" [items]="groups" placeholder="Select Group" (selected)="selectedGroup($event)"
+                       [active]="selectGroup" [disabled]="isClosedTicket?true: false"></ng-select>
             <span *ngIf="(_submitted && selectGroup.length == 0)" class="validation-error">This field is Required</span>
         </div>
-        <div class="col-xs-12" *ngIf="isClosedTicket">{{selectGroup[0]?.text}}</div>
     </div>
     <div class="form-group">
         <label class="col-xs-12" for="estimated_amount">Estimated Amount</label>
-        <div class="col-xs-12" *ngIf="!isClosedTicket">
+        <div class="col-xs-12">
             <input [formControlValidator]="ticketForm.controls.estimated_amount" formControlName="estimated_amount" type="text" id="estimated_amount"
-                name="estimated_amount" class="form-control" placeholder="Estimated Amount">
+                name="estimated_amount" class="form-control" placeholder="Estimated Amount" [disabled]="isClosedTicket?true: false">
             <span class="validation-error">{{ticketForm.controls.estimated_amount.error}}</span>
         </div>
-        <div class="col-xs-12" *ngIf="isClosedTicket">{{ticket?.estimated_amount}}</div>
     </div>
     <div class="form-group">
         <label class="col-xs-2">Billable</label>
-        <div class="col-xs-10" *ngIf="!isClosedTicket">
+        <div class="col-xs-10">
             <label class="switch switch-success">
                 <input type="checkbox" formControlName="is_billable" id="is_billable"
-                       name="is_billable"><span></span></label>
+                       name="is_billable" [disabled]="isClosedTicket?true: false"><span></span></label>
         </div>
         <div class="col-xs-12" *ngIf="isClosedTicket">{{ticket?.is_billable?'Yes':'No'}}</div>
     </div>
