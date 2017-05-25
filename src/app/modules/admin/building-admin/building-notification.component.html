@@ -20,7 +20,9 @@
                 <div class="row text-center">
                     <div class="col-xs-6">
                         <label class="switch switch-success">
-                        <input formControlName="accessControl" [attr.disabled]="employee.noAccess && !employee.access ? '' : null" (click)="accessClick(employee)"
+                        <!--<input formControlName="accessControl" [attr.disabled]="employee.noAccess && !employee.access ? '' : null" (click)="accessClick(employee)"
+                            type="checkbox"><span></span>-->
+                        <input formControlName="accessControl" (click)="accessClick(employee)"
                             type="checkbox"><span></span>
                         </label><br>
                         <h3>

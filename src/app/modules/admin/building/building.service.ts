@@ -139,4 +139,35 @@ export class BuildingService extends DataService {
 
     return observable;
   }
+
+  createEmployeeBuildingNotification (data?: any): Observable<any> {
+
+    data = Object.assign({}, data);
+    const observable = this.http.post('employeebuilding/', data);
+
+    observable.subscribe(data => {
+      // this.toasterService.pop('success', 'Access', 'Employee access has been set successfully');
+    },
+      error => {
+        // this.toasterService.pop('error', 'Access', 'Employee access not Saved due to API error!!!');
+      });
+
+    return observable;
+  }
+
+  deleteEmployeeBuildingNotification (data?: any) {
+    data = Object.assign({}, data);
+
+    // PUT '/employee'
+    const observable = this.http.delete(data.url, data);
+
+    observable.subscribe(data => {
+      // this.toasterService.pop('success', 'DELETE', 'Employee access has been deleted successfully');
+    },
+      error => {
+        // this.toasterService.pop('error', 'DELETE', 'Employee access not deleted due to API error!!!');
+      });
+
+    return observable;
+  }
 }

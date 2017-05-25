@@ -20,6 +20,13 @@ export class BuildingNotificationComponent implements OnInit {
     employees: any;
     isShowingLoadingSpinner: boolean = false;
     searchControl = new FormControl('');
+    buildingNotify = {
+        is_notify: false,
+        employee: '',
+        building: ''
+    }
+
+    buildingId: any;
 
     constructor(
         private buildingService: BuildingService,
@@ -36,16 +43,17 @@ export class BuildingNotificationComponent implements OnInit {
     }
 
 
+
     ngOnInit () {
         this.getAllEmployess();
     }
 
     getAllEmployess () {
-        let buildingId = this.route.snapshot.params['id'];
+        this.buildingId = this.route.snapshot.params['id'];
         this.isShowingLoadingSpinner = true;
         let observable = Observable.forkJoin(
             this.employeeService.getAllEmployees(this.currentCompanyId),
-            this.buildingService.getEmployeeBuilding(buildingId)
+            this.buildingService.getEmployeeBuilding(this.buildingId)
         );
         observable.subscribe(datas => {
             this.isShowingLoadingSpinner = false;
@@ -96,6 +104,14 @@ export class BuildingNotificationComponent implements OnInit {
         employeebuilding.is_notify = employee.notificationForm.value.notifyControl;
         this.buildingService.updateEmployeeBuildingNotification(employeebuilding);
     }
+
+    // saveNotification (employee) {
+    //     let employeebuilding = employee.employeebuilding;
+    //     employeebuilding.is_notify = employee.notificationForm.value.notifyControl;
+
+    //     this.buildingService.createEmployeeBuildingNotification(employeebuilding);
+    // }
+
     notificationClick (employee) {
         this.updateNotification(employee);
     }
@@ -106,7 +122,19 @@ export class BuildingNotificationComponent implements OnInit {
 
         if (!employee.access) {
             employee.notificationForm.get('notifyControl').setValue(false);
-            this.updateNotification(employee);
+            // this.updateNotification(employee);
+
+            this.buildingService.deleteEmployeeBuildingNotification(employee.employeebuilding);
+        } else {
+            let empBuilding = this.buildingNotify;
+            empBuilding.building = config.api.base + 'building/' + this.buildingId + '/';
+            empBuilding.employee = config.api.base + 'employee/' + employee.id + '/';
+            empBuilding.is_notify = false;
+
+            this.buildingService.createEmployeeBuildingNotification(empBuilding).subscribe(data => {
+                let emp = this.employees.find(x => x.id == employee.id);
+                emp.employeebuilding = data;
+            });
         }
     }
 }
