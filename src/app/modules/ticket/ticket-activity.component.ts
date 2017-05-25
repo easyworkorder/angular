@@ -336,7 +336,9 @@ export class TicketActivityComponent implements OnInit {
             this.ticketForm.get('closed').setValue(true);
             // this.ticketForm.get('submitted_by_type').setValue('E');
 
-            this.ticketService.update(this.ticketForm.value, false).subscribe((tikcet: any) => { });
+            this.ticketService.update(this.ticketForm.value, false).subscribe((tikcet: any) => {
+                this.router.navigate(['/']);//may26-2017
+            });
             this.toasterService.pop('success', 'UPDATE', 'Ticket has been Closed successfully');
             this.isSubmit = false;
             this.change.emit(true);
@@ -357,7 +359,8 @@ export class TicketActivityComponent implements OnInit {
             this.ticketForm.get('closed').setValue(false);
 
             this.ticketService.update(this.ticketForm.value, false).subscribe((tikcet: any) => {
-                 this.ticket.closed = false;
+                this.ticket.closed = false;
+                this.ticketService.updateTicket(true);//may26-2017
             });
             this.toasterService.pop('success', 'UPDATE', 'Ticket has been Reopen successfully');
             this.isSubmit = false;

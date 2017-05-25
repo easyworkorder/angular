@@ -70,6 +70,15 @@ export class UserDashboardComponent implements OnInit {
                         return true;
                     }
                 });
+                //may26-2017
+                const storeReqType = this.storage.get(config.storage.ticketRequestType);
+                if (storeReqType) {
+                    let tmpStat = this.contactStat[storeReqType];
+                    if (tmpStat > 0) {
+                        this.currentRequestType = storeReqType;
+                    }
+                }
+
 
                 this.getAllTickets(this.currentRequestType);
             });
@@ -90,7 +99,10 @@ export class UserDashboardComponent implements OnInit {
         this.breadcrumbHeaderService.setBreadcrumbTitle('Desktop');
         this.headerService.setDashBoardTitle({ title: 'DESKTOP', link: ['/'] });
 
-        this.storage.set(config.storage.ticketRequestType, this.currentRequestType);
+        //may26-2017
+        const storeReqType = this.storage.get(config.storage.ticketRequestType);
+
+        this.storage.set(config.storage.ticketRequestType, (storeReqType ? storeReqType : this.currentRequestType));
     }
 
     getAllTickets (type): void {

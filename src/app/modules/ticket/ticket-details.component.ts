@@ -181,6 +181,7 @@ export class TicketDetailsComponent implements OnInit {
     getTicketDetails () {
         this.ticketService.getTicketDetails(this.ticketId).subscribe(
             data => {
+                this.isClosedTicket = false;//may26-2017
                 this.ticket = data;
                 if (this.ticket.status === 'Closed') {
                     this.isClosedTicket = true;
