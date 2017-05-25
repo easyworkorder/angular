@@ -60,6 +60,9 @@ export class TicketActivityComponent implements OnInit {
     isFromAdminPanel: boolean = false;
 
     showAcceptButton = false;
+
+    isNeedToRefreshTicktes: boolean = false;
+
     /**
      * Note Reply form
      * @param ticketService
@@ -213,17 +216,30 @@ export class TicketActivityComponent implements OnInit {
         console.log('this.storage.get(config.storage.ticketRequestType)', this.storage.get(config.storage.ticketRequestType));
 
 
-        if (!this.ticketService.getTickets()) {
+        // if (!this.ticketService.getTickets()) {
+        //     let ticketRequestType = this.storage.get(config.storage.ticketRequestType);
+        //     // this.ticketService.updateTicketList(true);
+
+        //     this.getAllTickets(ticketRequestType);
+
+        // } else {
+        //     this.disabledButtons();
+        // }
+        this.onGetAllTickets(false);
+        this.checkUnassignedAndAdminPanel();
+    }
+
+    onGetAllTickets (isRefresh: boolean) {
+        if (isRefresh || !this.ticketService.getTickets()) {
             let ticketRequestType = this.storage.get(config.storage.ticketRequestType);
             // this.ticketService.updateTicketList(true);
 
             this.getAllTickets(ticketRequestType);
+            this.isNeedToRefreshTicktes = false;
 
         } else {
             this.disabledButtons();
         }
-
-        this.checkUnassignedAndAdminPanel();
     }
 
 
@@ -335,14 +351,20 @@ export class TicketActivityComponent implements OnInit {
         this.ticketReopenForm.get('workorder').setValue(`${config.api.base}ticket/${this.ticket.id}/`);
         this.ticketService.createNote(this.ticketReopenForm.value, false).subscribe((note: any) => {
 
+            // this.onGetAllTickets(true);
+
             this.ticketForm.get('status').setValue('Open');
             this.ticketForm.get('closed').setValue(false);
 
-            this.ticketService.update(this.ticketForm.value, false).subscribe((tikcet: any) => { });
+            this.ticketService.update(this.ticketForm.value, false).subscribe((tikcet: any) => {
+                 this.ticket.closed = false;
+            });
             this.toasterService.pop('success', 'UPDATE', 'Ticket has been Reopen successfully');
             this.isSubmit = false;
             this.change.emit(true);
             this.closeModal();
+
+            this.isNeedToRefreshTicktes = true;
         });
     }
 
@@ -595,6 +617,8 @@ export class TicketActivityComponent implements OnInit {
             // this.ticketService.setNextTicket(id);
 
         }
+
+        this.isNeedToRefreshTicktes && this.onGetAllTickets(true);
     }
 
     disabledButtons () {
