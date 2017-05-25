@@ -17,6 +17,7 @@
     "@angular/cli": "^1.0.0-rc.1",
     "@angular/common": "^2.4.0",
     "@angular/compiler": "^2.4.0",
+    "@angular/compiler-cli": "^2.4.0",
     "@angular/core": "^2.4.0",
     "@angular/forms": "^2.4.0",
     "@angular/http": "^2.4.0",
@@ -36,7 +37,6 @@
   },
   "devDependencies": {
     "@angular/cli": "^1.0.0-rc.1",
-    "@angular/compiler-cli": "^2.4.0",
     "@types/jasmine": "2.5.38",
     "@types/jquery": "^2.0.40",
     "@types/node": "~6.0.60",
