@@ -13,13 +13,14 @@ import {
 } from '../../services';
 import { Subject } from "rxjs/Subject";
 import { ReplaySubject } from "rxjs/ReplaySubject";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
 
 @Injectable()
 export class TicketService extends DataService {
   private ticketListUpdateSource = new ReplaySubject<boolean>();
   tickettListRefresh$ = this.ticketListUpdateSource.asObservable();
 
-  private ticketUpdateSource = new ReplaySubject<boolean>();
+  private ticketUpdateSource = new Subject<boolean>();
   ticketRefresh$ = this.ticketUpdateSource.asObservable();
 
   //All tickets for navigate

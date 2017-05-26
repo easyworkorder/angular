@@ -81,10 +81,10 @@ export class TicketEditComponent implements OnInit {
     }
 
     ngOnInit () {
-        if (this.isClosedTicket) {
-            this.ticketForm.get('estimated_amount').disable(true);
-            this.ticketForm.get('is_billable').disable(true);
-        }
+        // if (this.isClosedTicket) {
+        //     this.ticketForm.get('estimated_amount').disable(true);
+        //     this.ticketForm.get('is_billable').disable(true);
+        // }
     }
 
     ngOnChanges (changes) {
@@ -235,7 +235,7 @@ export class TicketEditComponent implements OnInit {
         this.selectSource = [];
     }
 
-    isDisabled() {
+    isDisabled () {
         return this.isClosedTicket;
     }
 }
