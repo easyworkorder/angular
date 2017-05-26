@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { EmployeeService } from './../admin/employee/employee.service';
@@ -19,6 +19,7 @@ import {
 import { AbstractControl, FormGroup, Validators, FormControl } from "@angular/forms";
 import { ToasterService } from "angular2-toaster/angular2-toaster";
 import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
+import { Subscription } from "rxjs/Subscription";
 
 declare var $: any;
 
@@ -61,6 +62,8 @@ export class TicketDetailsComponent implements OnInit {
     isRequestorValid: boolean = true;
 
     userInfo: any;
+
+    subscription: Subscription;
 
     dueDateForm = new FormGroup({
         dueDate: new FormControl('', Validators.required)
@@ -138,6 +141,10 @@ export class TicketDetailsComponent implements OnInit {
 
     }
 
+    ngOnDestroy () {
+        this.subscription && this.subscription.unsubscribe();
+    }
+
     ngAfterViewChecked () {
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
@@ -158,7 +165,7 @@ export class TicketDetailsComponent implements OnInit {
     initializeTicketDetails () {
         this.breadcrumbHeaderService.setBreadcrumbTitle('');
         this.getAllActiveEmployees();
-        this.ticketService.ticketRefresh$.subscribe(status => {
+        this.subscription = this.ticketService.ticketRefresh$.subscribe(status => {
             this.getTicketDetails();
         });
 
