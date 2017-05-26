@@ -71,7 +71,10 @@ export class FileComponent implements OnInit {
 
     ngAfterViewChecked () {
         $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
+            $('[data-toggle="tooltip"]').tooltip();
+
+            // Initialize Image Lightbox
+            $('[data-toggle="lightbox-image"]').magnificPopup({ type: 'image', image: { titleSrc: 'title' } });
         })
     }
 

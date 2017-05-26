@@ -26,7 +26,8 @@
             </div>
             <div class="media-items animation-fadeInQuick2" data-category="image" *ngIf="file.mimetype == 'image/png' || file.mimetype == 'image/jpg' || file.mimetype == 'image/jpeg' || file.mimetype == 'image/gif' ">
                 <div class="media-items-options text-right">
-                    <a href="{{file.doc_url}}" class="btn btn-xs btn-info" data-toggle="lightbox-image">View</a>
+                    <!--<a href="{{file.doc_url}}" class="btn btn-xs btn-info" data-toggle="lightbox-image">View</a>-->
+                    <a [href]="file.doc_url" class="btn btn-xs btn-info" data-toggle="lightbox-image">View</a>
                     <a *ngIf="!isClosedTicket" modal-dialog-open="add-file" (click)="_submitted = false;editFile(file)" class="btn btn-xs btn-success"
                         data-original-title="Edit File"><i class="fa fa-pencil"></i></a>
                     <a *ngIf="!isClosedTicket" modal-dialog-open="modal-delete-confirm" (click)="deleteFile(file)" data-toggle="tooltip" title=""
