@@ -30,6 +30,8 @@
                                             class="fa fa-user"></i> <strong>Basic</strong></a></li>
                                     <li><a (click)="switchTab(2)" data-gotostep="clickable-second"><i
                                             class="fa fa-pencil-square-o"></i> <strong>Contact</strong></a></li>
+                                    <li><a (click)="switchTab(3)" data-gotostep="clickable-third"><i
+                                            class="fa fa-pencil-square-o"></i> <strong>Insurance</strong></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -110,6 +112,8 @@
                                     </a></li>
                                     <li class="active"><a (click)="switchTab(2)" data-gotostep="clickable-second"><i
                                             class="fa fa-pencil-square-o"></i> <strong>Contact</strong></a></li>
+                                    <li><a (click)="switchTab(3)" data-gotostep="clickable-third"><i
+                                            class="fa fa-pencil-square-o"></i> <strong>Insurance</strong></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -196,6 +200,72 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Insurance Tab Start -->
+                    <div *ngIf="tabs.isInsuranceTabVisible" id="clickable-third" class="step ui-formwizard-content" style="display: block;">
+                        <!-- Step Info -->
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <ul class="nav nav-pills nav-justified clickable-steps">
+                                    <li><a (click)="switchTab(1)" class="text-muted" data-gotostep="clickable-first"><i
+                                            class="fa fa-user"></i>
+                                        <del><strong>Basic</strong></del>
+                                    </a></li>
+                                    <li><a (click)="switchTab(2)" data-gotostep="clickable-second"><i
+                                            class="fa fa-pencil-square-o"></i> <strong>Contact</strong></a></li>
+
+                                    <li class="active"><a (click)="switchTab(3)" data-gotostep="clickable-third"><i
+                                            class="fa fa-pencil-square-o"></i> <strong>Insurance</strong></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- END Step Info -->
+                        <!--<div class="form-group">
+                            <label class="col-xs-3 control-label text-muted">NO AVATAR</label>
+                            <div class="col-xs-9">
+                                <input type="file" id="contact_photo" name="contact_photo" (change)="photoSelectionChange($event)" class="hidden" />
+                                <i class="fa fa-fw fa-upload"></i> <a href="javascript:void(0)" onclick="$('#contact_photo').click();">Upload New Avatar</a>
+                                <span>{{ selectedPhotoFile }}</span>
+                                <br/>
+                                <i class="fa fa-fw fa-picture-o"></i> <a href="javascript:void(0)">Choose from Library</a>
+                            </div>
+                        </div>-->
+
+                        <div>
+                            <table class="table table-striped table-borderless table-vcenter">
+                                <thead>
+                                    <tr>
+                                        <th>Type</th>
+                                        <th class="hidden-xs">Expires</th>
+                                        <th class="hidden-sm hidden-xs">Per Occur</th>
+                                        <th colspan="2">Aggregate</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let insurance of vendorForm.get('insurance_types').controls; let i=index" [formGroup]="insurance">
+                                       <td>{{ insurance.controls.type_name.value }}</td>
+                                        <td>
+                                            <!--<input [formControlValidator]="insurance.controls.expire_date" formControlName="expire_date" type="text" id="expire_date" class="form-control" placeholder="Expire Date">
+                                            <span class="validation-error">{{insurance.controls.expire_date.error}}</span>-->
+                                            <ewo-calendar [readonlyInput]="true" [showOnFocus]="false" formControlName="expire_date" (onSelect)="onInsuranceExpireDateSelect($event, i)" [icon]="fa-calendar"
+                                                [showIcon]="true" inputStyleClass="form-control"></ewo-calendar>
+                                            <!--<span *ngIf="!exp_date_not_valid" class="validation-error" style="display: block">This field is required.</span>-->
+                                        </td>
+                                        <td>
+                                            <input [formControlValidator]="insurance.controls.per_occur" formControlName="per_occur" type="text" id="per_occur" class="form-control" placeholder="Per Occur">
+                                            <span class="validation-error">{{insurance.controls.per_occur.error}}</span>
+                                        </td>
+                                        <td>
+                                            <input [formControlValidator]="insurance.controls.expire_date" formControlName="expire_date" type="text" id="expire_date" class="form-control" placeholder="Aggregate">
+                                            <span class="validation-error">{{insurance.controls.aggregate.error}}</span>
+                                        </td> 
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!--<div>{{ this.vendorForm.value | json }}</div>-->
+                        </div>
+                    </div>
+                    <!--Insurance Tab End-->
 
                     <div class="form-group form-actions">
                         <div class="col-xs-6 text-right">

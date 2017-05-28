@@ -7,11 +7,13 @@ import { AuthenticationService } from "app/modules/authentication";
 import config from '../../../config';
 import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
 import { VerifyEmailService } from "app/modules/shared/verify-email.service";
+import { AppHttp } from "app/services";
 declare var $: any;
 
 export class TabVisibility {
     isBasicTabVisible = true;
     isContactTabVisible = false;
+    isInsuranceTabVisible = false;
     selectedTabNo = 1;
 }
 
@@ -47,7 +49,7 @@ export class VendorComponent implements OnInit {
         private authService: AuthenticationService,
         private breadcrumbHeaderService: BreadcrumbHeaderService,
         private verifyEmailService: VerifyEmailService,
-
+        private http: AppHttp
     ) {
 
     }
@@ -63,6 +65,14 @@ export class VendorComponent implements OnInit {
             this.closeModal();
         });
         this.breadcrumbHeaderService.setBreadcrumbTitle('Vendors');
+        // Initialize the Vendor Insurance Form
+        let insuranceTypes : any[] = [];
+        this.http.get('insurancetype/').subscribe(data => {
+            let insuranceTypes = <FormArray>this.vendorForm.get('insurance_types');
+            for(let insuranceType of data.results){
+                insuranceTypes.push(this.buildInsuranceForm(insuranceType.id, insuranceType.type));
+            }
+        })
     }
 
     ngAfterViewChecked () {
@@ -87,7 +97,9 @@ export class VendorComponent implements OnInit {
             [this.buildBlankContact('', '', '', '', '', '', '', '', '', true, null, '', true)],
             null
             // ItemsValidator.minQuantitySum(300)
-        )
+        ),
+        // insurance_types: this.formBuilder.array([], null)
+        insurance_types: this.formBuilder.array([], null)
     })
 
     buildBlankContact (firstName: string, lastName: string, title: string,
@@ -111,6 +123,16 @@ export class VendorComponent implements OnInit {
             photo: new FormControl(),
             active: new FormControl(true)
         });
+    }
+
+    buildInsuranceForm(id: string, type: string){
+        return new FormGroup({
+            type_id: new FormControl(id),
+            type_name: new FormControl(type),
+            expire_date: new FormControl(null),
+            per_occur: new FormControl(''),
+            aggregate: new FormControl('')
+        })
     }
 
     getAllVendors (): void {
@@ -266,6 +288,7 @@ export class VendorComponent implements OnInit {
         if (expireDateString)
             vendorData.gl_expire_date = expireDateString;
         if (vendorData.vendor_contacts) { delete vendorData.vendor_contacts; }
+        if (vendorData.insurance_types) { delete vendorData.insurance_types; }
 
         this.isSubmit = true;
 
@@ -278,6 +301,28 @@ export class VendorComponent implements OnInit {
                 error => {
                     this.isSubmit = false;
                 });
+
+            /// Vendor Insurance Save Operation should be here
+            console.log('### Saving Vendor Insurances ###');
+            // let insuranceData = this.vendorForm.value.insurance_types;
+
+            let vendorInsurances: any[] = [];
+            for(let data of this.vendorForm.value.insurance_types) {
+                vendorInsurances.push({
+                    'aggregate': data.aggregate,
+                    'exp_date': data.expire_date,
+                    'per_occur': data.per_occur,
+                    'type': {
+                        'id': data.type_id,
+                        'type': data.type_name,
+                        'url': config.api.base + 'insurancetype/' + data.type_id
+                    }
+                });
+            }
+            this.http.post('savebulkvendorinsurance/', vendorInsurances).subscribe(data =>{
+                console.log('Vendor Insurance Saved Successfully.');
+            })
+
         },
             error => {
                 this.isSubmit = false;
@@ -310,6 +355,7 @@ export class VendorComponent implements OnInit {
             tabId = 3;
         this.tabs.isBasicTabVisible = tabId == 1 ? true : false;
         this.tabs.isContactTabVisible = tabId == 2 ? true : false;
+        this.tabs.isInsuranceTabVisible = tabId == 3 ? true : false;
         this.tabs.selectedTabNo = tabId;
     }
 
@@ -332,7 +378,11 @@ export class VendorComponent implements OnInit {
                 isprimary_contact: true,
                 active: true
             }]
+            // , insurance_types: []
         });
+
+        // let insuranceTypes = <FormArray>this.vendorForm.get('insurance_types');
+        // insuranceTypes.reset([]);
     }
 
     onVerifyEmail (event) {
@@ -362,6 +412,11 @@ export class VendorComponent implements OnInit {
                 });
             });
         }
+    }
+
+    onInsuranceExpireDateSelect(value, index) {
+        // this.exp_date_not_valid = true;
+        console.log('The Index Is: ' + index);
     }
 }
 
