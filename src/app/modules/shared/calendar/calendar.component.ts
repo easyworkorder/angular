@@ -297,30 +297,30 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
 
     _isValid: boolean = true;
 
-    @Input() get minDate(): Date {
+    @Input() get minDate (): Date {
         return this._minDate;
     }
 
-    set minDate(date: Date) {
+    set minDate (date: Date) {
         this._minDate = date;
         this.createMonth(this.currentMonth, this.currentYear);
     }
 
-    @Input() get maxDate(): Date {
+    @Input() get maxDate (): Date {
         return this._maxDate;
     }
 
-    set maxDate(date: Date) {
+    set maxDate (date: Date) {
         this._maxDate = date;
         this.createMonth(this.currentMonth, this.currentYear);
     }
 
-    get locale() {
+    get locale () {
         return this._locale;
     }
 
     @Input()
-    set locale(newLocale: LocaleSettings) {
+    set locale (newLocale: LocaleSettings) {
         this._locale = newLocale;
         this.createWeekDays();
         this.createMonth(this.currentMonth, this.currentYear);
@@ -328,7 +328,7 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
 
     constructor(public el: ElementRef, public domHandler: DomHandler, public renderer: Renderer, public cd: ChangeDetectorRef) { }
 
-    ngOnInit() {
+    ngOnInit () {
         let date = this.defaultDate || new Date();
         this.createWeekDays();
 
@@ -367,7 +367,7 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
         }
     }
 
-    ngAfterViewInit() {
+    ngAfterViewInit () {
         this.overlay = <HTMLDivElement>this.overlayViewChild.nativeElement;
 
         if (!this.inline && this.appendTo) {
@@ -378,7 +378,7 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
         }
     }
 
-    createWeekDays() {
+    createWeekDays () {
         this.weekDays = [];
         let dayIndex = this.locale.firstDayOfWeek;
         for (let i = 0; i < 7; i++) {
@@ -387,7 +387,7 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
         }
     }
 
-    createMonth(month: number, year: number) {
+    createMonth (month: number, year: number) {
         this.dates = [];
         this.currentMonth = month;
         this.currentYear = year;
@@ -445,7 +445,7 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
         }
     }
 
-    prevMonth(event) {
+    prevMonth (event) {
         if (this.disabled) {
             event.preventDefault();
             return;
@@ -463,7 +463,7 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
         event.preventDefault();
     }
 
-    nextMonth(event) {
+    nextMonth (event) {
         if (this.disabled) {
             event.preventDefault();
             return;
@@ -481,7 +481,7 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
         event.preventDefault();
     }
 
-    onDateSelect(event, dateMeta) {
+    onDateSelect (event, dateMeta) {
         if (this.disabled || !dateMeta.selectable) {
             event.preventDefault();
             return;
@@ -500,7 +500,7 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
         event.preventDefault();
     }
 
-    updateInputfield() {
+    updateInputfield () {
         if (this.value) {
             let formattedValue;
 
@@ -523,7 +523,7 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
         this.updateFilledState();
     }
 
-    selectDate(dateMeta) {
+    selectDate (dateMeta) {
         this.value = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
         if (this.showTime) {
             if (this.hourFormat === '12' && this.pm && this.currentHour != 12)
@@ -539,7 +539,7 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
         this.onSelect.emit(this.value);
     }
 
-    updateModel() {
+    updateModel () {
         if (this.dataType == 'date') {
             this.onModelChange(this.value);
         }
@@ -551,7 +551,7 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
         }
     }
 
-    getFirstDayOfMonthIndex(month: number, year: number) {
+    getFirstDayOfMonthIndex (month: number, year: number) {
         let day = new Date();
         day.setDate(1);
         day.setMonth(month);
@@ -561,16 +561,16 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
         return dayIndex >= 7 ? dayIndex - 7 : dayIndex;
     }
 
-    getDaysCountInMonth(month: number, year: number) {
+    getDaysCountInMonth (month: number, year: number) {
         return 32 - this.daylightSavingAdjust(new Date(year, month, 32)).getDate();
     }
 
-    getDaysCountInPrevMonth(month: number, year: number) {
+    getDaysCountInPrevMonth (month: number, year: number) {
         let prev = this.getPreviousMonthAndYear(month, year);
         return this.getDaysCountInMonth(prev.month, prev.year);
     }
 
-    getPreviousMonthAndYear(month: number, year: number) {
+    getPreviousMonthAndYear (month: number, year: number) {
         let m, y;
 
         if (month === 0) {
@@ -585,7 +585,7 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
         return { 'month': m, 'year': y };
     }
 
-    getNextMonthAndYear(month: number, year: number) {
+    getNextMonthAndYear (month: number, year: number) {
         let m, y;
 
         if (month === 11) {
@@ -599,22 +599,22 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
         return { 'month': m, 'year': y };
     }
 
-    getSundayIndex() {
+    getSundayIndex () {
         return this.locale.firstDayOfWeek > 0 ? 7 - this.locale.firstDayOfWeek : 0;
     }
 
-    isSelected(dateMeta): boolean {
+    isSelected (dateMeta): boolean {
         if (this.value)
             return this.value.getDate() === dateMeta.day && this.value.getMonth() === dateMeta.month && this.value.getFullYear() === dateMeta.year;
         else
             return false;
     }
 
-    isToday(today, day, month, year): boolean {
+    isToday (today, day, month, year): boolean {
         return today.getDate() === day && today.getMonth() === month && today.getFullYear() === year;
     }
 
-    isSelectable(day, month, year): boolean {
+    isSelectable (day, month, year): boolean {
         let validMin = true;
         let validMax = true;
         let validDate = true;
@@ -663,7 +663,7 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
         return validMin && validMax && validDate && validDay;
     }
 
-    isDateDisabled(day: number, month: number, year: number): boolean {
+    isDateDisabled (day: number, month: number, year: number): boolean {
         if (this.disabledDates) {
             for (let disabledDate of this.disabledDates) {
                 if (disabledDate.getFullYear() === year && disabledDate.getMonth() === month && disabledDate.getDate() === day) {
@@ -675,7 +675,7 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
         return false;
     }
 
-    isDayDisabled(day: number, month: number, year: number): boolean {
+    isDayDisabled (day: number, month: number, year: number): boolean {
         if (this.disabledDays) {
             let weekday = new Date(year, month, day);
             let weekdayNumber = weekday.getDay();
@@ -684,7 +684,7 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
         return false;
     }
 
-    onInputFocus(inputfield, event) {
+    onInputFocus (inputfield, event) {
         this.focus = true;
         if (this.showOnFocus) {
             this.showOverlay(inputfield);
@@ -692,15 +692,24 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
         this.onFocus.emit(event);
     }
 
-    onInputBlur(event) {
+    onInputBlur (event) {
         this.focus = false;
         this.onBlur.emit(event);
         this.updateInputfield();
         this.onModelTouched();
     }
 
-    onButtonClick(event, inputfield) {
+    onButtonClick (event, inputfield) {
         this.closeOverlay = false;
+
+        if (navigator.appVersion.indexOf("MSIE 10") !== -1 && !this.overlayVisible) {
+            inputfield.focus();
+            this.showOverlay(inputfield);
+            return;
+        } else if (navigator.appVersion.indexOf("MSIE 10") !== -1 && this.overlayVisible) {
+            this.closeOverlay = true;
+            return;
+        }
 
         if (!this.overlay.offsetParent) {
             inputfield.focus();
@@ -710,23 +719,23 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
             this.closeOverlay = true;
     }
 
-    onInputKeydown(event) {
+    onInputKeydown (event) {
         if (event.keyCode === 9) {
             this.overlayVisible = false;
         }
     }
 
-    onMonthDropdownChange(m: string) {
+    onMonthDropdownChange (m: string) {
         this.currentMonth = parseInt(m);
         this.createMonth(this.currentMonth, this.currentYear);
     }
 
-    onYearDropdownChange(y: string) {
+    onYearDropdownChange (y: string) {
         this.currentYear = parseInt(y);
         this.createMonth(this.currentMonth, this.currentYear);
     }
 
-    incrementHour(event) {
+    incrementHour (event) {
         let newHour = this.currentHour + this.stepHour;
         if (this.hourFormat == '24')
             this.currentHour = (newHour >= 24) ? (newHour - 24) : newHour;
@@ -738,7 +747,7 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
         event.preventDefault();
     }
 
-    decrementHour(event) {
+    decrementHour (event) {
         let newHour = this.currentHour - this.stepHour;
         if (this.hourFormat == '24')
             this.currentHour = (newHour < 0) ? (24 + newHour) : newHour;
@@ -750,7 +759,7 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
         event.preventDefault();
     }
 
-    incrementMinute(event) {
+    incrementMinute (event) {
         let newMinute = this.currentMinute + this.stepMinute;
         this.currentMinute = (newMinute > 59) ? newMinute - 60 : newMinute;
 
@@ -759,7 +768,7 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
         event.preventDefault();
     }
 
-    decrementMinute(event) {
+    decrementMinute (event) {
         let newMinute = this.currentMinute - this.stepMinute;
         this.currentMinute = (newMinute < 0) ? 60 + newMinute : newMinute;
 
@@ -768,7 +777,7 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
         event.preventDefault();
     }
 
-    incrementSecond(event) {
+    incrementSecond (event) {
         let newSecond = this.currentSecond + this.stepSecond;
         this.currentSecond = (newSecond > 59) ? newSecond - 60 : newSecond;
 
@@ -777,7 +786,7 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
         event.preventDefault();
     }
 
-    decrementSecond(event) {
+    decrementSecond (event) {
         let newSecond = this.currentSecond - this.stepSecond;
         this.currentSecond = (newSecond < 0) ? 60 + newSecond : newSecond;
 
@@ -786,7 +795,7 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
         event.preventDefault();
     }
 
-    updateTime() {
+    updateTime () {
         this.value = this.value || new Date();
         if (this.hourFormat === '12' && this.pm && this.currentHour != 12)
             this.value.setHours(this.currentHour + 12);
@@ -800,13 +809,13 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
         this.updateInputfield();
     }
 
-    toggleAMPM(event) {
+    toggleAMPM (event) {
         this.pm = !this.pm;
         this.updateTime();
         event.preventDefault();
     }
 
-    onInput(event) {
+    onInput (event) {
         let val = event.target.value;
         try {
             this.value = this.parseValueFromString(val);
@@ -823,7 +832,7 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
         this.filled = val != null && val.length;
     }
 
-    parseValueFromString(text: string): Date {
+    parseValueFromString (text: string): Date {
         let dateValue;
         let parts: string[] = text.split(' ');
 
@@ -844,7 +853,7 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
         return dateValue;
     }
 
-    populateTime(value, timeString, ampm) {
+    populateTime (value, timeString, ampm) {
         if (this.hourFormat == '12' && !ampm) {
             throw 'Invalid Time';
         }
@@ -856,7 +865,7 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
         value.setSeconds(time.second);
     }
 
-    updateUI() {
+    updateUI () {
         let val = this.value || this.defaultDate || new Date();
         this.createMonth(val.getMonth(), val.getFullYear());
 
@@ -880,11 +889,11 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
         }
     }
 
-    onDatePickerClick(event) {
+    onDatePickerClick (event) {
         this.closeOverlay = this.dateClick;
     }
 
-    showOverlay(inputfield) {
+    showOverlay (inputfield) {
         if (this.appendTo)
             this.domHandler.absolutePosition(this.overlay, inputfield);
         else
@@ -896,7 +905,7 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
         this.bindDocumentClickListener();
     }
 
-    writeValue(value: any): void {
+    writeValue (value: any): void {
         this.value = value;
         if (this.value && typeof this.value === 'string') {
             this.value = this.parseValueFromString(this.value);
@@ -906,20 +915,20 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
         this.updateUI();
     }
 
-    registerOnChange(fn: Function): void {
+    registerOnChange (fn: Function): void {
         this.onModelChange = fn;
     }
 
-    registerOnTouched(fn: Function): void {
+    registerOnTouched (fn: Function): void {
         this.onModelTouched = fn;
     }
 
-    setDisabledState(val: boolean): void {
+    setDisabledState (val: boolean): void {
         this.disabled = val;
     }
 
     // Ported from jquery-ui datepicker formatDate
-    formatDate(date, format) {
+    formatDate (date, format) {
         if (!date) {
             return "";
         }
@@ -999,7 +1008,7 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
         return output;
     }
 
-    formatTime(date) {
+    formatTime (date) {
         if (!date) {
             return '';
         }
@@ -1029,7 +1038,7 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
         return output;
     }
 
-    parseTime(value) {
+    parseTime (value) {
         let tokens: string[] = value.split(':');
         let validTokenLength = this.showSeconds ? 3 : 2;
 
@@ -1054,7 +1063,7 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
     }
 
     // Ported from jquery-ui datepicker parseDate
-    parseDate(value, format) {
+    parseDate (value, format) {
         if (format == null || value == null) {
             throw "Invalid arguments";
         }
@@ -1213,7 +1222,7 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
         return date;
     }
 
-    daylightSavingAdjust(date) {
+    daylightSavingAdjust (date) {
         if (!date) {
             return null;
         }
@@ -1221,11 +1230,11 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
         return date;
     }
 
-    updateFilledState() {
+    updateFilledState () {
         this.filled = this.inputFieldValue && this.inputFieldValue != '';
     }
 
-    bindDocumentClickListener() {
+    bindDocumentClickListener () {
         if (!this.documentClickListener) {
             this.documentClickListener = this.renderer.listenGlobal('body', 'click', () => {
                 if (this.closeOverlay) {
@@ -1239,13 +1248,13 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
         }
     }
 
-    unbindDocumentClickListener() {
+    unbindDocumentClickListener () {
         if (this.documentClickListener) {
             this.documentClickListener();
         }
     }
 
-    ngOnDestroy() {
+    ngOnDestroy () {
         this.unbindDocumentClickListener();
 
         if (!this.inline && this.appendTo) {
@@ -1253,7 +1262,7 @@ export class CalendarComponent implements AfterViewInit, OnInit, OnDestroy, Cont
         }
     }
 
-    validate(c: AbstractControl) {
+    validate (c: AbstractControl) {
         if (!this._isValid) {
             return { invalidDate: true };
         }

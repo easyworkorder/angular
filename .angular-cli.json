@@ -25,6 +25,7 @@
         "assets/js/vendor/jquery-2.2.4.min.js",
         "assets/js/vendor/bootstrap.min.js",
         "assets/js/vendor/modernizr-3.3.1.min.js",
+        "../node_modules/moment/min/moment.min.js",
         "assets/js/plugins.js",
         "assets/js/app.js",
         "assets/js/pages/readyLogin.js",

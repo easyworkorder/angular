@@ -2,6 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { DatePipe } from "@angular/common";
 
+import * as moment from 'moment';
+
 @Pipe({ name: 'truncate' })
 export class TruncatePipe implements PipeTransform {
 
@@ -118,7 +120,8 @@ export class PhonePipe implements PipeTransform {
 export class DateFormatPipe implements PipeTransform {
   datePipe = new DatePipe('en-US');
   transform (value: any) {
-    return this.datePipe.transform(value, 'MM/dd/yyyy');
+    // return this.datePipe.transform(value, 'MM/dd/yyyy');
+    return moment(value).format('MM/DD/YYYY');
   }
 }
 
@@ -126,7 +129,8 @@ export class DateFormatPipe implements PipeTransform {
 export class TicketListDateFormatPipe implements PipeTransform {
   datePipe = new DatePipe('en-US');
   transform (value: any) {
-    return this.datePipe.transform(value, 'hh:mm a, MM/dd/yyyy');
+    // return this.datePipe.transform(value, 'hh:mm a, MM/dd/yyyy');
+    return moment(value).format('hh:mm A, MM/DD/YYYY');
   }
 }
 
@@ -134,7 +138,8 @@ export class TicketListDateFormatPipe implements PipeTransform {
 export class TicketDetailsDateFormatPipe implements PipeTransform {
   datePipe = new DatePipe('en-US');
   transform (value: any) {
-    return this.datePipe.transform(value, 'MM/dd/yyyy, hh:mm a');
+    // return this.datePipe.transform(value, 'MM/dd/yyyy, hh:mm a');
+    return moment(value).format('MM/DD/YYYY, hh:mm A');
   }
 }
 
