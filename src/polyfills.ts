@@ -68,8 +68,12 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
  */
 import 'intl';  // Run `npm install --save intl`.
 
-require('intl/locale-data/jsonp/en.js');
-const Intl = require('intl');
+//require('intl/locale-data/jsonp/en.js');
+//const Intl = require('intl');
+//Intl.__disableRegExpRestore();
+
+import 'intl/locale-data/jsonp/en.js';
+import * as Intl from 'intl';
 Intl.__disableRegExpRestore();
 
 // import * as jQuery from 'jquery';
