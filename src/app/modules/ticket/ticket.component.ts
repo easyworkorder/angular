@@ -20,6 +20,7 @@ export class TicketComponent implements OnInit {
     @Input() currentRequestType: any;
 
     _submitted = false;
+    isSubmit = false;
     building: any[] = [];
     tenant: any[] = [];
     problem_type: any[] = [];
@@ -121,18 +122,20 @@ export class TicketComponent implements OnInit {
 
     ngAfterViewChecked () {
         $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-        })
+            $('[data-toggle="tooltip"]').tooltip();
+        });
     }
     onSubmit () {
         this._submitted = true;
         if (!this.ticketForm.valid) { return; }
+        this.isSubmit = true;
         this.ticketService.create(this.ticketForm.value).subscribe((ticket: any) => {
-            /*if (this.ticketForm.get('is_save_as_note').value) {
+            if (this.ticketForm.get('is_save_as_note').value === true) {
                 this.ticketPrivateForm.get('workorder').setValue(config.api.base + 'ticket/' + ticket.id + '/');
                 this.ticketPrivateForm.get('details').setValue(this.ticketForm.get('optional_notification_message').value);
-                this.ticketService.createNote(this.ticketPrivateForm.value, true).subscribe((note: any) => {});
-            }*/
+                this.ticketService.createNote(this.ticketPrivateForm.value, false).subscribe((note: any) => {});
+            }
+            this.isSubmit = false;
             // this.getAllTickets('Unassigned');
             this.ticketService.updateTicketList(true);
             this.closeModal();

@@ -304,13 +304,13 @@
                             <span class="validation-error">{{ticketForm.controls.estimated_amount.error}}</span>
                         </div>
                     </div>
-                    <!--div class="form-group">
+                    <div class="form-group">
                         <label class="col-xs-3 control-label">Notify Employee(s)</label>
                         <div class="col-xs-9">
                             <label class="switch switch-success">
                                 <input type="checkbox" (click)="emptyNoficationFields($event)" [checked]="sendNotification" (change)="sendNotification = !sendNotification" formControlName="notify_employee" id="notify_employee" name="notify_employee"><span></span></label>
                         </div>
-                    </div-->
+                    </div>
                     <div class="form-group" *ngIf="sendNotification">
                         <label class="col-xs-3 control-label" for="notified_list">Select Employee(s) </label>
                         <div class="col-xs-9">
@@ -342,7 +342,7 @@
                     </div>
                     <div class="form-group form-actions">
                         <div class="col-xs-12 text-right">
-                            <button type="submit" class="btn btn-effect-ripple btn-success" style="overflow: hidden; position: relative;">Submit</button>
+                            <button type="submit" class="btn btn-effect-ripple btn-success" [disabled]="isSubmit">Submit<i *ngIf="isSubmit" class="fa fa-spinner fa-spin"></i></button>
                         </div>
                     </div>
                 </form>
