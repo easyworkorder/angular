@@ -67,7 +67,6 @@ export class VendorComponent implements OnInit {
         });
         this.breadcrumbHeaderService.setBreadcrumbTitle('Vendors');
         // Initialize the Vendor Insurance Form
-        let insuranceTypes : any[] = [];
         this.http.get('insurancetype/').subscribe(data => {
             let insuranceTypes = <FormArray>this.vendorForm.get('insurance_types');
             for(let insuranceType of data.results){

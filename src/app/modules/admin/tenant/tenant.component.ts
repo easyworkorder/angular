@@ -6,13 +6,14 @@ import { ValidationService } from './../../../services/validation.service';
 import { AuthenticationService } from "app/modules/authentication";
 import { ActivatedRoute } from "@angular/router";
 import config from '../../../config';
-import { DataService } from "app/services";
+import { DataService, AppHttp } from "app/services";
 import { VerifyEmailService } from "app/modules/shared/verify-email.service";
 declare var $: any;
 
 export class TabVisibility {
     isBasicTabVisible = true;
     isContactTabVisible = false;
+    isInsuranceTabVisible = false;
     selectedTabNo = 1;
 }
 
@@ -43,6 +44,7 @@ export class TenantComponent implements OnInit {
     isInscertdateValid: boolean = true;
 
     tabs = new TabVisibility();
+    defaultInsuranceTypes:any[] = [];
 
     constructor(
         private tenantService: TenantService,
@@ -51,8 +53,9 @@ export class TenantComponent implements OnInit {
         private authService: AuthenticationService,
         private route: ActivatedRoute,
         private dataService: DataService,
-        private verifyEmailService: VerifyEmailService) {
-
+        private verifyEmailService: VerifyEmailService,
+        private http: AppHttp) {
+            
     }
 
     ngOnInit () {
@@ -69,6 +72,25 @@ export class TenantComponent implements OnInit {
         // this.authService.emailVerifyInfo$.subscribe((data: any) => {
         //     this.isEmailDuplicate = data ? data : false;
         // });
+        // Initialize the Vendor Insurance Form
+        this.http.get('insurancetype/').subscribe(data => {
+            let insuranceTypes = <FormArray>this.tenantForm.get('insurance_types');
+            for(let insuranceType of data.results){
+                this.defaultInsuranceTypes.push(insuranceType);
+            }
+            this.bindDefaultInsurances();
+        })
+    }
+
+    private bindDefaultInsurances() {
+        let insuranceTypes = <FormArray>this.tenantForm.get('insurance_types');
+        for(let i = insuranceTypes.length -1; i >= 0; i--) {
+            insuranceTypes.removeAt(i);
+        }
+        for(let insuranceType of this.defaultInsuranceTypes) {
+            insuranceTypes.push(this.buildInsuranceForm(insuranceType.id, insuranceType.type));
+        }
+        
     }
 
     tenantForm = this.formBuilder.group({
@@ -85,7 +107,8 @@ export class TenantComponent implements OnInit {
             [this.buildBlankContact('', '', '', true, '', '', '', '', '', '', true, null, '')],
             null
             // ItemsValidator.minQuantitySum(300)
-        )
+        ),
+        insurance_types: this.formBuilder.array([], null)
     })
 
     buildBlankContact (firstName: string, lastName: string, title: string, viewinvoices: boolean,
@@ -113,6 +136,15 @@ export class TenantComponent implements OnInit {
         });
     }
 
+    buildInsuranceForm(id: string, type: string){
+        return new FormGroup({
+            type_id: new FormControl(id),
+            type_name: new FormControl(type),
+            expire_date: new FormControl(null),
+            per_occur: new FormControl(''),
+            aggregate: new FormControl('')
+        })
+    }
 
     getAllBuildings (): void {
         this.buildingService.getAllBuildings(this.currentCompanyId).subscribe(
@@ -215,10 +247,24 @@ export class TenantComponent implements OnInit {
                 error => {
                     this.isSubmit = false;
                 });
+
+            let tenantInsurances: any[] = [];
+            for(let data of this.tenantForm.value.insurance_types) {
+                tenantInsurances.push({
+                    'tenant': tenant.id,
+                    'type': data.type_id,
+                    'aggregate': data.aggregate,
+                    'exp_date': data.expire_date,
+                    'per_occur': data.per_occur
+                });
+            }
+            this.http.post('insurancedata/', tenantInsurances).subscribe(data => {
+                console.log('Tenant Insurance Saved Successfully.');
+            })
         },
-            error => {
-                this.isSubmit = false;
-            });
+        error => {
+            this.isSubmit = false;
+        });
     }
 
     private refreshEditor (logMsg: string, obj: any) {
@@ -242,6 +288,7 @@ export class TenantComponent implements OnInit {
             tabId = 3;
         this.tabs.isBasicTabVisible = tabId == 1 ? true : false;
         this.tabs.isContactTabVisible = tabId == 2 ? true : false;
+        this.tabs.isInsuranceTabVisible = tabId == 3 ? true : false;
         this.tabs.selectedTabNo = tabId;
     }
 
@@ -290,6 +337,7 @@ export class TenantComponent implements OnInit {
                 active: true
             }]
         });
+        this.bindDefaultInsurances();
     }
 
     onVerifyEmail (event) {
@@ -318,6 +366,10 @@ export class TenantComponent implements OnInit {
                 });
             });
         }
+    }
+
+    onInsuranceExpireDateSelect(value, index) {
+        console.log('Date selected in index: ' + index);
     }
 }
 
