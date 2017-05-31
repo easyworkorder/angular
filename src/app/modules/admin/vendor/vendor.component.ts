@@ -41,7 +41,7 @@ export class VendorComponent implements OnInit {
     toDeletedVendor: any;
 
     tabs = new TabVisibility();
-    defaultInsuranceTypes:any[] = [];
+    defaultInsuranceTypes: any[] = [];
 
     constructor(
         private vendorService: VendorService,
@@ -69,21 +69,21 @@ export class VendorComponent implements OnInit {
         // Initialize the Vendor Insurance Form
         this.http.get('insurancetype/').subscribe(data => {
             let insuranceTypes = <FormArray>this.vendorForm.get('insurance_types');
-            for(let insuranceType of data.results){
+            for (let insuranceType of data.results) {
                 this.defaultInsuranceTypes.push(insuranceType);
             }
             this.bindDefaultInsurances();
         })
     }
-    private bindDefaultInsurances() {
+    private bindDefaultInsurances () {
         let insuranceTypes = <FormArray>this.vendorForm.get('insurance_types');
-        for(let i = insuranceTypes.length -1; i >= 0; i--) {
+        for (let i = insuranceTypes.length - 1; i >= 0; i--) {
             insuranceTypes.removeAt(i);
         }
-        for(let insuranceType of this.defaultInsuranceTypes) {
+        for (let insuranceType of this.defaultInsuranceTypes) {
             insuranceTypes.push(this.buildInsuranceForm(insuranceType.id, insuranceType.type));
         }
-        
+
     }
     ngAfterViewChecked () {
         $(function () {
@@ -134,7 +134,7 @@ export class VendorComponent implements OnInit {
         });
     }
 
-    buildInsuranceForm(id: string, type: string){
+    buildInsuranceForm (id: string, type: string) {
         return new FormGroup({
             type_id: new FormControl(id),
             type_name: new FormControl(type),
@@ -230,12 +230,13 @@ export class VendorComponent implements OnInit {
 
         this.isExpireDateValid = false;
 
-        if (this.dateValidation(this.vendorForm.get('gl_expire_date'))) {
-            this.isExpireDateValid = true;
-        } else {
-            this.isExpireDateValid = false;
-            return;
-        }
+        // Commenting by shahin May31-2017
+        // if (this.dateValidation(this.vendorForm.get('gl_expire_date'))) {
+        //     this.isExpireDateValid = true;
+        // } else {
+        //     this.isExpireDateValid = false;
+        //     return;
+        // }
 
         /**
         * Problem type validation
@@ -273,13 +274,14 @@ export class VendorComponent implements OnInit {
         //     return;
         // }
 
-        let expireDate = this.vendorForm.get('gl_expire_date').value;
-        let expireDateString = null;
-        if (expireDate) {
-            expireDate = new Date(expireDate);
-            expireDateString = expireDate.toISOString();
-            // this.tenantForm.get('inscertdate').setValue(inscertDateString);
-        }
+        // Commenting by shahin May31-2017
+        // let expireDate = this.vendorForm.get('gl_expire_date').value;
+        // let expireDateString = null;
+        // if (expireDate) {
+        //     expireDate = new Date(expireDate);
+        //     expireDateString = expireDate.toISOString();
+        //     // this.tenantForm.get('inscertdate').setValue(inscertDateString);
+        // }
 
         // let val = this.vendorForm.value;
         // this.vendorService.create(this.vendorForm.value).subscribe((vendor: any) => {
@@ -294,8 +296,10 @@ export class VendorComponent implements OnInit {
 
         // this.vendorForm.removeControl('vendor_contacts');
         let vendorData = this.vendorForm.value;
-        if (expireDateString)
-            vendorData.gl_expire_date = expireDateString;
+        // Commenting by shahin May31-2017
+        // if (expireDateString)
+        //     vendorData.gl_expire_date = expireDateString;
+
         if (vendorData.vendor_contacts) { delete vendorData.vendor_contacts; }
         if (vendorData.insurance_types) { delete vendorData.insurance_types; }
 
@@ -307,11 +311,11 @@ export class VendorComponent implements OnInit {
                 this.isSubmit = false;
                 this.refreshEditor('Vendor & Vendor Contact Saved successfully.', contact);
             },
-            error => {
-                this.isSubmit = false;
-            });
+                error => {
+                    this.isSubmit = false;
+                });
             let vendorInsurances: any[] = [];
-            for(let data of this.vendorForm.value.insurance_types) {
+            for (let data of this.vendorForm.value.insurance_types) {
                 vendorInsurances.push({
                     'vendor': vendor.id,
                     'type': data.type_id,
@@ -341,7 +345,9 @@ export class VendorComponent implements OnInit {
             this.vendorForm.get('address').valid &&
             this.vendorForm.get('city').valid &&
             this.vendorForm.get('state').valid &&
-            this.vendorForm.get('postal_code').valid && this.dateValidation(this.vendorForm.get('gl_expire_date'));
+            this.vendorForm.get('postal_code').valid;
+        // Commenting by shahin May31-2017
+        // && this.dateValidation(this.vendorForm.get('gl_expire_date'));
         //&& this.vendorForm.get('mgtfeepercent').valid;
     }
 
@@ -412,7 +418,7 @@ export class VendorComponent implements OnInit {
         }
     }
 
-    onInsuranceExpireDateSelect(value, index) {
+    onInsuranceExpireDateSelect (value, index) {
         console.log('The Index Is: ' + index);
     }
 }

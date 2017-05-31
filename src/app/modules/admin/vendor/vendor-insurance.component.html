@@ -25,16 +25,16 @@
                 <div class="form-group">
                     <label class="col-xs-3 control-label" for="per_occur">Per Occur <span class="required">*</span></label>
                     <div class="col-xs-9">
-                        <input [formControlValidator]="vendorInsuranceForm.controls.per_occur" formControlName="per_occur" type="text" id="per_occur"
-                            class="form-control" placeholder="Per Occur" />
+                        <input onlyNumber [formControlValidator]="vendorInsuranceForm.controls.per_occur" formControlName="per_occur" type="text"
+                            id="per_occur" class="form-control" placeholder="Per Occur" />
                         <span class="validation-error">{{vendorInsuranceForm.controls.per_occur.error}}</span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-xs-3 control-label" for="aggregate">Aggregate <span class="required">*</span></label>
                     <div class="col-xs-9">
-                        <input [formControlValidator]="vendorInsuranceForm.controls.aggregate" formControlName="aggregate" type="text" id="aggregate"
-                            class="form-control" placeholder="Aggregate" />
+                        <input onlyNumber [formControlValidator]="vendorInsuranceForm.controls.aggregate" formControlName="aggregate" type="text"
+                            id="aggregate" class="form-control" placeholder="Aggregate" />
                         <span class="validation-error">{{vendorInsuranceForm.controls.aggregate.error}}</span>
                     </div>
                 </div>

@@ -214,22 +214,24 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let insurance of tenantForm.get('insurance_types').controls; let i=index" [formGroup]="insurance">
-                                       <td>{{ insurance.controls.type_name.value }}</td>
+                                        <td>{{ insurance.controls.type_name.value }}</td>
                                         <td>
                                             <!--<input [formControlValidator]="insurance.controls.expire_date" formControlName="expire_date" type="text" id="expire_date" class="form-control" placeholder="Expire Date">
                                             <span class="validation-error">{{insurance.controls.expire_date.error}}</span>-->
-                                            <ewo-calendar [readonlyInput]="true" [showOnFocus]="false" formControlName="expire_date" (onSelect)="onInsuranceExpireDateSelect($event, i)" [icon]="fa-calendar"
-                                                [showIcon]="true" inputStyleClass="form-control"></ewo-calendar>
+                                            <ewo-calendar [readonlyInput]="true" [showOnFocus]="false" formControlName="expire_date" (onSelect)="onInsuranceExpireDateSelect($event, i)"
+                                                [icon]="fa-calendar" [showIcon]="true" inputStyleClass="form-control"></ewo-calendar>
                                             <!--<span *ngIf="!exp_date_not_valid" class="validation-error" style="display: block">This field is required.</span>-->
                                         </td>
                                         <td>
-                                            <input [formControlValidator]="insurance.controls.per_occur" formControlName="per_occur" type="text" id="per_occur" class="form-control" placeholder="Per Occur">
+                                            <input onlyNumber [formControlValidator]="insurance.controls.per_occur" formControlName="per_occur" type="text" id="per_occur"
+                                                class="form-control" placeholder="Per Occur">
                                             <span class="validation-error">{{insurance.controls.per_occur.error}}</span>
                                         </td>
                                         <td>
-                                            <input [formControlValidator]="insurance.controls.aggregate" formControlName="aggregate" type="text" id="aggregate" class="form-control" placeholder="Aggregate">
+                                            <input onlyNumber [formControlValidator]="insurance.controls.aggregate" formControlName="aggregate" type="text" id="aggregate"
+                                                class="form-control" placeholder="Aggregate">
                                             <span class="validation-error">{{insurance.controls.aggregate.error}}</span>
-                                        </td> 
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>

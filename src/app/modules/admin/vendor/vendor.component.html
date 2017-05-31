@@ -87,18 +87,17 @@
                                 <span class="validation-error">{{vendorForm.controls.postal_code.error}}</span>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <label class="col-xs-3 control-label">GL expiration date<span
                                     class="required">*</span></label>
                             <div class="col-xs-9">
                                 <ewo-calendar [readonlyInput]="true" [showOnFocus]="false" formControlName="gl_expire_date" (onSelect)="onSelectDate($event)"
                                     [icon]="fa-calendar" [showIcon]="true" inputStyleClass="form-control"></ewo-calendar>
-                                <!--<span *ngIf="exp_date_not_valid" class="validation-error">This field is required.</span>-->
                                 <span *ngIf="!isExpireDateValid" class="validation-error" style="display: block">
                                         This field is Required
                                 </span>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
 
                     <div *ngIf="tabs.isContactTabVisible" id="clickable-second" class="step ui-formwizard-content" style="display: block;">
@@ -243,22 +242,24 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let insurance of vendorForm.get('insurance_types').controls; let i=index" [formGroup]="insurance">
-                                       <td>{{ insurance.controls.type_name.value }}</td>
+                                        <td>{{ insurance.controls.type_name.value }}</td>
                                         <td>
                                             <!--<input [formControlValidator]="insurance.controls.expire_date" formControlName="expire_date" type="text" id="expire_date" class="form-control" placeholder="Expire Date">
                                             <span class="validation-error">{{insurance.controls.expire_date.error}}</span>-->
-                                            <ewo-calendar [readonlyInput]="true" [showOnFocus]="false" formControlName="expire_date" (onSelect)="onInsuranceExpireDateSelect($event, i)" [icon]="fa-calendar"
-                                                [showIcon]="true" inputStyleClass="form-control"></ewo-calendar>
+                                            <ewo-calendar [readonlyInput]="true" [showOnFocus]="false" formControlName="expire_date" (onSelect)="onInsuranceExpireDateSelect($event, i)"
+                                                [icon]="fa-calendar" [showIcon]="true" inputStyleClass="form-control"></ewo-calendar>
                                             <!--<span *ngIf="!exp_date_not_valid" class="validation-error" style="display: block">This field is required.</span>-->
                                         </td>
                                         <td>
-                                            <input [formControlValidator]="insurance.controls.per_occur" formControlName="per_occur" type="text" id="per_occur" class="form-control" placeholder="Per Occur">
+                                            <input onlyNumber [formControlValidator]="insurance.controls.per_occur" formControlName="per_occur" type="text" id="per_occur"
+                                                class="form-control" placeholder="Per Occur">
                                             <span class="validation-error">{{insurance.controls.per_occur.error}}</span>
                                         </td>
                                         <td>
-                                            <input [formControlValidator]="insurance.controls.aggregate" formControlName="aggregate" type="text" id="aggregate" class="form-control" placeholder="Aggregate">
+                                            <input onlyNumber [formControlValidator]="insurance.controls.aggregate" formControlName="aggregate" type="text" id="aggregate"
+                                                class="form-control" placeholder="Aggregate">
                                             <span class="validation-error">{{insurance.controls.aggregate.error}}</span>
-                                        </td> 
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>

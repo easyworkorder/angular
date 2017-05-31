@@ -78,7 +78,7 @@ export class VendorEditComponent implements OnInit {
     }
 
     setEditedInfo () {
-        this.editedVendorInfo.gl_expire_date = this.editedVendorInfo.gl_expire_date.toDate();
+        // this.editedVendorInfo.gl_expire_date = this.editedVendorInfo.gl_expire_date.toDate();
         this.setEditedProblemTypes(this.editedVendorInfo.problem_types);
         this.vendorForm.get('problem_types').setValue(this.editedVendorInfo.problem_types);
         this.vendorForm.patchValue(this.editedVendorInfo);
@@ -98,12 +98,12 @@ export class VendorEditComponent implements OnInit {
         this._submitted = true;
         this.isExpireDateValid = false;
 
-        if (this.dataService.dateValidation(this.vendorForm.get('gl_expire_date'))) {
-            this.isExpireDateValid = true;
-        } else {
-            this.isExpireDateValid = false;
-            return;
-        }
+        // if (this.dataService.dateValidation(this.vendorForm.get('gl_expire_date'))) {
+        //     this.isExpireDateValid = true;
+        // } else {
+        //     this.isExpireDateValid = false;
+        //     return;
+        // }
 
         if (!this.validateBasicInfo()) {
             return;
@@ -111,8 +111,8 @@ export class VendorEditComponent implements OnInit {
 
         if (!this.vendorForm.valid) { return; }
         let vendorData = this.vendorForm.value;
-        if (vendorData.gl_expire_date)
-            vendorData.gl_expire_date = vendorData.gl_expire_date.toDate();
+        // if (vendorData.gl_expire_date)
+        //     vendorData.gl_expire_date = vendorData.gl_expire_date.toDate();
         if (vendorData.vendor_contacts) { delete vendorData.vendor_contacts; }
 
         this.isSubmit = true;
@@ -174,7 +174,8 @@ export class VendorEditComponent implements OnInit {
             this.vendorForm.get('address').valid &&
             this.vendorForm.get('city').valid &&
             this.vendorForm.get('state').valid &&
-            this.vendorForm.get('postal_code').valid && this.dataService.dateValidation(this.vendorForm.get('gl_expire_date'));
+            this.vendorForm.get('postal_code').valid;
+        // && this.dataService.dateValidation(this.vendorForm.get('gl_expire_date'));
     }
 
     populateProblemTypes (data) {
