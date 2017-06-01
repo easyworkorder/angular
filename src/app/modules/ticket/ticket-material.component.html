@@ -26,10 +26,10 @@
             </tr>
             <tr *ngFor="let material of materials">
                 <td><strong>{{material.date | dateFormat}}</strong></td>
-                <td class="hidden-xs">{{material.description}}</td>
-                <td class="hidden-xs">{{material.cost_each | currency:'USD':true}}</td>
-                <td class="hidden-sm hidden-xs">{{material.quantity | number}}</td>
-                <td class="hidden-sm hidden-xs"> {{material.cost_each * material.quantity | currency:'USD':true}}</td>
+                <td>{{material.description}}</td>
+                <td>{{material.cost_each | currency:'USD':true}}</td>
+                <td>{{material.quantity | number}}</td>
+                <td>{{material.cost_each * material.quantity | currency:'USD':true}}</td>
                 <td class="text-center" *ngIf="!isClosedTicket">
                     <a modal-dialog-open="modal-ticket-material" (click)="_submitted = false; editMaterial(material)" data-toggle="tooltip" title=""
                         class="btn btn-effect-ripple btn-xs btn-success" style="overflow: hidden; position: relative;" data-original-title="Edit Material"><i class="fa fa-pencil"></i></a>
