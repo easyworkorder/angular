@@ -98,7 +98,7 @@ export class TenantComponent implements OnInit {
         building: new FormControl(),
         tenant_company_name: new FormControl('', Validators.required),
         // inscertdate: new FormControl('', this.dateValided()),
-        inscertdate: new FormControl(''),
+        // inscertdate: new FormControl(''),
         mgtfeepercent: new FormControl('', [Validators.required]),
         gl_notify: new FormControl(true),
         unitno: new FormControl('', Validators.required),
@@ -188,12 +188,12 @@ export class TenantComponent implements OnInit {
 
         this.isInscertdateValid = false;
 
-        if (this.dateValidation(this.tenantForm.get('inscertdate'))) {
+        /*if (this.dateValidation(this.tenantForm.get('inscertdate'))) {
             this.isInscertdateValid = true;
         } else {
             this.isInscertdateValid = false;
             return;
-        }
+        }*/
         //isInscertdateInValid
 
         // this.verifyEmailService.isEmailDuplicate
@@ -218,13 +218,13 @@ export class TenantComponent implements OnInit {
         //     this.switchTab(1);
         //     return;
         // }
-        let inscertDate = this.tenantForm.get('inscertdate').value;
-        let inscertDateString = null;
-        if (inscertDate) {
-            inscertDate = new Date(inscertDate);
-            inscertDateString = inscertDate.toISOString();
-            // this.tenantForm.get('inscertdate').setValue(inscertDateString);
-        }
+        // let inscertDate = this.tenantForm.get('inscertdate').value;
+        // let inscertDateString = null;
+        // if (inscertDate) {
+        //     inscertDate = new Date(inscertDate);
+        //     inscertDateString = inscertDate.toISOString();
+        //     // this.tenantForm.get('inscertdate').setValue(inscertDateString);
+        // }
         this.tenantForm.get('building').setValue(`${config.api.base}building/${this.buildingId}/`);
         // Save operation with/without photo begins from here
         let contactFormArray = this.tenantForm.get('tenant_contacts') as FormArray;
@@ -233,8 +233,8 @@ export class TenantComponent implements OnInit {
         // this.tenantForm.removeControl('tenant_contacts');
         let tenantData = this.tenantForm.value;
         if (tenantData.tenant_contacts) { delete tenantData.tenant_contacts; }
-        if (inscertDateString)
-            tenantData.inscertdate = inscertDateString;
+        // if (inscertDateString)
+        //    tenantData.inscertdate = inscertDateString;
         this.isSubmit = true;
         this.tenantService.saveTenant(tenantData).subscribe((tenant: any) => {
             // Tenant Saved lets go for saving contact with/without file
@@ -273,8 +273,8 @@ export class TenantComponent implements OnInit {
     }
 
     validateBasicInfo () {
-        return this.tenantForm.get('tenant_company_name').valid &&
-            this.tenantForm.get('mgtfeepercent').valid && this.dateValidation(this.tenantForm.get('inscertdate'));
+        return this.tenantForm.get('tenant_company_name').valid;
+            // && this.tenantForm.get('mgtfeepercent').valid && this.dateValidation(this.tenantForm.get('inscertdate'));
     }
 
     validateContactInfo () {

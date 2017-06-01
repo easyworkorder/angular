@@ -111,7 +111,8 @@ export class TenantContactPeopleComponent implements OnInit {
             title: '',
             isprimary_contact: false,
             active: true,
-            viewinvoices: true
+            viewinvoices: true,
+            notifications: false
         });
     }
 }

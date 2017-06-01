@@ -25,7 +25,7 @@ export class TenantEditComponent implements OnInit {
     tenantForm = this.formBuilder.group({
         building: new FormControl(),
         tenant_company_name: new FormControl('', Validators.required),
-        inscertdate: new FormControl(''),
+        // inscertdate: new FormControl(''),
         mgtfeepercent: new FormControl('', [Validators.required]),
         unitno: new FormControl('', Validators.required),
         id: new FormControl(),
@@ -48,25 +48,25 @@ export class TenantEditComponent implements OnInit {
 
     setEditedTenantInfo (tenant) {
         this.editedTenantInfo = tenant;
-        this.editedTenantInfo.inscertdate = this.editedTenantInfo && this.editedTenantInfo.inscertdate.toDate();
+        // this.editedTenantInfo.inscertdate = this.editedTenantInfo && this.editedTenantInfo.inscertdate.toDate();
         this.tenantForm.patchValue(this.editedTenantInfo);
     }
 
     onSubmit () {
         this.isInscertdateValid = false;
 
-        if (this.dataService.dateValidation(this.tenantForm.get('inscertdate'))) {
-            this.isInscertdateValid = true;
-        } else {
-            this.isInscertdateValid = false;
-            return;
-        }
+        // if (this.dataService.dateValidation(this.tenantForm.get('inscertdate'))) {
+        //     this.isInscertdateValid = true;
+        // } else {
+        //     this.isInscertdateValid = false;
+        //     return;
+        // }
 
         if (!this.tenantForm.valid) { return; }
 
         let tenantData = this.tenantForm.value;
-        if (tenantData.inscertdate)
-            tenantData.inscertdate = tenantData.inscertdate.toDate();
+        // if (tenantData.inscertdate)
+        //     tenantData.inscertdate = tenantData.inscertdate.toDate();
         this.isSubmit = true;
         this.tenantService.saveTenant(tenantData).subscribe((tenant: any) => {
             this.change.emit(tenant);

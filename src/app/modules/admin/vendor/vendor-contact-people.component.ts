@@ -127,7 +127,8 @@ export class VendorContactPeopleComponent implements OnInit {
         this.vendorContactPeopleForm.reset({
             title: '',
             isprimary_contact: false,
-            active: true
+            active: true,
+            notifications: false
         });
     }
 }
