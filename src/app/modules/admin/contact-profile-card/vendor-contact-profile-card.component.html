@@ -31,6 +31,6 @@
   tabindex="-1" role="dialog" aria-hidden="true">
 </ewo-confirm-modal>
 
-<ewo-vendor-edit id="edit-vendor-modal" [edit]="editClicked" (update)="updateVendor($event)" class="modal fade" role="dialog"
-  aria-hidden="true">
+<ewo-vendor-edit id="edit-vendor-modal" *ngIf="vendorInfo" [edit]="editClicked" (update)="updateVendor($event)" class="modal fade"
+  role="dialog" aria-hidden="true">
 </ewo-vendor-edit>

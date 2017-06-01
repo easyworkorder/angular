@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, OnDestroy } from '@angular/core';
 import { FormControl, Validators, FormBuilder } from "@angular/forms";
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from "app/services";
@@ -8,6 +8,7 @@ import { ProblemTypeService } from "app/modules/admin/problem_type/problem_type.
 import config from '../../../config';
 import { Observable } from "rxjs/Observable";
 import { Subject } from "rxjs/Subject";
+import { Subscription } from "rxjs/Subscription";
 declare var $: any;
 
 @Component({
@@ -29,6 +30,8 @@ export class VendorEditComponent implements OnInit {
 
     vendorId: any;
     observable: Observable<any>;
+
+    subscription: Subscription;
 
     vendorForm = this.formBuilder.group({
         id: new FormControl(),
@@ -57,24 +60,36 @@ export class VendorEditComponent implements OnInit {
     }
 
     ngOnInit () {
-        this.editClicked.subscribe(() => {
-            this.getEditedVendorInfo();
+        this.subscription = this.editClicked.subscribe((vendor) => {
+            // let _vendor = vendor;
+            this.getEditedVendorInfo(vendor);
         });
     }
 
-    getEditedVendorInfo () {
-        this.vendorId = this.route.snapshot.params['id'];
-        let url = config.api.base + 'vendor/' + this.vendorId + '/';
+    ngOnDestroy () {
+        this.subscription.unsubscribe();
+    }
 
-        this.observable = Observable.forkJoin(
-            this.vendorService.getVendor(url),
-            this.problemTypeService.getAllActiveProblemTypes(this.currentCompanyId)
-        );
-        this.observable.subscribe(datas => {
-            this.editedVendorInfo = datas[0];
-            this.populateProblemTypes(datas[1]);
-            this.setEditedInfo();
-        });
+    getEditedVendorInfo (vendor) {
+        // this.vendorId = this.route.snapshot.params['id'];
+        // let url = config.api.base + 'vendor/' + this.vendorId + '/';
+
+        // this.observable = Observable.forkJoin(
+        //     this.vendorService.getVendor(url),
+        //     this.problemTypeService.getAllActiveProblemTypes(this.currentCompanyId)
+        // );
+        // this.observable.subscribe(datas => {
+        //     this.editedVendorInfo = datas[0];
+        //     this.populateProblemTypes(datas[1]);
+        //     this.setEditedInfo();
+        // });
+
+        this.problemTypeService.getAllActiveProblemTypes(this.currentCompanyId)
+            .subscribe(data => {
+                this.editedVendorInfo = vendor;
+                this.populateProblemTypes(data);
+                this.setEditedInfo();
+            })
     }
 
     setEditedInfo () {

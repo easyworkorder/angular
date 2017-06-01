@@ -14,6 +14,7 @@ declare var $: any;
     templateUrl: './vendor-contact-profile-card.component.html'
 })
 export class VendorContactProfileCardComponent implements OnInit {
+    @Input() vendor: any;
     @Input() contactInfo: VendorContact;
     @Output('update') change: EventEmitter<any> = new EventEmitter<any>();
     @Input() isAdmin: boolean = false;
@@ -23,7 +24,7 @@ export class VendorContactProfileCardComponent implements OnInit {
     address: any;
     fullName: string;
     photo: string;
-
+    vendorInfo: any;
     constructor(private vendorService: VendorService,
         protected http: AppHttp,
         private toasterService: ToasterService,
@@ -44,6 +45,12 @@ export class VendorContactProfileCardComponent implements OnInit {
                 this.photo = this.dataService.getPhotoUrl(this.contact.photo);
             }
         }
+
+        if (changes['vendor']) {
+            if (changes['vendor'].currentValue) {
+                this.vendorInfo = changes['vendor'].currentValue;
+            }
+        }
     }
 
     onModalOkButtonClick (event) {
@@ -58,7 +65,7 @@ export class VendorContactProfileCardComponent implements OnInit {
     }
 
     editVendor (contact) {
-        this.editClicked.next(true);
+        this.editClicked.next(this.vendor);
         $('#edit-vendor-modal').modal({
             modal: 'show',
             backdrop: 'static'

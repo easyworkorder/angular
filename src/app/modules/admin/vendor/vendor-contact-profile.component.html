@@ -1,7 +1,7 @@
 <!-- Contact Profile Row -->
 <div class="row">
   <div class="col-md-5 col-lg-4">
-    <ewo-vendor-contact-profile-card [isAdmin]="true" [contactInfo]="contactInfo" (update)="updateProfile($event)"></ewo-vendor-contact-profile-card>
+    <ewo-vendor-contact-profile-card [isAdmin]="true" [vendor]="vendor" [contactInfo]="contactInfo" (update)="updateProfile($event)"></ewo-vendor-contact-profile-card>
   </div>
   <div class="col-md-7 col-lg-8">
     <loading-spinner-wave *ngIf="!vendor"></loading-spinner-wave>
