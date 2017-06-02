@@ -344,36 +344,18 @@ export class TicketDetailsComponent implements OnInit {
     }
 
     dueDateCalcutate () {
-        let today = new Date();
-        let toDate = new Date(this.ticket.due_date);
-        let one_day = 1000 * 60 * 60 * 24;
-        // let dateDiff = Math.ceil((today.getTime() - toDate.getTime()) / (one_day));
-        // this.dueDateOn = Math.ceil((toDate.getTime() - today.getTime()) / (one_day));
+        const now = moment();
+        const exp = moment(this.ticket.due_date);
 
-        // get total seconds between the times
-        let delta = Math.floor(toDate.getTime() - today.getTime()) / 1000;
-        const isOverDue = delta < 0;
+        const days = exp.diff(now, 'days');
+        const hours = exp.subtract(days, 'days').diff(now, 'hours');
+        const minutes = exp.subtract(hours, 'hours').diff(now, 'minutes');
 
-        // calculate (and subtract) whole days
-        const days = Math.floor(delta / 86400);
-        delta -= days * 86400;
-
-        // calculate (and subtract) whole hours
-        const hours = Math.floor(delta / 3600) % 24;
-        delta -= hours * 3600;
-
-        // calculate (and subtract) whole minutes
-        const minutes = Math.floor(delta / 60) % 60;
-        delta -= minutes * 60;
-
-        // what's left is seconds
-        const seconds = delta % 60;
+        const isOverDue = days < 0 || hours < 0 || minutes < 0;
 
         this.overDue = isOverDue ? 'Overdue ' : 'Due in ';
         this.overDue += days != 0 ? (Math.abs(days) == 1 ? `${Math.abs(days)} Day` : `${Math.abs(days)} Days`) : '';
-        // this.overDue += days != 0 ? ',' : '';
         this.overDue += hours != 0 ? (Math.abs(hours) == 1 ? (days != 0 ? ',' : '') + ` ${Math.abs(hours)} Hour` : (days != 0 ? ',' : '') + ` ${Math.abs(hours)} Hours`) : '';
-        // this.overDue += hours != 0 ? ',' : '';
         this.overDue += minutes != 0 ? (Math.abs(minutes) == 1 ? (hours != 0 ? ',' : '') + ` ${Math.abs(minutes)} Minute` : (hours != 0 ? ',' : '') + ` ${Math.abs(minutes)} Minutes`) : '';
     }
 
