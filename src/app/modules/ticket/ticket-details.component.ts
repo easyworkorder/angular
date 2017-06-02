@@ -9,6 +9,8 @@ import { UpdateTicketLaborService } from './ticket-labor.service';
 import { UpdateTicketMaterialService } from './ticket-material.service';
 import config from '../../config';
 
+import * as moment from 'moment';
+
 import {
     Storage
 } from './../../services/index';
@@ -316,8 +318,11 @@ export class TicketDetailsComponent implements OnInit {
 
         if (!this.dueDateForm.valid) return;
 
-        console.table(this.ticket);
-        this.ticket.due_date = this.dueDateForm.get('dueDate').value;
+        const _due_date = this.dueDateForm.get('dueDate').value;
+
+        //jun02
+        this.ticket.due_date = moment(_due_date).add({ hours: 23, minutes: 59, seconds: 59 });
+
         if (this.ticket.assigned_to)
             delete this.ticket.assigned_to;
 
@@ -347,6 +352,7 @@ export class TicketDetailsComponent implements OnInit {
 
         // get total seconds between the times
         let delta = Math.floor(toDate.getTime() - today.getTime()) / 1000;
+        const isOverDue = delta < 0;
 
         // calculate (and subtract) whole days
         const days = Math.floor(delta / 86400);
@@ -363,11 +369,12 @@ export class TicketDetailsComponent implements OnInit {
         // what's left is seconds
         const seconds = delta % 60;
 
-        this.overDue = days != 0 ? (days == 1 ? `${days} Day` : `${days} Days`) : '';
-        this.overDue += days != 0 ? ',' : '';
-        this.overDue += hours != 0 ? (hours == 1 ? ` ${hours} Hour` : ` ${hours} Hours`) : '';
-        this.overDue += hours != 0 ? ',' : '';
-        this.overDue += minutes != 0 ? (minutes == 1 ? ` ${minutes} Minute` : ` ${minutes} Minutes`) : '';
+        this.overDue = isOverDue ? 'Overdue ' : 'Due in ';
+        this.overDue += days != 0 ? (Math.abs(days) == 1 ? `${Math.abs(days)} Day` : `${Math.abs(days)} Days`) : '';
+        // this.overDue += days != 0 ? ',' : '';
+        this.overDue += hours != 0 ? (Math.abs(hours) == 1 ? (days != 0 ? ',' : '') + ` ${Math.abs(hours)} Hour` : (days != 0 ? ',' : '') + ` ${Math.abs(hours)} Hours`) : '';
+        // this.overDue += hours != 0 ? ',' : '';
+        this.overDue += minutes != 0 ? (Math.abs(minutes) == 1 ? (hours != 0 ? ',' : '') + ` ${Math.abs(minutes)} Minute` : (hours != 0 ? ',' : '') + ` ${Math.abs(minutes)} Minutes`) : '';
     }
 
     onRequestorSubmit () {

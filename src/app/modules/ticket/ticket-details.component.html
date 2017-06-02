@@ -76,7 +76,8 @@
             <!-- Due Date Information -->
             <!--Due in 6 days on Tues, 21 Feb at 9:40am-->
             <!--<div>Due in {{dueDateOn}} days on {{ticket?.due_date | ticketDetailsdateFormat}}</div>-->
-            <div>Overdue {{overDue}}</div>
+            <!--<div> {{isOverDue ? 'Overdue' : 'Due in'}} {{overDue}}</div>-->
+            <div>{{overDue}}</div>
             <!-- END Due date Information -->
         </div>
         <!-- END Organization Block -->
