@@ -320,7 +320,7 @@ export class TicketDetailsComponent implements OnInit {
 
         const _due_date = this.dueDateForm.get('dueDate').value;
 
-        //jun02
+        // Added Offset Time
         this.ticket.due_date = moment(_due_date).add({ hours: 23, minutes: 59, seconds: 59 });
 
         if (this.ticket.assigned_to)
