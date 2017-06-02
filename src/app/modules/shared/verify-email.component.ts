@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input, Output, OnDestroy } from '@angular/core';
 import { VerifyEmailService } from "app/modules/shared/verify-email.service";
+import { Subscription } from "rxjs/Subscription";
 
 @Component({
     selector: 'verify-email',
@@ -11,7 +12,8 @@ import { VerifyEmailService } from "app/modules/shared/verify-email.service";
 export class VerifyEmailComponent {
     isChecking: boolean = false;
     isEmailDuplicate: boolean = false;
-    emailDuplicateMsg: string = "Email aready used!!!";
+    emailDuplicateMsg: string = "Email already used!";
+    subscription: Subscription;
 
     constructor(
         private verifyEmailService: VerifyEmailService
@@ -19,9 +21,13 @@ export class VerifyEmailComponent {
     }
 
     ngOnInit () {
-        this.verifyEmailService.emailVerifyInfo$.subscribe((data: any) => {
+        this.subscription = this.verifyEmailService.emailVerifyInfo$.subscribe((data: any) => {
             this.isChecking = data.isChecking ? data.isChecking : false;
             this.isEmailDuplicate = data.isDuplicate ? data.isDuplicate : false;
         });
+    }
+
+    ngOnDestroy () {
+        this.subscription.unsubscribe();
     }
 }

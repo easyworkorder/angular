@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input, OnDestroy } from '@angular/core';
 import { TenantService } from "app/modules/admin/tenant/tenant.service";
 import { BuildingService } from "app/modules/admin/building/building.service";
 import { DataService } from "app/services";
@@ -9,7 +9,14 @@ import { ValidationService } from "app/services/validation.service";
 import config from '../../../config';
 import { UpdatePeopleService } from "app/modules/admin/tenant/people.service";
 import { HeaderService } from "app/modules/shared/header/header.service";
+import { VerifyEmailService } from "app/modules/shared/verify-email.service";
 declare var $: any;
+
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import { Subscription } from "rxjs/Subscription";
+import "rxjs/add/operator/takeWhile";
+import "rxjs/add/operator/filter";
 
 @Component({
     selector: 'ewo-tenant-contact-people',
@@ -29,6 +36,9 @@ export class TenantContactPeopleComponent implements OnInit {
     photoFile: File
     selectedPhotoFile: string = '';
 
+    subscription: Subscription;
+    private alive: boolean = true;
+
     constructor(
         private tenantService: TenantService,
         private buildingService: BuildingService,
@@ -36,6 +46,8 @@ export class TenantContactPeopleComponent implements OnInit {
         private authService: AuthenticationService,
         private route: ActivatedRoute,
         private dataService: DataService,
+        private verifyEmailService: VerifyEmailService,
+
         private updatePeopleService: UpdatePeopleService) {
         this.updatePeopleService.updatePeopleInfo$.subscribe(data => {
             this.updatePeopleInfo = data;
@@ -47,6 +59,26 @@ export class TenantContactPeopleComponent implements OnInit {
         $('#add-tenant-cotact-people').on('hidden.bs.modal', () => {
             this.closeModal();
         });
+
+        // Duplicate email checking
+        // this.subscription = this.tenantContactPeopleForm.get('email').valueChanges
+        //     // .takeWhile(() => this.alive)
+        //     .debounceTime(500)
+        //     .distinctUntilChanged()
+        //     .subscribe(value => {
+        //         this.verifyEmailService.verifyEmail(value, this.tenantContactPeopleForm.get('id').value);
+        //     })
+
+        this.tenantContactPeopleForm.get('email').valueChanges
+            .filter(value => value == null || value == '')
+            .subscribe(value => {
+                this.verifyEmailService.reset();
+            })
+    }
+
+    ngOnDestroy () {
+        // this.alive = false;
+        // this.subscription.unsubscribe();
     }
 
     tenantContactPeopleForm = new FormGroup({
@@ -82,6 +114,9 @@ export class TenantContactPeopleComponent implements OnInit {
     onSubmit () {
 
         if (!this.tenantContactPeopleForm.valid) { return; }
+
+        if (this.verifyEmailService.isEmailDuplicate) return;
+
         this.isSubmit = true;
         // this.tenantService.saveContact(this.photoFile, this.tenantContactPeopleForm, this.tenant, this.contactSaveCallback);
         this.tenantService.saveContact(this.photoFile, this.tenantContactPeopleForm, this.tenant, this.contactSaveCallback).subscribe((contact: any) => {
@@ -114,5 +149,9 @@ export class TenantContactPeopleComponent implements OnInit {
             viewinvoices: true,
             notifications: false
         });
+    }
+
+    onVerifyEmail (event) {
+        this.verifyEmailService.verifyEmail(event.target.value, '');
     }
 }

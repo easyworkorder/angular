@@ -46,8 +46,9 @@
           <label class="col-xs-3 control-label" for="email">Email <span class="required">*</span></label>
           <div class="col-xs-9">
             <input [formControlValidator]="vendorContactPeopleForm.controls.email" formControlName="email" type="text" id="email" class="form-control"
-              placeholder="Email" />
+              placeholder="Email" (blur)="onVerifyEmail($event)" />
             <span class="validation-error">{{vendorContactPeopleForm.controls.email.error}}</span>
+            <verify-email></verify-email>
           </div>
         </div>
         <div class="form-group">

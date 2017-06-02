@@ -8,7 +8,10 @@ import { ValidationService } from "app/services/validation.service";
 import config from '../../../config';
 import { UpdateVendorPeopleService } from "./vendor-people.service";
 import { HeaderService } from "app/modules/shared/header/header.service";
+import { VerifyEmailService } from "app/modules/shared/verify-email.service";
 declare var $: any;
+
+import "rxjs/add/operator/filter";
 
 @Component({
     selector: 'ewo-vendor-contact-people',
@@ -30,6 +33,7 @@ export class VendorContactPeopleComponent implements OnInit {
         private authService: AuthenticationService,
         private route: ActivatedRoute,
         private dataService: DataService,
+        private verifyEmailService: VerifyEmailService,
         private updateVendorPeopleService: UpdateVendorPeopleService) {
         this.updateVendorPeopleService.updatePeopleInfo$.subscribe(data => {
             this.updateVendorPeopleInfo = data;
@@ -43,6 +47,12 @@ export class VendorContactPeopleComponent implements OnInit {
         $('#add-vendor-cotact-people').on('hidden.bs.modal', () => {
             this.closeModal();
         });
+
+        this.vendorContactPeopleForm.get('email').valueChanges
+            .filter(value => value == null || value == '')
+            .subscribe(value => {
+                this.verifyEmailService.reset();
+            })
     }
 
     vendorContactPeopleForm = new FormGroup({
@@ -130,5 +140,9 @@ export class VendorContactPeopleComponent implements OnInit {
             active: true,
             notifications: false
         });
+    }
+
+    onVerifyEmail (event) {
+        this.verifyEmailService.verifyEmail(event.target.value, '');
     }
 }

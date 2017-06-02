@@ -24,7 +24,15 @@ export class VerifyEmailService {
     verifyEmail (email: string, user_id) {
         // http://localhost:8080/api/checkduplicate/?email=jidni100+t1@gmail.com
         // data = Object.assign({}, data);
+
         this.isEmailDuplicate = false;
+
+        if (email == null || email == '') {
+            this.reset();
+            return;
+        }
+
+
         this.emailVerifySource.next({ isChecking: true, isDuplicate: false });
         const observable = this.http.get('checkduplicate/', { email: email, user_id: user_id });
         observable.subscribe(data => {
@@ -32,5 +40,9 @@ export class VerifyEmailService {
             this.emailVerifySource.next({ isChecking: false, isDuplicate: data.is_duplicate });
         });
         return observable;
+    }
+
+    reset () {
+        this.emailVerifySource.next({ isChecking: false, isDuplicate: false });
     }
 }
