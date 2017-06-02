@@ -79,7 +79,7 @@ export class UserDashboardComponent implements OnInit {
                     }
                 }
 
-
+                this.storage.set(config.storage.ticketRequestType, this.currentRequestType);
                 this.getAllTickets(this.currentRequestType);
             });
 
@@ -100,9 +100,9 @@ export class UserDashboardComponent implements OnInit {
         this.headerService.setDashBoardTitle({ title: 'DESKTOP', link: ['/'] });
 
         //may26-2017
-        const storeReqType = this.storage.get(config.storage.ticketRequestType);
+        // const storeReqType = this.storage.get(config.storage.ticketRequestType);
 
-        this.storage.set(config.storage.ticketRequestType, (storeReqType ? storeReqType : this.currentRequestType));
+        // this.storage.set(config.storage.ticketRequestType, (storeReqType ? storeReqType : this.currentRequestType));
     }
 
     getAllTickets (type): void {

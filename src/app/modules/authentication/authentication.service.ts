@@ -203,6 +203,8 @@ export class AuthenticationService {
     this.storage.remove(config.storage.user);
     this.storage.remove(config.storage.token);
     //this.storage.remove(config.storage.preferences);
+    this.storage.remove(config.storage.ticketRequestType);
+
 
     this.events.emit('USER_SIGNOUT');
     this.router.navigate([config.routes.signoutRedirect]);
@@ -329,6 +331,13 @@ export class AuthenticationService {
       .toPromise()
       .then(response => true)
       .catch((error) => {
+        //Added for Clear all storage by Shahin June 02-2017
+        this.deauthenticate();
+        this.storage.clear();
+        this.storage.remove(config.storage.user);
+        this.storage.remove(config.storage.token);
+        this.storage.remove(config.storage.ticketRequestType);
+
         this.router.navigate([config.routes.signin]);
         return Promise.resolve(false);
       });
