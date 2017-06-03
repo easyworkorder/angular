@@ -449,6 +449,7 @@ export class EmployeeComponent implements OnInit {
         this.setBuildingList();
         this.setProblemTypeLsit();
         this.switchTab(1);
+        this.verifyEmailService.reset();
         $('#modal-add-employee').modal('hide');
     }
 
