@@ -152,6 +152,6 @@ export class TenantContactPeopleComponent implements OnInit {
     }
 
     onVerifyEmail (event) {
-        this.verifyEmailService.verifyEmail(event.target.value, '');
+        this.verifyEmailService.verifyEmail(event.target.value, this.tenantContactPeopleForm.get('user_id').value);
     }
 }

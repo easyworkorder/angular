@@ -143,6 +143,6 @@ export class VendorContactPeopleComponent implements OnInit {
     }
 
     onVerifyEmail (event) {
-        this.verifyEmailService.verifyEmail(event.target.value, '');
+        this.verifyEmailService.verifyEmail(event.target.value, this.vendorContactPeopleForm.get('user_id').value);
     }
 }
