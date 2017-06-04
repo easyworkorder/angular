@@ -43,6 +43,7 @@ export class VerifyEmailService {
     }
 
     reset () {
+        this.isEmailDuplicate = false;
         this.emailVerifySource.next({ isChecking: false, isDuplicate: false });
     }
 }

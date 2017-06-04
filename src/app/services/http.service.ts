@@ -27,7 +27,7 @@ export class AppHttp extends Http {
     //_defaultOptions.withCredentials = true;
   }
 
-  private _headers(options?: RequestOptionsArgs) {
+  private _headers (options?: RequestOptionsArgs) {
     options = options || {};
     options['headers'] = options.headers || new Headers();
 
@@ -42,58 +42,58 @@ export class AppHttp extends Http {
   }
 
   // wrap and serialize request
-  private _serialize(value: any): string {
+  private _serialize (value: any): string {
     //value = HttpTemp.serialize(value); // TEMP TEMP TEMP
     return JSON.stringify(value);
   }
 
   // unwrap and deserialize response
-  private _deserialize(res: Observable<Response>): any {
+  private _deserialize (res: Observable<Response>): any {
     return res
       .map(res => {
         let data = res.json() || {}; // RESERVED / let data = HttpTemp.deserialize(res.json() || {}); // TEMP TEMP TEMP
         return (data);
       })
-      .catch(res => {
-
-        // server errors
-        /* RESERVED
-        if (res.status >= 500 && res.status < 600) {
-          let data = res.text() || 'Server error (${res.status})';
-          console.error(data);
-          return Observable.throw(data);
-        }
-        */
-
-        // server errors // TEMP TEMP TEMP / remove later
-        if (res.status >= 500 && res.status < 600) {
-          let data: any;
-
-          try {
-            data = res.json() || {};
-          } catch (e) {
-            data = this._error(res.text(), res.status);
-          }
-
-          // this.notifications.create(data.error.message, config.notification.level.values.DANGER);
-          // this.notifications.create(data.detail, config.notification.level.values.DANGER);
-          return Observable.throw(res.text());
-        }
-
-        // client errors
-        if (res.status >= 400 && res.status < 500) {
-          let data = res.json() || {};
-          // this.notifications.create(data.error.message, config.notification.level.values.DANGER);
-          // this.notifications.create(data.detail, config.notification.level.values.DANGER);
-          return Observable.throw(res.text()); // TODO: could be replaced
-        }
-
-        return Observable.throw(res.text()); // TEMP TEMP TEMP / try to no throw exception, just return the response
-      });
+    // .catch(this.handleServerError);
   }
 
+  handleServerError (res) {
+    // server errors
+    /* RESERVED
+    if (res.status >= 500 && res.status < 600) {
+      let data = res.text() || 'Server error (${res.status})';
+      console.error(data);
+      return Observable.throw(data);
+    }
+    */
+
+    // server errors // TEMP TEMP TEMP / remove later
+    if (res.status >= 500 && res.status < 600) {
+      let data: any;
+
+      try {
+        data = res.json() || {};
+      } catch (e) {
+        data = this._error(res.text(), res.status);
+      }
+
+      // this.notifications.create(data.error.message, config.notification.level.values.DANGER);
+      // this.notifications.create(data.detail, config.notification.level.values.DANGER);
+      return Observable.throw(res.text());
+    }
+
+    // client errors
+    if (res.status >= 400 && res.status < 500) {
+      let data = res.json() || {};
+      // this.notifications.create(data.error.message, config.notification.level.values.DANGER);
+      // this.notifications.create(data.detail, config.notification.level.values.DANGER);
+      return Observable.throw(res.text()); // TODO: could be replaced
+    }
+
+    return Observable.throw(res.text()); // TEMP TEMP TEMP / try to no throw exception, just return the response
+  }
   // encode search (url) params
-  private _encode(params?: any): URLSearchParams {
+  private _encode (params?: any): URLSearchParams {
     if (params instanceof URLSearchParams) return params;
 
     let searchParams = new URLSearchParams();
@@ -104,7 +104,7 @@ export class AppHttp extends Http {
 
   // exprimental
   // create fake error response
-  private _error(message: string, status: number = 400): any {
+  private _error (message: string, status: number = 400): any {
     return {
       error: {
         code: status,
@@ -113,17 +113,17 @@ export class AppHttp extends Http {
     };
   }
 
-  public getToken() {
+  public getToken () {
     const token = this.storage.get(config.storage.token);
     // return token ? config.api.tokenValue(token.access_token) : null;
     return token ? config.api.tokenValue(token.token) : null;
   }
 
-  prepareRequestUrl(url: string) {
+  prepareRequestUrl (url: string) {
     return (url.indexOf('http:') > -1 || url.indexOf('https:') > -1) ? url : (config.api.base + url);
   }
 
-  get(url: string, params?: any, options?: RequestOptionsArgs): Observable<any> {
+  get (url: string, params?: any, options?: RequestOptionsArgs): Observable<any> {
     options = this._headers(options);
     params && (options.search = this._encode(params));
 
@@ -134,7 +134,7 @@ export class AppHttp extends Http {
 
 
 
-  getByFullUrl(url: string, params?: any, options?: RequestOptionsArgs): Observable<any> {
+  getByFullUrl (url: string, params?: any, options?: RequestOptionsArgs): Observable<any> {
     options = this._headers(options);
     params && (options.search = this._encode(params));
 
@@ -142,7 +142,7 @@ export class AppHttp extends Http {
     return this._deserialize(res).share(); // share: to make cosecutive observers calls
   }
 
-  post(url: string, body?: any, params?: any, options?: RequestOptionsArgs): Observable<any> {
+  post (url: string, body?: any, params?: any, options?: RequestOptionsArgs): Observable<any> {
     options = this._headers(options);
     body = this._serialize(body);
     params && (options.search = this._encode(params));
@@ -152,7 +152,7 @@ export class AppHttp extends Http {
     return this._deserialize(res).share(); // share: to make cosecutive observers calls
   }
 
-  put(url: string, body: any, params?: any, options?: RequestOptionsArgs): Observable<any> {
+  put (url: string, body: any, params?: any, options?: RequestOptionsArgs): Observable<any> {
     options = this._headers(options);
     body = this._serialize(body);
     params && (options.search = this._encode(params));
@@ -162,7 +162,7 @@ export class AppHttp extends Http {
     return this._deserialize(res).share(); // share: to make cosecutive observers calls
   }
 
-  patch(url: string, body: any, params?: any, options?: RequestOptionsArgs): Observable<any> {
+  patch (url: string, body: any, params?: any, options?: RequestOptionsArgs): Observable<any> {
     options = this._headers(options);
     body = this._serialize(body);
     params && (options.search = this._encode(params));
@@ -172,7 +172,7 @@ export class AppHttp extends Http {
     return this._deserialize(res).share(); // share: to make cosecutive observers calls
   }
 
-  delete(url: string, params?: any, options?: RequestOptionsArgs): Observable<any> {
+  delete (url: string, params?: any, options?: RequestOptionsArgs): Observable<any> {
     options = this._headers(options);
     params && (options.search = this._encode(params));
 
@@ -181,7 +181,7 @@ export class AppHttp extends Http {
     return this._deserialize(res).share(); // share: to make cosecutive observers calls
   }
 
-  upload(url: string, file: File, params: any = {}, options: any = {}): Observable<any> {
+  upload (url: string, file: File, params: any = {}, options: any = {}): Observable<any> {
 
     // use different upload approaches for mock and non-mock backends
     if (this._backend['_browserXHR']) {
@@ -306,25 +306,25 @@ export class AppHttp extends Http {
     }
   }
 
-  postWithFile(url: string, formData: FormData, params?: any, options?: RequestOptionsArgs): Observable<any> {
+  postWithFile (url: string, formData: FormData, params?: any, options?: RequestOptionsArgs): Observable<any> {
     options = this._headers(options);
     options.headers.delete('Content-Type');
     let res = super.post(this.prepareRequestUrl(url), formData, options);
     return this._deserialize(res).share();
   }
 
-  putWithFile(url: string, formData: FormData, params?: any, options?: RequestOptionsArgs): Observable<any> {
+  putWithFile (url: string, formData: FormData, params?: any, options?: RequestOptionsArgs): Observable<any> {
     options = this._headers(options);
     options.headers.delete('Content-Type');
     let res = super.put(this.prepareRequestUrl(url), formData, options);
     return this._deserialize(res).share();
   }
 
-  postToS3(url:string, postData:FormData): Observable<any> {
+  postToS3 (url: string, postData: FormData): Observable<any> {
     return this._deserialize(super.post(url, postData));
   }
 
-  putToS3(url:string, postData:FormData): Observable<any> {
+  putToS3 (url: string, postData: FormData): Observable<any> {
     return this._deserialize(super.put(url, postData));
   }
 

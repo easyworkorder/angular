@@ -1,6 +1,6 @@
 import { APP_BASE_HREF } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, ErrorHandler } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, BaseRequestOptions, XHRBackend, XSRFStrategy, CookieXSRFStrategy } from '@angular/http';
 import { ToasterModule, ToasterService } from 'angular2-toaster';
@@ -171,6 +171,7 @@ import { TenantEditComponent } from './modules/admin/tenant/tenant-edit.componen
 import { VendorEditComponent } from './modules/admin/vendor/vendor-edit.component';
 import { AuthGuardService } from "app/auth-guard.service";
 import { SelectModule } from "app/modules/shared/select/select.module";
+import { CustomErrorHandler } from "app/custom-error-handler";
 
 export function translateStaticLoaderFactory (Backend, defaultOptions, storage, notificationService) {
     return new AppHttp(Backend, defaultOptions, storage, notificationService);
@@ -354,10 +355,11 @@ export function translateStaticLoaderFactory (Backend, defaultOptions, storage, 
         BreadcrumbService,
         VerifyEmailService,
         PagerService,
-        AuthGuardService
+        AuthGuardService,
 
         // { provide: XSRFStrategy, useValue: new      CookieXSRFStrategy('token', 'x-csrftoken')
         // },
+        { provide: ErrorHandler, useClass: CustomErrorHandler }
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     bootstrap: [AppComponent]

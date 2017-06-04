@@ -16,6 +16,7 @@ import {
   EventService,
 } from './../../services/index';
 import { Subject } from "rxjs/Subject";
+import { Subscription } from "rxjs/Subscription";
 
 @Injectable()
 export class AuthenticationService {
@@ -31,7 +32,7 @@ export class AuthenticationService {
   tokenValid$ = this.tokenValidSource.asObservable();
   isValidToken: boolean = false;
   data = this._data;
-
+  subscription: Subscription;
   constructor(
     private router: Router,
     private http: AppHttp,
@@ -43,12 +44,26 @@ export class AuthenticationService {
     // init observer
     let observable = new ReplaySubject(1); // buffer last value
     this._data['observable'] = observable;
+  }
 
-    // init token expiration
-    Observable.interval(120 * 60 * 1000).subscribe(() => { // 10 minutes
+  expireTokenCheck () {
+    this.subscription = Observable.interval(1 * 60 * 1000).subscribe(() => { // 10 minutes
       const token = this.storage.get(config.storage.token);
-      token && token.expires < Date.now() / 1000 && this.signout();
+      let expires = this.convertUTCDateToLocalDate(new Date(token.expires));
+      let dateDiff = expires.getTime() - Date.now();
+      token && (expires.getTime() < Date.now()) && this.signout();
     });
+  }
+
+  convertUTCDateToLocalDate (date) {
+    var newDate = new Date(date.getTime() + date.getTimezoneOffset() * 60 * 1000);
+
+    var offset = date.getTimezoneOffset() / 60;
+    var hours = date.getHours();
+
+    newDate.setHours(hours - offset);
+
+    return newDate;
   }
 
   token (): string {
@@ -143,7 +158,7 @@ export class AuthenticationService {
     this._data.view = null; // this._userDataGuest;
     this._authenticated = false;
 
-    this._data.observable.next(this._data.view);
+    this._data.observable && this._data.observable.next(this._data.view);
     this.events.emit('USER_DEAUTHORIZED');
   }
 
@@ -181,6 +196,7 @@ export class AuthenticationService {
 
     observable.subscribe(
       data => {
+        this.expireTokenCheck();
         const token = <any>data;
         // this.storage.set(config.storage.user);
         // OBSOLETED / this.storage.set(config.storage.user, user);
@@ -204,7 +220,7 @@ export class AuthenticationService {
     this.storage.remove(config.storage.token);
     //this.storage.remove(config.storage.preferences);
     this.storage.remove(config.storage.ticketRequestType);
-
+    this.subscription && this.subscription.unsubscribe();
 
     this.events.emit('USER_SIGNOUT');
     this.router.navigate([config.routes.signoutRedirect]);
