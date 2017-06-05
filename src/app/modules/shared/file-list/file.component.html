@@ -78,7 +78,7 @@
                         <div class="col-xs-9">
                             <input type="file" id="document_file" name="document_file" (change)="docSelectionChange($event)" class="hidden" accept=".doc, .docx, .pdf, .xls, .xlsx, .jpg, .jpeg, .png, .gif"
                             />
-                            <i class="fa fa-fw fa-upload"></i> <a href="javascript:void(0)" onclick="$('#document_file').click();">Upload New Dcoument</a>
+                            <i class="fa fa-fw fa-upload"></i> <a href="javascript:void(0)" onclick="$('#document_file').click();">Upload New Document</a>
                             <span>{{ selectedFileName }}</span>
                             <br/>
                             <span *ngIf="_submitted && (selectedFileName === '')" class="validation-error">Please select a file to upload</span>
