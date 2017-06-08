@@ -1,0 +1,150 @@
+<div id="message-list">
+  <!-- Title -->
+  <div class="block-title clearfix">
+    <div class="block-options pull-right">
+      <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default" style="overflow: hidden; position: relative;"><i class="fa fa-arrow-left"></i> Prev</a>
+      <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default" style="overflow: hidden; position: relative;">Next <i class="fa fa-arrow-right"></i></a>
+    </div>
+    <div class="block-options pull-left">
+      <!-- <a href="javascript:void(0)" class="btn btn-effect-ripple btn-info" data-toggle="tooltip" title="Archive Selected"><i class="fa fa-briefcase"></i></a>
+                                        <a href="javascript:void(0)" class="btn btn-effect-ripple btn-warning" data-toggle="tooltip" title="Star Selected"><i class="fa fa-star"></i></a> -->
+      <a href="javascript:void(0)" class="btn btn-effect-ripple btn-danger" data-toggle="tooltip" title="" style="overflow: hidden; position: relative;"
+        data-original-title="Delete Selected"><i class="fa fa-trash"></i></a>
+    </div>
+  </div>
+  <!-- END Title -->
+
+  <!-- Messages -->
+  <div class="block-content-full">
+    <table class="table table-borderless table-striped table-vcenter remove-margin">
+      <tbody>
+        <!-- Use the first row as a prototype for your column widths -->
+        <tr *ngFor="let message of messages">
+          <td class="td-label td-label-muted text-center" style="width: 5%;">
+            <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
+          </td>
+          <td class="text-center" style="width: 20%;">
+            <img src="assets/img/placeholders/avatars/avatar13.jpg" alt="avatar" class="img-circle"> Fname Lname
+          </td>
+          <td>
+            <h4>
+              <a href="javascript:void(0)" class="text-dark"><strong>{{message.subject}}</strong></a>
+            </h4>
+            <span class="text-muted">{{message.details}}</span>
+          </td>
+          <td class="hidden-xs text-center" style="width: 30px;">
+            <i class="fa fa-paperclip fa-2x text-muted"></i>
+          </td>
+          <td class="hidden-xs text-right text-muted" style="width: 200px;"><em>{{message.datetime | messageDateFormat}}</em></td>
+        </tr>
+        <!--<tr>
+          <td class="td-label td-label-danger text-center">
+            <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
+          </td>
+          <td class="text-center">
+            <img src="assets/img/placeholders/avatars/avatar16.jpg" alt="avatar" class="img-circle"> Fname Lname
+          </td>
+          <td>
+            <h4><a href="javascript:void(0)" class="text-dark"><strong>New friend request</strong></a></h4>
+            <span class="text-muted">This is the preview text of this message..</span>
+          </td>
+          <td class="hidden-xs">
+            <i class="fa fa-paperclip fa-2x text-muted"></i>
+          </td>
+          <td class="hidden-xs text-right text-muted"><em>mm/dd/yyyy, hh:mm</em></td>
+        </tr>
+        <tr>
+          <td class="td-label td-label-success text-center">
+            <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
+          </td>
+          <td class="text-center">
+            <img src="assets/img/placeholders/avatars/avatar7.jpg" alt="avatar" class="img-circle"> Fname Lname
+          </td>
+          <td>
+            <h4>
+              <a href="javascript:void(0)" class="text-dark"><strong>New project details</strong></a>
+            </h4>
+            <span class="text-muted">This is the preview text of this message..</span>
+          </td>
+          <td class="hidden-xs"></td>
+          <td class="hidden-xs text-right text-muted"><em>mm/dd/yyyy, hh:mm</em></td>
+        </tr>
+        <tr>
+          <td class="td-label td-label-success text-center">
+            <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
+          </td>
+          <td class="text-center">
+            <img src="assets/img/placeholders/avatars/avatar12.jpg" alt="avatar" class="img-circle"> Fname Lname
+          </td>
+          <td>
+            <h4><a href="javascript:void(0)" class="text-dark"><strong>Hi admin</strong></a></h4>
+            <span class="text-muted">This is the preview text of this message..</span>
+          </td>
+          <td class="hidden-xs"></td>
+          <td class="hidden-xs text-right text-muted"><em>mm/dd/yyyy, hh:mm</em></td>
+        </tr>
+        <tr>
+          <td class="td-label td-label-warning text-center">
+            <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
+          </td>
+          <td class="text-center">
+            <img src="assets/img/placeholders/avatars/avatar16.jpg" alt="avatar" class="img-circle"> Fname Lname
+          </td>
+          <td>
+            <h4><a href="javascript:void(0)" class="text-dark"><strong>Balance changed</strong></a></h4>
+            <span class="text-muted">This is the preview text of this message..</span>
+          </td>
+          <td class="hidden-xs"></td>
+          <td class="hidden-xs text-right text-muted"><em>mm/dd/yyyy, hh:mm</em></td>
+        </tr>
+        <tr>
+          <td class="td-label td-label-info text-center">
+            <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
+          </td>
+          <td class="text-center">
+            <img src="assets/img/placeholders/avatars/avatar6.jpg" alt="avatar" class="img-circle"> Fname Lname
+          </td>
+          <td>
+            <h4><a href="javascript:void(0)" class="text-dark"><strong>Just wanted to say hi</strong></a></h4>
+            <span class="text-muted">This is the preview text of this message..</span>
+          </td>
+          <td class="hidden-xs"></td>
+          <td class="hidden-xs text-right text-muted"><em>mm/dd/yyyy, hh:mm</em></td>
+        </tr>
+        <tr>
+          <td class="td-label td-label-info text-center">
+            <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
+          </td>
+          <td class="text-center">
+            <img src="assets/img/placeholders/avatars/avatar5.jpg" alt="avatar" class="img-circle"> Fname Lname
+          </td>
+          <td>
+            <h4><a href="javascript:void(0)" class="text-dark"><strong>Building a new website</strong></a></h4>
+            <span class="text-muted">This is the preview text of this message..</span>
+          </td>
+          <td class="hidden-xs"></td>
+          <td class="hidden-xs text-right text-muted"><em>mm/dd/yyyy, hh:mm</em></td>
+        </tr>
+        <tr>
+          <td class="td-label td-label-danger text-center">
+            <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
+          </td>
+          <td class="text-center">
+            <img src="assets/img/placeholders/avatars/avatar11.jpg" alt="avatar" class="img-circle"> Fname Lname
+          </td>
+          <td>
+            <h4>
+              <a href="javascript:void(0)" class="text-dark"><strong>Your subscription was updated</strong></a>
+            </h4>
+            <span class="text-muted">This is the preview text of this message..</span>
+          </td>
+          <td class="hidden-xs">
+            <i class="fa fa-paperclip fa-2x text-muted"></i>
+          </td>
+          <td class="hidden-xs text-right text-muted"><em>mm/dd/yyyy, hh:mm</em></td>
+        </tr>-->
+      </tbody>
+    </table>
+  </div>
+  <!-- END Messages -->
+</div>

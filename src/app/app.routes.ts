@@ -40,6 +40,7 @@ import { TenantProfileComponent } from "./modules/list/tenant-list/tenant-profil
 import { SLAPolicyComponent } from "app/modules/admin/sla-policy/sla-policy.component";
 
 import { AuthGuardService } from './auth-guard.service';
+import { MessageCenterComponent } from "app/modules/message-center/message-center.component";
 
 
 export const appRoutes: Routes = [
@@ -47,7 +48,7 @@ export const appRoutes: Routes = [
         path: '', component: DashboardComponent,
         canActivate: [AuthGuardService],
         // resolve: {
-        //   token: DashBoardResolver
+        //     token: DashBoardResolver
         // },
         children: [
             // FIXME: For the time being renaming the route to an arbitary name
@@ -58,6 +59,7 @@ export const appRoutes: Routes = [
             // And form there, user specific views will be loaded by their type(user group)
             { path: '', component: UserDashboardComponent, pathMatch: 'full' },
             { path: 'ticketlist', component: TicketComponent, pathMatch: 'full' },
+            { path: 'messages', component: MessageCenterComponent, pathMatch: 'full' },
             { path: 'ticket-details', redirectTo: '' },
             {
                 path: 'ticket-details/:id', component: TicketDetailsComponent,

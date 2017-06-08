@@ -9,6 +9,7 @@ import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/br
 export class BreadcrumbHeaderComponent implements OnInit {
 
     routingTitle;
+    showBreadCrumb: boolean = true;
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -24,8 +25,10 @@ export class BreadcrumbHeaderComponent implements OnInit {
 
     }
 
-    ngOnInit() {
+    ngOnInit () {
         // this.routingTitle = this.activatedRoute.snapshot.data['breadcrumb'];
-
+        this.breadcrumbHeaderService.showBreadCrumb$.subscribe(value => {
+            this.showBreadCrumb = value;
+        })
     }
 }

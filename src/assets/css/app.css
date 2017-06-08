@@ -115,3 +115,31 @@ no-content {
 .modal.modal-wide .modal-dialog {
     width: 90%;
 }
+
+
+/* Message Center */
+
+.message-center#page-content {
+    padding-top: 0 !important;
+    left: -20px !important;
+    padding-right: 0 !important;
+
+}
+
+@media screen and (min-width: 768px) {
+    .message-center#page-content {
+        padding-top: 0 !important;
+        left: -20px !important;
+        padding-right: 0 !important;
+    }
+}
+
+.message-center #page-content-sidebar {
+    top: -20px !important;
+}
+
+@media screen and (min-width: 768px) {
+    .message-center #page-content-sidebar {
+        top: -20px !important;
+    }
+}

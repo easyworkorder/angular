@@ -1,0 +1,84 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 class="modal-title"><strong>Message</strong></h3>
+    </div>
+    <div class="modal-body">
+      <form action="page_app_email.html" method="post" class="form-horizontal form-bordered" onsubmit="return false;">
+        <!-- Building List -->
+        <div class="form-group">
+          <div class="col-xs-12">
+            <select id="fcompose-users" name="fcompose-users" class="select-chosen" data-placeholder="Select Building(s)" style="width: 400px; display: none;"
+              multiple="">
+                  <option></option><!-- Required for data-placeholder attribute to work with Chosen plugin -->
+                  <option value="john.doe">ALL</option>
+                  <option value="sara.castillo">900 California St.</option>
+                  <option value="rachel.fox">800 El Camino Real</option>
+                  <option value="vincent.johnson">Citcorp Center</option>
+                  <option value="russell.perkins">Trump Towers</option>
+                  <option value="denise.hill">Alameda Towne Centre</option>
+              </select>
+            <div class="chosen-container chosen-container-multi" style="width: 100%;" title="" id="fcompose_users_chosen">
+              <ul class="chosen-choices">
+                <li class="search-field"><input type="text" value="Select Building(s)" class="default" autocomplete="off" style="width: 90px;"></li>
+              </ul>
+              <div class="chosen-drop">
+                <ul class="chosen-results"></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tenant List -->
+        <div class="form-group">
+          <div class="col-xs-12">
+            <select id="fcompose-users" name="fcompose-users" class="select-chosen" data-placeholder="Select Tenant(s)" style="width: 400px; display: none;"
+              multiple="">
+                    <option></option><!-- Required for data-placeholder attribute to work with Chosen plugin -->
+                    <option value="john.doe">ALL</option>
+                    <option value="john.doe">John Taylor</option>
+                    <option value="sara.castillo">Sara Castillo</option>
+                    <option value="rachel.fox">Rachel Fox</option>
+                    <option value="vincent.johnson">Vincent Johnson</option>
+                    <option value="russell.perkins">Russell Perkins</option>
+                    <option value="denise.hill">Denise Hill</option>
+                    <option value="helen.gomez">Helen Gomez</option>
+                    <option value="marie.herrera">Marie Herrera</option>
+                    <option value="charles.morris">Charles Morris</option>
+                    <option value="janice.contreras">Janice Contreras</option>
+                </select>
+            <div class="chosen-container chosen-container-multi" style="width: 100%;" title="" id="fcompose_users_chosen">
+              <ul class="chosen-choices">
+                <li class="search-field"><input type="text" value="Select Tenant(s)" class="default" autocomplete="off" style="width: 90px;"></li>
+              </ul>
+              <div class="chosen-drop">
+                <ul class="chosen-results"></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-xs-12">
+            <!-- Dropzone Title -->
+            <input type="text" id="example-text-input" name="example-text-input" class="form-control" placeholder="Subject...">
+            <!-- END Dropzone Title -->
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-xs-12">
+            <textarea id="fcompose-message" name="fcompose-message" rows="7" class="form-control" placeholder="Write your message.."></textarea>
+          </div>
+        </div>
+
+        <div class="form-group form-actions">
+          <div class="col-xs-12 text-right">
+            <button type="submit" class="btn btn-effect-ripple btn-primary" style="overflow: hidden; position: relative;">Send</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

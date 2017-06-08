@@ -143,6 +143,16 @@ export class TicketDetailsDateFormatPipe implements PipeTransform {
   }
 }
 
+
+@Pipe({ name: 'messageDateFormat' })
+export class MessageDateFormatPipe implements PipeTransform {
+  datePipe = new DatePipe('en-US');
+  transform (value: any) {
+    // return this.datePipe.transform(value, 'MM/dd/yyyy, hh:mm a');
+    return moment(value).format('MM/DD/YYYY, hh:mm A');
+  }
+}
+
 @Pipe({ name: 'orderBy', pure: false })
 export class OrderByPipe implements PipeTransform {
 

@@ -1,0 +1,15 @@
+/*ewo-message-center #page-container.header-fixed-top #page-content {
+    padding-top: 35px !important;
+}
+
+@media screen and (min-width: 768px) {
+    ewo-message-center #page-container.header-fixed-top #page-content {
+        padding-top: 35px !important;
+    }
+}
+
+@media screen and (min-width: 768px) {
+   ewo-message-center #page-container.header-fixed-top #page-content-sidebar {
+        top: 20px;
+    }
+}*/

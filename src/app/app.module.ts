@@ -49,6 +49,7 @@ import {
     DateFormatPipe,
     TicketListDateFormatPipe,
     TicketDetailsDateFormatPipe,
+    MessageDateFormatPipe,
     OrderByPipe,
     FileSizePipe
 } from './pipes';
@@ -172,6 +173,10 @@ import { VendorEditComponent } from './modules/admin/vendor/vendor-edit.componen
 import { AuthGuardService } from "app/auth-guard.service";
 import { SelectModule } from "app/modules/shared/select/select.module";
 import { CustomErrorHandler } from "app/custom-error-handler";
+import { MessageCenterComponent } from './modules/message-center/message-center.component';
+import { MessageListComponent } from './modules/message-center/message-list.component';
+import { ComposeMessageComponent } from './modules/message-center/compose-message.component';
+import { MessageService } from './modules/message-center/message.service';
 
 export function translateStaticLoaderFactory (Backend, defaultOptions, storage, notificationService) {
     return new AppHttp(Backend, defaultOptions, storage, notificationService);
@@ -200,6 +205,7 @@ export function translateStaticLoaderFactory (Backend, defaultOptions, storage, 
         DateFormatPipe,
         TicketListDateFormatPipe,
         TicketDetailsDateFormatPipe,
+        MessageDateFormatPipe,
         OrderByPipe,
         FileSizePipe,
         // Directives
@@ -301,7 +307,13 @@ export function translateStaticLoaderFactory (Backend, defaultOptions, storage, 
 
         TenantEditComponent,
 
-        VendorEditComponent
+        VendorEditComponent,
+
+        MessageCenterComponent,
+
+        MessageListComponent,
+
+        ComposeMessageComponent
     ],
     imports: [
         BrowserModule,
@@ -359,7 +371,8 @@ export function translateStaticLoaderFactory (Backend, defaultOptions, storage, 
 
         // { provide: XSRFStrategy, useValue: new      CookieXSRFStrategy('token', 'x-csrftoken')
         // },
-        { provide: ErrorHandler, useClass: CustomErrorHandler }
+        { provide: ErrorHandler, useClass: CustomErrorHandler },
+        MessageService
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     bootstrap: [AppComponent]
