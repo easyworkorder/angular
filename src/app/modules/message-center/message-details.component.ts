@@ -43,7 +43,7 @@ export class MessageDetailsComponent implements OnInit {
 
   getMessage (id) {
     this.messageService.getMessage(id).subscribe(data => {
-      console.log('message', data);
+      // console.log('message', data);
       this.messageDetails = data;
     });
   }
