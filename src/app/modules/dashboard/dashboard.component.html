@@ -166,7 +166,8 @@
                         </ul>
                     </li>
                     <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
-                        <a [routerLink]="['/', 'messages']" onclick="App.sidebar('toggle-sidebar');"><i class="gi gi-inbox sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Messages</span></a>
+                        <!--<a [routerLink]="['/','messages']" [queryParams]="{status: 'sent'}" [preserveQueryParams]="'true'" onclick="App.sidebar('toggle-sidebar');"><i class="gi gi-inbox sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Messages</span></a>-->
+                        <a [routerLink]="['/','messages', 'sent']" onclick="App.sidebar('toggle-sidebar');"><i class="gi gi-inbox sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Messages</span></a>
                     </li>
                     <li *ngIf="userInfo?.IsEmployee || userInfo?.IsPropertyManager">
                         <a href="page_ready_tickets.html"><i class="gi gi-inbox sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Projects</span></a>

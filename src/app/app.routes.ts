@@ -41,6 +41,8 @@ import { SLAPolicyComponent } from "app/modules/admin/sla-policy/sla-policy.comp
 
 import { AuthGuardService } from './auth-guard.service';
 import { MessageCenterComponent } from "app/modules/message-center/message-center.component";
+import { MessageListComponent } from "app/modules/message-center/message-list.component";
+import { MessageDetailsComponent } from "app/modules/message-center/message-details.component";
 
 
 export const appRoutes: Routes = [
@@ -59,7 +61,18 @@ export const appRoutes: Routes = [
             // And form there, user specific views will be loaded by their type(user group)
             { path: '', component: UserDashboardComponent, pathMatch: 'full' },
             { path: 'ticketlist', component: TicketComponent, pathMatch: 'full' },
-            { path: 'messages', component: MessageCenterComponent, pathMatch: 'full' },
+            // { path: 'messages', component: MessageCenterComponent, pathMatch: 'full' },
+            {
+                path: 'messages/:status', component: MessageCenterComponent,
+                children: [
+                    {
+                        path: '', component: MessageListComponent, pathMatch: 'full',
+                    },
+                    {
+                        path: ':id', component: MessageDetailsComponent, pathMatch: 'full'
+                    }
+                ]
+            },
             { path: 'ticket-details', redirectTo: '' },
             {
                 path: 'ticket-details/:id', component: TicketDetailsComponent,

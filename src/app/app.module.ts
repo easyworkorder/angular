@@ -177,6 +177,7 @@ import { MessageCenterComponent } from './modules/message-center/message-center.
 import { MessageListComponent } from './modules/message-center/message-list.component';
 import { ComposeMessageComponent } from './modules/message-center/compose-message.component';
 import { MessageService } from './modules/message-center/message.service';
+import { MessageDetailsComponent } from './modules/message-center/message-details.component';
 
 export function translateStaticLoaderFactory (Backend, defaultOptions, storage, notificationService) {
     return new AppHttp(Backend, defaultOptions, storage, notificationService);
@@ -313,7 +314,9 @@ export function translateStaticLoaderFactory (Backend, defaultOptions, storage, 
 
         MessageListComponent,
 
-        ComposeMessageComponent
+        ComposeMessageComponent,
+
+        MessageDetailsComponent
     ],
     imports: [
         BrowserModule,

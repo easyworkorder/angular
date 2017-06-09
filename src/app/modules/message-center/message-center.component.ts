@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/breadcrumb-header.service";
 import { Subject } from "rxjs/Subject";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { Router, NavigationExtras, ActivatedRoute } from "@angular/router";
 
 @Component({
     selector: 'ewo-message-center',
@@ -13,12 +14,22 @@ export class MessageCenterComponent implements OnInit {
     activeDraft: boolean = false;
     activeTrash: boolean = false;
 
-    status: Subject<string> = new BehaviorSubject('sent');
+    // status: Subject<string> = new BehaviorSubject('sent');
+    status: any;
 
-    constructor(private breadcrumbHeaderService: BreadcrumbHeaderService) { }
+    constructor(
+        private router: Router,
+        private route: ActivatedRoute,
+        private breadcrumbHeaderService: BreadcrumbHeaderService,
+    ) { }
 
     ngOnInit () {
         this.breadcrumbHeaderService.setShowBreadCrumb(false);
+
+        this.route.params.subscribe(param => {
+            this.status = param.status;
+            this.setSelectedItem(this.status);
+        })
     }
 
     ngOnDestroy () {
@@ -26,12 +37,29 @@ export class MessageCenterComponent implements OnInit {
     }
 
     setActiveItem (item) {
+        // if ((this.activeSent && item == 'sent') || (this.activeDraft && item == 'draft') || (this.activeTrash && item == 'trash')) return;
+
+        // this.activeSent = item == 'sent';
+        // this.activeDraft = item == 'draft';
+        // this.activeTrash = item == 'trash';
+        // this.status.next(item);
+
+        // let navigationExtras: NavigationExtras = {
+
+        //     preserveQueryParams: true,
+        //     fragment: 'anchor'
+        // };
+        // this.router.navigate(['/messages'], { queryParams: { status: item } });
+        this.setSelectedItem(item);
+        this.router.navigate(['/', 'messages', item]);
+    }
+
+    setSelectedItem (item) {
         if ((this.activeSent && item == 'sent') || (this.activeDraft && item == 'draft') || (this.activeTrash && item == 'trash')) return;
 
         this.activeSent = item == 'sent';
         this.activeDraft = item == 'draft';
         this.activeTrash = item == 'trash';
-        this.status.next(item);
     }
 
 }

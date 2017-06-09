@@ -21,4 +21,12 @@ export class MessageService extends DataService {
         return observable;
     }
 
+    getMessage (id) {
+        const observable = this.http.get(`message/${id}/`);
+
+        observable.subscribe(data => {
+        });
+        return observable;
+    }
+
 }

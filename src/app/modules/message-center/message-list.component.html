@@ -28,7 +28,7 @@
           </td>
           <td>
             <h4>
-              <a href="javascript:void(0)" class="text-dark"><strong>{{message.subject}}</strong></a>
+              <a [routerLink]="['/','messages',status, message.id]" class="text-dark"><strong>{{message.subject}}</strong></a>
             </h4>
             <span class="text-muted">{{message.details}}</span>
           </td>

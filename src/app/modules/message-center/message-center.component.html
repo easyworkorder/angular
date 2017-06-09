@@ -91,98 +91,11 @@
   <!-- Email Center Content -->
   <div class="block overflow-hidden">
     <!-- Message List -->
-    <ewo-message-list [status]="status"></ewo-message-list>
+    <!--<ewo-message-list [status]="status"></ewo-message-list>-->
     <!-- END Message List -->
-
+    <router-outlet></router-outlet>
     <!-- Message View -->
-    <div id="message-view" class="block-section display-none">
-      <!-- Title -->
-      <div class="block-title clearfix">
-        <div class="block-options pull-right">
-          <a href="javascript:void(0)" class="btn btn-effect-ripple btn-warning" data-toggle="tooltip" title="" style="overflow: hidden; position: relative;"
-            data-original-title="Star"><i class="fa fa-star"></i></a>
-          <a href="javascript:void(0)" class="btn btn-effect-ripple btn-danger" data-toggle="tooltip" title="" style="overflow: hidden; position: relative;"
-            data-original-title="Delete"><i class="fa fa-times"></i></a>
-        </div>
-        <div class="block-options pull-left">
-          <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default" id="message-view-back" style="overflow: hidden; position: relative;"><i class="fa fa-chevron-left"></i> Back to Inbox</a>
-        </div>
-      </div>
-      <!-- END Title -->
 
-      <!-- Header -->
-      <h3><strong>Project updates </strong> <small><em>1 week ago</em></small></h3>
-      <p><a href="javascript:void(0)"><strong>John Doe</strong></a> <strong>&lt;john.doe@example.com&gt;</strong> to <a href="javascript:void(0)"><strong>Admin</strong></a>        <strong>&lt;admin@example.com&gt;</strong></p>
-      <!-- END Header -->
-
-      <!-- Message Body -->
-      <hr>
-      <p>Hi,</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ultrices, justo vel imperdiet gravida, urna ligula
-        hendrerit nibh, ac cursus nibh sapien in purus. Mauris tincidunt tincidunt turpis in porta. Integer fermentum tincidunt
-        auctor. Vestibulum ullamcorper, odio sed rhoncus imperdiet, enim elit sollicitudin orci, eget dictum leo mi nec lectus.
-        Nam commodo turpis id lectus scelerisque vulputate. Integer sed dolor erat. Fusce erat ipsum, varius vel euismod
-        sed, tristique et lectus? Etiam egestas fringilla enim, id convallis lectus laoreet at. Fusce purus nisi, gravida
-        sed consectetur ut, interdum quis nisi. Quisque egestas nisl id lectus facilisis scelerisque? Proin rhoncus dui at
-        ligula vestibulum ut facilisis ante sodales! Suspendisse potenti. Aliquam tincidunt sollicitudin sem nec ultrices.
-        Sed at mi velit. Ut egestas tempor est, in cursus enim venenatis eget! Nulla quis ligula ipsum. Donec vitae ultrices
-        dolor?
-      </p>
-      <p>Donec lacinia venenatis metus at bibendum? In hac habitasse platea dictumst. Proin ac nibh rutrum lectus rhoncus eleifend.
-        Sed porttitor pretium venenatis. Suspendisse potenti. Aliquam quis ligula elit. Aliquam at orci ac neque semper dictum.
-        Sed tincidunt scelerisque ligula, et facilisis nulla hendrerit non. Suspendisse potenti. Pellentesque non accumsan
-        orci. Praesent at lacinia dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ultrices, justo vel imperdiet gravida, urna ligula
-        hendrerit nibh, ac cursus nibh sapien in purus. Mauris tincidunt tincidunt turpis in porta. Integer fermentum tincidunt
-        auctor. Vestibulum ullamcorper, odio sed rhoncus imperdiet, enim elit sollicitudin orci, eget dictum leo mi nec lectus.
-        Nam commodo turpis id lectus scelerisque vulputate. Integer sed dolor erat. Fusce erat ipsum, varius vel euismod
-        sed, tristique et lectus? Etiam egestas fringilla enim, id convallis lectus laoreet at. Fusce purus nisi, gravida
-        sed consectetur ut, interdum quis nisi. Quisque egestas nisl id lectus facilisis scelerisque? Proin rhoncus dui at
-        ligula vestibulum ut facilisis ante sodales! Suspendisse potenti. Aliquam tincidunt sollicitudin sem nec ultrices.
-        Sed at mi velit. Ut egestas tempor est, in cursus enim venenatis eget! Nulla quis ligula ipsum. Donec vitae ultrices
-        dolor?
-      </p>
-      <p>Best Regards,</p>
-      <p>John</p>
-      <hr>
-      <!-- END Message Body -->
-
-      <!-- Attachments Row -->
-      <div class="row block-section">
-        <div class="col-xs-6 col-sm-3 col-lg-2 text-center">
-          <a href="assets/img/placeholders/photos/photo2.jpg" data-toggle="lightbox-image">
-                                            <img src="assets/img/placeholders/photos/photo2.jpg" alt="photo" class="img-responsive push-bit">
-                                        </a>
-          <span class="text-muted">IMG0001.JPG</span>
-        </div>
-        <div class="col-xs-6 col-sm-3 col-lg-2 text-center">
-          <a href="assets/img/placeholders/photos/photo16.jpg" data-toggle="lightbox-image">
-                                            <img src="assets/img/placeholders/photos/photo16.jpg" alt="photo" class="img-responsive push-bit">
-                                        </a>
-          <span class="text-muted">IMG0002.JPG</span>
-        </div>
-        <div class="col-xs-6 col-sm-3 col-lg-2 text-center">
-          <a href="assets/img/placeholders/photos/photo9.jpg" data-toggle="lightbox-image">
-                                            <img src="assets/img/placeholders/photos/photo9.jpg" alt="photo" class="img-responsive push-bit">
-                                        </a>
-          <span class="text-muted">IMG0003.JPG</span>
-        </div>
-        <div class="col-xs-6 col-sm-3 col-lg-2 text-center">
-          <a href="assets/img/placeholders/photos/photo15.jpg" data-toggle="lightbox-image">
-                                            <img src="assets/img/placeholders/photos/photo15.jpg" alt="photo" class="img-responsive push-bit">
-                                        </a>
-          <span class="text-muted">IMG0004.JPG</span>
-        </div>
-      </div>
-      <!-- END Attachments Row -->
-
-      <!-- Quick Reply Form -->
-      <form action="page_app_email.html" method="post" onsubmit="return false;">
-        <textarea id="message-quick-reply" name="message-quick-reply" rows="5" class="form-control push-bit" placeholder="Your message.."></textarea>
-        <button class="btn btn-effect-ripple btn-primary" style="overflow: hidden; position: relative;"><i class="fa fa-share"></i> Reply</button>
-      </form>
-      <!-- END Quick Reply Form -->
-    </div>
     <!-- END Message View -->
   </div>
   <!-- END Email Center Content -->
