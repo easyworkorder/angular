@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from "@angular/http";
 import { DataService, AppHttp, EventService, NotificationService } from "app/services";
 import { ToasterService } from "angular2-toaster/angular2-toaster";
+import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class MessageService extends DataService {
@@ -26,6 +27,23 @@ export class MessageService extends DataService {
 
         observable.subscribe(data => {
         });
+        return observable;
+    }
+
+    update (data?: any): Observable<any> {
+        data = Object.assign({}, data);
+
+        // PUT '/employee'
+        // const observable = this.http.put(data.url, data);
+        const observable = this.http.patch(data.url, data);
+
+        observable.subscribe(data => {
+            // this.toasterService.pop('success', 'DELETE', 'Message has been updated successfully');
+        },
+            error => {
+                // this.toasterService.pop('error', 'DELETE', 'Message not updated due to API error!!!');
+            });
+
         return observable;
     }
 

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { MessageService } from "app/modules/message-center/message.service";
+import { ToasterService } from "angular2-toaster/angular2-toaster";
+declare var $: any;
 
 @Component({
   selector: 'ewo-message-details',
@@ -27,7 +29,9 @@ export class MessageDetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private messageService: MessageService
+    private router: Router,
+    private messageService: MessageService,
+    private toasterService: ToasterService,
   ) { }
 
   ngOnInit () {
@@ -48,4 +52,20 @@ export class MessageDetailsComponent implements OnInit {
     });
   }
 
+  onDeleteModalOkButtonClick (event) {
+    if (!this.messageDetails) return;
+
+    const editMsg = this.messageDetails;
+    editMsg.status = 'trash';
+
+    this.messageService.update(editMsg).subscribe(data => {
+      this.router.navigate(['/', 'messages', this.status]);
+      $('#modal-confirm-delete-message').modal('hide');
+      this.toasterService.pop('success', 'DELETE', 'Message has been delete successfully');
+    },
+      error => {
+        this.toasterService.pop('error', 'DELETE', 'Message not delete due to API error!!!');
+      })
+
+  }
 }

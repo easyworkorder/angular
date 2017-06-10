@@ -6,8 +6,8 @@
     <div class="block-options pull-right">
       <!--<a href="javascript:void(0)" class="btn btn-effect-ripple btn-warning" data-toggle="tooltip" title="" style="overflow: hidden; position: relative;"
         data-original-title="Star"><i class="fa fa-star"></i></a>-->
-      <a href="javascript:void(0)" class="btn btn-effect-ripple btn-danger" data-toggle="tooltip" title="" style="overflow: hidden; position: relative;"
-        data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+      <a modal-dialog-open="modal-confirm-delete-message" class="btn btn-effect-ripple btn-danger" data-toggle="tooltip" title=""
+        style="overflow: hidden; position: relative;" data-original-title="Delete" [ngClass]="{disabled:status === 'trash'}"><i class="fa fa-trash-o"></i></a>
     </div>
     <div class="block-options pull-left">
       <a [routerLink]="['/','messages', status]" class="btn btn-effect-ripple btn-default" id="message-view-back" style="overflow: hidden; position: relative;"><i class="fa fa-chevron-left"></i> Back to Message Center</a>
@@ -92,3 +92,7 @@
   <!-- END Quick Reply Form -->
 </div>
 <!-- END Message View -->
+
+<ewo-confirm-modal id="modal-confirm-delete-message" [OkButton]="true" [okButtonLabel]="'Continue'" [cancelButtonLabel]="'Cancel'"
+  [message]="'Are you sure want to delete?'" (okButtonClick)="onDeleteModalOkButtonClick($event)" class="modal fade in" tabindex="-1"
+  role="dialog" aria-hidden="true"></ewo-confirm-modal>
