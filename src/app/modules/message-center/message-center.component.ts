@@ -3,6 +3,7 @@ import { BreadcrumbHeaderService } from "app/modules/shared/breadcrumb-header/br
 import { Subject } from "rxjs/Subject";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { Router, NavigationExtras, ActivatedRoute } from "@angular/router";
+import { PagerService } from "app/services/pager.service";
 
 @Component({
     selector: 'ewo-message-center',
@@ -21,6 +22,7 @@ export class MessageCenterComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private breadcrumbHeaderService: BreadcrumbHeaderService,
+        private pagerService: PagerService
     ) { }
 
     ngOnInit () {
@@ -51,6 +53,7 @@ export class MessageCenterComponent implements OnInit {
         // };
         // this.router.navigate(['/messages'], { queryParams: { status: item } });
         this.setSelectedItem(item);
+        this.pagerService.pager = {}; // Reset tehe pager
         this.router.navigate(['/', 'messages', item]);
     }
 

@@ -178,6 +178,7 @@ import { MessageListComponent } from './modules/message-center/message-list.comp
 import { ComposeMessageComponent } from './modules/message-center/compose-message.component';
 import { MessageService } from './modules/message-center/message.service';
 import { MessageDetailsComponent } from './modules/message-center/message-details.component';
+import { NextPrevPagerComponent } from './modules/shared/next-prev-pager.component';
 
 export function translateStaticLoaderFactory (Backend, defaultOptions, storage, notificationService) {
     return new AppHttp(Backend, defaultOptions, storage, notificationService);
@@ -316,7 +317,9 @@ export function translateStaticLoaderFactory (Backend, defaultOptions, storage, 
 
         ComposeMessageComponent,
 
-        MessageDetailsComponent
+        MessageDetailsComponent,
+
+        NextPrevPagerComponent
     ],
     imports: [
         BrowserModule,
