@@ -196,7 +196,7 @@ export class AuthenticationService {
 
     observable.subscribe(
       data => {
-        this.expireTokenCheck();
+        // this.expireTokenCheck();
         const token = <any>data;
         // this.storage.set(config.storage.user);
         // OBSOLETED / this.storage.set(config.storage.user, user);
@@ -220,7 +220,7 @@ export class AuthenticationService {
     this.storage.remove(config.storage.token);
     //this.storage.remove(config.storage.preferences);
     this.storage.remove(config.storage.ticketRequestType);
-    this.subscription && this.subscription.unsubscribe();
+    // this.subscription && this.subscription.unsubscribe();
 
     this.events.emit('USER_SIGNOUT');
     this.router.navigate([config.routes.signoutRedirect]);
