@@ -9,8 +9,8 @@
     <div class="block-options pull-left">
       <!-- <a href="javascript:void(0)" class="btn btn-effect-ripple btn-info" data-toggle="tooltip" title="Archive Selected"><i class="fa fa-briefcase"></i></a>
                                         <a href="javascript:void(0)" class="btn btn-effect-ripple btn-warning" data-toggle="tooltip" title="Star Selected"><i class="fa fa-star"></i></a> -->
-      <a href="javascript:void(0)" class="btn btn-effect-ripple btn-danger" data-toggle="tooltip" title="" style="overflow: hidden; position: relative;"
-        data-original-title="Delete Selected"><i class="fa fa-trash"></i></a>
+      <a (click)="onDeleteMessages($event)" [ngClass]="{disabled:status === 'trash'}" class="btn btn-effect-ripple btn-danger"
+        data-toggle="tooltip" title="" style="overflow: hidden; position: relative;" data-original-title="Delete Selected"><i class="fa fa-trash"></i></a>
     </div>
   </div>
   <!-- END Title -->
@@ -22,7 +22,7 @@
         <!-- Use the first row as a prototype for your column widths -->
         <tr *ngFor="let message of messages">
           <td class="td-label td-label-muted text-center" style="width: 5%;">
-            <label class="csscheckbox csscheckbox-primary"><input type="checkbox"><span></span></label>
+            <label class="csscheckbox csscheckbox-primary"><input type="checkbox" [checked]="message.checked" (change)="message.checked = !message.checked" [disabled]="status == 'trash' ? true : null"><span></span></label>
           </td>
           <td class="text-center" style="width: 20%;">
             <img src="assets/img/placeholders/avatars/avatar13.jpg" alt="avatar" class="img-circle"> Fname Lname

@@ -60,7 +60,7 @@ export class MessageDetailsComponent implements OnInit {
 
     this.messageService.update(editMsg).subscribe(data => {
       this.router.navigate(['/', 'messages', this.status]);
-      $('#modal-confirm-delete-message').modal('hide');
+      // $('#modal-confirm-delete-message').modal('hide');
       this.toasterService.pop('success', 'DELETE', 'Message has been delete successfully');
     },
       error => {

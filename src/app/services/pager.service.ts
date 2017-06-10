@@ -62,6 +62,11 @@ export class PagerService {
         // calculate total pages
         let totalPages = Math.ceil(totalItems / pageSize);
 
+        // added for if last page empty june 10-2017
+        if (totalPages < currentPage) {
+            currentPage = currentPage - 1;
+        }
+
         let startPage: number, endPage: number;
 
         startPage = 1;
