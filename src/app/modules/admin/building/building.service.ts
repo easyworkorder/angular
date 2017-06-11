@@ -79,8 +79,14 @@ export class BuildingService extends DataService {
   }
 
   getAllBuildings (company_id) {
-
     const observable = this.http.get('buildinglist/' + company_id + '/');
+    observable.subscribe(data => {
+    });
+    return observable;
+  }
+
+  getEmployeeBuildings (employeeId) {
+    const observable = this.http.get('employeebuildinglist/' + employeeId + '/');
     observable.subscribe(data => {
     });
     return observable;

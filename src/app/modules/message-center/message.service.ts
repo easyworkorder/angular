@@ -29,6 +29,20 @@ export class MessageService extends DataService {
         });
         return observable;
     }
+    create (data?: any): Observable<any> {
+
+        data = Object.assign({}, data);
+        const observable = this.http.post('message/', data);
+
+        observable.subscribe(data => {
+            // this.toasterService.pop('success', 'ADD', 'Building has been saved successfully');
+        },
+            error => {
+                // this.toasterService.pop('error', 'ADD', 'Building not Saved due to API error!!!');
+            });
+
+        return observable;
+    }
 
     update (data?: any): Observable<any> {
         data = Object.assign({}, data);

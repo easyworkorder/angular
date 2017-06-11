@@ -90,7 +90,7 @@
     <textarea id="message-quick-reply" name="message-quick-reply" rows="5" class="form-control push-bit" placeholder="Your message.."></textarea>
     <button class="btn btn-effect-ripple btn-primary" style="overflow: hidden; position: relative;"><i class="fa fa-share"></i> Reply</button>
   </form>-->
-  <button class="btn btn-effect-ripple btn-primary" style="overflow: hidden; position: relative;"><i class="fa fa-share"></i> Resend</button>
+  <button modal-dialog-open="modal-compose" class="btn btn-effect-ripple btn-primary" style="overflow: hidden; position: relative;"><i class="fa fa-share"></i> Resend</button>
   <!-- END Quick Reply Form -->
 </div>
 <!-- END Message View -->
@@ -98,3 +98,6 @@
 <!--<ewo-confirm-modal id="modal-confirm-delete-message" [OkButton]="true" [okButtonLabel]="'Continue'" [cancelButtonLabel]="'Cancel'"
   [message]="'Are you sure want to delete?'" (okButtonClick)="onDeleteModalOkButtonClick($event)" class="modal fade in" tabindex="-1"
   role="dialog" aria-hidden="true"></ewo-confirm-modal>-->
+
+<ewo-compose-message id="modal-compose" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+</ewo-compose-message>
